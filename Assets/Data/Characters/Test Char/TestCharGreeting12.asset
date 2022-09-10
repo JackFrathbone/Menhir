@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5f1ec939c9e0540b57d1c266c2a9e6, type: 3}
+  m_Name: TestCharGreeting12
+  m_EditorClassIdentifier: 
+  dialogueTopic: Im nobody
+  dialogueLines:
+  - Wow so rude
+  dialogueStateChecks: []
+  dialogueAddStateCheck: []
+  dialogueRunOnce: 1
+  dialogueSkillChecks:
+    shortWeapons: 0
+    longWeapons: 0
+    block: 0
+    healing: 0
+    rangedWeapons: 0
+    dodge: 0
+    stealth: 0
+    trapsmith: 0
+    elementalism: 0
+    soulMagic: 0
+    ritualism: 0
+    alchemy: 0
+    persuasion: 0
+    intimidation: 15
+    barter: 0
+    wisdom: 0
+  dialogueSubTopics: []
