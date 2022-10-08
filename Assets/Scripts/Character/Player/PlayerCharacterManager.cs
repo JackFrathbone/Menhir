@@ -3,18 +3,13 @@ using UnityEngine;
 
 public class PlayerCharacterManager : CharacterManager
 {
-    [SerializeField] SpriteRenderer _playerWeapon;
+    [SerializeField] SpriteRenderer _playerWeaponMelee;
+    [SerializeField] SpriteRenderer _playerWeaponRanged;
     [SerializeField] SpriteRenderer _playerShield;
 
     //Player specific options
     [HideInInspector]
     public bool weaponOut = false;
-    [HideInInspector]
-    public int weaponDamage;
-    [HideInInspector]
-    public float weaponSpeed;
-    [HideInInspector]
-    public float weaponRange;
 
     //Update player UI
     private PlayerActiveUI _playerActiveUI;
@@ -26,11 +21,13 @@ public class PlayerCharacterManager : CharacterManager
 
     //References
     private PlayerCombat _PlayerCombat;
+    private PlayerController _playerController;
 
     protected override void Awake()
     {
         base.Awake();
         _PlayerCombat = GetComponent<PlayerCombat>();
+        _playerController = GetComponent<PlayerController>();
     }
 
     protected override void Start()
@@ -81,9 +78,6 @@ public class PlayerCharacterManager : CharacterManager
                 //If weapon is two handed or ranged remove the shield
                 if (equippedWeapon is WeaponMeleeItem)
                 {
-                    weaponDamage = (equippedWeapon as WeaponMeleeItem).weaponDamage;
-                    weaponSpeed = (equippedWeapon as WeaponMeleeItem).weaponSpeed;
-                    weaponRange = (equippedWeapon as WeaponMeleeItem).weaponRange;
                     if ((equippedWeapon as WeaponMeleeItem).twoHanded)
                     {
                         equippedShield = null;
@@ -93,9 +87,6 @@ public class PlayerCharacterManager : CharacterManager
                 else if (equippedWeapon is WeaponRangedItem)
                 {
                     equippedShield = null;
-                    weaponDamage = (equippedWeapon as WeaponRangedItem).weaponDamage;
-                    weaponSpeed = 1f;
-                    weaponRange = 1f;
                 }
                 break;
             case "shield":
@@ -206,12 +197,17 @@ public class PlayerCharacterManager : CharacterManager
 
             if (equippedWeapon is WeaponMeleeItem)
             {
-                _playerWeapon.sprite = (equippedWeapon as WeaponMeleeItem).weaponModel;
+                _playerWeaponMelee.sprite = (equippedWeapon as WeaponMeleeItem).weaponModel;
                 twoHanded = (equippedWeapon as WeaponMeleeItem).twoHanded;
             }
-            else
+            else if(equippedWeapon is WeaponRangedItem)
             {
-                _playerWeapon.sprite = (equippedWeapon as WeaponRangedItem).weaponModel;
+                _playerWeaponRanged.sprite = (equippedWeapon as WeaponRangedItem).weaponModelLoaded;
+                twoHanded = true;
+            }
+            else if (equippedWeapon is WeaponFocusItem)
+            {
+                _playerWeaponMelee.sprite = (equippedWeapon as WeaponFocusItem).focusModel;
                 twoHanded = true;
             }
 
@@ -226,40 +222,72 @@ public class PlayerCharacterManager : CharacterManager
 
     private void LowerWeapon()
     {
-        _playerWeapon.sprite = null;
+        _playerWeaponMelee.sprite = null;
+        _playerWeaponRanged.sprite = null;
         _playerShield.sprite = null;
         weaponOut = false;
     }
 
-    public override void DamageHealth(float i)
+    public override void AddHealth(float i)
     {
-        healthCurrent -= i;
+        base.AddHealth(i);
 
-        if (healthCurrent <= 0)
-        {
-            healthCurrent = 0;
-        }
+        _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
+    }
+
+    public override void DamageHealth(int i)
+    {
+        base.DamageHealth(i);
+
+        _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
+    }
+
+    public override void AddStamina(float i)
+    {
+        base.AddStamina(i);
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
     }
 
     public override void DamageStamina(float i)
     {
-        if (characterState == CharacterState.alive)
-        {
-            staminaCurrent -= i;
-
-            if (staminaCurrent <= 0)
-            {
-                staminaCurrent = 0;
-            }
-        }
+        base.DamageStamina(i);
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
+    }
+
+    public override void SetSlowState(bool isSlowed)
+    {
+        if (isSlowed)
+        {
+            _playerController.SlowMovement();
+        }
+        else
+        {
+            _playerController.NormalMovement();
+        }
+    }
+
+    public override void SetParalyseState(bool isParalysed)
+    {
+        if (isParalysed)
+        {
+            _playerController.StopMovement();
+        }
+        else
+        {
+            _playerController.StartMovement();
+        }
     }
 
     public override void TriggerBlock()
     {
         _PlayerCombat.TriggerBlock();
+    }
+
+    //Used for changing ranged sprite during combat
+    public void SetRangedSprite(Sprite s)
+    {
+        _playerWeaponRanged.sprite = s;
     }
 }

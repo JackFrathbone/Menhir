@@ -13,7 +13,7 @@ public class CharacterSheet : ScriptableObject
 
     [Header("Inventory & Spells")]
     public List<Item> characterInventory = new List<Item>();
-    public List<Spell> characterSpellbook = new List<Spell>();
+    public List<Spell> characterSpells = new List<Spell>();
 
     [Header("Dialogue")]
     public string characterGreeting;
@@ -21,6 +21,13 @@ public class CharacterSheet : ScriptableObject
 
     [Header("Ability Scores")]
     public Abilities abilities;
+
+    [Header("Skills")]
+    public List<Skill> skills;
+
+    [Header("World States")]
+    [Tooltip("Will make the character start disabled in the world")]
+    public bool startHidden;
 
     [Header("Visuals")]
     public bool randomiseVisuals;

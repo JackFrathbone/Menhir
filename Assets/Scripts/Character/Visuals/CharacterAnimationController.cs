@@ -14,7 +14,7 @@ public class CharacterAnimationController : MonoBehaviour
         unarmed,
         oneHanded,
         twoHanded,
-        ranged,
+        ranged
     }
 
     private AnimState _animState;

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sword_Bronze_Basic
   m_EditorClassIdentifier: 
   itemName: Bronze Sword
-  itemDescription: A short sword made of bronze, it has a leather wrapped hilt but
-    no decorations or marks. A wholly practical weapon.
+  itemDescription: A sword made of bronze, it has a leather wrapped hilt but no decorations
+    or marks. A wholly practical weapon.
   itemValue: 250
   itemWeight: 1.5
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
@@ -25,4 +25,4 @@ MonoBehaviour:
   weaponDefence: 4
   weaponSpeed: 0.5
   weaponRange: 2
-  weaponModel: {fileID: 21300000, guid: 90f7eaa864cd2944c9afcfbf2ef320a6, type: 3}
+  weaponModel: {fileID: 21300000, guid: f38f1c1ef39559c43bffdb667f98fd5f, type: 3}

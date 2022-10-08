@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050cdfc0b83faf64289568d2f8e6a99c, type: 3}
+  m_Name: Test Ritual
+  m_EditorClassIdentifier: 
+  spellName: Damage Target
+  effectDescription: It hort
+  spellIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
+  castTarget: 1
+  projectilePrefab: {fileID: 9115724530422602675, guid: 1e3e3593cce802b4eb5bc9f83f9ce02d, type: 3}
+  mindRequirement: 1
+  spellEffects:
+  - effectType: 1
+    effectStrength: 2
+    effectSeconds: 5
+  castingCostItems:
+  - {fileID: 11400000, guid: aa640752977b3e54ba49fff08d9da93a, type: 2}

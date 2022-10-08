@@ -12,15 +12,70 @@ public static class StatFormulas
         return (1 + (agility * 2f)) * 2f;
     }
 
-    public static float StaminaRegenRate(int agility)
+    public static int StaminaRegenRate(int agility)
     {
-        return 0.9f * agility;
+        return agility / 2;
     }
 
     //Returns a number which if positive is damage done to target, 0 or negative results in a block
-    public static int CalculateHit(int hitDamage, int ability, int targetDefence)
+    public static int CalculateHit(int hitDamage, int ability, int targetDefence, bool advantage, bool targetDisadvantage, bool checkSkillAssassinate, bool checkSkillLuckyStrikeCharacter, bool checkSkillLuckyStrikeTarget, bool checkSkillHonourFighter, bool checkSkillSharpshooter)
     {
-        return (hitDamage + (ability - 3)) - (targetDefence);
+        if (checkSkillLuckyStrikeCharacter)
+        {
+            int critChance = Random.Range(0, 101);
+
+            if (critChance <= 15)
+            {
+                advantage = true;
+            }
+        }
+
+        if (checkSkillLuckyStrikeTarget)
+        {
+            int critChance = Random.Range(0, 101);
+
+            if (critChance <= 15)
+            {
+                targetDisadvantage = true;
+            }
+        }
+
+        if (checkSkillHonourFighter)
+        {
+            targetDisadvantage = true;
+        }
+
+        if (checkSkillSharpshooter)
+        {
+            targetDisadvantage = true;
+        }
+
+        if (checkSkillAssassinate)
+        {
+            advantage = true;
+        }
+
+        if (advantage && !targetDisadvantage)
+        {
+            int fullDamage = hitDamage + (ability - 3);
+
+            if ((hitDamage + (ability - 3)) - (targetDefence) > 0)
+            {
+                return fullDamage;
+            }
+            else
+            {
+                return (hitDamage + (ability - 3)) - (targetDefence);
+            }
+        }
+        else if (!advantage && targetDisadvantage)
+        {
+            return (hitDamage + (ability - 3)) - (targetDefence / 2);
+        }
+        else
+        {
+            return (hitDamage + (ability - 3)) - (targetDefence);
+        }
     }
 
     public static int GetTotalDefence(int weaponDefence, int equipmentDefence, int shieldDefence, int ability, int defenceBonus)
@@ -58,9 +113,20 @@ public static class StatFormulas
     }
 
     //True is a wound and false is a death
-    public static bool ToWound(float damageOverZero)
+    public static bool ToWound(float damageOverZero, bool checkSkillWoundingBlows)
     {
-        float output = Random.Range(0f, 100f) + damageOverZero;
+        float output = 0;
+
+        if (checkSkillWoundingBlows)
+        {
+            output = Random.Range(0f, 100f) - damageOverZero;
+        }
+        else
+        {
+            output = Random.Range(0f, 100f) + damageOverZero;
+        }
+
+
 
         if (output >= 50)
         {

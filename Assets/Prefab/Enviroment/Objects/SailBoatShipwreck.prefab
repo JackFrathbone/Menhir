@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0.07292068, w: 0.9973378}
   m_LocalPosition: {x: 0.554, y: 0.278, z: -2.517}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4271346702652855979}
   m_RootOrder: 0
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MeshFormatVersion: 1
+  m_MeshFormatVersion: 2
   m_Faces:
   - m_Indexes: 000000000100000002000000010000000300000002000000
     m_SmoothingGroup: 0
@@ -227,7 +228,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 1, y: 1}
-      m_Offset: {x: 0, y: 0}
+      m_Offset: {x: 0, y: -0.000000059604645}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -261,7 +262,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 1, y: 1}
-      m_Offset: {x: 0, y: 0}
+      m_Offset: {x: 0, y: -0.000000059604645}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -756,15 +757,15 @@ MonoBehaviour:
   - {x: 2.5467713, y: -0.84414804}
   - {x: 0, y: 1.2242851}
   - {x: 1, y: 1.2242851}
-  - {x: 0, y: 0.00000006877379}
-  - {x: 1, y: 0.00000006877379}
+  - {x: 0, y: 0.00000012837843}
+  - {x: 1, y: 0.00000012837843}
   - {x: -1, y: 1.1708641}
   - {x: -1, y: 0.46375737}
   - {x: -4, y: 1.1708641}
   - {x: -4, y: 0.46375737}
-  - {x: 0.9998982, y: 0.008231719}
-  - {x: 0.98981965, y: 1.2324752}
-  - {x: 4.0002036, y: 0.008231719}
+  - {x: 0.9998982, y: 0.008231779}
+  - {x: 0.98981965, y: 1.2324753}
+  - {x: 4.0002036, y: 0.008231779}
   - {x: 3.989514, y: 1.2571702}
   - {x: 1, y: -1.657563}
   - {x: 1, y: -0.9504562}
@@ -885,10 +886,10 @@ MonoBehaviour:
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
-  - {x: 0.9998982, y: 0.01426933, z: 0, w: -1}
-  - {x: 0.9999485, y: 0.009604359, z: -0.0032947485, w: -1}
-  - {x: 0.9999485, y: 0.009604359, z: -0.0032947485, w: -1}
-  - {x: 0.99996614, y: 0.0049372544, z: -0.0065907184, w: -1}
+  - {x: 0.99989825, y: 0.014269331, z: 0, w: -1}
+  - {x: 0.9999485, y: 0.009604347, z: -0.0032947317, w: -1}
+  - {x: 0.9999485, y: 0.009604347, z: -0.0032947317, w: -1}
+  - {x: 0.99996614, y: 0.0049372306, z: -0.0065906863, w: -1}
   - {x: 1, y: 0, z: 0, w: -1}
   - {x: 1, y: 0, z: 0, w: -1}
   - {x: 1, y: 0, z: 0, w: -1}
@@ -966,6 +967,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
+  m_VersionIndex: 0
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -978,9 +980,10 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3966717200988269996}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -1062,6 +1065,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 134.42, y: 2.82, z: 139.18}
   m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3966717200988269997}
   - {fileID: 4271346703365626864}
@@ -1080,7 +1084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MeshFormatVersion: 1
+  m_MeshFormatVersion: 2
   m_Faces:
   - m_Indexes: 000000000100000002000000010000000300000002000000
     m_SmoothingGroup: 0
@@ -1295,7 +1299,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 1, y: 1}
-      m_Offset: {x: 0, y: 0}
+      m_Offset: {x: 0, y: 0.000000029802322}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -1680,10 +1684,10 @@ MonoBehaviour:
   - {x: 2.7891598, y: -1}
   - {x: 4.850713, y: -2}
   - {x: 4.850713, y: -1}
-  - {x: 3, y: -0.2424337}
-  - {x: 3, y: 0.7887761}
-  - {x: 4, y: -0.2424337}
-  - {x: 4, y: 0.8745877}
+  - {x: 3, y: -0.24243373}
+  - {x: 3, y: 0.78877604}
+  - {x: 4, y: -0.24243373}
+  - {x: 4, y: 0.87458766}
   - {x: -3.07373, y: 0.36597174}
   - {x: -2.9991229, y: -0.8902922}
   - {x: -4.078532, y: 0.36597174}
@@ -1780,9 +1784,9 @@ MonoBehaviour:
   - {x: -0.97014254, y: 0.24253564, z: 0, w: -1}
   - {x: -0.97014254, y: 0.24253564, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -0.9997595, y: 0.010635292, z: -0.019182699, w: -1}
-  - {x: -0.9997595, y: 0.010635292, z: -0.019182699, w: -1}
-  - {x: -0.9990369, y: 0.021274311, z: -0.038373914, w: -1}
+  - {x: -0.9997595, y: 0.010635288, z: -0.0191827, w: -1}
+  - {x: -0.9997595, y: 0.010635288, z: -0.0191827, w: -1}
+  - {x: -0.9990369, y: 0.021274304, z: -0.038373917, w: -1}
   - {x: 0.9952211, y: -0.09764775, z: 0, w: -1}
   - {x: 0.9693929, y: -0.22453544, z: 0.099304006, w: -1}
   - {x: 0.9693929, y: -0.22453544, z: 0.099304006, w: -1}
@@ -1836,6 +1840,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
+  m_VersionIndex: 0
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1848,9 +1853,10 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4271346702652855968}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -1931,6 +1937,7 @@ Transform:
   m_LocalRotation: {x: 0.14507568, y: -0.053655177, z: 0.34270442, w: 0.92662185}
   m_LocalPosition: {x: -0.51, y: -0.418, z: -1.614}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4271346702652855979}
   m_RootOrder: 1
@@ -1947,7 +1954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MeshFormatVersion: 1
+  m_MeshFormatVersion: 2
   m_Faces:
   - m_Indexes: 000000000100000002000000010000000300000002000000
     m_SmoothingGroup: 0
@@ -2147,6 +2154,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
+  m_VersionIndex: 0
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2159,9 +2167,10 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4271346703365626869}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0

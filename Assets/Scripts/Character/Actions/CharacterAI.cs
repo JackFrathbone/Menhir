@@ -33,14 +33,49 @@ public class CharacterAI : MonoBehaviour
         if (other.gameObject.GetComponentInParent<CharacterManager>())
         {
             CharacterManager targetChar = other.gameObject.GetComponentInParent<CharacterManager>();
-            //Checks if hostile
-            if (Factions.FactionHostilityCheck(_NPCCharacterManager.characterSheet.characterFaction, targetChar.characterSheet.characterFaction, _NPCCharacterManager.characterSheet.characterAggression))
+
+            if (!targetChar.inDetectionRange.Contains(_NPCCharacterManager))
             {
-                if (!_targets.Contains(targetChar) && targetChar.characterState == CharacterState.alive)
-                {
-                    _targets.Add(targetChar);
-                    UpdateTargetlist();
-                }
+                targetChar.inDetectionRange.Add(_NPCCharacterManager);
+            }
+
+            if (!targetChar.CheckSkill_Sneak())
+            {
+                CheckTarget(targetChar);
+            }
+        }
+
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponentInParent<CharacterManager>())
+        {
+            CharacterManager targetChar = other.gameObject.GetComponentInParent<CharacterManager>();
+
+            if (targetChar.inDetectionRange.Contains(_NPCCharacterManager))
+            {
+                targetChar.inDetectionRange.Remove(_NPCCharacterManager);
+            }
+        }
+    }
+
+    //Used to interrupt sneaking players
+    public void DetectTarget(CharacterManager characterManager)
+    {
+        CheckTarget(characterManager);
+    }
+
+    private void CheckTarget(CharacterManager characterManager)
+    {
+        //Checks if hostile and isnt sneaking
+        if (Factions.FactionHostilityCheck(_NPCCharacterManager.characterSheet.characterFaction, characterManager.characterSheet.characterFaction, _NPCCharacterManager.characterSheet.characterAggression))
+        {
+            if (!_targets.Contains(characterManager) && characterManager.characterState == CharacterState.alive)
+            {
+                _targets.Add(characterManager);
+                UpdateTargetlist();
             }
         }
     }
@@ -48,7 +83,7 @@ public class CharacterAI : MonoBehaviour
     private void UpdateTargetlist()
     {
         //If there are targets, always attack the first in the list, otherwise go back to start
-        if(_targets.Count > 0 && _targets[0] != null)
+        if (_targets.Count > 0 && _targets[0] != null)
         {
             ChangeCurrenAction(_actions.combat, _targets[0]);
         }

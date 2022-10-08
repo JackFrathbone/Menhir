@@ -15,14 +15,13 @@ MonoBehaviour:
   characterName: Test Enemy
   characterDescription: 
   characterFaction: {fileID: 11400000, guid: 4f7d5ce489bf4e440972fc5f5cfa5fb9, type: 2}
-  characterAggression: 0
+  characterAggression: 1
   characterInventory:
   - {fileID: 11400000, guid: 6c3f558bca06c7f4baf5454fcc3fa726, type: 2}
   - {fileID: 11400000, guid: 063b577814dc9f945b758717a94ca71f, type: 2}
   - {fileID: 11400000, guid: 8723b62de0a99dd4191c7c302c4e1ef0, type: 2}
   - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
   - {fileID: 11400000, guid: 42ac219787fa7e84593c60a5c383a148, type: 2}
-  characterSpellbook: []
   characterGreeting: 
   characterDialogueTopics:
   - {fileID: 11400000, guid: d8370c724b7619e4898ff6c0ec861be4, type: 2}
@@ -31,6 +30,8 @@ MonoBehaviour:
     hands: 3
     mind: 3
     heart: 3
+  skills: []
+  startHidden: 0
   randomiseVisuals: 0
   characterSkintone: {r: 1, g: 0.85882354, b: 0.6745098, a: 1}
   characterHairColor: {r: 1, g: 0, b: 0, a: 1}

@@ -11,6 +11,8 @@ public class PlayerAnimationForwarder : MonoBehaviour
             _playerCombat = GetComponentInParent<PlayerCombat>();
         }
 
-        _playerCombat.Attack();
+        _playerCombat.MeleeAttack();
+        _playerCombat.RangedAttack();
+        _playerCombat.FocusCastAttack();
     }
 }

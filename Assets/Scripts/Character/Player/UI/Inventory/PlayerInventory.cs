@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [Header("References")]
     //Text headings that the items spawn under
     [SerializeField] GameObject _weaponParent;
     [SerializeField] GameObject _equipmentParent;
@@ -40,7 +41,6 @@ public class PlayerInventory : MonoBehaviour
     private List<GameObject> _buttonsToDeleteSearch = new List<GameObject>();
 
     private PlayerInventoryDescription _playerInventoryDescription;
-
     private PlayerCharacterManager _playerCharacterManager;
 
     private void Start()
@@ -68,24 +68,63 @@ public class PlayerInventory : MonoBehaviour
         {
             if (item is WeaponMeleeItem)
             {
-                button = Instantiate(_InventoryButtonPrefab, _weaponParent.transform.parent).GetComponent<PlayerInventoryButton>();
-                button.transform.SetSiblingIndex(_weaponParent.transform.GetSiblingIndex() + 1);
-                button.SetItem(item, this, false, null);
+                if(item != _playerCharacterManager.equippedWeapon)
+                {
+                    button = Instantiate(_InventoryButtonPrefab, _weaponParent.transform.parent).GetComponent<PlayerInventoryButton>();
+                    button.transform.SetSiblingIndex(_weaponParent.transform.GetSiblingIndex() + 1);
+                    button.SetItem(item, this, false, null);
 
-                _buttonsToDelete.Add(button.gameObject);
+                    _buttonsToDelete.Add(button.gameObject);
+                }
             }
             else if (item is WeaponRangedItem)
             {
-                button = Instantiate(_InventoryButtonPrefab, _weaponParent.transform.parent).GetComponent<PlayerInventoryButton>();
-                button.transform.SetSiblingIndex(_weaponParent.transform.GetSiblingIndex() + 1);
-                button.SetItem(item, this, false, null);
+                if (item != _playerCharacterManager.equippedWeapon)
+                {
+                    button = Instantiate(_InventoryButtonPrefab, _weaponParent.transform.parent).GetComponent<PlayerInventoryButton>();
+                    button.transform.SetSiblingIndex(_weaponParent.transform.GetSiblingIndex() + 1);
+                    button.SetItem(item, this, false, null);
 
-                _buttonsToDelete.Add(button.gameObject);
+                    _buttonsToDelete.Add(button.gameObject);
+                }
+            }
+            else if (item is WeaponFocusItem)
+            {
+                if (item != _playerCharacterManager.equippedWeapon)
+                {
+                    button = Instantiate(_InventoryButtonPrefab, _weaponParent.transform.parent).GetComponent<PlayerInventoryButton>();
+                    button.transform.SetSiblingIndex(_weaponParent.transform.GetSiblingIndex() + 1);
+                    button.SetItem(item, this, false, null);
+
+                    _buttonsToDelete.Add(button.gameObject);
+                }
             }
             else if (item is ShieldItem)
             {
-                button = Instantiate(_InventoryButtonPrefab, _equipmentParent.transform.parent).GetComponent<PlayerInventoryButton>();
-                button.transform.SetSiblingIndex(_equipmentParent.transform.GetSiblingIndex() + 1);
+                if (item != _playerCharacterManager.equippedShield)
+                {
+                    button = Instantiate(_InventoryButtonPrefab, _equipmentParent.transform.parent).GetComponent<PlayerInventoryButton>();
+                    button.transform.SetSiblingIndex(_equipmentParent.transform.GetSiblingIndex() + 1);
+                    button.SetItem(item, this, false, null);
+
+                    _buttonsToDelete.Add(button.gameObject);
+                }
+            }
+            else if (item is EquipmentItem)
+            {
+                if (item != _playerCharacterManager.equippedArmour && item != _playerCharacterManager.equippedCape && item != _playerCharacterManager.equippedFeet && item != _playerCharacterManager.equippedGreaves && item != _playerCharacterManager.equippedHands && item != _playerCharacterManager.equippedHelmet && item != _playerCharacterManager.equippedPants && item != _playerCharacterManager.equippedShirt)
+                {
+                    button = Instantiate(_InventoryButtonPrefab, _equipmentParent.transform.parent).GetComponent<PlayerInventoryButton>();
+                    button.transform.SetSiblingIndex(_equipmentParent.transform.GetSiblingIndex() + 1);
+                    button.SetItem(item, this, false, null);
+
+                    _buttonsToDelete.Add(button.gameObject);
+                }
+            }
+            else if(item is PotionItem)
+            {
+                button = Instantiate(_InventoryButtonPrefab, _potionParent.transform.parent).GetComponent<PlayerInventoryButton>();
+                button.transform.SetSiblingIndex(_potionParent.transform.GetSiblingIndex() + 1);
                 button.SetItem(item, this, false, null);
 
                 _buttonsToDelete.Add(button.gameObject);
@@ -152,6 +191,8 @@ public class PlayerInventory : MonoBehaviour
 
     public void RefreshEquippedItemsDisplay()
     {
+        RefreshInventory();
+
         //If something is equipped, display it in the inventory display, otherwise hide the slots
         if (_playerCharacterManager.equippedWeapon != null)
         {

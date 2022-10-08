@@ -6,6 +6,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] GameObject _pauseMenu;
 
     private PlayerInventory _playerInventory;
+    private PlayerMagic _playerMagic;
     private PlayerActiveUI _playerActiveUI;
     private PlayerDialogueController _playerDialogueController;
 
@@ -24,6 +25,7 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         _playerInventory = GetComponent<PlayerInventory>();
+        _playerMagic = GetComponent<PlayerMagic>();
         _playerActiveUI = GetComponent<PlayerActiveUI>();
         _playerDialogueController = GetComponent<PlayerDialogueController>();
 
@@ -95,6 +97,7 @@ public class PlayerInput : MonoBehaviour
             {
                 GameManager.instance.PauseGame(true);
                 _playerInventory.RefreshInventory();
+                _playerMagic.RefreshSpells();
                 _characterMenu.SetActive(true);
             }
             else
@@ -142,6 +145,16 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
+        if (Input.GetButtonDown("Spell1"))
+        {
+            _playerMagic.CastSpell(1);
+        }
+
+        if (Input.GetButtonDown("Spell2"))
+        {
+            _playerMagic.CastSpell(2);
+        }
+
         //Activate objects that are currently looked at
         if (Input.GetButtonDown("Activate"))
         {
@@ -155,6 +168,7 @@ public class PlayerInput : MonoBehaviour
                         {
                             GameManager.instance.PauseGame(true);
                             _playerInventory.RefreshInventory();
+                            _playerMagic.RefreshSpells();
                             _characterMenu.SetActive(true);
                             _playerInventory.OpenSearchInventory(_target.GetComponentInParent<ItemContainer>());
                         }
@@ -162,6 +176,7 @@ public class PlayerInput : MonoBehaviour
                         {
                             GameManager.instance.PauseGame(true);
                             _playerInventory.RefreshInventory();
+                            _playerMagic.RefreshSpells();
                             _characterMenu.SetActive(true);
                             _playerInventory.OpenSearchInventory(_target.GetComponent<ItemContainer>());
                         }

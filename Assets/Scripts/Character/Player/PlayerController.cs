@@ -17,10 +17,12 @@ public class PlayerController : MonoBehaviour
 
     //For slopes
     private Vector3 _hitNormal;
-    private bool _isSliding;
 
-    //For waer
+    //For water
     private bool _inWater;
+    private float _originalSpeed;
+
+    private PlayerCharacterManager _playerCharacterManager;
 
     private void Awake()
     {
@@ -29,12 +31,15 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        _playerCharacterManager = GetComponent<PlayerCharacterManager>();
         _characterController = GetComponent<CharacterController>();
 
         _playerCamera = Camera.main;
 
         //Plays the game on player start//Move to level load
         GameManager.instance.UnPauseGame(true);
+
+        _originalSpeed = _controllerSettings.walkingSpeed;
     }
 
     private void Update()
@@ -55,12 +60,29 @@ public class PlayerController : MonoBehaviour
         cantMove = false;
     }
 
+    public void SlowMovement()
+    {
+        if(_controllerSettings.walkingSpeed != _originalSpeed)
+        {
+            cantSprint = true;
+            _controllerSettings.walkingSpeed = _controllerSettings.walkingSpeed / 2;
+        }
+    }
+
+    //To return to normal  after being slowed
+    public void NormalMovement()
+    {
+        cantSprint = false;
+        _controllerSettings.walkingSpeed = _originalSpeed;
+    }
+
     private void ToggleCrouch()
     {
         //Press left ctrl to crouch 
         if (Input.GetButtonDown("Crouch"))
         {
             isCrouching = !isCrouching;
+            _playerCharacterManager.isCrouching = isCrouching;
         }
     }
 

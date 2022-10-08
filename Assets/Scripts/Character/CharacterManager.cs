@@ -5,74 +5,85 @@ public enum CharacterState { alive, wounded, dead };
 
 public class CharacterManager : MonoBehaviour
 {
-    //The character sheet reference
+    [Header("References")]
     [SerializeField] protected CharacterSheet _baseCharacterSheet;
-    [HideInInspector]
-    public CharacterSheet characterSheet = null;
+    [HideInInspector] public CharacterSheet characterSheet = null;
 
-    //Current status//
-    [HideInInspector]
-    public float healthCurrent;
-    [HideInInspector]
-    public float staminaCurrent;
-    [HideInInspector]
-    public float magicPercentCurrent;
-    [HideInInspector]
-    public float healthTotal;
-    [HideInInspector]
-    public float staminaTotal;
-    [HideInInspector]
-    public int defenceArmourTotal;
+    [Header("Status")]
+    [ReadOnly] public float healthCurrent;
+    [ReadOnly] public float staminaCurrent;
+    [ReadOnly] public float healthTotal;
+    [ReadOnly] public float staminaTotal;
 
-    //Equipped Items
-    [HideInInspector]
-    public Item equippedWeapon;
-    [HideInInspector]
-    public ShieldItem equippedShield;
-    [HideInInspector]
-    public EquipmentItem equippedArmour;
-    [HideInInspector]
-    public EquipmentItem equippedCape;
-    [HideInInspector]
-    public EquipmentItem equippedFeet;
-    [HideInInspector]
-    public EquipmentItem equippedGreaves;
-    [HideInInspector]
-    public EquipmentItem equippedHands;
-    [HideInInspector]
-    public EquipmentItem equippedHelmet;
-    [HideInInspector]
-    public EquipmentItem equippedPants;
-    [HideInInspector]
-    public EquipmentItem equippedShirt;
+    [ReadOnly] public int armourDefenceTotal;
+    [ReadOnly] public int bonusDefence;
+    [ReadOnly] public int bonusDamage;
+    [ReadOnly] public int effectResistChance;
 
-    //Inventory
-    [HideInInspector]
-    public List<Item> currentInventory = new List<Item>();
+    [Header("Equipped Items")]
+    [ReadOnly] public Item equippedWeapon;
+    [ReadOnly] public ShieldItem equippedShield;
+    [ReadOnly] public EquipmentItem equippedArmour;
+    [ReadOnly] public EquipmentItem equippedCape;
+    [ReadOnly] public EquipmentItem equippedFeet;
+    [ReadOnly] public EquipmentItem equippedGreaves;
+    [ReadOnly] public EquipmentItem equippedHands;
+    [ReadOnly] public EquipmentItem equippedHelmet;
+    [ReadOnly] public EquipmentItem equippedPants;
+    [ReadOnly] public EquipmentItem equippedShirt;
 
-    //Dialogue
-    [HideInInspector]
-    public List<Dialogue> alreadyRunDialogue = new List<Dialogue>();
+    [Header("Inventory")]
+    [ReadOnly] public List<Item> currentInventory = new List<Item>();
 
-    //Active Effects//
-    //Perks list (bonuses from arms and armour)
+    [Header("Spells")]
+    [ReadOnly] public List<Spell> currentSpells = new List<Spell>();
 
-    //CharacterStates
-    [HideInInspector]
-    public bool isHidden;
-    [HideInInspector]
-    public CharacterState characterState;
+    [Header("Skills")]
+    [ReadOnly] public List<Skill> currentSkills = new List<Skill>();
 
+    [Header("Dialogue")]
+    [HideInInspector] public List<Dialogue> alreadyRunDialogue = new List<Dialogue>();
+
+    [Header("Active Effects")]
+    [ReadOnly] public List<Effect> currentEffects = new List<Effect>();
+    //Used to track effect that have ended and need to be removed
+    [HideInInspector] public List<Effect> endedEffects = new List<Effect>();
+
+    [Header("Character States")]
+
+    [ReadOnly] public bool isHidden;
+    [ReadOnly] public CharacterState characterState;
+    [ReadOnly] public bool hasAdvantage;
+    [ReadOnly] public bool hasDisadvantage;
+    [ReadOnly] public bool inCombat;
+    [ReadOnly] public bool isCrouching;
+    [ReadOnly] public List<CharacterManager> inCombatWith = new List<CharacterManager>();
+
+    [Header("Skill Bonuses/Checks")]
+    [ReadOnly] public int berzerkerDamageBonus;
+    [ReadOnly] public int oneManArmyDefenceBonus;
+    [Tooltip("How many eyes are currently on the character")]
+    [ReadOnly] public List<CharacterManager> inDetectionRange = new List<CharacterManager>();
+    [SerializeField] public Effect _disablingShotEffect;
 
     protected virtual void Awake()
     {
         characterSheet = Instantiate(_baseCharacterSheet);
         currentInventory = new List<Item>(characterSheet.characterInventory);
+        currentSpells = new List<Spell>(characterSheet.characterSpells);
+
+        isHidden = characterSheet.startHidden;
     }
 
     protected virtual void Start()
     {
         SetCurrentStatus();
+        InvokeRepeating("RunEffects", 0f, 1f);
+
+        foreach (Skill skill in characterSheet.skills)
+        {
+            AddSkill(skill);
+        }
     }
 
     protected virtual void Update()
@@ -86,6 +97,10 @@ public class CharacterManager : MonoBehaviour
         {
             staminaCurrent = staminaTotal;
             return;
+        }
+        if (staminaCurrent < 0)
+        {
+            staminaCurrent = 0;
         }
         else
         {
@@ -101,8 +116,6 @@ public class CharacterManager : MonoBehaviour
 
         staminaTotal = StatFormulas.TotalCharacterStamina(characterSheet.abilities.hands);
         staminaCurrent = staminaTotal;
-
-        magicPercentCurrent = 0;
     }
 
     public virtual bool CheckHostility(Faction targetFaction)
@@ -117,17 +130,16 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void TriggerBlock()
     {
-        
     }
 
     public virtual int GetTotalDefence()
     {
-       int weaponDefence = 0;
-       int shieldDefence = 0;
+        int weaponDefence = 0;
+        int shieldDefence = 0;
 
         if (equippedWeapon != null)
         {
-            if(equippedWeapon is WeaponMeleeItem)
+            if (equippedWeapon is WeaponMeleeItem)
             {
                 weaponDefence = (equippedWeapon as WeaponMeleeItem).weaponDefence;
             }
@@ -139,24 +151,44 @@ public class CharacterManager : MonoBehaviour
 
         GetEquipmentDefence();
 
-        if(equippedShield != null)
+        if (equippedShield != null)
         {
             shieldDefence = equippedShield.shieldDefence;
         }
 
-        return StatFormulas.GetTotalDefence(weaponDefence, defenceArmourTotal, shieldDefence, _baseCharacterSheet.abilities.hands, 0);
+        return StatFormulas.GetTotalDefence(weaponDefence, armourDefenceTotal, shieldDefence, _baseCharacterSheet.abilities.hands, bonusDefence);
     }
 
-    public virtual void DamageHealth(float i)
+    public virtual void AddHealth(float i)
+    {
+        if (characterState == CharacterState.alive)
+        {
+            healthCurrent += i;
+
+            if (healthCurrent > healthTotal)
+            {
+                healthCurrent = healthTotal;
+            }
+
+        }
+    }
+
+    public virtual void DamageHealth(int i)
     {
         if (characterState == CharacterState.alive)
         {
             healthCurrent -= i;
 
+            if (CheckSkill("Berzerker") && inCombat)
+            {
+                berzerkerDamageBonus += i;
+                bonusDamage += i;
+            }
+
             if (healthCurrent <= 0)
             {
                 //Check if the character is wounded or dead
-                if (StatFormulas.ToWound(healthCurrent))
+                if (StatFormulas.ToWound(healthCurrent, CheckSkill("Wounding Blows")))
                 {
                     characterState = CharacterState.wounded;
                 }
@@ -169,6 +201,20 @@ public class CharacterManager : MonoBehaviour
         else if (characterState == CharacterState.wounded)
         {
             characterState = CharacterState.dead;
+        }
+    }
+
+    public virtual void AddStamina(float i)
+    {
+        if (characterState == CharacterState.alive)
+        {
+            staminaCurrent += i;
+
+            if (staminaCurrent > staminaTotal)
+            {
+                staminaCurrent = staminaTotal;
+            }
+
         }
     }
 
@@ -185,41 +231,160 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+    public virtual void ChangeAbilityTotal(int i, string abilityName)
+    {
+        switch (abilityName)
+        {
+            case "body":
+                characterSheet.abilities.body += i;
+                break;
+            case "hands":
+                characterSheet.abilities.hands += i;
+                break;
+            case "mind":
+                characterSheet.abilities.mind += i;
+                break;
+            case "heart":
+                characterSheet.abilities.heart += i;
+                break;
+        }
+    }
+
+    public virtual void SetSlowState(bool isSlowed)
+    {
+
+    }
+
+    public virtual void SetParalyseState(bool isParalysed)
+    {
+
+    }
+
+    public virtual void SetBonusDefence(int i)
+    {
+        bonusDefence += i;
+
+        //Caps min bonus at 0
+        if (bonusDefence < 0)
+        {
+            bonusDefence = 0;
+        }
+    }
+
+    public virtual void SetBonusDamage(int i)
+    {
+        bonusDamage += i;
+
+        //Caps min bonus at 0
+        if (bonusDamage < 0)
+        {
+            bonusDamage = 0;
+        }
+    }
+
+    public virtual void SetEffectResist(int i)
+    {
+        effectResistChance += i;
+
+        if (effectResistChance > 100)
+        {
+            effectResistChance = 100;
+        }
+        else if (effectResistChance < 0)
+        {
+            effectResistChance = 0;
+        }
+    }
+
+    public virtual void SetAdvantage(bool b)
+    {
+        hasAdvantage = b;
+    }
+
+    public virtual void SetDisadvantage(bool b)
+    {
+        hasDisadvantage = b;
+    }
+
+    public virtual void StartCombat(CharacterManager combatCharacter)
+    {
+        inCombat = true;
+        inCombatWith.Add(combatCharacter);
+
+        if(CheckSkill("One Man Army"))
+        {
+            oneManArmyDefenceBonus += 1;
+            bonusDefence += 1;
+        }
+    }
+
+
+    public virtual void StopCombat(CharacterManager combatCharacter)
+    {
+        inCombatWith.Remove(combatCharacter);
+
+        CheckEndCombat();
+    }
+
+    public virtual void CheckEndCombat()
+    {
+        if (inCombatWith.Count == 0)
+        {
+            inCombat = false;
+
+            if (CheckSkill("Berzerker"))
+            {
+                bonusDamage -= berzerkerDamageBonus;
+                berzerkerDamageBonus = 0;
+            }
+
+            if (CheckSkill("One Man Army"))
+            {
+                bonusDefence -= oneManArmyDefenceBonus;
+                oneManArmyDefenceBonus = 0;
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
     public virtual void GetEquipmentDefence()
     {
-        defenceArmourTotal = 0;
+        armourDefenceTotal = 0;
 
-        if(equippedArmour != null)
+        if (equippedArmour != null)
         {
-            defenceArmourTotal += equippedArmour.equipmentDefence;
+            armourDefenceTotal += equippedArmour.equipmentDefence;
         }
         if (equippedCape != null)
         {
-            defenceArmourTotal += equippedCape.equipmentDefence;
+            armourDefenceTotal += equippedCape.equipmentDefence;
         }
         if (equippedFeet != null)
         {
-            defenceArmourTotal += equippedFeet.equipmentDefence;
+            armourDefenceTotal += equippedFeet.equipmentDefence;
         }
         if (equippedGreaves != null)
         {
-            defenceArmourTotal += equippedGreaves.equipmentDefence;
+            armourDefenceTotal += equippedGreaves.equipmentDefence;
         }
         if (equippedHands != null)
         {
-            defenceArmourTotal += equippedHands.equipmentDefence;
+            armourDefenceTotal += equippedHands.equipmentDefence;
         }
         if (equippedHelmet != null)
         {
-            defenceArmourTotal += equippedHelmet.equipmentDefence;
+            armourDefenceTotal += equippedHelmet.equipmentDefence;
         }
         if (equippedPants != null)
         {
-            defenceArmourTotal += equippedPants.equipmentDefence;
+            armourDefenceTotal += equippedPants.equipmentDefence;
         }
         if (equippedShirt != null)
         {
-            defenceArmourTotal += equippedShirt.equipmentDefence;
+            armourDefenceTotal += equippedShirt.equipmentDefence;
         }
     }
 
@@ -231,5 +396,170 @@ public class CharacterManager : MonoBehaviour
     public virtual void RemoveItem(Item i)
     {
         currentInventory.Remove(i);
+    }
+
+    public virtual void UsePotionItem(PotionItem potionItem)
+    {
+        foreach(Effect effect in potionItem.potionEffects)
+        {
+            effect.AddEffect(this);
+        }
+
+        RemoveItem(potionItem);
+    }
+
+    //Note that the effect should be added via Effect.AddEffect(CharacterManager) first
+    public virtual void AddEffect(Effect effect)
+    {
+        //If spell shield is active chance to not apply any effect
+        float resistChance = Random.Range(0f, 100f);
+
+        if (effectResistChance >= resistChance)
+        {
+            return;
+        }
+        currentEffects.Add(effect);
+    }
+
+    public virtual void RemoveEffect(Effect effect)
+    {
+        if (currentEffects.Contains(effect))
+        {
+            currentEffects.Remove(effect);
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public virtual void ClearEffects()
+    {
+        foreach (Effect effect in currentEffects)
+        {
+            effect.EndEffect(this);
+        }
+
+        currentEffects.Clear();
+    }
+
+    //Runs every second, applies effects, removes ones which have run out
+    public virtual void RunEffects()
+    {
+        endedEffects.Clear();
+
+        foreach (Effect effect in currentEffects)
+        {
+            effect.ApplyEffect(this);
+        }
+
+        foreach (Effect effect in endedEffects)
+        {
+            RemoveEffect(effect);
+        }
+
+        endedEffects.Clear();
+    }
+
+    public virtual void AddSkill(Skill newSkill)
+    {
+        currentSkills.Add(newSkill);
+
+        if (newSkill.skillItems.Count != 0)
+        {
+            foreach (Item item in newSkill.skillItems)
+            {
+                AddItem(item);
+            }
+        }
+    }
+
+    public virtual bool CheckSkill(string skillName)
+    {
+        foreach (Skill skill in currentSkills)
+        {
+            if (skill.skillName == skillName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    //Skill Checks//
+    //If player has the skill and the other conditions mets
+    public virtual bool CheckSkill_Assassinate()
+    {
+        if (CheckSkill("Assassinate") && !inCombat && CheckSkill_Sneak())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public virtual bool CheckSkill_HonourFighter()
+    {
+        if (CheckSkill("Honour Fighter") && inCombatWith.Count == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public virtual bool CheckSkill_Sharpshooter()
+    {
+        if (CheckSkill("Sharpshooter") && !inCombat && (equippedWeapon is WeaponRangedItem))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public virtual bool CheckSkill_Sneak()
+    {
+        if (CheckSkill("Sneak") && isCrouching && inCombatWith.Count == 0 && inDetectionRange.Count <= 2)
+        {
+            return true;
+        }
+        else
+        {
+            //Make the targets aware of the player
+            if(inDetectionRange.Count != 0)
+            {
+                List<CharacterManager> currentDetectedCharacter = inDetectionRange;
+
+                foreach (CharacterManager character in currentDetectedCharacter)
+                {
+                    if (character.gameObject.CompareTag("Character"))
+                    {
+                        character.GetComponent<CharacterAI>().DetectTarget(this);
+                    }
+                }
+            }
+            return false;
+        }
+    }
+
+    public virtual bool CheckSkill_DisablingShot(CharacterManager targetCharacter)
+    {
+        if (CheckSkill("Disabling Shot") && (equippedWeapon is WeaponRangedItem))
+        {
+            _disablingShotEffect.AddEffect(targetCharacter);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

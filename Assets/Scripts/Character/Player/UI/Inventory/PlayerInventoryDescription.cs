@@ -53,6 +53,7 @@ public class PlayerInventoryDescription : MonoBehaviour
             _itemDamage.gameObject.SetActive(true);
             _itemRange.gameObject.SetActive(true);
             _itemSpeed.gameObject.SetActive(true);
+            _itemDefence.gameObject.SetActive(true);
 
             _itemWeaponType.text = "Weapon Type: " + (item as WeaponMeleeItem).weaponMeleeType;
             _itemDamage.text = "Damage: " + (item as WeaponMeleeItem).weaponRollAmount.ToString() + "D" + (item as WeaponMeleeItem).weaponDamage.ToString();
@@ -74,6 +75,18 @@ public class PlayerInventoryDescription : MonoBehaviour
 
             SetButtonEvents("weapon", item, isSearch, itemContainer);
         }
+        else if (item is WeaponFocusItem)
+        {
+            _itemWeaponType.gameObject.SetActive(true);
+            _itemDamage.gameObject.SetActive(true);
+            _itemSpeed.gameObject.SetActive(true);
+
+            _itemWeaponType.text = "Mind Required: " + (item as WeaponFocusItem).mindRequirement;
+            _itemDamage.text = "Spell: " + (item as WeaponFocusItem).effectDescription;
+            _itemSpeed.text = "Casting Speed: " + (item as WeaponFocusItem).castingSpeed.ToString();
+
+            SetButtonEvents("weapon", item, isSearch, itemContainer);
+        }
         else if (item is ShieldItem)
         {
             SetButtonEvents("shield", item, isSearch, itemContainer);
@@ -84,6 +97,10 @@ public class PlayerInventoryDescription : MonoBehaviour
         {
             SetButtonEvents("equipment", item, isSearch, itemContainer);
             _itemDefence.text = "Defence: " + (item as EquipmentItem).equipmentDefence.ToString("+#;-#;0");
+        }
+        else if(item is PotionItem)
+        {
+            SetButtonEvents("potion", item, isSearch, itemContainer);
         }
     }
 
@@ -106,19 +123,26 @@ public class PlayerInventoryDescription : MonoBehaviour
             _buttonDrop.onClick.AddListener(CloseDescription);
         }
 
-        if (!_playerCharacterManager.CheckItemEquipStatus(item))
+        if (!_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)))
         {
             _buttonEquip.gameObject.SetActive(true);
             _buttonEquip.onClick.AddListener(delegate { _playerCharacterManager.EquipItem(itemType, item); });
             _buttonEquip.onClick.AddListener(_playerInventory.RefreshEquippedItemsDisplay);
             _buttonEquip.onClick.AddListener(CloseDescription);
         }
-        else
+        else if(_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)))
         {
             _buttonUnequip.gameObject.SetActive(true);
             _buttonUnequip.onClick.AddListener(delegate { _playerCharacterManager.UnequipItem(itemType, item); });
             _buttonUnequip.onClick.AddListener(_playerInventory.RefreshEquippedItemsDisplay);
             _buttonUnequip.onClick.AddListener(CloseDescription);
+        }
+
+        if(item is PotionItem)
+        {
+            _buttonUse.gameObject.SetActive(true);
+            _buttonUse.onClick.AddListener(delegate { _playerCharacterManager.UsePotionItem(item as PotionItem); });
+            _buttonUse.onClick.AddListener(CloseDescription);
         }
     }
 
@@ -129,6 +153,7 @@ public class PlayerInventoryDescription : MonoBehaviour
         _itemDamage.gameObject.SetActive(false);
         _itemRange.gameObject.SetActive(false);
         _itemSpeed.gameObject.SetActive(false);
+        _itemDefence.gameObject.SetActive(false);
 
         _buttonUse.gameObject.SetActive(false);
         _buttonEquip.gameObject.SetActive(false);

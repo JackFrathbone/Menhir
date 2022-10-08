@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d9736eff44b4e4ab896b8c087e6463, type: 3}
+  m_Name: Skill_Warlock
+  m_EditorClassIdentifier: 
+  skillName: Warlock
+  skillDescription: Cast spells without cost or focus, at will. Can learn two ritual
+    spells to be cast for free without any cost, at any time. One of the two set
+    spells can be forgotten and a new one learned once a day.
+  skillMaxLevel: 3
+  skillLevel: 1
+  skillItems: []

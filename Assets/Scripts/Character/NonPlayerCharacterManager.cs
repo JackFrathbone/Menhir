@@ -5,6 +5,8 @@ using UnityEngine.AI;
 //The non-player character manager is for managing human NPCs, with references for animation and AI
 public class NonPlayerCharacterManager : CharacterManager
 {
+    [Header("References")]
+    private CharacterMovementController _characterMovementController;
     private CharacterAnimationController _animationController;
     private CharacterVisualUpdater _VisualUpdater;
 
@@ -20,6 +22,7 @@ public class NonPlayerCharacterManager : CharacterManager
     {
         base.Start();
         SetCharacterState();
+        _characterMovementController = GetComponent<CharacterMovementController>();
     }
 
     private void OnValidate()
@@ -88,7 +91,7 @@ public class NonPlayerCharacterManager : CharacterManager
 
         foreach (Item weapon in currentInventory)
         {
-            if (weapon is WeaponMeleeItem || weapon is WeaponRangedItem)
+            if (weapon is WeaponMeleeItem || weapon is WeaponRangedItem || weapon is WeaponFocusItem)
             {
                 if (weapon.itemValue > tempValue)
                 {
@@ -106,6 +109,10 @@ public class NonPlayerCharacterManager : CharacterManager
                     else if (weapon is WeaponRangedItem)
                     {
                         _animationController.SetEquipType(3);
+                    }
+                    else if (weapon is WeaponFocusItem)
+                    {
+                        _animationController.SetEquipType(1);
                     }
 
                 }
@@ -264,7 +271,7 @@ public class NonPlayerCharacterManager : CharacterManager
         _animationController.TriggerBlock();
     }
 
-    public override void DamageHealth(float i)
+    public override void DamageHealth(int i)
     {
         base.DamageHealth(i);
 
@@ -274,5 +281,29 @@ public class NonPlayerCharacterManager : CharacterManager
         }
 
         SetCharacterState();
+    }
+
+    public override void SetSlowState(bool isSlowed)
+    {
+        if (isSlowed)
+        {
+            _characterMovementController.SlowMovement();
+        }
+        else
+        {
+            _characterMovementController.NormalMovment();
+        }
+    }
+
+    public override void SetParalyseState(bool isParalysed)
+    {
+        if (isParalysed)
+        {
+            _characterMovementController.StopMovement();
+        }
+        else
+        {
+            _characterMovementController.StartMovement();
+        }
     }
 }

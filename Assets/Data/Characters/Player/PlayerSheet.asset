@@ -16,33 +16,17 @@ MonoBehaviour:
   characterDescription: 
   characterFaction: {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
   characterAggression: 1
-  characterInventory:
-  - {fileID: 11400000, guid: 6c3f558bca06c7f4baf5454fcc3fa726, type: 2}
-  characterSpellbook: []
+  characterInventory: []
+  characterSpells: []
   characterGreeting: 
   characterDialogueTopics: []
   abilities:
-    physique: 0
-    agility: 0
-    mental: 0
-    social: 0
-  skills:
-    shortWeapons: 0
-    longWeapons: 0
-    block: 0
-    healing: 0
-    rangedWeapons: 0
-    dodge: 0
-    stealth: 0
-    trapsmith: 0
-    elementalism: 0
-    soulMagic: 0
-    ritualism: 0
-    alchemy: 0
-    persuasion: 0
-    intimidation: 0
-    barter: 0
-    wisdom: 0
+    body: 3
+    hands: 3
+    mind: 3
+    heart: 3
+  skills: []
+  startHidden: 0
   randomiseVisuals: 0
   characterSkintone: {r: 0, g: 0, b: 0, a: 0}
   characterHairColor: {r: 0, g: 0, b: 0, a: 0}

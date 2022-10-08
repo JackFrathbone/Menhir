@@ -4,6 +4,7 @@ using UnityEngine;
 public class CharacterCombatController : MonoBehaviour
 {
     //References
+    [SerializeField] Transform _projectileSpawn;
     private CharacterAnimationController _animationController;
     private CharacterMovementController _movementController;
     private NonPlayerCharacterManager _NPCCharacterManager;
@@ -25,13 +26,16 @@ public class CharacterCombatController : MonoBehaviour
     public void StartCombat(CharacterManager target)
     {
         _combatTarget = target;
+        _combatTarget.StartCombat(_NPCCharacterManager);
 
         StartHold();
     }
 
     public void StopCombat()
     {
+        _combatTarget.StopCombat(_NPCCharacterManager);
         _combatTarget = null;
+
     }
 
     private void StartHold()
@@ -47,13 +51,22 @@ public class CharacterCombatController : MonoBehaviour
             _weaponSpeed = meleeItem.weaponSpeed;
             _weaponDamage = meleeItem.weaponDamage;
         }
-        else
+        else if (_NPCCharacterManager.equippedWeapon is WeaponRangedItem)
         {
-            _movementController.SetTargetDistance(10f);
-            _weaponRange = 10f;
+            WeaponRangedItem rangedItem = (WeaponRangedItem)_NPCCharacterManager.equippedWeapon;
+            _movementController.SetTargetDistance(15f);
+            _weaponRange = 15f;
+            _weaponSpeed = rangedItem.weaponSpeed;
+            _weaponDamage = rangedItem.weaponDamage;
         }
-
-        
+        else if (_NPCCharacterManager.equippedWeapon is WeaponFocusItem)
+        {
+            WeaponFocusItem focusItem = (WeaponFocusItem)_NPCCharacterManager.equippedWeapon;
+            _movementController.SetTargetDistance(15f);
+            _weaponRange = 15f;
+            _weaponSpeed = focusItem.castingSpeed;
+            _weaponDamage = 0;
+        }
 
         DecideNextAction();
     }
@@ -64,6 +77,12 @@ public class CharacterCombatController : MonoBehaviour
 
         if (_combatTarget == null)
         {
+            return;
+        }
+
+        if (_NPCCharacterManager.characterState != CharacterState.alive)
+        {
+            StopCombat();
             return;
         }
 
@@ -84,6 +103,7 @@ public class CharacterCombatController : MonoBehaviour
 
         int randomAction = Random.Range(0, 2);
         float randomTime = Random.Range(_weaponSpeed, 3f);
+
         switch (randomAction)
         {
             case 0:
@@ -117,49 +137,31 @@ public class CharacterCombatController : MonoBehaviour
     private IEnumerator Attack(float waitTime)
     {
         _animationController.TriggerAttack();
-        //Get the weapon skill type
-        int weaponDamage = 0;
-        int weaponRolls = 0;
-        int weaponAbility = 0;
-        int targetDefence = 0;
 
         if (_NPCCharacterManager.equippedWeapon is WeaponMeleeItem)
         {
-            weaponDamage = (_NPCCharacterManager.equippedWeapon as WeaponMeleeItem).weaponDamage;
-            weaponRolls = (_NPCCharacterManager.equippedWeapon as WeaponMeleeItem).weaponRollAmount;
-            weaponAbility = _NPCCharacterManager.characterSheet.abilities.body;
-
-            //Randomises the damage
-            weaponDamage = StatFormulas.RollDice(weaponDamage, weaponRolls);
-
-            //Gets target defence
-            targetDefence = _combatTarget.GetTotalDefence();
-
-            int hitDamage = StatFormulas.CalculateHit(weaponDamage, weaponAbility, targetDefence);
-
-            //Check if the character is already wounded and if yes make all attacks hit
-            if (_combatTarget.characterState == CharacterState.wounded)
-            {
-                hitDamage = 1;
-            }
-
-            if (hitDamage > 0)
-            {
-                //Do damage to target
-                _combatTarget.DamageHealth(StatFormulas.Damage(hitDamage));
-
-            }
-            else if (hitDamage <= 0)
-            {
-                //Target blocks attack
-                _combatTarget.TriggerBlock();
-
-            }
+            CalculateAttack(_combatTarget.gameObject);
         }
-        //If ranged
-        else
-        {
 
+        //If ranged
+        else if (_NPCCharacterManager.equippedWeapon is WeaponRangedItem)
+        {
+            ProjectileController projectileController = Instantiate((_NPCCharacterManager.equippedWeapon as WeaponRangedItem).projectilePrefab, _projectileSpawn.position, _projectileSpawn.rotation).GetComponent<ProjectileController>();
+
+            projectileController.hitEvent.AddListener(delegate { GetProjectileHitData(projectileController); });
+
+            //Decrease stamina
+            _NPCCharacterManager.DamageStamina(StatFormulas.AttackStaminaCost(_NPCCharacterManager.equippedWeapon.itemWeight, _weaponSpeed));
+        }
+        //If focus
+        else if (_NPCCharacterManager.equippedWeapon is WeaponFocusItem)
+        {
+            ProjectileController projectileController = Instantiate((_NPCCharacterManager.equippedWeapon as WeaponFocusItem).projectilePrefab, _projectileSpawn.position, _projectileSpawn.rotation).GetComponent<ProjectileController>();
+
+            foreach (Effect effect in (_NPCCharacterManager.equippedWeapon as WeaponFocusItem).focusEffects)
+            {
+                projectileController.effects.Add(effect);
+            }
         }
 
         yield return new WaitForSeconds(waitTime);
@@ -172,6 +174,73 @@ public class CharacterCombatController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         _movementController.SetTargetDistance(_weaponRange);
         DecideNextAction();
+    }
+
+    public void GetProjectileHitData(ProjectileController projectileController)
+    {
+        if (projectileController.hitCollision.collider.CompareTag("Character") || projectileController.hitCollision.collider.CompareTag("Player"))
+        {
+            CalculateAttack(projectileController.hitCollision.gameObject);
+        }
+    }
+
+    public void CalculateAttack(GameObject target)
+    {
+        if (target.CompareTag("Character") || target.CompareTag("Player"))
+        {
+            //Get the various checks
+            int weaponDamage = 0;
+            int weaponRolls = 0;
+            int weaponAbility = 0;
+            int targetDefence = 0;
+
+            if (_NPCCharacterManager.equippedWeapon is WeaponMeleeItem)
+            {
+                weaponAbility = _NPCCharacterManager.characterSheet.abilities.body;
+                weaponDamage = _weaponDamage + _NPCCharacterManager.bonusDamage;
+                weaponRolls = (_NPCCharacterManager.equippedWeapon as WeaponMeleeItem).weaponRollAmount;
+            }
+            else if (_NPCCharacterManager.equippedWeapon is WeaponRangedItem)
+            {
+                weaponAbility = _NPCCharacterManager.characterSheet.abilities.hands;
+                weaponDamage = (_NPCCharacterManager.equippedWeapon as WeaponRangedItem).weaponDamage + _NPCCharacterManager.bonusDamage;
+                weaponRolls = (_NPCCharacterManager.equippedWeapon as WeaponRangedItem).weaponRollAmount;
+            }
+
+            //Randomises the damage
+            weaponDamage = StatFormulas.RollDice(weaponDamage, weaponRolls);
+
+            //Get targets stats
+            CharacterManager targetCharacterManager = target.gameObject.GetComponentInParent<CharacterManager>();
+            targetDefence = targetCharacterManager.GetTotalDefence();
+
+            int hitDamage = StatFormulas.CalculateHit(weaponDamage, weaponAbility, targetDefence, _NPCCharacterManager.hasAdvantage, targetCharacterManager.hasDisadvantage, _NPCCharacterManager.CheckSkill_Assassinate(), _NPCCharacterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill("Lucky Strike"), _NPCCharacterManager.CheckSkill_HonourFighter(), _NPCCharacterManager.CheckSkill_Sharpshooter());
+
+            //Check if the character is already wounded and if yes make all attacks hit
+            if (targetCharacterManager.characterState == CharacterState.wounded)
+            {
+                hitDamage = 1;
+            }
+
+            //If stamina is less than the amount the attack requires, make it always miss
+            if (_NPCCharacterManager.staminaCurrent < StatFormulas.AttackStaminaCost(_NPCCharacterManager.equippedWeapon.itemWeight, _weaponSpeed))
+            {
+                hitDamage = 0;
+            }
+
+            if (hitDamage > 0)
+            {
+                //Do damage to target
+                targetCharacterManager.DamageHealth(StatFormulas.Damage(hitDamage));
+
+                _NPCCharacterManager.CheckSkill_DisablingShot(targetCharacterManager);
+            }
+            else if (hitDamage <= 0)
+            {
+                //Target blocks attack
+                targetCharacterManager.TriggerBlock();
+            }
+        }
     }
 
 

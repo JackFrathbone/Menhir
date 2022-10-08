@@ -10,12 +10,16 @@ public class CharacterMovementController : MonoBehaviour
 
     private Vector3 _startLocation;
 
+    private float _originalSpeed;
+
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _characterAnimation = GetComponentInChildren<CharacterAnimationController>();
 
         _startLocation = transform.position;
+
+        _originalSpeed = _navMeshAgent.speed;
     }
 
     private void Update()
@@ -46,6 +50,29 @@ public class CharacterMovementController : MonoBehaviour
     public void SetTargetDistance(float i)
     {
         _navMeshAgent.stoppingDistance = i;
+    }
+    
+    public void SlowMovement()
+    {
+        if(_navMeshAgent.speed == _originalSpeed)
+        {
+            _navMeshAgent.speed = _navMeshAgent.speed / 2;
+        }
+    }
+
+    public void NormalMovment()
+    {
+        _navMeshAgent.speed = _originalSpeed;
+    }
+
+    public void StopMovement()
+    {
+        _navMeshAgent.isStopped = true;
+    }
+
+    public void StartMovement()
+    {
+        _navMeshAgent.isStopped = false;
     }
 
     public void ReturnToStart()
