@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Test Enemy
   characterDescription: 
+  characterPronouns: 0
   characterFaction: {fileID: 11400000, guid: 4f7d5ce489bf4e440972fc5f5cfa5fb9, type: 2}
   characterAggression: 1
   characterInventory:
@@ -22,9 +23,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8723b62de0a99dd4191c7c302c4e1ef0, type: 2}
   - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
   - {fileID: 11400000, guid: 42ac219787fa7e84593c60a5c383a148, type: 2}
-  characterGreeting: 
-  characterDialogueTopics:
-  - {fileID: 11400000, guid: d8370c724b7619e4898ff6c0ec861be4, type: 2}
+  - {fileID: 11400000, guid: 4f615b001e6ed4f49bc4691bc611eb70, type: 2}
+  characterSpells: []
+  characterGreeting: Uwu hewwo
+  characterWoundedGreeting: Oof ouch my bones
+  characterDialogueTopics: []
+  characterDialogueGraph: {fileID: 11400000, guid: 84363fbd33ef39e4183b32a2ec88c9e7, type: 2}
   abilities:
     body: 3
     hands: 3

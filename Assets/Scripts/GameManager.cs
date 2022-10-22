@@ -1,21 +1,26 @@
 using UnityEngine;
 using UnityEditor.SceneManagement;
+using System;
 
 public class GameManager: Singleton<GameManager>
 {
+    [Header("References")]
     public GameObject playerObject;
     public GameObject PlayerUIObject;
 
     public static PlayerActiveUI playerActiveUI;
 
-    public bool isPaused;
+   [ReadOnly] public bool isPaused;
+    //Which screen this pause action is associated with, so other screens can overwrite
+    [ReadOnly] public string pauseOrigin;
 
     //Private checks
     private PlayerController _playerController;
 
-    public void PauseGame(bool playerPresent)
+    public void PauseGame(bool playerPresent, string origin)
     {
         isPaused = true;
+        pauseOrigin = origin;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -35,6 +40,7 @@ public class GameManager: Singleton<GameManager>
     public void UnPauseGame(bool playerPresent)
     {
         isPaused = false;
+        pauseOrigin = "";
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -48,6 +54,26 @@ public class GameManager: Singleton<GameManager>
         {
             _playerController = playerObject.GetComponent<PlayerController>();
             _playerController.StartMovement();
+        }
+    }
+
+    public bool CheckCanPause(string pauseCompare)
+    {
+        if (!isPaused && pauseOrigin == "")
+        {
+            return true;
+        }
+        else if(isPaused && pauseOrigin == pauseCompare)
+        {
+            return true;
+        }
+        else if(!isPaused && pauseOrigin == pauseCompare)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

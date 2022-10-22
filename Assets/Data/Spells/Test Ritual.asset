@@ -16,7 +16,7 @@ MonoBehaviour:
   effectDescription: It hort
   spellIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
   castTarget: 1
-  projectilePrefab: {fileID: 9115724530422602675, guid: 1e3e3593cce802b4eb5bc9f83f9ce02d, type: 3}
+  projectilePrefab: {fileID: 5075525471246768355, guid: 542ff44a6fb06f5408df57d255d508b9, type: 3}
   mindRequirement: 1
   spellEffects:
   - effectType: 1

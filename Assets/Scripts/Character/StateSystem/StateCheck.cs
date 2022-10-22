@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Dialogue/StateCheck")]
+[CreateAssetMenu(menuName = "Dialogue/New StateCheck")]
 public class StateCheck : ScriptableObject
 {
     //Just used to keep track of what this state check is for

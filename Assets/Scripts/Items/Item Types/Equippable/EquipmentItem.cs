@@ -12,7 +12,7 @@ public enum EquipmentType
     shirt
 };
 
-[CreateAssetMenu(menuName = "Items/Equipment")]
+[CreateAssetMenu(menuName = "Items/New Equipment Item")]
 public class EquipmentItem : Item
 {
     [Header("Equipment Data")]

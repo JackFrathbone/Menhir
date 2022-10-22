@@ -78,8 +78,14 @@ public static class StatFormulas
         }
     }
 
-    public static int GetTotalDefence(int weaponDefence, int equipmentDefence, int shieldDefence, int ability, int defenceBonus)
+    public static int GetTotalDefence(int weaponDefence, int equipmentDefence, int shieldDefence, int ability, int defenceBonus, bool isRangedAttack)
     {
+        if (isRangedAttack)
+        {
+            weaponDefence = 0;
+            equipmentDefence *= 2;
+        }
+
         return weaponDefence + equipmentDefence + shieldDefence + (ability - 3) + defenceBonus;
     }
 
@@ -115,7 +121,7 @@ public static class StatFormulas
     //True is a wound and false is a death
     public static bool ToWound(float damageOverZero, bool checkSkillWoundingBlows)
     {
-        float output = 0;
+        float output;
 
         if (checkSkillWoundingBlows)
         {

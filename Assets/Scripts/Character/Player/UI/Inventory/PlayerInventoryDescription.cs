@@ -123,14 +123,14 @@ public class PlayerInventoryDescription : MonoBehaviour
             _buttonDrop.onClick.AddListener(CloseDescription);
         }
 
-        if (!_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)))
+        if (!_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)) || (item is ShieldItem))
         {
             _buttonEquip.gameObject.SetActive(true);
             _buttonEquip.onClick.AddListener(delegate { _playerCharacterManager.EquipItem(itemType, item); });
             _buttonEquip.onClick.AddListener(_playerInventory.RefreshEquippedItemsDisplay);
             _buttonEquip.onClick.AddListener(CloseDescription);
         }
-        else if(_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)))
+        else if(_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)) || (item is ShieldItem))
         {
             _buttonUnequip.gameObject.SetActive(true);
             _buttonUnequip.onClick.AddListener(delegate { _playerCharacterManager.UnequipItem(itemType, item); });

@@ -9,12 +9,14 @@ public class NonPlayerCharacterManager : CharacterManager
     private CharacterMovementController _characterMovementController;
     private CharacterAnimationController _animationController;
     private CharacterVisualUpdater _VisualUpdater;
+    private CharacterCombatController _characterCombatController;
 
     protected override void Awake()
     {
         base.Awake();
         _animationController = GetComponentInChildren<CharacterAnimationController>();
         _VisualUpdater = GetComponentInChildren<CharacterVisualUpdater>();
+        _characterCombatController = GetComponentInChildren<CharacterCombatController>();
         EquipItems();
     }
 
@@ -47,12 +49,16 @@ public class NonPlayerCharacterManager : CharacterManager
                 _animationController.SetState(0);
                 //Allows a healed wounded character to get back to their job
                 GetComponentInChildren<CharacterMovementController>().enabled = true;
+                GetComponentInChildren<CharacterCombatController>().enabled = true;
                 GetComponentInChildren<NavMeshAgent>().enabled = true;
+                GetComponentInChildren<CharacterAI>().enabled = true;
                 break;
             case CharacterState.wounded:
                 _animationController.SetState(1);
                 GetComponentInChildren<CharacterMovementController>().enabled = false;
+                GetComponentInChildren<CharacterCombatController>().enabled = false;
                 GetComponentInChildren<NavMeshAgent>().enabled = false;
+                GetComponentInChildren<CharacterAI>().enabled = false;
                 break;
             //Is dead so set model and add a container for items
             case CharacterState.dead:
@@ -147,14 +153,10 @@ public class NonPlayerCharacterManager : CharacterManager
     //Equips the equipment slots with the highest value equipment that fits
     private void EquipEquipment()
     {
-        EquipmentItem equipmentItem = null;
-
         foreach (Item item in currentInventory)
         {
-            if (item is EquipmentItem)
+            if (item is EquipmentItem equipmentItem)
             {
-                equipmentItem = (EquipmentItem)item;
-
                 switch (equipmentItem.equipmentType)
                 {
                     case EquipmentType.armour:
@@ -268,7 +270,11 @@ public class NonPlayerCharacterManager : CharacterManager
 
     public override void TriggerBlock()
     {
-        _animationController.TriggerBlock();
+        if(_characterCombatController != null)
+        {
+            _animationController.TriggerBlock();
+            _characterCombatController.DecideNextAction();
+        }
     }
 
     public override void DamageHealth(int i)

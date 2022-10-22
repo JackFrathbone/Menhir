@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using XNode;
 
 public class PlayerDialogueController : MonoBehaviour
 {
@@ -19,13 +20,18 @@ public class PlayerDialogueController : MonoBehaviour
     private TextMeshProUGUI descriptionText;
 
     private CharacterManager currentCharacterManager;
-    private Dialogue currentDialogue;
-    private int currentDialogueLine;
+
     //List of all current topic buttons to be deleted
-    private List<GameObject> topicButtonsToDelete = new List<GameObject>();
+    readonly private List<GameObject> topicButtonsToDelete = new();
 
     //Links
     private PlayerCharacterManager _playerCharacterManager;
+
+    //New dialogue graph system stuff
+    private DialogueGraph _currentDialogueGraph;
+    private DialogueSentencesNode _currentSentencesNode;
+
+    private int _currentSentence;
 
     private void Start()
     {
@@ -36,105 +42,141 @@ public class PlayerDialogueController : MonoBehaviour
     public void StartDialogue(CharacterManager characterManager)
     {
         currentCharacterManager = characterManager;
+        _currentDialogueGraph = characterManager.dialogueGraphInstance;
 
         descriptionBox.SetActive(false);
 
         dialogueUI.SetActive(true);
+
+        dialogueNextButton.SetActive(true);
+        dialogueLeaveButton.gameObject.SetActive(false);
+
+        if (currentCharacterManager.characterState == CharacterState.alive)
+        {
+            dialogueText.text = currentCharacterManager.characterSheet.characterGreeting;
+        }
+        else if (currentCharacterManager.characterState == CharacterState.wounded)
+        {
+            dialogueText.text = currentCharacterManager.characterSheet.characterWoundedGreeting;
+        }
+
+        dialogueNextButton.GetComponent<Button>().onClick.AddListener(delegate { LoadBaseTopics(); });
+
+    }
+
+    private void LoadBaseTopics()
+    {
+        Button nextButton = dialogueNextButton.GetComponent<Button>();
+        nextButton.onClick.RemoveAllListeners();
+        nextButton.onClick.AddListener(delegate { LoadNextLine(); });
+
         dialogueNextButton.SetActive(false);
-        dialogueText.text = currentCharacterManager.characterSheet.characterGreeting;
+        dialogueLeaveButton.gameObject.SetActive(true);
+
         characterNameText.text = currentCharacterManager.characterSheet.characterName;
 
-        SpawnTopicButtons(currentCharacterManager.characterSheet.characterDialogueTopics);
+        ReturnToEntryNode();
+
+        SpawnTopicButtons();
     }
 
     public void LoadNextLine()
     {
-        if(currentDialogue != null)
+        if(_currentSentencesNode != null)
         {
-            if(currentDialogueLine >= currentDialogue.dialogueLines.Count -1)
+            if(_currentSentence >= _currentSentencesNode.sentences.Count -1)
             {
-                //Check if dialogue can run once, and then add it to the check list if it is
-                if (currentDialogue.dialogueRunOnce)
-                {
-                    currentCharacterManager.alreadyRunDialogue.Add(currentDialogue);
-                }
+                NextNode();
 
-                //Add state checks to global list
-                foreach(StateCheck stateCheck in currentDialogue.dialogueAddStateCheck)
+                //Checks if the port is topic or not
+                if(_currentDialogueGraph.current is DialogueTopicsNode)
                 {
-                    _playerCharacterManager.stateChecks.Add(stateCheck);
+                    SpawnTopicButtons();
                 }
+                else if(_currentDialogueGraph.current is DialogueStateSetNode)
+                {
+                    foreach (StateCheck stateCheck in (_currentDialogueGraph.current as DialogueStateSetNode).dialogueAddStateCheck)
+                    {
+                        _playerCharacterManager.stateChecks.Add(stateCheck);
+                    }
 
-                //If there is more sub dialogue to follow
-                if(currentDialogue.dialogueSubTopics.Count > 0)
-                {
-                    SpawnTopicButtons(currentDialogue.dialogueSubTopics);
+                    NextNode();
                 }
-                //If not go back to root
                 else
                 {
-                    SpawnTopicButtons(currentCharacterManager.characterSheet.characterDialogueTopics);
+                    ReturnToEntryNode();
+
+                    SpawnTopicButtons();
                     dialogueLeaveButton.gameObject.SetActive(true);
                 }
   
             }
             else
             {
-                currentDialogueLine++;
-                dialogueText.text = currentDialogue.dialogueLines[currentDialogueLine];
+                _currentSentence++;
+                dialogueText.text = _currentSentencesNode.sentences[_currentSentence];
             }
         }
     }
 
-    public void LoadTopic(Dialogue dialogue)
+    public void LoadSentences(DialogueTopicsNode.Topic topic)
     {
-        if (!AbilityCheck(dialogue))
+        //Go the next sentences node
+        if (!AbilityCheck(topic))
         {
             return;
         }
 
+        //Check if dialogue can run once, and then set it true
+        if (topic.topicRunOnce)
+        {
+            _playerCharacterManager.alreadyRunDialogueTopics.Add(topic);
+        }
+
+        NextNodeViaTopic(topic);
         ClearAllTopicButtons();
 
-        currentDialogue = dialogue;
-        currentDialogueLine = 0;
+        _currentSentencesNode = _currentDialogueGraph.current as DialogueSentencesNode;
+        _currentSentence = 0;
 
         dialogueNextButton.SetActive(true);
         dialogueLeaveButton.gameObject.SetActive(false);
-        dialogueText.text = currentDialogue.dialogueLines[currentDialogueLine];
+        dialogueText.text = _currentSentencesNode.sentences[_currentSentence];
     }
 
-    private void SpawnTopicButtons(List<Dialogue> dialogues)
+    private void SpawnTopicButtons()
     {
         dialogueText.text = "";
         dialogueNextButton.SetActive(false);
         ClearAllTopicButtons();
 
-        foreach (Dialogue dialogue in dialogues)
+        foreach (DialogueTopicsNode.Topic topic in (_currentDialogueGraph.current as DialogueTopicsNode).topics)
         {
-            if(!currentCharacterManager.alreadyRunDialogue.Contains(dialogue) && CompareStateChecks(dialogue) && ItemCheck(dialogue))
+            if (!_playerCharacterManager.alreadyRunDialogueTopics.Contains(topic) && CompareStateChecks(topic) && ItemCheck(topic))
             {
                 GameObject topicButton = Instantiate(dialogueTopicButton, dialogueText.transform.parent);
-                topicButton.GetComponentInChildren<TextMeshProUGUI>().text = SetTopicButtonText(dialogue);
-                topicButton.GetComponent<Button>().onClick.AddListener(delegate { LoadTopic(dialogue); });
+                topicButton.GetComponentInChildren<TextMeshProUGUI>().text = SetTopicButtonText(topic);
+                topicButton.GetComponent<Button>().onClick.AddListener(delegate { LoadSentences(topic); });
 
                 topicButtonsToDelete.Add(topicButton);
             }
         }
 
+
         dialogueLeaveButton.transform.SetAsLastSibling();
     }
 
     //Compare dialogue state check requirements vs what is in the global list, returns true is they have it
-    private bool CompareStateChecks(Dialogue dialogue)
+    private bool CompareStateChecks(DialogueTopicsNode.Topic topic)
     {
         //If no checks
-        if(dialogue.dialogueStateChecks.Count == 0)
+        if(topic.topicStateChecks.Count == 0)
         {
             return true;
         }
 
         //If there checks
-        foreach (StateCheck stateCheck in dialogue.dialogueStateChecks)
+        foreach (StateCheck stateCheck in topic.topicStateChecks)
         {
             if (_playerCharacterManager.stateChecks.Contains(stateCheck))
             {
@@ -146,9 +188,9 @@ public class PlayerDialogueController : MonoBehaviour
     }
 
     //Checks required items by items in players inventory
-    private bool ItemCheck(Dialogue dialogue)
+    private bool ItemCheck(DialogueTopicsNode.Topic topic)
     {
-        List<Item> requiredItems = dialogue.dialogueRequiredItems;
+        List<Item> requiredItems = topic.topicRequiredItems;
 
         //If list is empty or null simply pass the check
         if (requiredItems == null || requiredItems.Count == 0)
@@ -170,24 +212,24 @@ public class PlayerDialogueController : MonoBehaviour
         return passCheck;
     }
 
-    private bool AbilityCheck(Dialogue dialogue)
+    private bool AbilityCheck(DialogueTopicsNode.Topic topic)
     {
         //Passes true unless a player doesnt have enough points in any ability
         bool passCheck = true;
 
-        if (dialogue.dialogueAbilityChecks.body != 0 && _playerCharacterManager.characterSheet.abilities.body < dialogue.dialogueAbilityChecks.body)
+        if (topic.topicAbilityChecks.body != 0 && _playerCharacterManager.characterSheet.abilities.body < topic.topicAbilityChecks.body)
         {
             passCheck = false;
         }
-        else if (dialogue.dialogueAbilityChecks.hands != 0 && _playerCharacterManager.characterSheet.abilities.hands < dialogue.dialogueAbilityChecks.hands)
+        else if (topic.topicAbilityChecks.hands != 0 && _playerCharacterManager.characterSheet.abilities.hands < topic.topicAbilityChecks.hands)
         {
             passCheck = false;
         }
-        else if (dialogue.dialogueAbilityChecks.mind != 0 && _playerCharacterManager.characterSheet.abilities.mind < dialogue.dialogueAbilityChecks.mind)
+        else if (topic.topicAbilityChecks.mind != 0 && _playerCharacterManager.characterSheet.abilities.mind < topic.topicAbilityChecks.mind)
         {
             passCheck = false;
         }
-        else if (dialogue.dialogueAbilityChecks.heart != 0 && _playerCharacterManager.characterSheet.abilities.heart < dialogue.dialogueAbilityChecks.heart)
+        else if (topic.topicAbilityChecks.heart != 0 && _playerCharacterManager.characterSheet.abilities.heart < topic.topicAbilityChecks.heart)
         {
             passCheck = false;
         }
@@ -196,25 +238,25 @@ public class PlayerDialogueController : MonoBehaviour
     }
 
     //Used for displaying Ability checks
-    private string SetTopicButtonText(Dialogue dialogue)
+    private string SetTopicButtonText(DialogueTopicsNode.Topic topic)
     {
-        string newTopicText = dialogue.dialogueTopic;
+        string newTopicText = topic.topicTitle;
 
-        if (dialogue.dialogueAbilityChecks.body != 0)
+        if (topic.topicAbilityChecks.body != 0)
         {
-            newTopicText += " [Physique " + dialogue.dialogueAbilityChecks.body.ToString() + "]";
+            newTopicText += " [Body " + topic.topicAbilityChecks.body.ToString() + "]";
         }
-        else if (dialogue.dialogueAbilityChecks.hands != 0)
+        else if (topic.topicAbilityChecks.hands != 0)
         {
-            newTopicText += " [Agility " + dialogue.dialogueAbilityChecks.hands.ToString() + "]";
+            newTopicText += " [Hands " + topic.topicAbilityChecks.hands.ToString() + "]";
         }
-        else if (dialogue.dialogueAbilityChecks.mind != 0)
+        else if (topic.topicAbilityChecks.mind != 0)
         {
-            newTopicText += " [Mental " + dialogue.dialogueAbilityChecks.mind.ToString() + "]";
+            newTopicText += " [Mind " + topic.topicAbilityChecks.mind.ToString() + "]";
         }
-        else if (dialogue.dialogueAbilityChecks.heart != 0)
+        else if (topic.topicAbilityChecks.heart != 0)
         {
-            newTopicText += " [Social " + dialogue.dialogueAbilityChecks.heart.ToString() + "]";
+            newTopicText += " [Heart " + topic.topicAbilityChecks.heart.ToString() + "]";
         }
 
         return newTopicText;
@@ -225,7 +267,7 @@ public class PlayerDialogueController : MonoBehaviour
         //Delete all the buttons
         for (int i = topicButtonsToDelete.Count - 1; i >= 0; i--)
         {
-            Destroy(topicButtonsToDelete[i].gameObject);
+            Destroy(topicButtonsToDelete[i]);
         }
 
         topicButtonsToDelete.Clear();
@@ -261,5 +303,86 @@ public class PlayerDialogueController : MonoBehaviour
     {
         descriptionText.text = "";
         descriptionBox.SetActive(false);
+    }
+
+    private void ReturnToEntryNode()
+    {
+        //For getting the alive or wounded dialogue branches
+        foreach (DialogueBaseNode node in _currentDialogueGraph.nodes)
+        {
+            if (node.GetNodeType() == "entry")
+            {
+                _currentDialogueGraph.current = node;
+                break;
+            }
+        }
+
+        //checks if alive or wounded, then moves to the appropriate topic node
+        if (currentCharacterManager.characterState == CharacterState.alive)
+        {
+            foreach (NodePort port in _currentDialogueGraph.current.Ports)
+            {
+                if (port.fieldName == "exitAlive")
+                {
+                    _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
+                    break;
+                }
+            }
+        }
+        else if (currentCharacterManager.characterState == CharacterState.wounded)
+        {
+            foreach (NodePort port in _currentDialogueGraph.current.Ports)
+            {
+                if (port.fieldName == "exitWounded")
+                {
+                    _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void NextNode()
+    {
+        //Goes to next node
+        foreach (NodePort port in _currentDialogueGraph.current.Ports)
+        {
+            if (port.fieldName == "exit")
+            {
+                if(port.Connection != null)
+                {
+                    _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
+                }
+                else
+                {
+                    _currentDialogueGraph.current = null;
+                }
+                break;
+            }
+        }
+    }
+
+    private void NextNodeViaTopic(DialogueTopicsNode.Topic topic)
+    {
+        int topicNum = 0;
+
+        foreach(DialogueTopicsNode.Topic topicSearch in (_currentDialogueGraph.current as DialogueTopicsNode).topics)
+        {
+            if(topicSearch == topic)
+            {
+                break;
+            }
+            topicNum++;
+        }
+
+        //Goes to next node
+        foreach (NodePort port in _currentDialogueGraph.current.Ports)
+        {
+            if (port.fieldName == "topics "+ topicNum.ToString())
+            {
+                _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
+                break;
+            }
+        }
     }
 }

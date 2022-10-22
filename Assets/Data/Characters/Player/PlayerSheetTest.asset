@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: The Slave
   characterDescription: 
+  characterPronouns: 0
   characterFaction: {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
   characterAggression: 1
   characterInventory:
@@ -27,9 +28,10 @@ MonoBehaviour:
   characterSpells:
   - {fileID: 11400000, guid: ccc133d35b2ac8944a61414a2691e14f, type: 2}
   characterGreeting: 
+  characterWoundedGreeting: 
   characterDialogueTopics: []
   abilities:
-    body: 3
+    body: 5
     hands: 3
     mind: 3
     heart: 3

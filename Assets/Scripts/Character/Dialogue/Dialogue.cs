@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Dialogue")]
+[CreateAssetMenu(menuName = "Dialogue/New Dialogue")]
 public class Dialogue : ScriptableObject
 {
     [TextArea(2, 3)]
     public string dialogueTopic;
     [TextArea(3, 5)]
-    public List<string> dialogueLines = new List<string>();
+    public List<string> dialogueLines = new();
 
     [Header("Behaviour")]
     public bool dialogueRunOnce;
@@ -16,16 +16,16 @@ public class Dialogue : ScriptableObject
 
     [Header("Checks")]
     //Check the global list to see if a check is active
-    public List<StateCheck> dialogueStateChecks = new List<StateCheck>();
+    public List<StateCheck> dialogueStateChecks = new();
     //Check players inventory for specific item
-    public List<Item> dialogueRequiredItems = new List<Item>();
+    public List<Item> dialogueRequiredItems = new();
     //Checks ability
     public Abilities dialogueAbilityChecks;
 
     [Header("Dialogue Outcomes")]
     //Add a check to the global list
-    public List<StateCheck> dialogueAddStateCheck = new List<StateCheck>();
+    public List<StateCheck> dialogueAddStateCheck = new();
 
     [Header("Sub Topics")]
-    public List<Dialogue> dialogueSubTopics = new List<Dialogue>();
+    public List<Dialogue> dialogueSubTopics = new();
 }

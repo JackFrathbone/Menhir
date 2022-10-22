@@ -18,7 +18,7 @@ public class Spell : ScriptableObject
 
     [Header("Spell Effects")]
     [Tooltip("Spell effects")]
-    public List<Effect> spellEffects = new List<Effect>();
+    public List<Effect> spellEffects = new();
     [Tooltip("Items that are required to prepare the spell")]
-    public List<Item> castingCostItems = new List<Item>();
+    public List<Item> castingCostItems = new();
 }

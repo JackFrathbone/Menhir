@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/Weapons/Shield")]
+[CreateAssetMenu(menuName = "Items/Weapons/New Shield Item")]
 public class ShieldItem : Item
 {
     [Header("Shield Data")]

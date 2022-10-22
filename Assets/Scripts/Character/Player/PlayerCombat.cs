@@ -19,6 +19,9 @@ public class PlayerCombat : MonoBehaviour
     private PlayerActiveUI _playerActiveUI;
 
     private float _weaponSpeed;
+    private float _weaponRange;
+
+    private int _holdDefence;
 
     private void Start()
     {
@@ -32,6 +35,7 @@ public class PlayerCombat : MonoBehaviour
         if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
         {
             _weaponSpeed = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponSpeed;
+            _weaponRange = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponRange;
         }
         else if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
         {
@@ -92,6 +96,7 @@ public class PlayerCombat : MonoBehaviour
         {
             _weaponMeleeAnimator.SetBool("isHolding", false);
             _shieldAnimator.SetBool("isHolding", false);
+            SetHoldSpeed(_weaponSpeed/2);
         }
         else if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponRangedItem))
         {
@@ -111,6 +116,28 @@ public class PlayerCombat : MonoBehaviour
 
         //If attacking and then forced to block, reset attack
         _isattacking = false;
+
+        TriggerHoldEnd();
+    }
+
+    public void TriggerHold()
+    {
+        if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
+        {
+            _holdDefence = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponDefence;
+
+            _playerCharacterManager.SetBonusDefence(_holdDefence);
+        }
+    }
+
+    public void TriggerHoldEnd()
+    {
+        if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
+        {
+            _playerCharacterManager.SetBonusDefence(-_holdDefence);
+
+            _holdDefence = 0;
+        }
     }
 
     private void SetHoldSpeed(float f)
@@ -122,13 +149,13 @@ public class PlayerCombat : MonoBehaviour
 
     public void MeleeAttack()
     {
+        TriggerHoldEnd();
+
         //If weapon is melee check the attack here, otherwise the ranged projectile deal with damage on its own
         if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponMeleeItem))
         {
-            RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit, _weaponSpeed))
+            if (Physics.Raycast(ray, out RaycastHit hit, _weaponRange))
             {
                 CalculateAttack(hit.transform.gameObject, hit.point);
             }
@@ -184,11 +211,17 @@ public class PlayerCombat : MonoBehaviour
     {
         if (target.CompareTag("Character"))
         {
+            //check if you hitting the right thing
+            if(target.GetComponent<CharacterManager>() == null)
+            {
+                return;
+            }
+
             //Get the various checks
             int weaponDamage = 0;
             int weaponRolls = 0;
             int weaponAbility = 0;
-            int targetDefence = 0;
+            bool isRangedAttack = false;
 
             if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
             {
@@ -201,16 +234,16 @@ public class PlayerCombat : MonoBehaviour
                 weaponAbility = _playerCharacterManager.characterSheet.abilities.hands;
                 weaponDamage = (_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponDamage + _playerCharacterManager.bonusDamage;
                 weaponRolls = (_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponRollAmount;
+                isRangedAttack = true;
             }
 
             //Randomises the damage
             weaponDamage = StatFormulas.RollDice(weaponDamage, weaponRolls);
 
             //Get targets stats
-            CharacterManager targetCharacterManager = target.gameObject.GetComponentInParent<CharacterManager>();
+            CharacterManager targetCharacterManager = target.GetComponentInParent<CharacterManager>();
             _playerActiveUI.UpdateTargetStatusUI(targetCharacterManager);
-            targetDefence = targetCharacterManager.GetTotalDefence();
-
+            int targetDefence = targetCharacterManager.GetTotalDefence(isRangedAttack);
             int hitDamage = StatFormulas.CalculateHit(weaponDamage, weaponAbility, targetDefence, _playerCharacterManager.hasAdvantage, targetCharacterManager.hasDisadvantage, _playerCharacterManager.CheckSkill_Assassinate(), _playerCharacterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill("Lucky Strike"), _playerCharacterManager.CheckSkill_HonourFighter(), _playerCharacterManager.CheckSkill_Sharpshooter());
 
             //Check if the character is already wounded and if yes make all attacks hit

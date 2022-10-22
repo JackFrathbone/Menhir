@@ -3,6 +3,10 @@ using UnityEngine.AI;
 
 public class CharacterMovementController : MonoBehaviour
 {
+    [Header("References")]
+    //For use when character avoid the player
+    [SerializeField] Transform _backwardsTarget;
+
     private NavMeshAgent _navMeshAgent;
     private Transform _target;
 
@@ -24,7 +28,7 @@ public class CharacterMovementController : MonoBehaviour
 
     private void Update()
     {
-        if(_target == null)
+        if (_target == null)
         {
             _navMeshAgent.SetDestination(_startLocation);
             return;
@@ -45,38 +49,69 @@ public class CharacterMovementController : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _target = target;
+        _navMeshAgent.updateRotation = true;
     }
 
     public void SetTargetDistance(float i)
     {
         _navMeshAgent.stoppingDistance = i;
     }
-    
+
     public void SlowMovement()
     {
-        if(_navMeshAgent.speed == _originalSpeed)
+        if (_navMeshAgent == null)
         {
-            _navMeshAgent.speed = _navMeshAgent.speed / 2;
+            return;
+        }
+
+        if (_navMeshAgent.speed == _originalSpeed)
+        {
+            _navMeshAgent.speed /= 2;
         }
     }
 
     public void NormalMovment()
     {
+        if (_navMeshAgent == null)
+        {
+            return;
+        }
+
         _navMeshAgent.speed = _originalSpeed;
     }
 
     public void StopMovement()
     {
+        if (_navMeshAgent == null)
+        {
+            return;
+        }
+
         _navMeshAgent.isStopped = true;
     }
 
     public void StartMovement()
     {
+        if (_navMeshAgent == null)
+        {
+            return;
+        }
+
         _navMeshAgent.isStopped = false;
     }
 
     public void ReturnToStart()
     {
         _target = null;
+    }
+
+    public void MoveBackwards()
+    {
+        if (NavMesh.SamplePosition(_backwardsTarget.position, out _, 1f, NavMesh.AllAreas))
+        {
+            SetTarget(_backwardsTarget);
+            SetTargetDistance(1f);
+            _navMeshAgent.updateRotation = false;
+        }
     }
 }

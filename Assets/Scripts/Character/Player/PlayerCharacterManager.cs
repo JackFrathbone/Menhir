@@ -17,7 +17,7 @@ public class PlayerCharacterManager : CharacterManager
 
     //The global state checks list, used to see if quests and dialogue has occured
     [HideInInspector]
-    public List<StateCheck> stateChecks = new List<StateCheck>();
+    public List<StateCheck> stateChecks = new();
 
     //References
     private PlayerCombat _PlayerCombat;
@@ -233,6 +233,7 @@ public class PlayerCharacterManager : CharacterManager
         base.AddHealth(i);
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
+        _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
     }
 
     public override void DamageHealth(int i)
@@ -240,6 +241,7 @@ public class PlayerCharacterManager : CharacterManager
         base.DamageHealth(i);
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
+        _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
     }
 
     public override void AddStamina(float i)
@@ -247,6 +249,7 @@ public class PlayerCharacterManager : CharacterManager
         base.AddStamina(i);
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
+        _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
     }
 
     public override void DamageStamina(float i)
@@ -254,6 +257,7 @@ public class PlayerCharacterManager : CharacterManager
         base.DamageStamina(i);
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
+        _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
     }
 
     public override void SetSlowState(bool isSlowed)
@@ -289,5 +293,11 @@ public class PlayerCharacterManager : CharacterManager
     public void SetRangedSprite(Sprite s)
     {
         _playerWeaponRanged.sprite = s;
+    }
+
+    public override void AddSkill(Skill newSkill)
+    {
+        base.AddSkill(newSkill);
+        _PlayerCharacterStatsDisplay.AddSkill(newSkill);
     }
 }

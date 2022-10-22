@@ -17,10 +17,13 @@ public class CharacterAnimationController : MonoBehaviour
         ranged
     }
 
+    [Header("References")]
     private AnimState _animState;
     private EquipType _equipType;
     private bool _hasShield;
     private Animator _characterAnimator;
+
+    private bool _inCombat;
 
     private void Awake()
     {
@@ -57,11 +60,23 @@ public class CharacterAnimationController : MonoBehaviour
     private void CheckState()
     {
         _characterAnimator.SetInteger("animState", (int)_animState);
-        _characterAnimator.SetInteger("equipState", (int)_equipType);
+
+        if (_inCombat)
+        {
+            _characterAnimator.SetInteger("equipState", (int)_equipType);
+            _characterAnimator.SetBool("shieldEquip", _hasShield);
+        }
+        else
+        {
+            _characterAnimator.SetInteger("equipState", (int)0);
+            _characterAnimator.SetBool("shieldEquip", false);
+        }
+        
     }
 
-    public void StartHolding()
+    public void StartHolding(float holdSpeed)
     {
+        _characterAnimator.SetFloat("holdSpeed", holdSpeed);
         _characterAnimator.SetBool("isHolding", true);
     }
 
@@ -85,8 +100,9 @@ public class CharacterAnimationController : MonoBehaviour
         _characterAnimator.SetTrigger("blockAction");
     }
 
-    public void TriggerDodge()
+    public void UpdateCombatState(bool inCombat)
     {
-        //_characterAnimator.SetTrigger("dodgeAction");
+        _inCombat = inCombat;
+        CheckState();
     }
 }

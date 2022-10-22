@@ -18,8 +18,7 @@ public class PlayerSpawnPoint : MonoBehaviour
     private void MovePlayerToPoint()
     {
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        playerObject.transform.position = transform.position;
-        playerObject.transform.rotation = transform.rotation;
+        playerObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
 
         Destroy(gameObject, 1f);
     }

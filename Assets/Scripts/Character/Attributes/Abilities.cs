@@ -9,35 +9,25 @@ public class Abilities
 
     public static string GetAbilityName(string abilityName)
     {
-        switch (abilityName)
+        return abilityName switch
         {
-            case "body":
-                return "Body";
-            case "hands":
-                return "Hands";
-            case "mind":
-                return "Mind";
-            case "heart":
-                return "Heart";
-        }
-
-        return null;
+            "body" => "Body",
+            "hands" => "Hands",
+            "mind" => "Mind",
+            "heart" => "Heart",
+            _ => null,
+        };
     }
 
     public static string GetAbilityDescription(string abilityName)
     {
-        switch (abilityName)
+        return abilityName switch
         {
-            case "body":
-                return "Your brute strength and natural resistance to damage.";
-            case "hands":
-                return "Your speed, finesse and ability to get out of the way of danger.";
-            case "mind":
-                return "How much you know, your magical skills and your problem solving.";
-            case "heart":
-                return "How well you get on with others, how well you manipulate and convince.";
-        }
-
-        return null;
+            "body" => "Your brute strength and natural resistance to damage.",
+            "hands" => "Your speed, finesse and ability to get out of the way of danger.",
+            "mind" => "How much you know, your magical skills and your problem solving.",
+            "heart" => "How well you get on with others, how well you manipulate and convince.",
+            _ => null,
+        };
     }
 }

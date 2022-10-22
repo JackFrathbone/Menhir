@@ -37,8 +37,8 @@ public class PlayerInventory : MonoBehaviour
     //Prefab for dropping items
     [SerializeField] GameObject _itemContainerPrefab;
 
-    private List<GameObject> _buttonsToDelete = new List<GameObject>();
-    private List<GameObject> _buttonsToDeleteSearch = new List<GameObject>();
+    private readonly List<GameObject> _buttonsToDelete = new();
+    private readonly List<GameObject> _buttonsToDeleteSearch = new();
 
     private PlayerInventoryDescription _playerInventoryDescription;
     private PlayerCharacterManager _playerCharacterManager;
@@ -55,20 +55,18 @@ public class PlayerInventory : MonoBehaviour
         //Delete all the buttons
         for (int i = _buttonsToDelete.Count - 1; i >= 0; i--)
         {
-            Destroy(_buttonsToDelete[i].gameObject);
+            Destroy(_buttonsToDelete[i]);
         }
 
         _buttonsToDelete.Clear();
 
-        List<Item> tempInventory = new List<Item>(_playerCharacterManager.currentInventory);
-
-        PlayerInventoryButton button = null;
-
+        List<Item> tempInventory = new(_playerCharacterManager.currentInventory);
         foreach (Item item in tempInventory)
         {
+            PlayerInventoryButton button;
             if (item is WeaponMeleeItem)
             {
-                if(item != _playerCharacterManager.equippedWeapon)
+                if (item != _playerCharacterManager.equippedWeapon)
                 {
                     button = Instantiate(_InventoryButtonPrefab, _weaponParent.transform.parent).GetComponent<PlayerInventoryButton>();
                     button.transform.SetSiblingIndex(_weaponParent.transform.GetSiblingIndex() + 1);
@@ -121,7 +119,7 @@ public class PlayerInventory : MonoBehaviour
                     _buttonsToDelete.Add(button.gameObject);
                 }
             }
-            else if(item is PotionItem)
+            else if (item is PotionItem)
             {
                 button = Instantiate(_InventoryButtonPrefab, _potionParent.transform.parent).GetComponent<PlayerInventoryButton>();
                 button.transform.SetSiblingIndex(_potionParent.transform.GetSiblingIndex() + 1);
@@ -147,18 +145,15 @@ public class PlayerInventory : MonoBehaviour
         //Delete all the buttons
         for (int i = _buttonsToDeleteSearch.Count - 1; i >= 0; i--)
         {
-            Destroy(_buttonsToDeleteSearch[i].gameObject);
+            Destroy(_buttonsToDeleteSearch[i]);
         }
 
         _buttonsToDeleteSearch.Clear();
 
-        List<Item> tempInventory = new List<Item>(itemContainer.inventory);
-
-        PlayerInventoryButton button = null;
-
+        List<Item> tempInventory = new(itemContainer.inventory);
         foreach (Item item in tempInventory)
         {
-            button = Instantiate(_InventoryButtonPrefab, _searchParent.parent).GetComponent<PlayerInventoryButton>();
+            PlayerInventoryButton button = Instantiate(_InventoryButtonPrefab, _searchParent.parent).GetComponent<PlayerInventoryButton>();
             button.transform.SetSiblingIndex(_searchParent.transform.GetSiblingIndex() + 1);
             button.SetItem(item, this, true, itemContainer);
 
@@ -173,7 +168,7 @@ public class PlayerInventory : MonoBehaviour
         //Delete all the buttons
         for (int i = _buttonsToDeleteSearch.Count - 1; i >= 0; i--)
         {
-            Destroy(_buttonsToDeleteSearch[i].gameObject);
+            Destroy(_buttonsToDeleteSearch[i]);
         }
 
         _buttonsToDeleteSearch.Clear();

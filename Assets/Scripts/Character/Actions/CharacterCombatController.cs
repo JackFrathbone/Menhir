@@ -14,6 +14,7 @@ public class CharacterCombatController : MonoBehaviour
     private float _weaponRange;
     private float _weaponSpeed;
     private int _weaponDamage;
+    private int _holdDefence;
 
     private void Awake()
     {
@@ -28,70 +29,62 @@ public class CharacterCombatController : MonoBehaviour
         _combatTarget = target;
         _combatTarget.StartCombat(_NPCCharacterManager);
 
-        StartHold();
+        _animationController.UpdateCombatState(true);
+
+        DecideNextAction();
     }
 
     public void StopCombat()
     {
-        _combatTarget.StopCombat(_NPCCharacterManager);
-        _combatTarget = null;
+        _animationController.UpdateCombatState(false);
 
+        _characterAI.RemoveTarget(_combatTarget);
+        _combatTarget.StopCombat(_NPCCharacterManager);
+
+        _combatTarget = null;
     }
 
-    private void StartHold()
+    public void DecideNextAction()
     {
-        _animationController.StartHolding();
+        //Stop hold bonus
+        _NPCCharacterManager.SetBonusDefence(-_holdDefence);
+        _holdDefence = 0;
+
+        StopAllCoroutines();
+
+   /*     if (_combatTarget != null && (_NPCCharacterManager.characterState != CharacterState.alive || _combatTarget.characterState != CharacterState.alive))
+        {
+            print("ee");
+            StopCombat();
+            return;
+        }*/
+
+        if(_combatTarget == null)
+        {
+            return;
+        }
 
         //Set the distance from the target
-        if (_NPCCharacterManager.equippedWeapon is WeaponMeleeItem)
+        if (_NPCCharacterManager.equippedWeapon is WeaponMeleeItem meleeItem)
         {
-            WeaponMeleeItem meleeItem = (WeaponMeleeItem)_NPCCharacterManager.equippedWeapon;
             _movementController.SetTargetDistance(meleeItem.weaponRange);
             _weaponRange = meleeItem.weaponRange;
             _weaponSpeed = meleeItem.weaponSpeed;
             _weaponDamage = meleeItem.weaponDamage;
         }
-        else if (_NPCCharacterManager.equippedWeapon is WeaponRangedItem)
+        else if (_NPCCharacterManager.equippedWeapon is WeaponRangedItem rangedItem)
         {
-            WeaponRangedItem rangedItem = (WeaponRangedItem)_NPCCharacterManager.equippedWeapon;
             _movementController.SetTargetDistance(15f);
             _weaponRange = 15f;
             _weaponSpeed = rangedItem.weaponSpeed;
             _weaponDamage = rangedItem.weaponDamage;
         }
-        else if (_NPCCharacterManager.equippedWeapon is WeaponFocusItem)
+        else if (_NPCCharacterManager.equippedWeapon is WeaponFocusItem focusItem)
         {
-            WeaponFocusItem focusItem = (WeaponFocusItem)_NPCCharacterManager.equippedWeapon;
             _movementController.SetTargetDistance(15f);
             _weaponRange = 15f;
             _weaponSpeed = focusItem.castingSpeed;
             _weaponDamage = 0;
-        }
-
-        DecideNextAction();
-    }
-
-    private void DecideNextAction()
-    {
-        StopAllCoroutines();
-
-        if (_combatTarget == null)
-        {
-            return;
-        }
-
-        if (_NPCCharacterManager.characterState != CharacterState.alive)
-        {
-            StopCombat();
-            return;
-        }
-
-        if (_combatTarget.characterState != CharacterState.alive)
-        {
-            _characterAI.RemoveTarget(_combatTarget);
-            //_combatTarget = null;
-            //StopHold();
-            return;
         }
 
         //Check if in range
@@ -101,18 +94,46 @@ public class CharacterCombatController : MonoBehaviour
             return;
         }
 
-        int randomAction = Random.Range(0, 2);
-        float randomTime = Random.Range(_weaponSpeed, 3f);
 
-        switch (randomAction)
+        int randomAction = Random.Range(0, 101);
+
+        if (randomAction < 75)
         {
-            case 0:
-                StartCoroutine(BackOff());
-                break;
-            case 1:
-                StartCoroutine(Attack(randomTime));
-                break;
+            StartCoroutine(QuickAttack());
         }
+        else if (randomAction >= 75 && randomAction < 90)
+        {
+            StartCoroutine(HoldAttack());
+        }
+        else if (randomAction >= 90)
+        {
+            StartCoroutine(BackOff());
+        }
+    }
+
+    private IEnumerator QuickAttack()
+    {
+        _animationController.StartHolding(_weaponSpeed / 2);
+        yield return new WaitForSeconds(_weaponSpeed / 2);
+        Attack();
+    }
+
+    private IEnumerator HoldAttack()
+    {
+        _animationController.StartHolding(_weaponSpeed);
+
+        yield return new WaitForSeconds(_weaponSpeed);
+
+        if (_NPCCharacterManager.equippedWeapon is WeaponMeleeItem)
+        {
+            _holdDefence = (_NPCCharacterManager.equippedWeapon as WeaponMeleeItem).weaponDefence;
+
+            _NPCCharacterManager.SetBonusDefence(_holdDefence);
+        }
+
+        float randomWaitTime = Random.Range(0.5f, 3f);
+        yield return new WaitForSeconds(randomWaitTime);
+        Attack();
     }
 
     private bool CheckTargetInRange()
@@ -134,7 +155,7 @@ public class CharacterCombatController : MonoBehaviour
         DecideNextAction();
     }
 
-    private IEnumerator Attack(float waitTime)
+    private void Attack()
     {
         _animationController.TriggerAttack();
 
@@ -164,15 +185,15 @@ public class CharacterCombatController : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(waitTime);
         DecideNextAction();
     }
 
     private IEnumerator BackOff()
     {
-        _movementController.SetTargetDistance(5f);
-        yield return new WaitForSeconds(1f);
+        _movementController.MoveBackwards();
+        yield return new WaitForSeconds(0.5f);
         _movementController.SetTargetDistance(_weaponRange);
+        _movementController.SetTarget(_combatTarget.transform);
         DecideNextAction();
     }
 
@@ -192,7 +213,7 @@ public class CharacterCombatController : MonoBehaviour
             int weaponDamage = 0;
             int weaponRolls = 0;
             int weaponAbility = 0;
-            int targetDefence = 0;
+            bool isRangedAttack = false;
 
             if (_NPCCharacterManager.equippedWeapon is WeaponMeleeItem)
             {
@@ -205,15 +226,15 @@ public class CharacterCombatController : MonoBehaviour
                 weaponAbility = _NPCCharacterManager.characterSheet.abilities.hands;
                 weaponDamage = (_NPCCharacterManager.equippedWeapon as WeaponRangedItem).weaponDamage + _NPCCharacterManager.bonusDamage;
                 weaponRolls = (_NPCCharacterManager.equippedWeapon as WeaponRangedItem).weaponRollAmount;
+                isRangedAttack = true;
             }
 
             //Randomises the damage
             weaponDamage = StatFormulas.RollDice(weaponDamage, weaponRolls);
 
             //Get targets stats
-            CharacterManager targetCharacterManager = target.gameObject.GetComponentInParent<CharacterManager>();
-            targetDefence = targetCharacterManager.GetTotalDefence();
-
+            CharacterManager targetCharacterManager = target.GetComponentInParent<CharacterManager>();
+            int targetDefence = targetCharacterManager.GetTotalDefence(isRangedAttack);
             int hitDamage = StatFormulas.CalculateHit(weaponDamage, weaponAbility, targetDefence, _NPCCharacterManager.hasAdvantage, targetCharacterManager.hasDisadvantage, _NPCCharacterManager.CheckSkill_Assassinate(), _NPCCharacterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill("Lucky Strike"), _NPCCharacterManager.CheckSkill_HonourFighter(), _NPCCharacterManager.CheckSkill_Sharpshooter());
 
             //Check if the character is already wounded and if yes make all attacks hit

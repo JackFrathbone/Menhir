@@ -5,5 +5,5 @@ using UnityEngine;
 public class PotionItem : Item
 {
     [Header("Potion Data")]
-    public List<Effect> potionEffects = new List<Effect>();
+    public List<Effect> potionEffects = new();
 }

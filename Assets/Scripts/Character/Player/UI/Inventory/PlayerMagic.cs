@@ -25,7 +25,7 @@ public class PlayerMagic : MonoBehaviour
     [SerializeField] Image _spellSlot2ActiveUI;
     [SerializeField] Sprite _emptySlotActiveUISprite;
 
-    private List<GameObject> _buttonsToDelete = new List<GameObject>();
+    private readonly List<GameObject> _buttonsToDelete = new();
 
     private PlayerMagicDescription _playerMagicDescription;
     private PlayerCharacterManager _playerCharacterManager;
@@ -51,18 +51,16 @@ public class PlayerMagic : MonoBehaviour
         //Delete all the buttons
         for (int i = _buttonsToDelete.Count - 1; i >= 0; i--)
         {
-            Destroy(_buttonsToDelete[i].gameObject);
+            Destroy(_buttonsToDelete[i]);
         }
 
         _buttonsToDelete.Clear();
 
-        List<Spell> tempSpellList = new List<Spell>(_playerCharacterManager.currentSpells);
-
-        PlayerMagicButton button = null;
+        List<Spell> tempSpellList = new(_playerCharacterManager.currentSpells);
 
         foreach (Spell spell in tempSpellList)
         {
-            button = Instantiate(_spellButtonPrefab, _ritualsParent.transform.parent).GetComponent<PlayerMagicButton>();
+            PlayerMagicButton button = Instantiate(_spellButtonPrefab, _ritualsParent.transform.parent).GetComponent<PlayerMagicButton>();
             button.transform.SetSiblingIndex(_ritualsParent.transform.GetSiblingIndex() + 1);
             button.SetSpell(spell, this);
 

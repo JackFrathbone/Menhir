@@ -20,7 +20,7 @@ MonoBehaviour:
   weaponModelLoaded: {fileID: 21300000, guid: 8b8838ee60680d746987560b01b7f3a2, type: 3}
   weaponModelDrawing: {fileID: 21300000, guid: 6ca6a9904ad3b1d4ab368a0329e6c7a5, type: 3}
   weaponModelFired: {fileID: 21300000, guid: ecbbb43ccc1c36d4ebd4826a145506da, type: 3}
-  projectilePrefab: {fileID: 9115724530422602675, guid: 1e3e3593cce802b4eb5bc9f83f9ce02d, type: 3}
+  projectilePrefab: {fileID: 5075525471246768355, guid: 542ff44a6fb06f5408df57d255d508b9, type: 3}
   weaponRangedType: Bow
   weaponDamage: 6
   weaponRollAmount: 1

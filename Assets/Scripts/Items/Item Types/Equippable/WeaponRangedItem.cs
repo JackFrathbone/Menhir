@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/Weapons/Ranged Weapon")]
+[CreateAssetMenu(menuName = "Items/Weapons/New Ranged Weapon")]
 public class WeaponRangedItem : Item
 {
     [Header("Weapon Data")]

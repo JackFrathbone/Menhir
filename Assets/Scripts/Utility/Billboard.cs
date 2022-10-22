@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
+    [Header("References")]
     private Camera cam;
 
     private void Awake()

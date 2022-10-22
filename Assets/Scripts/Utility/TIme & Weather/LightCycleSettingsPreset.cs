@@ -7,8 +7,13 @@ public class LightCycleSettingsPreset : ScriptableObject
     [Header("Lighting Colour Settings")]
     [Tooltip("The scenes overall ambient colour")]
     public Gradient ambientColour;
-    [Tooltip("The specific colour of the directional light")]
-    public Gradient directionalColour;
+    [Tooltip("The scenes overall ambient colour when it is raining")]
+    public Gradient ambientColourRain;
+
+    [Tooltip("The scenes skybox upper colour")]
+    public Gradient skyboxUpperColour;
+    [Tooltip("The scenes skybox lower colour")]
+    public Gradient skyboxLowerColour;
 
     [Header("Fog Settings")]
     [Tooltip("Sets the colour of the fog and background color")]

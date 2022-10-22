@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Items/Weapons/Magic Focus Weapon")]
+[CreateAssetMenu(menuName = "Items/Weapons/New Magic Focus Weapon")]
 public class WeaponFocusItem : Item
 {
     [Header("Weapon Data")]
@@ -13,7 +13,7 @@ public class WeaponFocusItem : Item
 
     public string effectDescription;
     //list of effects
-    public List<Effect> focusEffects = new List<Effect>();
+    public List<Effect> focusEffects = new();
 
     //How long the windup to attack is, in seconds
     public float castingSpeed;

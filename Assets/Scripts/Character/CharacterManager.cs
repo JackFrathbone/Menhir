@@ -33,21 +33,22 @@ public class CharacterManager : MonoBehaviour
     [ReadOnly] public EquipmentItem equippedShirt;
 
     [Header("Inventory")]
-    [ReadOnly] public List<Item> currentInventory = new List<Item>();
+    [ReadOnly] public List<Item> currentInventory = new();
 
     [Header("Spells")]
-    [ReadOnly] public List<Spell> currentSpells = new List<Spell>();
+    [ReadOnly] public List<Spell> currentSpells = new();
 
     [Header("Skills")]
-    [ReadOnly] public List<Skill> currentSkills = new List<Skill>();
+    [ReadOnly] public List<Skill> currentSkills = new();
 
     [Header("Dialogue")]
-    [HideInInspector] public List<Dialogue> alreadyRunDialogue = new List<Dialogue>();
+    [HideInInspector] public DialogueGraph dialogueGraphInstance;
+    [HideInInspector] public List<DialogueTopicsNode.Topic> alreadyRunDialogueTopics = new();
 
     [Header("Active Effects")]
-    [ReadOnly] public List<Effect> currentEffects = new List<Effect>();
+    [ReadOnly] public List<Effect> currentEffects = new();
     //Used to track effect that have ended and need to be removed
-    [HideInInspector] public List<Effect> endedEffects = new List<Effect>();
+    [HideInInspector] public List<Effect> endedEffects = new();
 
     [Header("Character States")]
 
@@ -57,20 +58,21 @@ public class CharacterManager : MonoBehaviour
     [ReadOnly] public bool hasDisadvantage;
     [ReadOnly] public bool inCombat;
     [ReadOnly] public bool isCrouching;
-    [ReadOnly] public List<CharacterManager> inCombatWith = new List<CharacterManager>();
+    [ReadOnly] public List<CharacterManager> inCombatWith = new();
 
     [Header("Skill Bonuses/Checks")]
     [ReadOnly] public int berzerkerDamageBonus;
     [ReadOnly] public int oneManArmyDefenceBonus;
     [Tooltip("How many eyes are currently on the character")]
-    [ReadOnly] public List<CharacterManager> inDetectionRange = new List<CharacterManager>();
-    [SerializeField] public Effect _disablingShotEffect;
+    [ReadOnly] public List<CharacterManager> inDetectionRange = new();
+    public Effect _disablingShotEffect;
 
     protected virtual void Awake()
     {
         characterSheet = Instantiate(_baseCharacterSheet);
         currentInventory = new List<Item>(characterSheet.characterInventory);
         currentSpells = new List<Spell>(characterSheet.characterSpells);
+        dialogueGraphInstance = characterSheet.characterDialogueGraph;
 
         isHidden = characterSheet.startHidden;
     }
@@ -78,7 +80,7 @@ public class CharacterManager : MonoBehaviour
     protected virtual void Start()
     {
         SetCurrentStatus();
-        InvokeRepeating("RunEffects", 0f, 1f);
+        InvokeRepeating(nameof(RunEffects), 0f, 1f);
 
         foreach (Skill skill in characterSheet.skills)
         {
@@ -132,7 +134,7 @@ public class CharacterManager : MonoBehaviour
     {
     }
 
-    public virtual int GetTotalDefence()
+    public virtual int GetTotalDefence(bool isRangedAttack)
     {
         int weaponDefence = 0;
         int shieldDefence = 0;
@@ -156,7 +158,7 @@ public class CharacterManager : MonoBehaviour
             shieldDefence = equippedShield.shieldDefence;
         }
 
-        return StatFormulas.GetTotalDefence(weaponDefence, armourDefenceTotal, shieldDefence, _baseCharacterSheet.abilities.hands, bonusDefence);
+        return StatFormulas.GetTotalDefence(weaponDefence, armourDefenceTotal, shieldDefence, _baseCharacterSheet.abilities.hands, bonusDefence, isRangedAttack);
     }
 
     public virtual void AddHealth(float i)
@@ -311,7 +313,7 @@ public class CharacterManager : MonoBehaviour
         inCombat = true;
         inCombatWith.Add(combatCharacter);
 
-        if(CheckSkill("One Man Army"))
+        if (CheckSkill("One Man Army"))
         {
             oneManArmyDefenceBonus += 1;
             bonusDefence += 1;
@@ -400,7 +402,7 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void UsePotionItem(PotionItem potionItem)
     {
-        foreach(Effect effect in potionItem.potionEffects)
+        foreach (Effect effect in potionItem.potionEffects)
         {
             effect.AddEffect(this);
         }
@@ -534,15 +536,16 @@ public class CharacterManager : MonoBehaviour
         else
         {
             //Make the targets aware of the player
-            if(inDetectionRange.Count != 0)
+            if (inDetectionRange.Count != 0)
             {
                 List<CharacterManager> currentDetectedCharacter = inDetectionRange;
 
                 foreach (CharacterManager character in currentDetectedCharacter)
                 {
-                    if (character.gameObject.CompareTag("Character"))
+                    CharacterAI aiController;
+                    if (aiController = character.GetComponent<CharacterAI>())
                     {
-                        character.GetComponent<CharacterAI>().DetectTarget(this);
+                        aiController.DetectTarget(this);
                     }
                 }
             }

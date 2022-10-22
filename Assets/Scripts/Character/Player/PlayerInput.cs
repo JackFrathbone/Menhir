@@ -46,19 +46,18 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
-        RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, 2f))
+        if (Physics.Raycast(ray, out RaycastHit hit, 2f))
         {
             _target = hit.collider.gameObject;
 
-            if (hit.collider.tag == "Character")
+            if (hit.collider.CompareTag("Character"))
             {
                 CharacterManager targetChar = hit.collider.GetComponentInParent<CharacterManager>();
 
                 //If alive and friendly// Compares character faction to target faction
-                if ((targetChar.characterState == CharacterState.alive && !Factions.FactionHostilityCheck(_playerCharacterManager.characterSheet.characterFaction, targetChar.characterSheet.characterFaction, targetChar.characterSheet.characterAggression))|| targetChar.characterState == CharacterState.wounded)
+                if ((targetChar.characterState == CharacterState.alive && !Factions.FactionHostilityCheck(_playerCharacterManager.characterSheet.characterFaction, targetChar.characterSheet.characterFaction, targetChar.characterSheet.characterAggression)) || targetChar.characterState == CharacterState.wounded)
                 {
                     //Check here if there is dialogue
                     _playerActiveUI.EnableCrosshairText("Talk to");
@@ -70,15 +69,15 @@ public class PlayerInput : MonoBehaviour
                     _activateMode = ActivateMode.search;
                 }
             }
-            else if (hit.collider.tag == "ItemContainer")
+            else if (hit.collider.CompareTag("ItemContainer"))
             {
                 _playerActiveUI.EnableCrosshairText("Search");
                 _activateMode = ActivateMode.search;
             }
-        else
-        {
-            _playerActiveUI.DisableCrosshairText();
-        }
+            else
+            {
+                _playerActiveUI.DisableCrosshairText();
+            }
         }
         else
         {
@@ -93,33 +92,39 @@ public class PlayerInput : MonoBehaviour
         //For opening pause menu
         if (Input.GetButtonDown("CharacterMenu"))
         {
-            if (!GameManager.instance.isPaused)
+            if (GameManager.instance.CheckCanPause("characterMenu"))
             {
-                GameManager.instance.PauseGame(true);
-                _playerInventory.RefreshInventory();
-                _playerMagic.RefreshSpells();
-                _characterMenu.SetActive(true);
-            }
-            else
-            {
-                GameManager.instance.UnPauseGame(true);
-                _playerInventory.GetComponent<PlayerInventoryDescription>().CloseDescription();
-                _playerInventory.CloseSearchInventory();
-                _characterMenu.SetActive(false);
+                if (!GameManager.instance.isPaused)
+                {
+                    GameManager.instance.PauseGame(true, "characterMenu");
+                    _playerInventory.RefreshInventory();
+                    _playerMagic.RefreshSpells();
+                    _characterMenu.SetActive(true);
+                }
+                else
+                {
+                    GameManager.instance.UnPauseGame(true);
+                    _playerInventory.GetComponent<PlayerInventoryDescription>().CloseDescription();
+                    _playerInventory.CloseSearchInventory();
+                    _characterMenu.SetActive(false);
+                }
             }
         }
 
         if (Input.GetButtonDown("PauseMenu"))
         {
-            if (!GameManager.instance.isPaused)
+            if (GameManager.instance.CheckCanPause("pauseMenu"))
             {
-                GameManager.instance.PauseGame(true);
-                _pauseMenu.SetActive(true);
-            }
-            else
-            {
-                GameManager.instance.UnPauseGame(true);
-                _pauseMenu.SetActive(false);
+                if (!GameManager.instance.isPaused)
+                {
+                    GameManager.instance.PauseGame(true, "pauseMenu");
+                    _pauseMenu.SetActive(true);
+                }
+                else
+                {
+                    GameManager.instance.UnPauseGame(true);
+                    _pauseMenu.SetActive(false);
+                }
             }
         }
 
@@ -164,17 +169,18 @@ public class PlayerInput : MonoBehaviour
                 {
                     case ActivateMode.search:
                         //If container is a dead character
-                        if(_target.tag == "Character")
+
+                            if (_target.CompareTag("Character") && GameManager.instance.CheckCanPause("characterMenu"))
                         {
-                            GameManager.instance.PauseGame(true);
+                            GameManager.instance.PauseGame(true, "characterMenu");
                             _playerInventory.RefreshInventory();
                             _playerMagic.RefreshSpells();
                             _characterMenu.SetActive(true);
                             _playerInventory.OpenSearchInventory(_target.GetComponentInParent<ItemContainer>());
                         }
-                        else if(_target.tag == "ItemContainer")
+                        else if(_target.CompareTag("ItemContainer") && GameManager.instance.CheckCanPause("characterMenu"))
                         {
-                            GameManager.instance.PauseGame(true);
+                            GameManager.instance.PauseGame(true, "characterMenu");
                             _playerInventory.RefreshInventory();
                             _playerMagic.RefreshSpells();
                             _characterMenu.SetActive(true);
@@ -182,14 +188,14 @@ public class PlayerInput : MonoBehaviour
                         }
                         break;
                     case ActivateMode.talk:
-                        if (_target.tag == "Character")
+                        if (_target.CompareTag("Character") && GameManager.instance.CheckCanPause("dialogueMenu"))
                         {
-                            GameManager.instance.PauseGame(true);
+                            GameManager.instance.PauseGame(true, "dialogueMenu");
                             _playerDialogueController.StartDialogue(_target.GetComponentInParent<CharacterManager>());
                         }
                         else
                         {
-                            Debug.Log("not valid character for dialogue");
+                            Debug.Log("not valid character for dialogue or paused");
                             return;
                         }
                         break;

@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         if(_controllerSettings.walkingSpeed != _originalSpeed)
         {
             cantSprint = true;
-            _controllerSettings.walkingSpeed = _controllerSettings.walkingSpeed / 2;
+            _controllerSettings.walkingSpeed /= 2;
         }
     }
 
@@ -116,8 +116,8 @@ public class PlayerController : MonoBehaviour
 
         if (isCrouching)
         {
-            curSpeedX = curSpeedX / 2;
-            curSpeedY = curSpeedY / 2;
+            curSpeedX /= 2;
+            curSpeedY /= 2;
         }
 
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
         {
             _hitNormal = slopeHit.normal;
 
-            if (slopeHit.collider.tag == "Water")
+            if (slopeHit.collider.CompareTag("Water"))
             {
                 _inWater = true;
             }

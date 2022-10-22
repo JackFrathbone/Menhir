@@ -7,11 +7,12 @@ public class ProjectileController : MonoBehaviour
     [Header("Projectile Setting")]
     [SerializeField] float _projectileSpeed;
     [SerializeField] bool _affectedByGravity;
+    [SerializeField] bool _destroyOnImpact;
 
     private Rigidbody _projectileRigidbody;
 
     //Events to attach to the target
-    public List<Effect> effects = new List<Effect>();
+    public List<Effect> effects = new();
 
     //Used to run functions when hit
     [HideInInspector] public UnityEvent hitEvent;
@@ -42,12 +43,26 @@ public class ProjectileController : MonoBehaviour
                 }
             }
 
-            Destroy(gameObject, 1f);
+            if (_destroyOnImpact)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject, 1f);
+            }
         }
         else
         {
-            Destroy(gameObject, 4f);
-            _projectileRigidbody.isKinematic = true;
+            if (_destroyOnImpact)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _projectileRigidbody.isKinematic = true;
+                Destroy(gameObject, 4f);
+            }
         }
     }
 }

@@ -1,23 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Characters/Character Sheet")]
+public enum CharacterPronouns
+{
+    He,
+    She,
+    They
+}
+
+[CreateAssetMenu(menuName = "Characters/New Character Sheet")]
 public class CharacterSheet : ScriptableObject
 {
     [Header("Character Bio")]
     public string characterName;
-    [TextArea(3,5)]
+    [Tooltip("Developer description to keep track"), TextArea(3, 5)]
     public string characterDescription;
+    public CharacterPronouns characterPronouns;
     public Faction characterFaction;
+    [Tooltip("Passive prevents all combat, neutral checks faction relations before deciding on combat, aggresive always starts combat")]
     public Aggression characterAggression;
 
     [Header("Inventory & Spells")]
-    public List<Item> characterInventory = new List<Item>();
-    public List<Spell> characterSpells = new List<Spell>();
+    public List<Item> characterInventory = new();
+    public List<Spell> characterSpells = new();
 
     [Header("Dialogue")]
+    [Tooltip("The generic greeting on starting dialogue")]
     public string characterGreeting;
+    [Tooltip("The generic greeting on starting dialogue while character is wounded")]
+    public string characterWoundedGreeting;
+    [Tooltip("All the dialogue topics this character has")]
     public List<Dialogue> characterDialogueTopics;
+
+    [Tooltip("All the dialogue topics this character has")]
+    public DialogueGraph characterDialogueGraph;
 
     [Header("Ability Scores")]
     public Abilities abilities;
@@ -30,6 +46,7 @@ public class CharacterSheet : ScriptableObject
     public bool startHidden;
 
     [Header("Visuals")]
+    [Tooltip("Will randomly choose character looks")]
     public bool randomiseVisuals;
     public Color characterSkintone;
     public Color characterHairColor;
