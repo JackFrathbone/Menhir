@@ -18,5 +18,6 @@ MonoBehaviour:
   itemWeight: 1
   itemIcon: {fileID: 4365341006538210109, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
   equipmentType: 7
-  equipmentModel: {fileID: 0}
+  equipmentDefence: 0
+  equipmentModel: {fileID: 8412589149891289136, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
   equipmentColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}

@@ -23,6 +23,9 @@ public class PlayerCharacterManager : CharacterManager
     private PlayerCombat _PlayerCombat;
     private PlayerController _playerController;
 
+    //Unique player data
+    private List<Quest> _playerQuests = new();
+
     protected override void Awake()
     {
         base.Awake();
@@ -299,5 +302,56 @@ public class PlayerCharacterManager : CharacterManager
     {
         base.AddSkill(newSkill);
         _PlayerCharacterStatsDisplay.AddSkill(newSkill);
+    }
+
+    public void AddQuest(Quest quest, int entryNumber)
+    {
+        if (!_playerQuests.Contains(quest))
+        {
+            _playerQuests.Add(quest);
+
+            foreach (QuestEntry entry in quest.questEntries)
+            {
+                entry.questEntryActive = false;
+            }
+        }
+
+        foreach (QuestEntry entry in quest.questEntries)
+        {
+            if(entry.questEntryStage == entryNumber)
+            {
+                entry.questEntryActive = true;
+            }
+        }
+    }
+
+    public List<Quest> GetQuestsActive()
+    {
+        List<Quest> activeQuests = new();
+
+        foreach(Quest quest in _playerQuests)
+        {
+            if (!quest.questCompleted)
+            {
+                activeQuests.Add(quest);
+            }
+        }
+
+        return activeQuests;
+    }
+
+    public List<Quest> GetQuestsCompleted()
+    {
+        List<Quest> completedQuests = new();
+
+        foreach (Quest quest in _playerQuests)
+        {
+            if (quest.questCompleted)
+            {
+                completedQuests.Add(quest);
+            }
+        }
+
+        return completedQuests;
     }
 }

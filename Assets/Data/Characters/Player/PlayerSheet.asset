@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 
   characterDescription: 
+  characterPronouns: 0
   characterFaction: {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
   characterAggression: 1
-  characterInventory: []
+  characterInventory:
+  - {fileID: 11400000, guid: 42ac219787fa7e84593c60a5c383a148, type: 2}
   characterSpells: []
   characterGreeting: 
+  characterWoundedGreeting: 
   characterDialogueTopics: []
+  characterDialogueGraph: {fileID: 0}
   abilities:
     body: 3
     hands: 3
@@ -28,7 +32,7 @@ MonoBehaviour:
   skills: []
   startHidden: 0
   randomiseVisuals: 0
-  characterSkintone: {r: 0, g: 0, b: 0, a: 0}
-  characterHairColor: {r: 0, g: 0, b: 0, a: 0}
+  characterSkintone: {r: 0.7764706, g: 0.5254902, b: 0.25882354, a: 1}
+  characterHairColor: {r: 1, g: 1, b: 1, a: 0}
   characterHair: {fileID: 0}
   characterBeard: {fileID: 0}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestCharEnemy
   m_EditorClassIdentifier: 
   characterName: Test Enemy
-  characterDescription: 
+  characterDescription: A short angry man.
   characterPronouns: 0
   characterFaction: {fileID: 11400000, guid: 4f7d5ce489bf4e440972fc5f5cfa5fb9, type: 2}
   characterAggression: 1

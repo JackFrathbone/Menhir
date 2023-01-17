@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff34a5bdd35b2264a8e08cb57033ee24, type: 3}
+  m_Name: TestQuest
+  m_EditorClassIdentifier: 
+  questName: Test Quest
+  questEntries:
+  - questEntryName: Talk
+    questEntryStage: 0
+    questEntryJournalText: The man asked me for the thing
+    questEntryActive: 0
+    questEntryCompleteQuest: 0
+  - questEntryName: Find item
+    questEntryStage: 1
+    questEntryJournalText: I found the thing
+    questEntryActive: 0
+    questEntryCompleteQuest: 0
+  - questEntryName: Return item
+    questEntryStage: 2
+    questEntryJournalText: I gave the man his thing
+    questEntryActive: 0
+    questEntryCompleteQuest: 1
+  questCompleted: 0

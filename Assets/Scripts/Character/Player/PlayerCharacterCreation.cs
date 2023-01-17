@@ -13,6 +13,18 @@ public class PlayerCharacterCreation : MonoBehaviour
     private string _characterName;
     private CharacterPronouns _characterPronouns;
 
+    //Looks tab
+    [SerializeField] List<Sprite> _hairOptions = new();
+    [SerializeField] List<Sprite> _beardOptions = new();
+    [SerializeField] List<Color> _hairColourOptions = new();
+
+    [SerializeField] Image _hairImage;
+    [SerializeField] Image _beardImage;
+
+    private int _onHair = 0;
+    private int _onBeard = 0;
+    private int _onColour = 0;
+
     //Background
     [SerializeField] TextMeshProUGUI _backgroundDescription;
 
@@ -76,7 +88,111 @@ public class PlayerCharacterCreation : MonoBehaviour
             case "they":
                 _characterPronouns = CharacterPronouns.They;
                 break;
-        } 
+        }
+    }
+
+    public void CycleHair(bool cycleUp)
+    {
+        if (cycleUp)
+        {
+            _onHair++;
+
+            if (_onHair > _hairOptions.Count - 1)
+            {
+                _onHair = 0;
+            }
+        }
+        else
+        {
+            _onHair--;
+
+            if (_onHair < 0)
+            {
+                _onHair = _hairOptions.Count - 1;
+            }
+        }
+
+        if (_hairOptions[_onHair] != null)
+        {
+            _hairImage.sprite = _hairOptions[_onHair];
+            _hairImage.color = _hairColourOptions[_onColour];
+        }
+        else
+        {
+            _hairImage.color = Color.clear;
+        }
+    }
+
+    public void CycleBeard(bool cycleUp)
+    {
+        if (cycleUp)
+        {
+            _onBeard++;
+
+            if (_onBeard > _beardOptions.Count - 1)
+            {
+                _onBeard = 0;
+            }
+        }
+        else
+        {
+            _onBeard--;
+
+            if (_onBeard < 0)
+            {
+                _onBeard = _beardOptions.Count - 1;
+            }
+        }
+
+        if (_hairOptions[_onBeard] != null)
+        {
+            _beardImage.sprite = _beardOptions[_onBeard];
+            _beardImage.color = _hairColourOptions[_onColour];
+        }
+        else
+        {
+            _beardImage.color = Color.clear;
+        }
+    }
+
+    public void CycleColour(bool cycleUp)
+    {
+        if (cycleUp)
+        {
+            _onColour++;
+
+            if (_onColour > _hairColourOptions.Count - 1)
+            {
+                _onColour = 0;
+            }
+        }
+        else
+        {
+            _onColour--;
+
+            if (_onColour < 0)
+            {
+                _onColour = _hairColourOptions.Count - 1;
+            }
+        }
+
+        if (_hairOptions[_onHair] != null)
+        {
+            _hairImage.color = _hairColourOptions[_onColour];
+        }
+        else
+        {
+            _hairImage.color = Color.clear;
+        }
+
+        if (_hairOptions[_onBeard] != null)
+        {
+            _beardImage.color = _hairColourOptions[_onColour];
+        }
+        else
+        {
+            _beardImage.color = Color.clear;
+        }
     }
 
     public void GetBackgroundDescription(string backgroundName)
@@ -158,7 +274,7 @@ public class PlayerCharacterCreation : MonoBehaviour
 
     public void SetSkill(int slot)
     {
-        if(_selectedSkill == null)
+        if (_selectedSkill == null)
         {
             return;
         }
@@ -299,7 +415,7 @@ public class PlayerCharacterCreation : MonoBehaviour
 
     public void CheckCreationComplete()
     {
-        if (_characterName != "" &&  _abilityPointsLeft == 0 && _setSkill1 != null && _setSkill2 != null && _selectedBackground != "")
+        if (_characterName != "" && _abilityPointsLeft == 0 && _setSkill1 != null && _setSkill2 != null && _selectedBackground != "")
         {
             _finishButton.SetActive(true);
             _finishIncompleteText.SetActive(false);
@@ -316,6 +432,11 @@ public class PlayerCharacterCreation : MonoBehaviour
         //Bio
         _playerCharacterSheet.characterName = _characterName;
         _playerCharacterSheet.characterPronouns = _characterPronouns;
+
+        //Looks
+        _playerCharacterSheet.characterHairColor = _hairColourOptions[_onColour];
+        _playerCharacterSheet.characterHair = _hairOptions[_onHair];
+        _playerCharacterSheet.characterBeard = _beardOptions[_onBeard];
 
         //background
         _playerCharacterSheet.characterInventory.Clear();

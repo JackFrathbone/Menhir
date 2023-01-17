@@ -102,6 +102,12 @@ public class PlayerDialogueController : MonoBehaviour
 
                     NextNode();
                 }
+                else if (_currentDialogueGraph.current is DialogueQuestNode)
+                {
+                    _playerCharacterManager.AddQuest((_currentDialogueGraph.current as DialogueQuestNode).questToAdd, (_currentDialogueGraph.current as DialogueQuestNode).questEntry);
+
+                    NextNode();
+                }
                 else
                 {
                     ReturnToEntryNode();
