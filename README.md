@@ -13,3 +13,5 @@ This game is part longterm side project, and part continuous portfolio piece. It
 - Quest and dynamic NPC states and reactions
 - Tabletop RPG inspired combat system based on attributes and rolls
 - Character creation with background options and a variety of skills/feats
+
+I cover the features more indepth on my twitter https://twitter.com/ExLudos_Jack/status/1615673357004832769?t=FfUIwrpS32qESrmLMHp7cQ&s=19
