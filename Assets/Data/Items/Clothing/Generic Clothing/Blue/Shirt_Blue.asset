@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1b21fdad12a1b040a5a3357d9c08265, type: 3}
-  m_Name: Shirt_Linen_Gray_Basic
+  m_Name: Shirt_Blue
   m_EditorClassIdentifier: 
-  itemName: Linen Shirt
-  itemDescription: 
-  itemValue: 10
-  itemWeight: 1
+  itemName: Blue Linen Shirt
+  itemDescription: A blue linen shirt with no decorations.
+  itemValue: 5
+  itemWeight: 0.5
   itemIcon: {fileID: 4365341006538210109, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
   equipmentType: 7
   equipmentDefence: 0
   equipmentModel: {fileID: 8412589149891289136, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
-  equipmentColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+  equipmentColor: {r: 0.63529414, g: 0.8235294, b: 1, a: 1}

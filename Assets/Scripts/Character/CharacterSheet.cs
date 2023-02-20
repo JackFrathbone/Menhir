@@ -29,8 +29,6 @@ public class CharacterSheet : ScriptableObject
     public string characterGreeting;
     [Tooltip("The generic greeting on starting dialogue while character is wounded")]
     public string characterWoundedGreeting;
-    [Tooltip("All the dialogue topics this character has")]
-    public List<Dialogue> characterDialogueTopics;
 
     [Tooltip("All the dialogue topics this character has")]
     public DialogueGraph characterDialogueGraph;
@@ -48,8 +46,8 @@ public class CharacterSheet : ScriptableObject
     [Header("Visuals")]
     [Tooltip("Will randomly choose character looks")]
     public bool randomiseVisuals;
-    public Color characterSkintone;
-    public Color characterHairColor;
+    public Color characterSkintone = Color.white;
+    public Color characterHairColor = Color.black;
     public Sprite characterHair;
     public Sprite characterBeard;
 }

@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Locations/Tutorial.unity
     guid: 8c550f839a3eb7348a3a3a7b71f98c41
   - enabled: 1
+    path: Assets/Scenes/Locations/Tutorial_Cave.unity
+    guid: b5b3536dbe6b9af4b9b67c155a8beacb
+  - enabled: 1
     path: Assets/Scenes/Locations/Introduction.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

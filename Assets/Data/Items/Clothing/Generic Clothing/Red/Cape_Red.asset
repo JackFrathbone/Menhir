@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1b21fdad12a1b040a5a3357d9c08265, type: 3}
-  m_Name: Cape_Linen_Green_Basic
+  m_Name: Cape_Red
   m_EditorClassIdentifier: 
-  itemName: Linen Cape
-  itemDescription: 
-  itemValue: 10
+  itemName: Red Wool Cape
+  itemDescription: A red woolen cape held together with a brooch. This cape is well
+    made but simple with no decorations.
+  itemValue: 8
   itemWeight: 1
   itemIcon: {fileID: 6747789527102655765, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
   equipmentType: 1
-  equipmentModel: {fileID: 21300000, guid: 50dfa8553fb11824fb08c770954fd4be, type: 3}
-  equipmentColor: {r: 0.019357419, g: 0.2735849, b: 0.0574075, a: 1}
+  equipmentDefence: 0
+  equipmentModel: {fileID: 21300000, guid: feaa377617166a049b12f0aca6b154c6, type: 3}
+  equipmentColor: {r: 1, g: 0.3019608, b: 0.42745098, a: 1}

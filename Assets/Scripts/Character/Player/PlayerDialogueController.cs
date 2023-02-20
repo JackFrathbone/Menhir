@@ -42,26 +42,45 @@ public class PlayerDialogueController : MonoBehaviour
     public void StartDialogue(CharacterManager characterManager)
     {
         currentCharacterManager = characterManager;
+
+        characterNameText.text = currentCharacterManager.characterSheet.characterName;
+
         _currentDialogueGraph = characterManager.dialogueGraphInstance;
 
         descriptionBox.SetActive(false);
 
         dialogueUI.SetActive(true);
 
-        dialogueNextButton.SetActive(true);
-        dialogueLeaveButton.gameObject.SetActive(false);
-
-        if (currentCharacterManager.characterState == CharacterState.alive)
+        if (_currentDialogueGraph != null)
         {
-            dialogueText.text = currentCharacterManager.characterSheet.characterGreeting;
+            dialogueNextButton.SetActive(true);
+            dialogueLeaveButton.gameObject.SetActive(false);
+
+            if (currentCharacterManager.characterState == CharacterState.alive)
+            {
+                dialogueText.text = currentCharacterManager.characterSheet.characterGreeting;
+            }
+            else if (currentCharacterManager.characterState == CharacterState.wounded)
+            {
+                dialogueText.text = currentCharacterManager.characterSheet.characterWoundedGreeting;
+            }
+
+            dialogueNextButton.GetComponent<Button>().onClick.AddListener(delegate { LoadBaseTopics(); });
         }
-        else if (currentCharacterManager.characterState == CharacterState.wounded)
+        else
         {
-            dialogueText.text = currentCharacterManager.characterSheet.characterWoundedGreeting;
+            dialogueNextButton.SetActive(false);
+            dialogueLeaveButton.gameObject.SetActive(true);
+
+            if (currentCharacterManager.characterState == CharacterState.alive)
+            {
+                dialogueText.text = currentCharacterManager.characterSheet.characterGreeting;
+            }
+            else if (currentCharacterManager.characterState == CharacterState.wounded)
+            {
+                dialogueText.text = currentCharacterManager.characterSheet.characterWoundedGreeting;
+            }
         }
-
-        dialogueNextButton.GetComponent<Button>().onClick.AddListener(delegate { LoadBaseTopics(); });
-
     }
 
     private void LoadBaseTopics()
@@ -72,8 +91,6 @@ public class PlayerDialogueController : MonoBehaviour
 
         dialogueNextButton.SetActive(false);
         dialogueLeaveButton.gameObject.SetActive(true);
-
-        characterNameText.text = currentCharacterManager.characterSheet.characterName;
 
         ReturnToEntryNode();
 

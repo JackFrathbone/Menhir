@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerCharacterManager _playerCharacterManager;
 
     private GameObject _target;
-    private enum ActivateMode{disable, search, talk};
+    private enum ActivateMode{disable, search, talk, door};
     private ActivateMode _activateMode;
 
     private void Awake()
@@ -73,6 +73,11 @@ public class PlayerInput : MonoBehaviour
             {
                 _playerActiveUI.EnableCrosshairText("Search");
                 _activateMode = ActivateMode.search;
+            }
+            else if (hit.collider.CompareTag("Door"))
+            {
+                _playerActiveUI.EnableCrosshairText("Use Door");
+                _activateMode = ActivateMode.door;
             }
             else
             {
@@ -198,6 +203,9 @@ public class PlayerInput : MonoBehaviour
                             Debug.Log("not valid character for dialogue or paused");
                             return;
                         }
+                        break;
+                    case ActivateMode.door:
+                        _target.GetComponent<LoadingDoor>().ActivateLoadingDoor();
                         break;
                 }
             }

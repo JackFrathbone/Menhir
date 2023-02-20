@@ -8,6 +8,8 @@ TagManager:
   - ItemContainer
   - Water
   - Weather
+  - Door
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

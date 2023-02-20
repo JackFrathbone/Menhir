@@ -46,6 +46,12 @@ public class WeatherController : MonoBehaviour
     {
         TimeController.onLightingUpdate -= UpdateLighting;
         TimeController.onWeatherUpdate -= GetRandomWeather;
+        RenderSettings.ambientLight = _settingsPreset.interiorAmbientColour;
+    }
+
+    private void OnDestroy()
+    {
+        RenderSettings.ambientLight = _settingsPreset.interiorAmbientColour;
     }
 
     private void UpdateLighting(float timePercent)

@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1b21fdad12a1b040a5a3357d9c08265, type: 3}
-  m_Name: Pants_Linen_Gray_Basic
+  m_Name: Cloak_Red
   m_EditorClassIdentifier: 
-  itemName: Linen Pants
-  itemDescription: 
+  itemName: Red Wool Cloak
+  itemDescription: A red woolen cloak held together with a brooch. This cloak is
+    well made but simple with no decorations.
   itemValue: 10
   itemWeight: 1
-  itemIcon: {fileID: -1437952437997359938, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  equipmentType: 6
+  itemIcon: {fileID: 6747789527102655765, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
+  equipmentType: 1
   equipmentDefence: 0
-  equipmentModel: {fileID: 8155511697211570279, guid: 09c6df8f4a1beb4409a492b448727369, type: 3}
-  equipmentColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
+  equipmentModel: {fileID: 21300000, guid: 50dfa8553fb11824fb08c770954fd4be, type: 3}
+  equipmentColor: {r: 1, g: 0.3019608, b: 0.42745098, a: 1}

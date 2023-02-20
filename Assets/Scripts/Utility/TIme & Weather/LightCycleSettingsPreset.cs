@@ -9,6 +9,8 @@ public class LightCycleSettingsPreset : ScriptableObject
     public Gradient ambientColour;
     [Tooltip("The scenes overall ambient colour when it is raining")]
     public Gradient ambientColourRain;
+    [Tooltip("The default ambient colour when weather is disabled")]
+    public Color interiorAmbientColour;
 
     [Tooltip("The scenes skybox upper colour")]
     public Gradient skyboxUpperColour;

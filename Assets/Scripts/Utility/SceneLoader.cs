@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,11 +16,13 @@ public class SceneLoader : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     private void Start()
@@ -85,12 +88,17 @@ public class SceneLoader : MonoBehaviour
         CheckSceneOutdoors();
     }
 
+    private void OnSceneUnloaded(Scene scene)
+    {
+        CheckSceneOutdoors();
+    }
+
     public void QuitGame()
     {
         Application.Quit();
     }
 
-    private static void CheckSceneOutdoors()
+    private void CheckSceneOutdoors()
     {
         if (FindObjectOfType<Terrain>() != null)
         {
