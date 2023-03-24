@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{af595197-fe96-4afe-bf5f-b00f6f1b28fd}">
+		<property name="assetPath">
+			<value>Ambience/light-rain-ambient-114354.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>540.08163265306121</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1005ca91-d421-49db-8754-34e2d5b9aa13}</destination>
+		</relationship>
+	</object>
+</objects>

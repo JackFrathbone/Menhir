@@ -219,6 +219,8 @@ public class PlayerInventory : MonoBehaviour
         ItemContainer itemContainer = Instantiate(_itemContainerPrefab, _playerCharacterManager.GetComponentInChildren<CharacterController>().transform.position ,Quaternion.identity).GetComponent<ItemContainer>();
         itemContainer.inventory.Add(i);
 
+        SceneLoader.MoveObjectToScene(itemContainer.gameObject);
+
         RefreshInventory();
     }
 

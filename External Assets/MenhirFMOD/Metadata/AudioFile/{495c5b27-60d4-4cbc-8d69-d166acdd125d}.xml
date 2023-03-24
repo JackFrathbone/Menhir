@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{495c5b27-60d4-4cbc-8d69-d166acdd125d}">
+		<property name="assetPath">
+			<value>SFX/Combat/sword-sound-2-36274.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.79200000000000004</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1005ca91-d421-49db-8754-34e2d5b9aa13}</destination>
+		</relationship>
+	</object>
+</objects>

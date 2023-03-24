@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{de3c06b7-fcbb-4ad3-b65b-88d076197799}">
+		<property name="assetPath">
+			<value>SFX/Combat/arrow-impact-87260.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.64800000000000002</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1005ca91-d421-49db-8754-34e2d5b9aa13}</destination>
+		</relationship>
+	</object>
+</objects>

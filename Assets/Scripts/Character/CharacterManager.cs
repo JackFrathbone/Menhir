@@ -106,9 +106,14 @@ public class CharacterManager : MonoBehaviour
         }
         else
         {
-            staminaCurrent += StatFormulas.StaminaRegenRate(characterSheet.abilities.hands) * Time.deltaTime;
+            AddStamina(StatFormulas.StaminaRegenRate(characterSheet.abilities.hands) * Time.deltaTime);
             return;
         }
+    }
+
+    public virtual void SetCharacterState()
+    {
+
     }
 
     protected virtual void SetCurrentStatus()
@@ -171,7 +176,6 @@ public class CharacterManager : MonoBehaviour
             {
                 healthCurrent = healthTotal;
             }
-
         }
     }
 
@@ -542,8 +546,14 @@ public class CharacterManager : MonoBehaviour
 
                 foreach (CharacterManager character in currentDetectedCharacter)
                 {
-                    CharacterAI aiController;
-                    if (aiController = character.GetComponent<CharacterAI>())
+                    if(character == null)
+                    {
+                        break;
+                    }
+
+                    CharacterAI aiController = character.GetComponent<CharacterAI>();
+
+                    if (aiController != null)
                     {
                         aiController.DetectTarget(this);
                     }

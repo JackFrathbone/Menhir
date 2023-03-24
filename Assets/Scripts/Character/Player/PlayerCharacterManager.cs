@@ -8,23 +8,21 @@ public class PlayerCharacterManager : CharacterManager
     [SerializeField] SpriteRenderer _playerShield;
 
     //Player specific options
-    [HideInInspector]
-    public bool weaponOut = false;
+    [ReadOnly] public bool weaponOut = false;
 
     //Update player UI
     private PlayerActiveUI _playerActiveUI;
     private PlayerCharacterStatsDisplay _PlayerCharacterStatsDisplay;
 
     //The global state checks list, used to see if quests and dialogue has occured
-    [HideInInspector]
-    public List<StateCheck> stateChecks = new();
+    [ReadOnly] public List<StateCheck> stateChecks = new();
 
     //References
     private PlayerCombat _PlayerCombat;
     private PlayerController _playerController;
 
     //Unique player data
-    private List<Quest> _playerQuests = new();
+    [ReadOnly] public List<Quest> _playerQuests = new();
 
     protected override void Awake()
     {
@@ -304,7 +302,7 @@ public class PlayerCharacterManager : CharacterManager
         _PlayerCharacterStatsDisplay.AddSkill(newSkill);
     }
 
-    public void AddQuest(Quest quest, int entryNumber)
+    public void AddQuest(Quest quest, List<int> entryNumbers)
     {
         if (!_playerQuests.Contains(quest))
         {
@@ -318,9 +316,12 @@ public class PlayerCharacterManager : CharacterManager
 
         foreach (QuestEntry entry in quest.questEntries)
         {
-            if(entry.questEntryStage == entryNumber)
+            foreach(int entryNumber in entryNumbers)
             {
-                entry.questEntryActive = true;
+                if (entry.questEntryStage == entryNumber)
+                {
+                    entry.questEntryActive = true;
+                }
             }
         }
     }

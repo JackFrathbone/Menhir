@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerMagic : MonoBehaviour
 {
+    [Header("Settings")]
+    //For spell slot 1 or 2
+    private int _selectedSpell;
+
     [Header("References")]
     //Text headings that the spells spawn under
     [SerializeField] GameObject _ritualsParent;
@@ -39,11 +43,18 @@ public class PlayerMagic : MonoBehaviour
     private Spell _freeSpell1;
     private Spell _freeSpell2;
 
+    private bool _canCast = true;
+
+    //The time it takes to be able to cast a spell again
+    [SerializeField] float _castTimeDefault;
+
     private void Start()
     {
         _playerMagicDescription = GetComponent<PlayerMagicDescription>();
 
         _playerCharacterManager = GameManager.instance.playerObject.GetComponent<PlayerCharacterManager>();
+
+        SetSelectedSpell(1);
     }
 
     public void RefreshSpells()
@@ -237,6 +248,11 @@ public class PlayerMagic : MonoBehaviour
     //Spell slot 1 or 2
     public void CastSpell(int spellSlot)
     {
+        if (!_canCast)
+        {
+            return;
+        }
+
         Spell spell = null;
 
         if(spellSlot == 1)
@@ -272,11 +288,11 @@ public class PlayerMagic : MonoBehaviour
                 }
             }
 
-            if (_preparedSpell1 == spell)
+            if (_preparedSpell1 == spell && _preparedSpell1 != _freeSpell1 && _preparedSpell1 != _freeSpell2)
             {
                 _preparedSpell1 = null;
             }
-            else if (_preparedSpell2 == spell)
+            else if (_preparedSpell2 == spell && _preparedSpell2 != _freeSpell1 && _preparedSpell1 != _freeSpell2)
             {
                 _preparedSpell2 = null;
             }
@@ -285,7 +301,11 @@ public class PlayerMagic : MonoBehaviour
         {
             return;
         }
+
         RefreshPreparedSpells();
+
+        _canCast = false;
+        StartCoroutine(WaitToCastAgain());
     }
 
     public bool CheckWarlockSkill()
@@ -298,5 +318,37 @@ public class PlayerMagic : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void SetSelectedSpell(int i)
+    {
+        _selectedSpell = i;
+
+        if(i == 1 && _preparedSpell1 != null)
+        {
+            _spellSlot1ActiveUI.color = Color.green;
+            _spellSlot2ActiveUI.color = Color.white;
+        }
+        else if(i == 2 && _preparedSpell2 != null)
+        {
+            _spellSlot1ActiveUI.color = Color.white;
+            _spellSlot2ActiveUI.color = Color.green;
+        }
+        else
+        {
+            _spellSlot1ActiveUI.color = Color.white;
+            _spellSlot2ActiveUI.color = Color.white;
+        }
+    }
+
+    public int GetSelectedSpell()
+    {
+        return _selectedSpell;
+    }
+
+    IEnumerator WaitToCastAgain()
+    {
+        yield return new WaitForSeconds(_castTimeDefault);
+        _canCast = true;
     }
 }

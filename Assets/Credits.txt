@@ -1,1 +1,2 @@
 W95A font by FontArena licensed under OFL
+Blit Renderer Feature by Cyanilux licensed under MIT License

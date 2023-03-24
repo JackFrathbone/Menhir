@@ -41,14 +41,13 @@ public class PlayerDialogueController : MonoBehaviour
 
     public void StartDialogue(CharacterManager characterManager)
     {
+        //Gets the player data needed
         currentCharacterManager = characterManager;
-
         characterNameText.text = currentCharacterManager.characterSheet.characterName;
-
         _currentDialogueGraph = characterManager.dialogueGraphInstance;
 
+        //Set the UI states
         descriptionBox.SetActive(false);
-
         dialogueUI.SetActive(true);
 
         if (_currentDialogueGraph != null)
@@ -56,13 +55,14 @@ public class PlayerDialogueController : MonoBehaviour
             dialogueNextButton.SetActive(true);
             dialogueLeaveButton.gameObject.SetActive(false);
 
+            //Sets the default greeting based on target state
             if (currentCharacterManager.characterState == CharacterState.alive)
             {
-                dialogueText.text = currentCharacterManager.characterSheet.characterGreeting;
+                dialogueText.text = ReplaceText(currentCharacterManager.characterSheet.characterGreeting);
             }
             else if (currentCharacterManager.characterState == CharacterState.wounded)
             {
-                dialogueText.text = currentCharacterManager.characterSheet.characterWoundedGreeting;
+                dialogueText.text = ReplaceText(currentCharacterManager.characterSheet.characterWoundedGreeting);
             }
 
             dialogueNextButton.GetComponent<Button>().onClick.AddListener(delegate { LoadBaseTopics(); });
@@ -74,11 +74,11 @@ public class PlayerDialogueController : MonoBehaviour
 
             if (currentCharacterManager.characterState == CharacterState.alive)
             {
-                dialogueText.text = currentCharacterManager.characterSheet.characterGreeting;
+                dialogueText.text = ReplaceText(currentCharacterManager.characterSheet.characterGreeting);
             }
             else if (currentCharacterManager.characterState == CharacterState.wounded)
             {
-                dialogueText.text = currentCharacterManager.characterSheet.characterWoundedGreeting;
+                dialogueText.text = ReplaceText(currentCharacterManager.characterSheet.characterWoundedGreeting);
             }
         }
     }
@@ -101,43 +101,16 @@ public class PlayerDialogueController : MonoBehaviour
     {
         if(_currentSentencesNode != null)
         {
+            //If there is no next sentence to load
             if(_currentSentence >= _currentSentencesNode.sentences.Count -1)
             {
+                //Move to the next node
                 NextNode();
-
-                //Checks if the port is topic or not
-                if(_currentDialogueGraph.current is DialogueTopicsNode)
-                {
-                    SpawnTopicButtons();
-                }
-                else if(_currentDialogueGraph.current is DialogueStateSetNode)
-                {
-                    foreach (StateCheck stateCheck in (_currentDialogueGraph.current as DialogueStateSetNode).dialogueAddStateCheck)
-                    {
-                        _playerCharacterManager.stateChecks.Add(stateCheck);
-                    }
-
-                    NextNode();
-                }
-                else if (_currentDialogueGraph.current is DialogueQuestNode)
-                {
-                    _playerCharacterManager.AddQuest((_currentDialogueGraph.current as DialogueQuestNode).questToAdd, (_currentDialogueGraph.current as DialogueQuestNode).questEntry);
-
-                    NextNode();
-                }
-                else
-                {
-                    ReturnToEntryNode();
-
-                    SpawnTopicButtons();
-                    dialogueLeaveButton.gameObject.SetActive(true);
-                }
-  
             }
             else
             {
                 _currentSentence++;
-                dialogueText.text = _currentSentencesNode.sentences[_currentSentence];
+                dialogueText.text = ReplaceText(_currentSentencesNode.sentences[_currentSentence]);
             }
         }
     }
@@ -164,7 +137,7 @@ public class PlayerDialogueController : MonoBehaviour
 
         dialogueNextButton.SetActive(true);
         dialogueLeaveButton.gameObject.SetActive(false);
-        dialogueText.text = _currentSentencesNode.sentences[_currentSentence];
+        dialogueText.text = ReplaceText(_currentSentencesNode.sentences[_currentSentence]);
     }
 
     private void SpawnTopicButtons()
@@ -383,6 +356,39 @@ public class PlayerDialogueController : MonoBehaviour
                 break;
             }
         }
+
+        //Check the loaded node//
+
+        //Checks if the port is topic or not
+        if (_currentDialogueGraph.current is DialogueTopicsNode)
+        {
+            SpawnTopicButtons();
+        }
+        //If the node is a state set node
+        else if (_currentDialogueGraph.current is DialogueStateSetNode)
+        {
+            //Go through each statecheck in the node and add to the player
+            foreach (StateCheck stateCheck in (_currentDialogueGraph.current as DialogueStateSetNode).dialogueAddStateCheck)
+            {
+                _playerCharacterManager.stateChecks.Add(stateCheck);
+            }
+
+            NextNode();
+        }
+        //If it is a quest node
+        else if (_currentDialogueGraph.current is DialogueQuestNode)
+        {
+            _playerCharacterManager.AddQuest((_currentDialogueGraph.current as DialogueQuestNode).questToAdd, (_currentDialogueGraph.current as DialogueQuestNode).questEntries);
+            NextNode();
+        }
+        //If not the above return to the entry node
+        else
+        {
+            ReturnToEntryNode();
+
+            SpawnTopicButtons();
+            dialogueLeaveButton.gameObject.SetActive(true);
+        }
     }
 
     private void NextNodeViaTopic(DialogueTopicsNode.Topic topic)
@@ -407,5 +413,13 @@ public class PlayerDialogueController : MonoBehaviour
                 break;
             }
         }
+    }
+
+    //This takes in a string and replaces all relevant cases with the players data such as name and pronouns
+    private string ReplaceText(string s)
+    {
+       string newS = s.Replace("%pcName", _playerCharacterManager.characterSheet.characterName);
+
+        return newS;
     }
 }

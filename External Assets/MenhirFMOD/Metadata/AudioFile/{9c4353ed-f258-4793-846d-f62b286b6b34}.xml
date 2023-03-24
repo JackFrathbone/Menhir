@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{9c4353ed-f258-4793-846d-f62b286b6b34}">
+		<property name="assetPath">
+			<value>Soundtrack/Dungeon 04.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>178.04469387755103</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1005ca91-d421-49db-8754-34e2d5b9aa13}</destination>
+		</relationship>
+	</object>
+</objects>

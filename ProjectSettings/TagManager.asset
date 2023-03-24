@@ -10,6 +10,8 @@ TagManager:
   - Weather
   - Door
   - SpawnPoint
+  - CharactersParent
+  - InteractablesParent
   layers:
   - Default
   - TransparentFX

@@ -1,4 +1,5 @@
 using UnityEngine;
+using FMOD.Studio;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,12 +9,15 @@ public class PlayerController : MonoBehaviour
     public bool cantMove;
     public bool isCrouching;
 
+    [Header("References")]
     [SerializeField] PlayerControllerSettings _controllerSettings;
 
     private CharacterController _characterController;
     private Camera _playerCamera;
     private Vector3 _moveDirection;
     private float _rotationX;
+
+    private bool isRunning = false;
 
     //For slopes
     private Vector3 _hitNormal;
@@ -23,6 +27,10 @@ public class PlayerController : MonoBehaviour
     private float _originalSpeed;
 
     private PlayerCharacterManager _playerCharacterManager;
+
+    //For audio
+    private EventInstance _playerFootstep;
+
 
     private void Awake()
     {
@@ -40,12 +48,15 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.UnPauseGame(true);
 
         _originalSpeed = _controllerSettings.walkingSpeed;
+
+        _playerFootstep = AudioManager.instance.CreateInstance("event:/Footsteps");
     }
 
     private void Update()
     {
         ToggleCrouch();
         MovePlayer();
+        UpdateSound();
     }
 
     public void StopMovement()
@@ -62,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
     public void SlowMovement()
     {
-        if(_controllerSettings.walkingSpeed != _originalSpeed)
+        if (_controllerSettings.walkingSpeed != _originalSpeed)
         {
             cantSprint = true;
             _controllerSettings.walkingSpeed /= 2;
@@ -92,7 +103,7 @@ public class PlayerController : MonoBehaviour
         Vector3 right = _characterController.transform.TransformDirection(Vector3.right);
 
         // Press Left Shift to run
-        bool isRunning = Input.GetButton("Sprint");
+        isRunning = Input.GetButton("Sprint");
 
         if (cantSprint)
         {
@@ -139,12 +150,11 @@ public class PlayerController : MonoBehaviour
         //Checks slide
         if (!cantMove && CheckSlide())
         {
-            _moveDirection += new Vector3(_hitNormal.x, -_hitNormal.y, _hitNormal.z)* _controllerSettings.slopeSpeed;
+            _moveDirection += new Vector3(_hitNormal.x, -_hitNormal.y, _hitNormal.z) * _controllerSettings.slopeSpeed;
         }
 
         // Move the controller
         _characterController.Move(_moveDirection * Time.deltaTime);
-
 
         // Player and Camera rotation
         if (!cantMove)
@@ -153,6 +163,11 @@ public class PlayerController : MonoBehaviour
             _rotationX = Mathf.Clamp(_rotationX, -_controllerSettings.lookXLimit, _controllerSettings.lookXLimit);
             _playerCamera.transform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
             _characterController.gameObject.transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * _controllerSettings.mouseSensitivity, 0);
+        }
+
+        if (_characterController.velocity != Vector3.zero)
+        {
+
         }
     }
 
@@ -176,6 +191,34 @@ public class PlayerController : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    private void UpdateSound()
+    {
+        if (_characterController.velocity.x != 0 && _characterController.isGrounded)
+        {
+            PLAYBACK_STATE playbackstate;
+            _playerFootstep.getPlaybackState(out playbackstate);
+
+            if (playbackstate.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                _playerFootstep.start();
+            }
+
+            //If in water change the surface type
+            if (_inWater)
+            {
+                _playerFootstep.setParameterByName("SurfaceType", 1);
+            }
+            else
+            {
+                _playerFootstep.setParameterByName("SurfaceType", 0);
+            }
+        }
+        else
+        {
+            _playerFootstep.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }
 }

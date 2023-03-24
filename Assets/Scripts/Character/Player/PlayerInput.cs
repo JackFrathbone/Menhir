@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] GameObject _characterMenu;
     [SerializeField] GameObject _pauseMenu;
 
@@ -9,6 +10,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerMagic _playerMagic;
     private PlayerActiveUI _playerActiveUI;
     private PlayerDialogueController _playerDialogueController;
+    private PlayerJournalDisplay _playerJournalDisplay;
 
     private PlayerCombat _playerCombat;
     private PlayerCharacterManager _playerCharacterManager;
@@ -28,6 +30,7 @@ public class PlayerInput : MonoBehaviour
         _playerMagic = GetComponent<PlayerMagic>();
         _playerActiveUI = GetComponent<PlayerActiveUI>();
         _playerDialogueController = GetComponent<PlayerDialogueController>();
+        _playerJournalDisplay = GetComponent<PlayerJournalDisplay>();
 
         _playerCombat = GameManager.instance.playerObject.GetComponent<PlayerCombat>();
         _playerCharacterManager = GameManager.instance.playerObject.GetComponent<PlayerCharacterManager>();
@@ -46,7 +49,7 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
         if (Physics.Raycast(ray, out RaycastHit hit, 2f))
         {
@@ -104,6 +107,7 @@ public class PlayerInput : MonoBehaviour
                     GameManager.instance.PauseGame(true, "characterMenu");
                     _playerInventory.RefreshInventory();
                     _playerMagic.RefreshSpells();
+                    _playerJournalDisplay.RefreshCurrentQuests();
                     _characterMenu.SetActive(true);
                 }
                 else
@@ -157,12 +161,17 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetButtonDown("Spell1"))
         {
-            _playerMagic.CastSpell(1);
+            _playerMagic.SetSelectedSpell(1);
         }
 
         if (Input.GetButtonDown("Spell2"))
         {
-            _playerMagic.CastSpell(2);
+            _playerMagic.SetSelectedSpell(2);
+        }
+
+        if(Input.GetButtonDown("CastSpell"))
+        {
+            _playerMagic.CastSpell(_playerMagic.GetSelectedSpell());
         }
 
         //Activate objects that are currently looked at

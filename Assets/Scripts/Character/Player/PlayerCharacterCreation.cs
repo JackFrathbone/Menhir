@@ -454,6 +454,6 @@ public class PlayerCharacterCreation : MonoBehaviour
         _playerCharacterSheet.skills.Add(_setSkill1);
         _playerCharacterSheet.skills.Add(_setSkill2);
 
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
     }
 }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Dialogue/New Dialogue")]
 public class Dialogue : ScriptableObject
 {
     [TextArea(2, 3)]

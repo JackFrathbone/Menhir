@@ -159,9 +159,15 @@ public class CharacterCombatController : MonoBehaviour
     {
         _animationController.TriggerAttack();
 
+        //If melee
         if (_NPCCharacterManager.equippedWeapon is WeaponMeleeItem)
         {
             CalculateAttack(_combatTarget.gameObject);
+
+            _NPCCharacterManager.DamageStamina(StatFormulas.AttackStaminaCost(_NPCCharacterManager.equippedWeapon.itemWeight, _weaponSpeed));
+
+            //Play audio
+            AudioManager.instance.PlayOneShot("event:/CombatSwingMelee", transform.position);
         }
 
         //If ranged
@@ -173,6 +179,9 @@ public class CharacterCombatController : MonoBehaviour
 
             //Decrease stamina
             _NPCCharacterManager.DamageStamina(StatFormulas.AttackStaminaCost(_NPCCharacterManager.equippedWeapon.itemWeight, _weaponSpeed));
+
+            //Play audio
+            AudioManager.instance.PlayOneShot("event:/CombatSwingRanged", transform.position);
         }
         //If focus
         else if (_NPCCharacterManager.equippedWeapon is WeaponFocusItem)
@@ -183,6 +192,9 @@ public class CharacterCombatController : MonoBehaviour
             {
                 projectileController.effects.Add(effect);
             }
+
+            //Play audio
+            AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
         }
 
         DecideNextAction();
@@ -253,6 +265,7 @@ public class CharacterCombatController : MonoBehaviour
             {
                 //Do damage to target
                 targetCharacterManager.DamageHealth(StatFormulas.Damage(hitDamage));
+                AudioManager.instance.PlayOneShot("event:/CombatHit", transform.position);
 
                 _NPCCharacterManager.CheckSkill_DisablingShot(targetCharacterManager);
             }
@@ -260,6 +273,7 @@ public class CharacterCombatController : MonoBehaviour
             {
                 //Target blocks attack
                 targetCharacterManager.TriggerBlock();
+                AudioManager.instance.PlayOneShot("event:/CombatBlock", transform.position);
             }
         }
     }

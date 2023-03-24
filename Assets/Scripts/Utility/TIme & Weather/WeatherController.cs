@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using FMOD.Studio;
 using UnityEngine.Rendering.Universal;
 
 
@@ -24,16 +25,24 @@ public class WeatherController : MonoBehaviour
     [SerializeField] GameObject _rainLightPrefab;
     [SerializeField] GameObject _rainHeavyPrefab;
 
+    //For audio
+    private EventInstance _outdoorAmbience;
+
     [Header("Data")]
-    [Tooltip("clear, cloudy, rainLight, rainHeavy")]
+    [Tooltip("clear, cloudyLight, cloudy, rainLight, rainHeavy")]
     [ReadOnly] public string currentWeather = "clear";
 
     private void Start()
     {
         _cloudLayerMat = _cloudLayerRender.material;
 
-        UpdateLighting((TimeController.trackedTime.Hours * 60 + TimeController.trackedTime.Minutes) / 1440f);
+        UpdateLighting((TimeController.GetHours() * 60 + TimeController.GetMinutes()) / 1440f);
         GetRandomWeather();
+
+        //Set the audio
+        _outdoorAmbience = AudioManager.instance.CreateInstance("event:/AmbienceOutdoor");
+        _outdoorAmbience.start();
+        UpdateOutdoorAmbience();
     }
 
     private void OnEnable()
@@ -47,6 +56,8 @@ public class WeatherController : MonoBehaviour
         TimeController.onLightingUpdate -= UpdateLighting;
         TimeController.onWeatherUpdate -= GetRandomWeather;
         RenderSettings.ambientLight = _settingsPreset.interiorAmbientColour;
+
+        _outdoorAmbience.stop(STOP_MODE.ALLOWFADEOUT);
     }
 
     private void OnDestroy()
@@ -94,7 +105,7 @@ public class WeatherController : MonoBehaviour
 
 
         //For enabling the stars
-        if (TimeController.trackedTime.Hours >= 18 || TimeController.trackedTime.Hours <= 5)
+        if (TimeController.GetHours() >= 18 || TimeController.GetHours() <= 5)
         {
             RenderSettings.skybox.SetFloat("_StarDensity", 5);
         }
@@ -127,6 +138,8 @@ public class WeatherController : MonoBehaviour
                 SetWeatherRainHeavy();
                 break;
         }
+
+        UpdateOutdoorAmbience();
     }
 
     private void SetWeatherClear()
@@ -242,5 +255,36 @@ public class WeatherController : MonoBehaviour
             }
         }
 
+    }
+
+    private void UpdateOutdoorAmbience()
+    {
+        if (TimeController.GetHours() >= 18 || TimeController.GetHours() <= 5)
+        {
+            _outdoorAmbience.setParameterByName("Time", 1);
+        }
+        else
+        {
+            _outdoorAmbience.setParameterByName("Time", 0);
+        }
+
+        switch (currentWeather)
+        {
+            case "clear":
+                _outdoorAmbience.setParameterByName("Rain", 0);
+                break;
+            case "cloudyLight":
+                _outdoorAmbience.setParameterByName("Rain", 0);
+                break;
+            case "cloud":
+                _outdoorAmbience.setParameterByName("Rain", 0);
+                break;
+            case "rainLight":
+                _outdoorAmbience.setParameterByName("Rain", 1);
+                break;
+            case "rainHeavy":
+                _outdoorAmbience.setParameterByName("Rain", 2);
+                break;
+        }
     }
 }

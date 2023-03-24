@@ -154,7 +154,7 @@ public class CharacterAI : MonoBehaviour
     {
         foreach(CharacterManager character in _inDetectionRange)
         {
-            character.inDetectionRange.Remove(character);
+            character.inDetectionRange.Remove(_NPCCharacterManager);
         }
     }
 
@@ -162,7 +162,7 @@ public class CharacterAI : MonoBehaviour
     {
         foreach (CharacterManager character in _inDetectionRange)
         {
-            character.inDetectionRange.Remove(character);
+            character.inDetectionRange.Remove(_NPCCharacterManager);
         }
     }
 }

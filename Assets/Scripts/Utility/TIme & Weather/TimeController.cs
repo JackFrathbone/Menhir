@@ -55,8 +55,13 @@ public class TimeController : MonoBehaviour
         trackedTime += t;
     }
 
-    public float GetHours()
+    public static float GetHours()
     {
         return trackedTime.Hours;
+    }
+
+    public static float GetMinutes()
+    {
+        return trackedTime.Minutes;
     }
 }

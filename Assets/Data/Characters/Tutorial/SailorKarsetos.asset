@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
+  m_Name: SailorKarsetos
+  m_EditorClassIdentifier: 
+  characterName: Sailor Karsetos
+  characterDescription: An older stoic man with a large beard. He frowns and looks
+    like that is his default expression. He wears an embroided yellow cloak.
+  characterPronouns: 0
+  characterFaction: {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
+  characterAggression: 0
+  characterInventory:
+  - {fileID: 11400000, guid: 018a9989f3c6d754e9f62f181d1fd5ee, type: 2}
+  - {fileID: 11400000, guid: cb963c3130e822845902f25a57d18a6d, type: 2}
+  - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
+  - {fileID: 11400000, guid: 58896695391fdbe43855e4c13257c3a5, type: 2}
+  characterSpells: []
+  characterGreeting: ...
+  characterWoundedGreeting: 
+  characterDialogueGraph: {fileID: 0}
+  abilities:
+    body: 6
+    hands: 5
+    mind: 4
+    heart: 3
+  skills: []
+  startHidden: 0
+  randomiseVisuals: 0
+  characterSkintone: {r: 0.49411768, g: 0.33333334, b: 0.22352943, a: 1}
+  characterHairColor: {r: 0.47450984, g: 0.47058827, b: 0.48235297, a: 1}
+  characterHair: {fileID: 7284716698216589776, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  characterBeard: {fileID: 6551469346083184877, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}

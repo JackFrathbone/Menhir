@@ -10,6 +10,8 @@ public class GameManager: Singleton<GameManager>
 
     public static PlayerActiveUI playerActiveUI;
 
+    public DataManager dataManager;
+
    [ReadOnly] public bool isPaused;
     //Which screen this pause action is associated with, so other screens can overwrite
     [ReadOnly] public string pauseOrigin;

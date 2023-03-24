@@ -35,7 +35,7 @@ public class NonPlayerCharacterManager : CharacterManager
         }
     }
 
-    private void SetCharacterState()
+    public override void SetCharacterState()
     {
         if (isHidden)
         {

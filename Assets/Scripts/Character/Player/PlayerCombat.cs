@@ -72,6 +72,9 @@ public class PlayerCombat : MonoBehaviour
             SetHoldSpeed(_weaponSpeed);
 
             _isattacking = true;
+
+            //Play draw audio
+            AudioManager.instance.PlayOneShot("event:/CombatDrawRanged", transform.position);
         }
         //If its magic focus weapon
         else if (!_isattacking && (_playerCharacterManager.equippedWeapon is WeaponFocusItem))
@@ -154,7 +157,7 @@ public class PlayerCombat : MonoBehaviour
         //If weapon is melee check the attack here, otherwise the ranged projectile deal with damage on its own
         if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponMeleeItem))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             if (Physics.Raycast(ray, out RaycastHit hit, _weaponRange))
             {
                 CalculateAttack(hit.transform.gameObject, hit.point);
@@ -163,6 +166,9 @@ public class PlayerCombat : MonoBehaviour
             //Decrease stamina
             _playerCharacterManager.DamageStamina(StatFormulas.AttackStaminaCost(_playerCharacterManager.equippedWeapon.itemWeight, _weaponSpeed));
             _isattacking = false;
+
+            //Play audio
+            AudioManager.instance.PlayOneShot("event:/CombatSwingMelee", transform.position);
         }
     }
 
@@ -179,6 +185,9 @@ public class PlayerCombat : MonoBehaviour
             //Decrease stamina
             _playerCharacterManager.DamageStamina(StatFormulas.AttackStaminaCost(_playerCharacterManager.equippedWeapon.itemWeight, _weaponSpeed));
             _isattacking = false;
+
+            //Play audio
+            AudioManager.instance.PlayOneShot("event:/CombatSwingRanged", transform.position);
         }
     }
 
@@ -194,6 +203,9 @@ public class PlayerCombat : MonoBehaviour
             }
 
             _isattacking = false;
+
+            //Play audio
+            AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
         }
 
     }
@@ -260,8 +272,11 @@ public class PlayerCombat : MonoBehaviour
 
             if (hitDamage > 0)
             {
-                //Do damage to target
+                //Juice time
                 Instantiate(_bloodSplatterPrefab, hitPoint, Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f));
+                AudioManager.instance.PlayOneShot("event:/CombatHit", hitPoint);
+
+                //Do damage to target
                 targetCharacterManager.DamageHealth(StatFormulas.Damage(hitDamage));
                 _playerCharacterManager.CheckSkill_DisablingShot(targetCharacterManager);
                 _playerActiveUI.UpdateTargetStatusUI(targetCharacterManager);
@@ -270,6 +285,7 @@ public class PlayerCombat : MonoBehaviour
             {
                 //Target blocks attack
                 targetCharacterManager.TriggerBlock();
+                AudioManager.instance.PlayOneShot("event:/CombatBlock", hitPoint);
             }
         }
     }

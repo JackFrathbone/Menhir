@@ -10,6 +10,8 @@ public class SceneLoader : MonoBehaviour
 
     private static bool _weatherSystemLoaded;
 
+    private static Scene _currentScene;
+
     //The first scene to load after the player scene is loaded// This should be changed in save games to the last scene the player was in
     [SerializeField] int _defaultScene;
 
@@ -33,6 +35,7 @@ public class SceneLoader : MonoBehaviour
         if(GameObject.FindGameObjectWithTag("Player") != null)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(1));
+            GameManager.instance.playerObject.GetComponent<PlayerSceneSpawner>().StartPlayerSpawn("default", _defaultScene);
         }
     }
 
@@ -63,6 +66,9 @@ public class SceneLoader : MonoBehaviour
 
     public static void UnloadSceneAdditive(int i)
     {
+        //Saves all the data from a scene being unloaded
+        GameManager.instance.dataManager.SaveSceneData(i);
+
         SceneManager.UnloadSceneAsync(i);
     }
 
@@ -83,9 +89,27 @@ public class SceneLoader : MonoBehaviour
         return false;
     }
 
+    public static void MoveObjectToScene(GameObject gameObject)
+    {
+        SceneManager.MoveGameObjectToScene(gameObject, _currentScene);
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         CheckSceneOutdoors();
+
+        //Dont check if is playerScene
+        if (scene.buildIndex == 0 || scene.buildIndex == 1 || scene.buildIndex == 2 || scene.buildIndex == 3)
+        {
+            return;
+        }
+
+        _currentScene = scene;
+
+        if (mode == LoadSceneMode.Additive)
+        {
+            GameManager.instance.dataManager.CheckLoadedScene(scene);
+        }
     }
 
     private void OnSceneUnloaded(Scene scene)

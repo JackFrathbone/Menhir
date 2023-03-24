@@ -29,6 +29,17 @@ public class ProjectileController : MonoBehaviour
     {
         hitCollision = collision;
 
+        if(effects.Count != 0)
+        {
+            //Play spell hit audio if there are effects attached
+            AudioManager.instance.PlayOneShot("event:/CombatSpellHit", transform.position);
+        }
+        else
+        {
+            //Play regular hit audio if there are no effects attached
+            AudioManager.instance.PlayOneShot("event:/CombatRangedHit", transform.position);
+        }
+
         if (collision.collider.CompareTag("Character") || collision.collider.CompareTag("Player"))
         {
             hitEvent.Invoke();
