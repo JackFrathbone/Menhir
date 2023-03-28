@@ -35,12 +35,12 @@ namespace Cyan
 		{
 
 			public Material blitMaterial = null;
-			public FilterMode filterMode { get; set; }
+			public FilterMode FilterMode { get; set; }
 
 			private BlitSettings settings;
 
-			private RenderTargetIdentifier source { get; set; }
-			private RenderTargetIdentifier destination { get; set; }
+			private RenderTargetIdentifier Source { get; set; }
+			private RenderTargetIdentifier Destination { get; set; }
 
 			RenderTargetHandle m_TemporaryColorTexture;
 			RenderTargetHandle m_DestinationTexture;
@@ -90,28 +90,28 @@ namespace Cyan
 				// note : Seems this has to be done in here rather than in AddRenderPasses to work correctly in 2021.2+
 				if (settings.srcType == Target.CameraColor)
 				{
-					source = renderer.cameraColorTarget;
+					Source = renderer.cameraColorTarget;
 				}
 				else if (settings.srcType == Target.TextureID)
 				{
-					source = new RenderTargetIdentifier(settings.srcTextureId);
+					Source = new RenderTargetIdentifier(settings.srcTextureId);
 				}
 				else if (settings.srcType == Target.RenderTextureObject)
 				{
-					source = new RenderTargetIdentifier(settings.srcTextureObject);
+					Source = new RenderTargetIdentifier(settings.srcTextureObject);
 				}
 
 				if (settings.dstType == Target.CameraColor)
 				{
-					destination = renderer.cameraColorTarget;
+					Destination = renderer.cameraColorTarget;
 				}
 				else if (settings.dstType == Target.TextureID)
 				{
-					destination = new RenderTargetIdentifier(settings.dstTextureId);
+					Destination = new RenderTargetIdentifier(settings.dstTextureId);
 				}
 				else if (settings.dstType == Target.RenderTextureObject)
 				{
-					destination = new RenderTargetIdentifier(settings.dstTextureObject);
+					Destination = new RenderTargetIdentifier(settings.dstTextureObject);
 				}
 
 				if (settings.setInverseViewMatrix)
@@ -125,20 +125,20 @@ namespace Cyan
 					{
 						opaqueDesc.graphicsFormat = settings.graphicsFormat;
 					}
-					cmd.GetTemporaryRT(m_DestinationTexture.id, opaqueDesc, filterMode);
+					cmd.GetTemporaryRT(m_DestinationTexture.id, opaqueDesc, FilterMode);
 				}
 
 				//Debug.Log($"src = {source},     dst = {destination} ");
 				// Can't read and write to same color target, use a TemporaryRT
-				if (source == destination || (settings.srcType == settings.dstType && settings.srcType == Target.CameraColor))
+				if (Source == Destination || (settings.srcType == settings.dstType && settings.srcType == Target.CameraColor))
 				{
-					cmd.GetTemporaryRT(m_TemporaryColorTexture.id, opaqueDesc, filterMode);
-					Blit(cmd, source, m_TemporaryColorTexture.Identifier(), blitMaterial, settings.blitMaterialPassIndex);
-					Blit(cmd, m_TemporaryColorTexture.Identifier(), destination);
+					cmd.GetTemporaryRT(m_TemporaryColorTexture.id, opaqueDesc, FilterMode);
+					Blit(cmd, Source, m_TemporaryColorTexture.Identifier(), blitMaterial, settings.blitMaterialPassIndex);
+					Blit(cmd, m_TemporaryColorTexture.Identifier(), Destination);
 				}
 				else
 				{
-					Blit(cmd, source, destination, blitMaterial, settings.blitMaterialPassIndex);
+					Blit(cmd, Source, Destination, blitMaterial, settings.blitMaterialPassIndex);
 				}
 
 				context.ExecuteCommandBuffer(cmd);
@@ -151,7 +151,7 @@ namespace Cyan
 				{
 					cmd.ReleaseTemporaryRT(m_DestinationTexture.id);
 				}
-				if (source == destination || (settings.srcType == settings.dstType && settings.srcType == Target.CameraColor))
+				if (Source == Destination || (settings.srcType == settings.dstType && settings.srcType == Target.CameraColor))
 				{
 					cmd.ReleaseTemporaryRT(m_TemporaryColorTexture.id);
 				}
@@ -187,7 +187,7 @@ namespace Cyan
 			RenderTextureObject
 		}
 
-		public BlitSettings settings = new BlitSettings();
+		public BlitSettings settings = new();
 		public BlitPass blitPass;
 
 		public override void Create()

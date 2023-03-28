@@ -198,8 +198,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_characterController.velocity.x != 0 && _characterController.isGrounded)
         {
-            PLAYBACK_STATE playbackstate;
-            _playerFootstep.getPlaybackState(out playbackstate);
+            _playerFootstep.getPlaybackState(out PLAYBACK_STATE playbackstate);
 
             if (playbackstate.Equals(PLAYBACK_STATE.STOPPED))
             {

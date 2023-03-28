@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEditor.SceneManagement;
-using System;
 
 public class GameManager: Singleton<GameManager>
 {
@@ -9,8 +7,6 @@ public class GameManager: Singleton<GameManager>
     public GameObject PlayerUIObject;
 
     public static PlayerActiveUI playerActiveUI;
-
-    public DataManager dataManager;
 
    [ReadOnly] public bool isPaused;
     //Which screen this pause action is associated with, so other screens can overwrite

@@ -1,46 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DataManager : MonoBehaviour
+public class DataManager : Singleton<DataManager>
 {
     [Header("References")]
-    private SaveSlot _saveSlot;
-
     [SerializeField] GameObject _itemContainerPrefab;
 
     //This script is a container of all tracked scenes with their associated data
     [Header("Data")]
     public List<SceneData> _trackedScenes = new();
 
+    public PlayerDataTracker _playerData;
+
+    public List<CharacterManager> _activeCharacters = new();
+
     private void Start()
     {
-        GameManager.instance.dataManager = this;
+        keepAlive = true;
     }
 
     public void SaveSaveSlot(int i)
     {
-        //Save a new save slot, either creating a new instance or overwriting an existing one
+        //Save current data
+        SavePlayerTracker();
+        SaveSceneData(SceneLoader.instance.GetCurrentScene());
+
+        //Create a new saveSlot
+        SaveSlot saveSlot = new()
+        {
+            saveSlotIndex = i,
+            savedScenes = _trackedScenes,
+            playerData = _playerData
+        };
+
+        string json = JsonUtility.ToJson(saveSlot);
+
+        File.WriteAllText(Application.dataPath + "/Saves/save" + i.ToString() + ".txt", json);
+
+        Debug.Log("Saved Game");
     }
 
-    public void CheckLoadedScene(Scene loadedScene)
+    public void LoadSaveSlot(int i)
     {
+        if(File.ReadAllText(Application.dataPath + "/Saves/save" + i.ToString() + ".txt") == null)
+        {
+            return;
+        }
+
+        string saveSlotPath = File.ReadAllText(Application.dataPath + "/Saves/save" + i.ToString() + ".txt");
+
+        SaveSlot saveSlot = JsonUtility.FromJson<SaveSlot>(saveSlotPath);
+
+        _trackedScenes = saveSlot.savedScenes;
+        _playerData = saveSlot.playerData;
+
+        SceneLoader.instance.LoadPlayerScene(_playerData.currentScene, null, _playerData.characterPosition, _playerData.characterRotation);
+
+        Debug.Log("Loaded Game");
+    }
+
+    public void CheckLoadedScene()
+    {
+        Scene currentScene = SceneManager.GetSceneByBuildIndex(SceneLoader.instance.GetCurrentScene());
+
+        if(currentScene.buildIndex == -1)
+        {
+            Debug.Log("Checked scene not loaded");
+            return;
+        }
+
+        //Check list of tracked scenes for existing scene tracker
         foreach (SceneData sceneData in _trackedScenes)
         {
-            if (sceneData.trackedSceneName == loadedScene.name)
+            if (sceneData.trackedSceneName == currentScene.name)
             {
                 LoadSceneData(sceneData.trackedSceneName);
                 return;
             }
         }
 
-        CreateNewTrackedScene(loadedScene);
+        //If none are found create a new scene tracker
+        CreateNewTrackedScene(currentScene);
     }
 
     //Collects all data types from a scene when it is closed
-    public void SaveSceneData(int buildIndex)
+    public bool SaveSceneData(int buildIndex)
     {
+        SavePlayerTracker();
+
         List<CharacterManager> characterManagers = new(GameObject.FindObjectsOfType<CharacterManager>());
 
         foreach (CharacterManager character in characterManagers)
@@ -59,6 +109,73 @@ public class DataManager : MonoBehaviour
                 SaveContainerTracker(itemContainer);
             }
         }
+
+        //returns a bool at end to let sceneloader know the data has been saved
+        return true;
+    }
+
+    private void SavePlayerTracker()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        if(playerObject == null)
+        {
+            //No player object in scene
+            return;
+        }
+
+        PlayerCharacterManager playerCharacterManager = playerObject.GetComponent<PlayerCharacterManager>();
+
+        if(playerCharacterManager == null)
+        {
+            Debug.Log("trying to save player data with no active player");
+            return;
+        }
+
+        _playerData.currentScene = SceneLoader.instance.GetCurrentScene();
+        _playerData.characterPosition = playerCharacterManager.transform.position;
+        _playerData.characterRotation = playerCharacterManager.transform.rotation.eulerAngles;
+
+        _playerData.healthCurrent = playerCharacterManager.healthCurrent;
+        _playerData.staminaCurrent = playerCharacterManager.staminaCurrent;
+
+        _playerData.abilities.body = playerCharacterManager.characterSheet.abilities.body;
+        _playerData.abilities.hands = playerCharacterManager.characterSheet.abilities.hands;
+        _playerData.abilities.mind = playerCharacterManager.characterSheet.abilities.mind;
+        _playerData.abilities.heart = playerCharacterManager.characterSheet.abilities.heart;
+
+        _playerData.currentInventory = new(playerCharacterManager.currentInventory);
+        _playerData.currentSpells = new(playerCharacterManager.currentSpells);
+        _playerData.currentSkills = new(playerCharacterManager.currentSkills);
+
+        //Equipped
+        _playerData.equippedWeapon = playerCharacterManager.equippedWeapon;
+        _playerData.equippedShield = playerCharacterManager.equippedShield;
+
+        _playerData.equippedArmour = playerCharacterManager.equippedArmour;
+        _playerData.equippedCape = playerCharacterManager.equippedCape;
+        _playerData.equippedFeet = playerCharacterManager.equippedFeet;
+        _playerData.equippedGreaves = playerCharacterManager.equippedGreaves;
+        _playerData.equippedHands = playerCharacterManager.equippedHands;
+        _playerData.equippedHelmet = playerCharacterManager.equippedHelmet;
+        _playerData.equippedPants = playerCharacterManager.equippedPants;
+        _playerData.equippedShirt = playerCharacterManager.equippedShirt;
+
+        _playerData.equippedSpell1 = playerCharacterManager.GetPlayerMagic().GetEquippedSpell(1);
+        _playerData.equippedSpell2 = playerCharacterManager.GetPlayerMagic().GetEquippedSpell(2);
+
+        _playerData.learnedSpell1 = playerCharacterManager.GetPlayerMagic().GetLearnedSpell(1);
+        _playerData.learnedSpell2 = playerCharacterManager.GetPlayerMagic().GetLearnedSpell(2);
+
+        _playerData.currentEffects = playerCharacterManager.currentEffects;
+
+        _playerData.quests = playerCharacterManager._playerQuests;
+        _playerData.stateChecks = playerCharacterManager.stateChecks;
+        _playerData.alreadyRunDialogueTopics = playerCharacterManager.alreadyRunDialogueTopics;
+
+        _playerData.currentDay = TimeController.GetDays();
+        _playerData.currentHour = TimeController.GetHours();
+        _playerData.currentMinute = TimeController.GetMinutes();
     }
 
     private void SaveCharacterTracker(CharacterManager characterManager)
@@ -163,13 +280,68 @@ public class DataManager : MonoBehaviour
             }
         }
 
+        LoadPlayerData(_playerData);
         LoadSceneDataCharacters(trackedSceneName, targetSceneData);
         LoadSceneDataContainers(trackedSceneName, targetSceneData);
     }
 
+    private void LoadPlayerData(PlayerDataTracker playerData)
+    {
+        PlayerCharacterManager playerCharacterManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacterManager>();
+
+        if (playerCharacterManager == null)
+        {
+            Debug.Log("trying to save player data with no active player");
+            return;
+        }
+
+        playerCharacterManager.healthCurrent = _playerData.healthCurrent;
+        playerCharacterManager.staminaCurrent = _playerData.staminaCurrent;
+
+        playerCharacterManager.characterSheet.abilities.body =_playerData.abilities.body;
+        playerCharacterManager.characterSheet.abilities.hands = _playerData.abilities.hands;
+        playerCharacterManager.characterSheet.abilities.mind = _playerData.abilities.mind;
+        playerCharacterManager.characterSheet.abilities.heart = _playerData.abilities.heart;
+
+        playerCharacterManager.currentInventory = _playerData.currentInventory;
+        playerCharacterManager.currentSpells = _playerData.currentSpells;
+        playerCharacterManager.currentSkills = _playerData.currentSkills;
+
+        //Equipped
+        playerCharacterManager.EquipItem("weapon", _playerData.equippedWeapon);
+        playerCharacterManager.EquipItem("shield", _playerData.equippedShield);
+
+        playerCharacterManager.EquipItem("equipment", _playerData.equippedArmour);
+        playerCharacterManager.EquipItem("equipment", _playerData.equippedCape);
+        playerCharacterManager.EquipItem("equipment", _playerData.equippedFeet);
+        playerCharacterManager.EquipItem("equipment", _playerData.equippedGreaves);
+        playerCharacterManager.EquipItem("equipment", _playerData.equippedHands);
+        playerCharacterManager.EquipItem("equipment", _playerData.equippedHelmet);
+        playerCharacterManager.EquipItem("equipment", _playerData.equippedPants);
+        playerCharacterManager.EquipItem("equipment", _playerData.equippedShirt);
+
+        playerCharacterManager.GetPlayerMagic().PrepareSpell(_playerData.equippedSpell1);
+        playerCharacterManager.GetPlayerMagic().PrepareSpell(_playerData.equippedSpell2);
+
+        playerCharacterManager.GetPlayerMagic().LearnSpell(_playerData.learnedSpell1);
+        playerCharacterManager.GetPlayerMagic().LearnSpell(_playerData.learnedSpell2);
+
+        foreach(Effect effect in _playerData.currentEffects)
+        {
+            playerCharacterManager.AddEffect(effect);
+        }
+
+        playerCharacterManager._playerQuests = _playerData.quests;
+        playerCharacterManager.stateChecks = _playerData.stateChecks;
+        playerCharacterManager.alreadyRunDialogueTopics = _playerData.alreadyRunDialogueTopics;
+
+
+        TimeController.SetTrackedTime(_playerData.currentDay, _playerData.currentHour, _playerData.currentMinute);
+    }
+
     private void LoadSceneDataCharacters(string trackedSceneName, SceneData sceneData)
     {
-        List<CharacterManager> sceneCharacters = new(GameObject.FindObjectsOfType<CharacterManager>());
+        List<CharacterManager> sceneCharacters = _activeCharacters;
 
         foreach (CharacterManager character in sceneCharacters)
         {
@@ -240,7 +412,7 @@ public class DataManager : MonoBehaviour
 
                 newItemContainer.transform.position = containerDataTracker.containerPosition;
 
-                SceneLoader.MoveObjectToScene(newItemContainer.gameObject);
+                SceneLoader.instance.MoveObjectToScene(newItemContainer.gameObject);
             }
         }
     }

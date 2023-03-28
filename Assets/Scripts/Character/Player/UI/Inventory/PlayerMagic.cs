@@ -177,6 +177,11 @@ public class PlayerMagic : MonoBehaviour
 
     public void PrepareSpell(Spell spell)
     {
+        if(spell == null)
+        {
+            return;
+        }
+
         //Sort out the casting cost if the spell hasnt been learned
         if (!CheckSpellLearned(spell))
         {
@@ -219,6 +224,11 @@ public class PlayerMagic : MonoBehaviour
 
     public void LearnSpell(Spell spell)
     {
+        if (spell == null)
+        {
+            return;
+        }
+
         if (_freeSpell1 == null)
         {
             _freeSpell1 = spell;
@@ -304,6 +314,9 @@ public class PlayerMagic : MonoBehaviour
 
         RefreshPreparedSpells();
 
+        //Audio for spell cast
+        AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
+
         _canCast = false;
         StartCoroutine(WaitToCastAgain());
     }
@@ -338,6 +351,40 @@ public class PlayerMagic : MonoBehaviour
         {
             _spellSlot1ActiveUI.color = Color.white;
             _spellSlot2ActiveUI.color = Color.white;
+        }
+    }
+
+    public Spell GetEquippedSpell(int slot)
+    {
+        if(slot == 1)
+        {
+            return _preparedSpell1;
+        }
+        else if(slot == 2)
+        {
+            return _preparedSpell2;
+        }
+        else
+        {
+            Debug.Log("Invalid spell slot");
+            return null;
+        }
+    }
+
+    public Spell GetLearnedSpell(int slot)
+    {
+        if (slot == 1)
+        {
+            return _freeSpell1;
+        }
+        else if (slot == 2)
+        {
+            return _freeSpell2;
+        }
+        else
+        {
+            Debug.Log("Invalid spell slot");
+            return null;
         }
     }
 

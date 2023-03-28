@@ -4,28 +4,28 @@ using FMOD.Studio;
 public class SceneSoundController : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] FMODUnity.EventReference musicEvent;
-    [SerializeField] FMODUnity.EventReference ambienceEvent;
+    [SerializeField] string musicEvent;
+    [SerializeField] string ambienceEvent;
 
     private EventInstance _ambienceInstance;
 
     private void Start()
     {
-        if (musicEvent.Path.Length >0)
+        if (musicEvent.Length > 0)
         {
             AudioManager.instance.SetNewMusicTrack(musicEvent);
         }
 
-        if (ambienceEvent.Path.Length > 0)
+        if (ambienceEvent.Length > 0)
         {
-            _ambienceInstance = AudioManager.instance.CreateInstance(ambienceEvent.Path);
+            _ambienceInstance = AudioManager.instance.CreateInstance(ambienceEvent);
             _ambienceInstance.start();
         }
     }
 
     private void OnDisable()
     {
-        if (ambienceEvent.Path != null)
+        if (ambienceEvent.Length > 0)
         {
             _ambienceInstance.stop(STOP_MODE.ALLOWFADEOUT);
         }

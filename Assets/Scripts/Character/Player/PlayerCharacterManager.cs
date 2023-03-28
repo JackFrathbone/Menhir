@@ -20,6 +20,7 @@ public class PlayerCharacterManager : CharacterManager
     //References
     private PlayerCombat _PlayerCombat;
     private PlayerController _playerController;
+    [SerializeField] PlayerMagic _playerMagic;
 
     //Unique player data
     [ReadOnly] public List<Quest> _playerQuests = new();
@@ -69,6 +70,11 @@ public class PlayerCharacterManager : CharacterManager
 
     public void EquipItem(string itemType, Item i)
     {
+        if(i == null)
+        {
+            return;
+        }
+
         LowerWeapon();
 
         switch (itemType)
@@ -354,5 +360,10 @@ public class PlayerCharacterManager : CharacterManager
         }
 
         return completedQuests;
+    }
+
+    public PlayerMagic GetPlayerMagic()
+    {
+        return _playerMagic;
     }
 }

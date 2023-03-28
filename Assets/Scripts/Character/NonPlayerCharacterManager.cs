@@ -27,6 +27,19 @@ public class NonPlayerCharacterManager : CharacterManager
         _characterMovementController = GetComponent<CharacterMovementController>();
     }
 
+    private void OnEnable()
+    {
+        DataManager.instance._activeCharacters.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        if(DataManager.instance != null)
+        {
+            DataManager.instance._activeCharacters.Remove(this);
+        }
+    }
+
     private void OnValidate()
     {
         if (_baseCharacterSheet != null)

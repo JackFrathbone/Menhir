@@ -552,7 +552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6518581692751580587, guid: 5dc309cf1f404ff47bbe2819deab8b35, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6518581692751580587, guid: 5dc309cf1f404ff47bbe2819deab8b35, type: 3}
       propertyPath: m_LocalPosition.z
@@ -641,20 +641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85782d8f7e119c4e97376e2f17f2e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEvent:
-    Guid:
-      Data1: -163818269
-      Data2: 1233002933
-      Data3: -523343699
-      Data4: 2142301384
-    Path: event:/Music/MusicDungeon
-  ambienceEvent:
-    Guid:
-      Data1: -1252463683
-      Data2: 1185984149
-      Data3: -1573387646
-      Data4: -1111007341
-    Path: event:/AmbienceCave
+  musicEvent: event:/Music/MusicDungeon
+  ambienceEvent: event:/AmbienceCave
 --- !u!850595691 &868525221
 LightingSettings:
   m_ObjectHideFlags: 0

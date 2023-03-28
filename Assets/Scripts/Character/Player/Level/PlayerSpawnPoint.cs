@@ -13,34 +13,10 @@ public class PlayerSpawnPoint : MonoBehaviour
 
     private void Start()
     {
+        //If no player in scene, load one in
         if (GameObject.FindGameObjectWithTag("Player") == null && spawnName == "default")
         {
-            LoadPlayerIntoScene();
+            //SceneLoader.instance.LoadPlayerScene(gameObject.scene.buildIndex, "default", Vector3.zero);
         }
-    }
-
-    private void LoadPlayerIntoScene()
-    {
-        SceneLoader.LoadSceneAdditive(1);
-
-        StartCoroutine(WaitForPlayerSpawn());
-    }
-
-    public Transform SpawnPointTransform()
-    {
-        return playerSpawnTransform;
-    }
-
-    public void MovePlayerToPoint()
-    {
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        playerObject.transform.SetPositionAndRotation(playerSpawnTransform.position, playerSpawnTransform.rotation);
-    }
-
-    IEnumerator WaitForPlayerSpawn()
-    {
-        yield return new WaitUntil(() => SceneLoader.CheckSceneLoaded(1) == true);
-
-        MovePlayerToPoint();
     }
 }

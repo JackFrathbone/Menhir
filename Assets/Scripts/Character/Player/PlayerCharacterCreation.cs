@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class PlayerCharacterCreation : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] int _startingScene = 4;
+
     [SerializeField] CharacterSheet _playerCharacterSheet;
 
     //Bio
@@ -454,6 +456,6 @@ public class PlayerCharacterCreation : MonoBehaviour
         _playerCharacterSheet.skills.Add(_setSkill1);
         _playerCharacterSheet.skills.Add(_setSkill2);
 
-        SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
+        SceneLoader.instance.LoadPlayerScene(_startingScene, "default", Vector3.zero, Vector3.zero);
     }
 }

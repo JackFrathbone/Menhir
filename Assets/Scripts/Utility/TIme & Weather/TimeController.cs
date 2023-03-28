@@ -6,15 +6,13 @@ public class TimeController : MonoBehaviour
     [Header("Settings")]
     [Tooltip("How many ingame seconds pass for every single real second")]
     [SerializeField] float _timeScale;
-    [Tooltip("How many ingame minutes pass before day/night lighting is updated")]
-    [SerializeField, Range(0, 60)] float _lightingUpdateTime;
     [Tooltip("Current ingame hour, game time starts at selected hour, readonly during play")]
     [SerializeField, Range(0, 24)] int _currentHour;
 
     [Header("Data")]
+    private float seconds;
     //The in-game tracked time
-    public static TimeSpan trackedTime = TimeSpan.Zero;
-    private TimeSpan _lightingUpdateTimer = TimeSpan.Zero;
+    private static TimeTracker trackedTime = new();
 
     //Updates the lighting every time the lighting timer is met
     public delegate void OnLightingUpdateDelegate(float timerPercent);
@@ -31,37 +29,52 @@ public class TimeController : MonoBehaviour
 
     private void Update()
     {
-        trackedTime += TimeSpan.FromSeconds(1 * _timeScale) * Time.deltaTime;
+        seconds += _timeScale * Time.deltaTime;
 
+        if(seconds >= 60)
+        {
+            seconds = 0;
+            trackedTime.TimeStep();
+
+            //Update the lighting
+            onLightingUpdate?.Invoke((trackedTime.hours * 60 + trackedTime.minutes) / 1440f);
+        }
+
+        
         //Update the tracked hour
-        if(trackedTime.Hours != _currentHour)
+        if (trackedTime.hours != _currentHour)
         {
             onWeatherUpdate?.Invoke();
-            _currentHour = trackedTime.Hours;
-        }
-
-        if (_lightingUpdateTimer <= trackedTime)
-        {
-            onLightingUpdate?.Invoke((trackedTime.Hours*60 + trackedTime.Minutes) / 1440f);
-            _lightingUpdateTimer = trackedTime + TimeSpan.FromMinutes(_lightingUpdateTime);
+            _currentHour = trackedTime.hours;
         }
     }
 
 
-    public void AddHours(float hours)
+    public void AddHours(int hours)
     {
-        TimeSpan t = TimeSpan.FromHours(hours);
-
-        trackedTime += t;
+        trackedTime.hours += hours;
+        trackedTime.TimeCheck();
     }
 
-    public static float GetHours()
+    public static void SetTrackedTime(int days, int hours, int minutes)
     {
-        return trackedTime.Hours;
+        trackedTime.days = days;
+        trackedTime.hours = hours;
+        trackedTime.minutes = minutes;
     }
 
-    public static float GetMinutes()
+    public static int GetDays()
     {
-        return trackedTime.Minutes;
+        return trackedTime.days;
+    }
+
+    public static int GetHours()
+    {
+        return trackedTime.hours;
+    }
+
+    public static int GetMinutes()
+    {
+        return trackedTime.minutes;
     }
 }

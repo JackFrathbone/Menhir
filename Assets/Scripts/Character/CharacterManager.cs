@@ -43,7 +43,7 @@ public class CharacterManager : MonoBehaviour
 
     [Header("Dialogue")]
     [HideInInspector] public DialogueGraph dialogueGraphInstance;
-    [HideInInspector] public List<DialogueTopicsNode.Topic> alreadyRunDialogueTopics = new();
+    [ReadOnly] public List<DialogueTopicsNode.Topic> alreadyRunDialogueTopics = new();
 
     [Header("Active Effects")]
     [ReadOnly] public List<Effect> currentEffects = new();

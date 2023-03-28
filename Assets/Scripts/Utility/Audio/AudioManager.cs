@@ -27,7 +27,7 @@ public class AudioManager : Singleton<AudioManager>
         UpdateVolume();
     }
 
-    public void SetNewMusicTrack(EventReference track)
+    public void SetNewMusicTrack(string track)
     {
         //Check if the instance has been created yet
         if (!_currentMusic.isValid())
@@ -48,8 +48,7 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         //Check if previous track was stopped and start playing again
-        PLAYBACK_STATE playbackstate;
-        _currentMusic.getPlaybackState(out playbackstate);
+        _currentMusic.getPlaybackState(out PLAYBACK_STATE playbackstate);
 
         if (playbackstate.Equals(PLAYBACK_STATE.STOPPED))
         {
