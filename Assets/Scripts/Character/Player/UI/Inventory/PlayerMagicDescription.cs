@@ -18,6 +18,7 @@ public class PlayerMagicDescription : MonoBehaviour
     [Header("Action Buttons")]
     [SerializeField] Button _buttonUse;
     [SerializeField] Button _buttonPrepare;
+    [SerializeField] Button _buttonCancel;
     [SerializeField] Button _buttonLearn;
     [SerializeField] Button _buttonForget;
 
@@ -75,6 +76,9 @@ public class PlayerMagicDescription : MonoBehaviour
         if (_playerMagic.CheckSpellPrepared(spell))
         {
             _buttonPrepare.gameObject.SetActive(false);
+            _buttonCancel.gameObject.SetActive(true);
+            _buttonCancel.onClick.AddListener(delegate { _playerMagic.UnPrepareSpell(spell); });
+            _buttonCancel.onClick.AddListener(CloseDescription);
         }
         else
         {
@@ -89,7 +93,7 @@ public class PlayerMagicDescription : MonoBehaviour
             _buttonForget.onClick.AddListener(delegate { _playerMagic.UnLearnSpell(spell); });
             _buttonForget.onClick.AddListener(CloseDescription);
         }
-        else if(!_playerMagic.CheckSpellLearned(spell) && _playerMagic.CheckWarlockSkill())
+        else if (!_playerMagic.CheckSpellLearned(spell) && _playerMagic.CheckWarlockSkill())
         {
             _buttonLearn.gameObject.SetActive(true);
             _buttonLearn.onClick.AddListener(delegate { _playerMagic.LearnSpell(spell); });
@@ -107,6 +111,7 @@ public class PlayerMagicDescription : MonoBehaviour
 
         _buttonUse.gameObject.SetActive(false);
         _buttonPrepare.gameObject.SetActive(false);
+        _buttonCancel.gameObject.SetActive(false);
         _buttonLearn.gameObject.SetActive(false);
         _buttonForget.gameObject.SetActive(false);
 

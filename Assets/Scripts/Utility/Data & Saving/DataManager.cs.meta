@@ -5,6 +5,8 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - _itemContainerPrefab: {fileID: 1666632438355761008, guid: da9762081ee22dd4caf17976759c23bb, type: 3}
+  - scriptableObjectDatabase: {fileID: 11400000, guid: c52c92fae3d2ef0458435ee81484745b, type: 2}
+  - spriteDatabase: {fileID: 11400000, guid: 6a3ceea74ea28c547b00654ead5fb428, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

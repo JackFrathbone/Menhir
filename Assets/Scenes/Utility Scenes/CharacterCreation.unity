@@ -658,6 +658,90 @@ MonoBehaviour:
           m_StringArgument: Trader
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 153526693625005131}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 283118636}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1117319922}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 732794401}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1098593193}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 75855551}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1548593913}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &75855551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1829,6 +1913,90 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Diplomat
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 153526693625005131}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 283118636}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1117319922}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 732794401}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1098593193}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 75855551}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1548593913}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &283118636
@@ -4893,6 +5061,90 @@ MonoBehaviour:
           m_StringArgument: Scout
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 153526693625005131}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 283118636}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1117319922}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 732794401}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1098593193}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 75855551}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1548593913}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &732794401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5052,6 +5304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3087522f23cae5c438db7bf4813635d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startingScene: 4
   _playerCharacterSheet: {fileID: 11400000, guid: 617dcf697d734fa4b8717dbf8e969df7, type: 2}
   _hairOptions:
   - {fileID: 0}
@@ -5082,13 +5335,42 @@ MonoBehaviour:
   _hairImage: {fileID: 1947559378}
   _beardImage: {fileID: 1632737741}
   _backgroundDescription: {fileID: 1191482038}
-  _backgroundListBanesman: []
-  _backgroundListDiplomat: []
-  _backgroundListHero: []
-  _backgroundListScout: []
-  _backgroundListScholar: []
-  _backgroundListTrader: []
-  _backgroundListWarrior: []
+  _defaultItems:
+  - {fileID: 11400000, guid: 4f683bfa6ac07e6489022b17bc752afa, type: 2}
+  - {fileID: 11400000, guid: cb963c3130e822845902f25a57d18a6d, type: 2}
+  - {fileID: 11400000, guid: fa697dccec3744d40b8aa66131fa6bf4, type: 2}
+  - {fileID: 11400000, guid: 0893c16e08ba32f49a3b3dd4a0dd909c, type: 2}
+  - {fileID: 11400000, guid: 6f6425ff5bfb6d2468125f96c5803d59, type: 2}
+  _backgroundListBanesman:
+  - {fileID: 11400000, guid: 009b492b71df9834598a5d0a5edcd426, type: 2}
+  - {fileID: 11400000, guid: 009b492b71df9834598a5d0a5edcd426, type: 2}
+  - {fileID: 11400000, guid: 7df2e160b2e96f34fa26102aceeecbe4, type: 2}
+  - {fileID: 11400000, guid: f0e055dc548a1be4ca898ff69eeec613, type: 2}
+  _backgroundListDiplomat:
+  - {fileID: 11400000, guid: 1f751cad3fe3829418ff5db4fba71e62, type: 2}
+  - {fileID: 11400000, guid: 6fc26bc10eb240f45a9a1bdd77ed2478, type: 2}
+  - {fileID: 11400000, guid: 6fc26bc10eb240f45a9a1bdd77ed2478, type: 2}
+  _backgroundListHero:
+  - {fileID: 11400000, guid: 6b3c7ff206d1a31418bd65f7a962aa84, type: 2}
+  - {fileID: 11400000, guid: 6c3f558bca06c7f4baf5454fcc3fa726, type: 2}
+  - {fileID: 11400000, guid: 03ecbd8923e5efd48ad938f372eb82fa, type: 2}
+  _backgroundListScout:
+  - {fileID: 11400000, guid: 990758737cb1ba14aaeb8711f2cf2090, type: 2}
+  - {fileID: 11400000, guid: ba422052d5bb1944fa614b4ce6b278da, type: 2}
+  - {fileID: 11400000, guid: dc0122f9ccd37bd47b543939cc2a2584, type: 2}
+  - {fileID: 11400000, guid: dc0122f9ccd37bd47b543939cc2a2584, type: 2}
+  _backgroundListScholar:
+  - {fileID: 11400000, guid: 69d9ba3a81ba4e044bb02be78c72e2a9, type: 2}
+  - {fileID: 11400000, guid: b2ffb314caca1c14098ed7a71c4193b7, type: 2}
+  - {fileID: 11400000, guid: 23d403f092622b2468134fc886f3c368, type: 2}
+  - {fileID: 11400000, guid: c4c7e0b7a2689144bb90878bec96063f, type: 2}
+  _backgroundListTrader:
+  - {fileID: 11400000, guid: 7df2e160b2e96f34fa26102aceeecbe4, type: 2}
+  - {fileID: 11400000, guid: 7df2e160b2e96f34fa26102aceeecbe4, type: 2}
+  - {fileID: 11400000, guid: f9bcbb6e09119dc44823a147ccb3598f, type: 2}
+  _backgroundListWarrior:
+  - {fileID: 11400000, guid: 18aed67f929e4624c97357cf884334e5, type: 2}
+  - {fileID: 11400000, guid: b66f4aa74197619409e5bc985e064055, type: 2}
   _abilityPointsLeftText: {fileID: 1357553310}
   _bodyText: {fileID: 570643017}
   _handsText: {fileID: 172324641}
@@ -6944,6 +7226,90 @@ MonoBehaviour:
           m_StringArgument: Scholar
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 153526693625005131}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 283118636}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1117319922}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 732794401}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1098593193}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 75855551}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1548593913}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1098593193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7076,6 +7442,90 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Hero
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 153526693625005131}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 283118636}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1117319922}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 732794401}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1098593193}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 75855551}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1548593913}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1117319922
@@ -9714,6 +10164,90 @@ MonoBehaviour:
           m_StringArgument: Warrior
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 153526693625005131}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 283118636}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1117319922}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 732794401}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1098593193}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 75855551}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1548593913}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1548593913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9893,7 +10427,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.12785566, g: 1, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -11705,6 +12239,42 @@ MonoBehaviour:
           m_StringArgument: he
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1777093396}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2036366461}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1797057959}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1777093396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11972,6 +12542,42 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: they
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1797057959}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1777093396}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2036366461}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1797057959
@@ -13893,6 +14499,42 @@ MonoBehaviour:
           m_StringArgument: she
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2036366461}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1777093396}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1797057959}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2036366461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14927,6 +15569,90 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Banesman
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourGreen
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 153526693625005131}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 283118636}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1117319922}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 732794401}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1098593193}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 75855551}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 737524476}
+        m_TargetAssemblyTypeName: PlayerCharacterCreation, Assembly-CSharp
+        m_MethodName: SetImageColourRed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1548593913}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &153526693625005131

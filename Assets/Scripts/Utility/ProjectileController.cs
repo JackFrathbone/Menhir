@@ -18,6 +18,11 @@ public class ProjectileController : MonoBehaviour
     [HideInInspector] public UnityEvent hitEvent;
     public Collision hitCollision;
 
+    [Header("Spell Area Settings")]
+    [SerializeField] GameObject _spellAreaPrefab;
+    [Tooltip("How large of an area in meters the effect should be applied, 0 makes it affect only single targets")]
+    public float spellAreaScale = 0;
+
     private void Start()
     {
         _projectileRigidbody = GetComponent<Rigidbody>();
@@ -29,7 +34,7 @@ public class ProjectileController : MonoBehaviour
     {
         hitCollision = collision;
 
-        if(effects.Count != 0)
+        if (effects.Count != 0)
         {
             //Play spell hit audio if there are effects attached
             AudioManager.instance.PlayOneShot("event:/CombatSpellHit", transform.position);
@@ -40,40 +45,68 @@ public class ProjectileController : MonoBehaviour
             AudioManager.instance.PlayOneShot("event:/CombatRangedHit", transform.position);
         }
 
-        if (collision.collider.CompareTag("Character") || collision.collider.CompareTag("Player"))
+        //If no area effect
+        if (spellAreaScale == 0)
         {
-            hitEvent.Invoke();
-
-            if(effects.Count != 0)
+            if (collision.collider.CompareTag("Character") || collision.collider.CompareTag("Player"))
             {
-                CharacterManager targetCharacter = collision.collider.GetComponent<CharacterManager>();
+                hitEvent.Invoke();
 
-                foreach (Effect effect in effects)
+                if (effects.Count != 0)
                 {
-                    effect.AddEffect(targetCharacter);
+                    CharacterManager targetCharacter = collision.collider.GetComponent<CharacterManager>();
+
+                    foreach (Effect effect in effects)
+                    {
+                        effect.AddEffect(targetCharacter);
+                    }
+                }
+
+                if (_destroyOnImpact)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Destroy(gameObject, 1f);
+                }
+            }
+            else
+            {
+                if (_destroyOnImpact)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    _projectileRigidbody.isKinematic = true;
+                    Destroy(gameObject, 4f);
+                }
+            }
+        }
+        //Spawn an area effect
+        else
+        {
+            GameObject areaEffect = Instantiate(_spellAreaPrefab, transform.position, Quaternion.identity);
+            areaEffect.transform.localScale = new Vector3(spellAreaScale, spellAreaScale, spellAreaScale);
+
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, spellAreaScale, transform.forward);
+
+            foreach (RaycastHit hit in hits)
+            {
+                CharacterManager targetCharacter = hit.collider.gameObject.GetComponent<CharacterManager>();
+
+                if (targetCharacter != null)
+                {
+                    foreach (Effect effect in effects)
+                    {
+                        effect.AddEffect(targetCharacter);
+                    }
                 }
             }
 
-            if (_destroyOnImpact)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject, 1f);
-            }
-        }
-        else
-        {
-            if (_destroyOnImpact)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                _projectileRigidbody.isKinematic = true;
-                Destroy(gameObject, 4f);
-            }
+            Destroy(areaEffect, 1f);
+            Destroy(gameObject);
         }
     }
 }

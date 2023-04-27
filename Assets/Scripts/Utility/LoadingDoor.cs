@@ -17,6 +17,6 @@ public class LoadingDoor : MonoBehaviour
             return;
         }
 
-        SceneLoader.instance.LoadPlayerScene(buildIndex, _targetPlayerSpawnName, Vector3.zero, Vector3.zero);
+        SceneLoader.instance.LoadPlayerScene(buildIndex, _targetPlayerSpawnName, Vector3.zero, Vector3.zero, true, true);
     }
 }

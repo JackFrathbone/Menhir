@@ -43,7 +43,7 @@ public class SceneLoader : Singleton<SceneLoader>
 
         if (currentScene == _playerScene)
         {
-            LoadPlayerScene(_defaultScene, "default", Vector3.zero, Vector3.zero);
+            LoadPlayerScene(_defaultScene, "default", Vector3.zero, Vector3.zero, false, true);
         }
         else
         {
@@ -58,11 +58,11 @@ public class SceneLoader : Singleton<SceneLoader>
     }
 
     //Load the scene, then load the player scene in afterwards
-    public void LoadPlayerScene(int i, string spawnPointName, Vector3 overrideTransform, Vector3 overrideRotation)
+    public void LoadPlayerScene(int i, string spawnPointName, Vector3 overrideTransform, Vector3 overrideRotation, bool saveData, bool loadData)
     {
         _currentScene = i;
 
-        StartCoroutine(WaitForLoadPlayerScene(spawnPointName, overrideTransform, overrideRotation));
+        StartCoroutine(WaitForLoadPlayerScene(spawnPointName, overrideTransform, overrideRotation, saveData, loadData));
     }
 
     public bool CheckSceneLoaded(int i)
@@ -128,10 +128,16 @@ public class SceneLoader : Singleton<SceneLoader>
         }
     }
 
-    IEnumerator WaitForLoadPlayerScene(string spawnPointName, Vector3 overrideTransform, Vector3 overrideRotation)
+    IEnumerator WaitForLoadPlayerScene(string spawnPointName, Vector3 overrideTransform, Vector3 overrideRotation, bool saveData, bool loadData)
     {
         //Saves all the data from a scene being unloaded
-        yield return new WaitUntil(() => DataManager.instance.SaveSceneData(_currentScene) == true);
+        if (saveData)
+        {
+            yield return new WaitUntil(() => DataManager.instance.SaveSceneData(_currentScene) == true);
+        }
+
+        //Clear the active character
+        DataManager.instance.activeCharacters.Clear();
 
         AsyncOperation asyncLoad;
 
@@ -164,11 +170,19 @@ public class SceneLoader : Singleton<SceneLoader>
         }
 
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(_playerScene));
-        DataManager.instance.CheckLoadedScene();
 
+        if (loadData)
+        {
+            DataManager.instance.CheckLoadedScene();
+        }
 
         //Moves player to set spawn point
         CharacterController charC = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+
+        if (!loadData)
+        {
+            charC.GetComponent<PlayerCharacterManager>().LoadPlayer();
+        }
 
         if(charC == null)
         {

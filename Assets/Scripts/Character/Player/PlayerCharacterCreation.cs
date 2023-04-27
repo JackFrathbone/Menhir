@@ -30,6 +30,9 @@ public class PlayerCharacterCreation : MonoBehaviour
     //Background
     [SerializeField] TextMeshProUGUI _backgroundDescription;
 
+    //All the basic items all characters should have
+    [SerializeField] List<Item> _defaultItems = new();
+
     [SerializeField] List<Item> _backgroundListBanesman = new();
     [SerializeField] List<Item> _backgroundListDiplomat = new();
     [SerializeField] List<Item> _backgroundListHero = new();
@@ -442,6 +445,12 @@ public class PlayerCharacterCreation : MonoBehaviour
 
         //background
         _playerCharacterSheet.characterInventory.Clear();
+
+        foreach(Item item in _defaultItems)
+        {
+            backgroundListFinal.Add(item);
+        }
+
         _playerCharacterSheet.characterInventory = backgroundListFinal;
 
         //Abilities
@@ -456,6 +465,18 @@ public class PlayerCharacterCreation : MonoBehaviour
         _playerCharacterSheet.skills.Add(_setSkill1);
         _playerCharacterSheet.skills.Add(_setSkill2);
 
-        SceneLoader.instance.LoadPlayerScene(_startingScene, "default", Vector3.zero, Vector3.zero);
+        UnityEditor.EditorUtility.SetDirty(_playerCharacterSheet);
+
+        SceneLoader.instance.LoadPlayerScene(_startingScene, "default", Vector3.zero, Vector3.zero, false, false);
+    }
+
+    public void SetImageColourGreen(Image image)
+    {
+        image.color = Color.green;
+    }
+
+    public void SetImageColourRed(Image image)
+    {
+        image.color = Color.red;
     }
 }

@@ -15,6 +15,5 @@ MonoBehaviour:
   skillName: Berzerker
   skillDescription: Grow more dangerous as you get hurt. When in combat, gain a damage
     bonus equal to the amount of health you have lost.
-  skillMaxLevel: 1
-  skillLevel: 1
   skillItems: []
+  uniqueID: Skill_Berzerker36092

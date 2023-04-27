@@ -13,4 +13,21 @@ public class Skill : ScriptableObject
     [Tooltip("Items the skill will give to the character on gaining it")]
     public List<Item> skillItems;
 
+    [Header("Tracking")]
+    [ReadOnly] public string uniqueID;
+
+    public string GetUniqueID()
+    {
+        return uniqueID;
+    }
+
+#if UNITY_EDITOR
+    [InspectorButton("ClearID")]
+    public bool clearID;
+
+    public void ClearID()
+    {
+        uniqueID = "";
+    }
+#endif
 }

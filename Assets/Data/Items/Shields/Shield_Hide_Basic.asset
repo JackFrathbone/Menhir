@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Shield_Hide_Basic
   m_EditorClassIdentifier: 
   itemName: Hide Shield
-  itemDescription: 
-  itemValue: 200
-  itemWeight: 0
+  itemDescription: A simple hide shield made around a wooden framework, thick enough
+    to hold off bronze blades
+  itemWeight: 1
   itemIcon: {fileID: 5064410620401808657, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  shieldDefence: 1
+  uniqueID: Shield_Hide_Basic28018
+  clearID: 0
+  shieldDefence: 2
   shieldModel: {fileID: 21300000, guid: ccb9d5bcf7325f74a99c5c57cde6ad5c, type: 3}

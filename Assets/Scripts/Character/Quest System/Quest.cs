@@ -13,4 +13,22 @@ public class Quest : ScriptableObject
     [Header("Quest States")]
     [Tooltip("If the quest has been finished and should not show up as active in the journal")]
     [ReadOnly] public bool questCompleted = false;
+
+    [Header("Tracking")]
+    [ReadOnly] public string uniqueID;
+
+    public string GetUniqueID()
+    {
+        return uniqueID;
+    }
+
+#if UNITY_EDITOR
+    [InspectorButton("ClearID")]
+    public bool clearID;
+
+    public void ClearID()
+    {
+        uniqueID = "";
+    }
+#endif
 }

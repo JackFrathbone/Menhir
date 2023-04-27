@@ -15,6 +15,5 @@ MonoBehaviour:
   skillName: Sharpshooter
   skillDescription: Concentrate and find kinks in the toughest armour with arrows
     and stones. All ranged attacks against targets not in combat give them a disadvantage.
-  skillMaxLevel: 1
-  skillLevel: 1
   skillItems: []
+  uniqueID: Skill_Sharpshooter36104

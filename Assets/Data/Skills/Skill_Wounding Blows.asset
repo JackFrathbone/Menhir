@@ -16,3 +16,4 @@ MonoBehaviour:
   skillDescription: Lower your chance of killing characters in combat. Your final
     damage done increases the chance of a character surviving.
   skillItems: []
+  uniqueID: Skill_Wounding Blows36112

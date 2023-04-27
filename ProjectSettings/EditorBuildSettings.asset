@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Locations/Introduction.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Utility Scenes/TestingScene.unity
+    guid: 66a32423cad884f4bb467e07a710800f
+  - enabled: 1
+    path: Assets/Scenes/Locations/Wavewatch_Island.unity
+    guid: 0575ed24f47589c41a337f13b4300cbd
   m_configObjects: {}

@@ -958,6 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7480fa830449b374f84abd0450ae09bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteDatabase: {fileID: 11400000, guid: 6a3ceea74ea28c547b00654ead5fb428, type: 2}
   _baseRenderer: {fileID: 8342719105666394680}
   _armRenderer: {fileID: 5264647410212834218}
   _handsRenderer: {fileID: 5934171661195372181}
@@ -1697,6 +1698,7 @@ MonoBehaviour:
     effectType: 16
     effectStrength: 1
     effectSeconds: 5
+    effectChance: 100
 --- !u!114 &9141259796133134377
 MonoBehaviour:
   m_ObjectHideFlags: 0

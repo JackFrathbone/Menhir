@@ -16,3 +16,4 @@ MonoBehaviour:
   skillDescription: Turn herbs into useful potions. Grants multiple ritual scrolls
     which create potions out of various plant materials you can find across the world.
   skillItems: []
+  uniqueID: Skill_Wortcraft36110

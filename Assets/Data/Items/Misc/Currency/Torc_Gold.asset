@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e86f4f6729197db42ad9fdf59bc8dd1a, type: 3}
+  m_Name: Torc_Gold
+  m_EditorClassIdentifier: 
+  itemName: Gold Torc
+  itemDescription: A golden torc, beautifully crafted with many small details that
+    stand out on its shiny surface.
+  itemWeight: 1.5
+  itemIcon: {fileID: -4325431805895911581, guid: 5e9f1aadf8585f74cb1dade7b64e00af, type: 3}
+  uniqueID: Torc_Gold27940
+  clearID: 0

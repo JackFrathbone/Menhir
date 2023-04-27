@@ -29,15 +29,7 @@ public class NonPlayerCharacterManager : CharacterManager
 
     private void OnEnable()
     {
-        DataManager.instance._activeCharacters.Add(this);
-    }
-
-    private void OnDestroy()
-    {
-        if(DataManager.instance != null)
-        {
-            DataManager.instance._activeCharacters.Remove(this);
-        }
+        DataManager.instance.activeCharacters.Add(this);
     }
 
     private void OnValidate()
@@ -106,49 +98,40 @@ public class NonPlayerCharacterManager : CharacterManager
     //Equips the most appropriate weapon and shield if needed
     private void EquipWeapon()
     {
-        int tempValue = 0;
-
         foreach (Item weapon in currentInventory)
         {
             if (weapon is WeaponMeleeItem || weapon is WeaponRangedItem || weapon is WeaponFocusItem)
             {
-                if (weapon.itemValue > tempValue)
+                equippedWeapon = weapon;
+
+                if (weapon is WeaponMeleeItem && !(weapon as WeaponMeleeItem).twoHanded)
                 {
-                    equippedWeapon = weapon;
-                    tempValue = weapon.itemValue;
-
-                    if (weapon is WeaponMeleeItem && !(weapon as WeaponMeleeItem).twoHanded)
-                    {
-                        _animationController.SetEquipType(1);
-                    }
-                    else if (weapon is WeaponMeleeItem && (weapon as WeaponMeleeItem).twoHanded)
-                    {
-                        _animationController.SetEquipType(2);
-                    }
-                    else if (weapon is WeaponRangedItem)
-                    {
-                        _animationController.SetEquipType(3);
-                    }
-                    else if (weapon is WeaponFocusItem)
-                    {
-                        _animationController.SetEquipType(1);
-                    }
-
+                    _animationController.SetEquipType(1);
                 }
+                else if (weapon is WeaponMeleeItem && (weapon as WeaponMeleeItem).twoHanded)
+                {
+                    _animationController.SetEquipType(2);
+                }
+                else if (weapon is WeaponRangedItem)
+                {
+                    _animationController.SetEquipType(3);
+                }
+                else if (weapon is WeaponFocusItem)
+                {
+                    _animationController.SetEquipType(1);
+                }
+
+                break;
             }
         }
 
         //Equip shield item if using one handed melee weapon
         if (equippedWeapon is WeaponMeleeItem && !(equippedWeapon as WeaponMeleeItem).twoHanded)
         {
-            tempValue = 0;
             foreach (Item shieldItem in currentInventory)
             {
-                if (shieldItem is ShieldItem && shieldItem.itemValue > tempValue)
-                {
-                    equippedShield = shieldItem as ShieldItem;
-                    tempValue = shieldItem.itemValue;
-                }
+                equippedShield = shieldItem as ShieldItem;
+                break;
             }
         }
 
@@ -177,25 +160,11 @@ public class NonPlayerCharacterManager : CharacterManager
                         {
                             equippedArmour = equipmentItem;
                         }
-                        else
-                        {
-                            if (equipmentItem.itemValue > equippedArmour.itemValue)
-                            {
-                                equippedArmour = equipmentItem;
-                            }
-                        }
                         break;
                     case EquipmentType.cape:
                         if (equippedCape == null)
                         {
                             equippedCape = equipmentItem;
-                        }
-                        else
-                        {
-                            if (equipmentItem.itemValue > equippedCape.itemValue)
-                            {
-                                equippedCape = equipmentItem;
-                            }
                         }
                         break;
                     case EquipmentType.feet:
@@ -203,25 +172,11 @@ public class NonPlayerCharacterManager : CharacterManager
                         {
                             equippedFeet = equipmentItem;
                         }
-                        else
-                        {
-                            if (equipmentItem.itemValue > equippedFeet.itemValue)
-                            {
-                                equippedFeet = equipmentItem;
-                            }
-                        }
                         break;
                     case EquipmentType.greaves:
                         if (equippedGreaves == null)
                         {
                             equippedGreaves = equipmentItem;
-                        }
-                        else
-                        {
-                            if (equipmentItem.itemValue > equippedGreaves.itemValue)
-                            {
-                                equippedGreaves = equipmentItem;
-                            }
                         }
                         break;
                     case EquipmentType.hands:
@@ -229,25 +184,11 @@ public class NonPlayerCharacterManager : CharacterManager
                         {
                             equippedHands = equipmentItem;
                         }
-                        else
-                        {
-                            if (equipmentItem.itemValue > equippedHands.itemValue)
-                            {
-                                equippedHands = equipmentItem;
-                            }
-                        }
                         break;
                     case EquipmentType.helmet:
                         if (equippedHelmet == null)
                         {
                             equippedHelmet = equipmentItem;
-                        }
-                        else
-                        {
-                            if (equipmentItem.itemValue > equippedHelmet.itemValue)
-                            {
-                                equippedHelmet = equipmentItem;
-                            }
                         }
                         break;
                     case EquipmentType.pants:
@@ -255,25 +196,11 @@ public class NonPlayerCharacterManager : CharacterManager
                         {
                             equippedPants = equipmentItem;
                         }
-                        else
-                        {
-                            if (equipmentItem.itemValue > equippedPants.itemValue)
-                            {
-                                equippedPants = equipmentItem;
-                            }
-                        }
                         break;
                     case EquipmentType.shirt:
                         if (equippedShirt == null)
                         {
                             equippedShirt = equipmentItem;
-                        }
-                        else
-                        {
-                            if (equipmentItem.itemValue > equippedShirt.itemValue)
-                            {
-                                equippedShirt = equipmentItem;
-                            }
                         }
                         break;
                 }
@@ -283,7 +210,7 @@ public class NonPlayerCharacterManager : CharacterManager
 
     public override void TriggerBlock()
     {
-        if(_characterCombatController != null)
+        if (_characterCombatController != null)
         {
             _animationController.TriggerBlock();
             _characterCombatController.DecideNextAction();

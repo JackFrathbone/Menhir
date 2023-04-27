@@ -79,6 +79,12 @@ public class AudioManager : Singleton<AudioManager>
     {
         foreach (EventInstance eventInstance in eventInstances)
         {
+            if(!eventInstance.isValid())
+
+            {
+                break;
+            }
+
             eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             eventInstance.release();
         }

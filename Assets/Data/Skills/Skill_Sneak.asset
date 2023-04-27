@@ -16,6 +16,5 @@ MonoBehaviour:
   skillDescription: Hide in the shadows. When crouched, the player can remain undetected
     in the vicinity of two characters. Will become detected by all nearby characters
     if the player is seen by another character.
-  skillMaxLevel: 3
-  skillLevel: 1
   skillItems: []
+  uniqueID: Skill_Sneak36106

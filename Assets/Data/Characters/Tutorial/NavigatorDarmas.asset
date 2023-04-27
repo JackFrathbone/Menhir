@@ -17,13 +17,16 @@ MonoBehaviour:
     She always keeps her hand resting on the bronze dagger in her belt. She wears
     a thick and beautifully embroided purple cloak.
   characterPronouns: 1
-  characterFaction: {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
+  characterFaction: {fileID: 11400000, guid: b47eab732734e23459e950da2d0bacd7, type: 2}
   characterAggression: 0
   characterInventory:
   - {fileID: 11400000, guid: 02dee88757cc845489e757a02a2f8878, type: 2}
   - {fileID: 11400000, guid: 42ac219787fa7e84593c60a5c383a148, type: 2}
   - {fileID: 11400000, guid: fa697dccec3744d40b8aa66131fa6bf4, type: 2}
   - {fileID: 11400000, guid: cb963c3130e822845902f25a57d18a6d, type: 2}
+  - {fileID: 11400000, guid: 3b17b2f2ef061d449a3467c4b706fe08, type: 2}
+  - {fileID: 11400000, guid: 6c3f558bca06c7f4baf5454fcc3fa726, type: 2}
+  - {fileID: 11400000, guid: 6f6425ff5bfb6d2468125f96c5803d59, type: 2}
   characterSpells: []
   characterGreeting: Ho sailor %pcName!
   characterWoundedGreeting: 

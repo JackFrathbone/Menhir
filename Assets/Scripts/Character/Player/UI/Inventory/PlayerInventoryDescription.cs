@@ -11,7 +11,6 @@ public class PlayerInventoryDescription : MonoBehaviour
     [SerializeField] TextMeshProUGUI _itemDescription;
 
     [Header("Stats")]
-    [SerializeField] TextMeshProUGUI _itemValue;
     [SerializeField] TextMeshProUGUI _itemWeaponType;
     [SerializeField] TextMeshProUGUI _itemDamage;
     [SerializeField] TextMeshProUGUI _itemDefence;
@@ -27,12 +26,15 @@ public class PlayerInventoryDescription : MonoBehaviour
 
     private PlayerCharacterManager _playerCharacterManager;
     private PlayerInventory _playerInventory;
+    private PlayerMagic _playerMagic;
 
     private void Start()
     {
         _playerInventory = GetComponent<PlayerInventory>();
+        _playerMagic = GetComponent<PlayerMagic>();
 
         _playerCharacterManager = GameManager.instance.playerObject.GetComponent<PlayerCharacterManager>();
+
     }
 
     public void SetDescription(Item item, bool isSearch, ItemContainer itemContainer)
@@ -44,7 +46,6 @@ public class PlayerInventoryDescription : MonoBehaviour
         //Base item
         _itemLabel.text = item.itemName;
         _itemDescription.text = item.itemDescription;
-        _itemValue.text = "Value: " + item.itemValue.ToString();
 
         //If melee weapon
         if (item is WeaponMeleeItem)
@@ -57,7 +58,7 @@ public class PlayerInventoryDescription : MonoBehaviour
 
             _itemWeaponType.text = "Weapon Type: " + (item as WeaponMeleeItem).weaponMeleeType;
             _itemDamage.text = "Damage: " + (item as WeaponMeleeItem).weaponRollAmount.ToString() + "D" + (item as WeaponMeleeItem).weaponDamage.ToString();
-            _itemDefence.text = "Defence: " +(item as WeaponMeleeItem).weaponDefence.ToString("+#;-#;0");
+            _itemDefence.text = "Defence: " + (item as WeaponMeleeItem).weaponDefence.ToString("+#;-#;0");
             _itemRange.text = "Range: " + (item as WeaponMeleeItem).weaponRange.ToString();
             _itemSpeed.text = "Speed: " + (item as WeaponMeleeItem).weaponSpeed.ToString();
 
@@ -93,14 +94,21 @@ public class PlayerInventoryDescription : MonoBehaviour
             _itemDefence.text = "Defence: " + (item as ShieldItem).shieldDefence.ToString("+#;-#;0");
         }
         //If equipment
-        else if(item is EquipmentItem)
+        else if (item is EquipmentItem)
         {
             SetButtonEvents("equipment", item, isSearch, itemContainer);
             _itemDefence.text = "Defence: " + (item as EquipmentItem).equipmentDefence.ToString("+#;-#;0");
         }
-        else if(item is PotionItem)
+        else if (item is PotionItem)
         {
             SetButtonEvents("potion", item, isSearch, itemContainer);
+        }
+        else if (item is SpellItem)
+        {
+            _itemWeaponType.gameObject.SetActive(true);
+            _itemWeaponType.text = "Mind Requirement: " + (item as SpellItem).spell.mindRequirement.ToString();
+
+            SetButtonEvents("spell", item, isSearch, itemContainer);
         }
     }
 
@@ -125,23 +133,34 @@ public class PlayerInventoryDescription : MonoBehaviour
 
         if (!_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)) || (item is ShieldItem))
         {
+            //If the item is a focus, dont display equip if your mind isnt high enough
+            if (item is WeaponFocusItem && _playerCharacterManager.characterSheet.abilities.mind < (item as WeaponFocusItem).mindRequirement)
+            {
+                return;
+            }
+
             _buttonEquip.gameObject.SetActive(true);
             _buttonEquip.onClick.AddListener(delegate { _playerCharacterManager.EquipItem(itemType, item); });
             _buttonEquip.onClick.AddListener(_playerInventory.RefreshEquippedItemsDisplay);
             _buttonEquip.onClick.AddListener(CloseDescription);
         }
-        else if(_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)) || (item is ShieldItem))
+        else if (_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)) || (item is ShieldItem))
         {
             _buttonUnequip.gameObject.SetActive(true);
             _buttonUnequip.onClick.AddListener(delegate { _playerCharacterManager.UnequipItem(itemType, item); });
             _buttonUnequip.onClick.AddListener(_playerInventory.RefreshEquippedItemsDisplay);
             _buttonUnequip.onClick.AddListener(CloseDescription);
         }
-
-        if(item is PotionItem)
+        else if (item is PotionItem)
         {
             _buttonUse.gameObject.SetActive(true);
-            _buttonUse.onClick.AddListener(delegate { _playerCharacterManager.UsePotionItem(item as PotionItem); });
+            _buttonUse.onClick.AddListener(delegate { _playerCharacterManager.UsePotionItem(item as PotionItem); _playerInventory.RefreshInventory(); });
+            _buttonUse.onClick.AddListener(CloseDescription);
+        }
+        else if (item is SpellItem)
+        {
+            _buttonUse.gameObject.SetActive(true);
+            _buttonUse.onClick.AddListener(delegate { _playerCharacterManager.currentSpells.Add((item as SpellItem).spell); _playerCharacterManager.RemoveItem(item); _playerInventory.RefreshInventory(); _playerMagic.RefreshSpells(); });
             _buttonUse.onClick.AddListener(CloseDescription);
         }
     }

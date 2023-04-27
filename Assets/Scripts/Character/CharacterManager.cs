@@ -43,7 +43,8 @@ public class CharacterManager : MonoBehaviour
 
     [Header("Dialogue")]
     [HideInInspector] public DialogueGraph dialogueGraphInstance;
-    [ReadOnly] public List<DialogueTopicsNode.Topic> alreadyRunDialogueTopics = new();
+    //Uses ids to store
+    [ReadOnly] public List<string> alreadyRunDialogueTopics = new();
 
     [Header("Active Effects")]
     [ReadOnly] public List<Effect> currentEffects = new();
@@ -417,6 +418,17 @@ public class CharacterManager : MonoBehaviour
     //Note that the effect should be added via Effect.AddEffect(CharacterManager) first
     public virtual void AddEffect(Effect effect)
     {
+        //If the effect chance is not 100 or 0, the check if it passes
+        if(effect.effectChance != 100 && effect.effectChance != 0)
+        {
+            float effectChance = Random.Range(0f, 100f);
+
+            if(effect.effectChance >= effectChance)
+            {
+                return;
+            }
+        }
+
         //If spell shield is active chance to not apply any effect
         float resistChance = Random.Range(0f, 100f);
 
@@ -424,6 +436,7 @@ public class CharacterManager : MonoBehaviour
         {
             return;
         }
+
         currentEffects.Add(effect);
     }
 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerFaction
   m_EditorClassIdentifier: 
   factionName: Player Faction
-  factionDescription: 
+  factionDescription: The player personal faction
   alliedFactions: []
   hostileFactions: []

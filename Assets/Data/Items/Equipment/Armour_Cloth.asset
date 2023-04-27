@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b21fdad12a1b040a5a3357d9c08265, type: 3}
+  m_Name: Armour_Cloth
+  m_EditorClassIdentifier: 
+  itemName: Padded Cloth Armour
+  itemDescription: A heavy wool jacket with thick stuffing inside. A common form
+    of homemade armour.
+  itemWeight: 1
+  itemIcon: {fileID: 1995977949585069193, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
+  uniqueID: Armour_Cloth27906
+  clearID: 0
+  equipmentType: 0
+  equipmentDefence: 1
+  equipmentModel: {fileID: 21300000, guid: c6f665ce48975544cb1130a6287ff371, type: 3}
+  equipmentColor: {r: 1, g: 1, b: 1, a: 1}

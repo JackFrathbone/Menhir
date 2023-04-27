@@ -16,6 +16,5 @@ MonoBehaviour:
   skillDescription: Fight using your luck, for better or worse. Every attack has
     a 15% chance to automatically gain advantage, while every hit received has a
     15% chance to be at a disadvantage.
-  skillMaxLevel: 3
-  skillLevel: 1
   skillItems: []
+  uniqueID: Skill_Lucky Strikes36100

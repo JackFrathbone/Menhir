@@ -18,9 +18,16 @@ public class PlayerMagic : MonoBehaviour
     //The button prefab that spells are shown by
     [SerializeField] GameObject _spellButtonPrefab;
 
+    //Prefab for the area effect
+    [SerializeField] GameObject _spellAreaPrefab;
+
     //The buttons that show prepared and free spells
     [SerializeField] Button _spellSlot1;
     [SerializeField] Button _spellSlot2;
+
+    //Used to disable the warlock buttons if the player doesnt have the ability
+    [SerializeField] GameObject _warlockParent;
+
     [SerializeField] Button _freeSpellSlot1;
     [SerializeField] Button _freeSpellSlot2;
 
@@ -36,14 +43,15 @@ public class PlayerMagic : MonoBehaviour
 
     //For casting target spells
     [SerializeField] Transform _playerProjectileSpawnPoint;
-    
+
     [Header("Data")]
     private Spell _preparedSpell1;
     private Spell _preparedSpell2;
     private Spell _freeSpell1;
     private Spell _freeSpell2;
 
-    private bool _canCast = true;
+    private bool _canCastSlot1 = true;
+    private bool _canCastSlot2 = true;
 
     //The time it takes to be able to cast a spell again
     [SerializeField] float _castTimeDefault;
@@ -55,10 +63,17 @@ public class PlayerMagic : MonoBehaviour
         _playerCharacterManager = GameManager.instance.playerObject.GetComponent<PlayerCharacterManager>();
 
         SetSelectedSpell(1);
+
+        _warlockParent.SetActive(false);
     }
 
     public void RefreshSpells()
     {
+        if (_playerCharacterManager.CheckSkill("Warlock"))
+        {
+            _warlockParent.SetActive(true);
+        }
+
         //Delete all the buttons
         for (int i = _buttonsToDelete.Count - 1; i >= 0; i--)
         {
@@ -177,7 +192,7 @@ public class PlayerMagic : MonoBehaviour
 
     public void PrepareSpell(Spell spell)
     {
-        if(spell == null)
+        if (spell == null)
         {
             return;
         }
@@ -187,7 +202,7 @@ public class PlayerMagic : MonoBehaviour
         {
             bool costPass = true;
 
-            foreach(Item item in spell.castingCostItems)
+            foreach (Item item in spell.castingCostItems)
             {
                 if (!_playerCharacterManager.currentInventory.Contains(item))
                 {
@@ -222,6 +237,20 @@ public class PlayerMagic : MonoBehaviour
         RefreshPreparedSpells();
     }
 
+    public void UnPrepareSpell(Spell spell)
+    {
+        if (_preparedSpell1 == spell)
+        {
+            _preparedSpell1 = null;
+        }
+        else if (_preparedSpell2 == spell)
+        {
+            _preparedSpell2 = null;
+        }
+
+        RefreshPreparedSpells();
+    }
+
     public void LearnSpell(Spell spell)
     {
         if (spell == null)
@@ -245,7 +274,7 @@ public class PlayerMagic : MonoBehaviour
     {
         if (_freeSpell1 == spell)
         {
-            _freeSpell2 = null;
+            _freeSpell1 = null;
         }
         else if (_freeSpell2 == spell)
         {
@@ -258,23 +287,23 @@ public class PlayerMagic : MonoBehaviour
     //Spell slot 1 or 2
     public void CastSpell(int spellSlot)
     {
-        if (!_canCast)
+        if ((spellSlot == 1 && !_canCastSlot1) || (spellSlot == 2 && !_canCastSlot2))
         {
             return;
         }
 
         Spell spell = null;
 
-        if(spellSlot == 1)
+        if (spellSlot == 1)
         {
             spell = _preparedSpell1;
         }
-        else if(spellSlot == 2)
+        else if (spellSlot == 2)
         {
             spell = _preparedSpell2;
         }
 
-        if(spell == null)
+        if (spell == null)
         {
             return;
         }
@@ -285,6 +314,8 @@ public class PlayerMagic : MonoBehaviour
             {
                 ProjectileController projectileController = Instantiate(spell.projectilePrefab, _playerProjectileSpawnPoint.position, _playerProjectileSpawnPoint.rotation).GetComponent<ProjectileController>();
 
+                projectileController.spellAreaScale = spell.spellArea;
+
                 foreach (Effect effect in spell.spellEffects)
                 {
                     projectileController.effects.Add(effect);
@@ -292,9 +323,44 @@ public class PlayerMagic : MonoBehaviour
             }
             else
             {
-                foreach(Effect effect in spell.spellEffects)
+                //If the self cast spell has an area spawn the visuals and do a sphere cast
+                if (spell.spellArea != 0)
                 {
-                    effect.AddEffect(_playerCharacterManager);
+                    GameObject areaEffect = Instantiate(_spellAreaPrefab, _playerCharacterManager.transform.position, Quaternion.identity);
+                    areaEffect.transform.localScale = new Vector3(spell.spellArea, spell.spellArea, spell.spellArea);
+                    Destroy(areaEffect, 1f);
+
+                    RaycastHit[] hits = Physics.SphereCastAll(_playerCharacterManager.transform.position, spell.spellArea, transform.forward);
+
+                    foreach (RaycastHit hit in hits)
+                    {
+                        CharacterManager targetCharacter = hit.collider.gameObject.GetComponent<CharacterManager>();
+
+                        //If the spell ignores the caster check if target is the player and break
+                        if (!spell.effectSelf)
+                        {
+                            if(targetCharacter == _playerCharacterManager)
+                            {
+                                break;
+                            }
+                        }
+
+                        if (targetCharacter != null)
+                        {
+                            foreach (Effect effect in spell.spellEffects)
+                            {
+                                effect.AddEffect(targetCharacter);
+                            }
+                        }
+                    }
+                }
+                //Else just apply to self
+                else
+                {
+                    foreach (Effect effect in spell.spellEffects)
+                    {
+                        effect.AddEffect(_playerCharacterManager);
+                    }
                 }
             }
 
@@ -317,8 +383,18 @@ public class PlayerMagic : MonoBehaviour
         //Audio for spell cast
         AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
 
-        _canCast = false;
-        StartCoroutine(WaitToCastAgain());
+        //Set the spell slot to be disabled
+        if (spellSlot == 1)
+        {
+            _canCastSlot1 = false;
+        }
+        else
+        {
+            _canCastSlot2 = false;
+        }
+
+        StartCoroutine(WaitToCastAgain(spell, spellSlot));
+
     }
 
     public bool CheckWarlockSkill()
@@ -337,12 +413,12 @@ public class PlayerMagic : MonoBehaviour
     {
         _selectedSpell = i;
 
-        if(i == 1 && _preparedSpell1 != null)
+        if (i == 1 && _preparedSpell1 != null)
         {
             _spellSlot1ActiveUI.color = Color.green;
             _spellSlot2ActiveUI.color = Color.white;
         }
-        else if(i == 2 && _preparedSpell2 != null)
+        else if (i == 2 && _preparedSpell2 != null)
         {
             _spellSlot1ActiveUI.color = Color.white;
             _spellSlot2ActiveUI.color = Color.green;
@@ -356,11 +432,11 @@ public class PlayerMagic : MonoBehaviour
 
     public Spell GetEquippedSpell(int slot)
     {
-        if(slot == 1)
+        if (slot == 1)
         {
             return _preparedSpell1;
         }
-        else if(slot == 2)
+        else if (slot == 2)
         {
             return _preparedSpell2;
         }
@@ -393,9 +469,26 @@ public class PlayerMagic : MonoBehaviour
         return _selectedSpell;
     }
 
-    IEnumerator WaitToCastAgain()
+    IEnumerator WaitToCastAgain(Spell spell, int spellSlot)
     {
-        yield return new WaitForSeconds(_castTimeDefault);
-        _canCast = true;
+        if (spellSlot == 1)
+        {
+            _spellSlot1ActiveUI.color = new Color(_spellSlot1ActiveUI.color.r, _spellSlot1ActiveUI.color.g, _spellSlot1ActiveUI.color.b, 0.1f);
+        }
+        else
+        {
+            _spellSlot2ActiveUI.color = new Color(_spellSlot2ActiveUI.color.r, _spellSlot2ActiveUI.color.g, _spellSlot2ActiveUI.color.b, 0.1f);
+        }
+        yield return new WaitForSeconds(spell.castingTime);
+        if (spellSlot == 1)
+        {
+            _canCastSlot1 = true;
+            _spellSlot1ActiveUI.color = new Color(_spellSlot1ActiveUI.color.r, _spellSlot1ActiveUI.color.g, _spellSlot1ActiveUI.color.b, 1f);
+        }
+        else
+        {
+            _canCastSlot2 = true;
+            _spellSlot2ActiveUI.color = new Color(_spellSlot2ActiveUI.color.r, _spellSlot2ActiveUI.color.g, _spellSlot2ActiveUI.color.b, 1f);
+        }
     }
 }

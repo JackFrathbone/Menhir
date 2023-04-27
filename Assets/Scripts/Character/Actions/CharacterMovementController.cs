@@ -82,7 +82,7 @@ public class CharacterMovementController : MonoBehaviour
 
     public void StopMovement()
     {
-        if (_navMeshAgent == null)
+        if (_navMeshAgent == null || !_navMeshAgent.isOnNavMesh)
         {
             return;
         }
@@ -92,7 +92,7 @@ public class CharacterMovementController : MonoBehaviour
 
     public void StartMovement()
     {
-        if (_navMeshAgent == null)
+        if (_navMeshAgent == null || !_navMeshAgent.isOnNavMesh)
         {
             return;
         }

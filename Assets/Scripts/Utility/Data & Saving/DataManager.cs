@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,14 +9,16 @@ public class DataManager : Singleton<DataManager>
 {
     [Header("References")]
     [SerializeField] GameObject _itemContainerPrefab;
+    [SerializeField] ScriptableObjectDatabase scriptableObjectDatabase;
+    [SerializeField] SpriteDatabase spriteDatabase;
 
     //This script is a container of all tracked scenes with their associated data
     [Header("Data")]
-    public List<SceneData> _trackedScenes = new();
+    private List<SceneData> _trackedScenes = new();
 
-    public PlayerDataTracker _playerData;
+    private PlayerDataTracker _playerData;
 
-    public List<CharacterManager> _activeCharacters = new();
+    public List<CharacterManager> activeCharacters = new();
 
     private void Start()
     {
@@ -24,6 +27,11 @@ public class DataManager : Singleton<DataManager>
 
     public void SaveSaveSlot(int i)
     {
+        if(_playerData == null)
+        {
+            _playerData = new();
+        }
+
         //Save current data
         SavePlayerTracker();
         SaveSceneData(SceneLoader.instance.GetCurrentScene());
@@ -45,7 +53,7 @@ public class DataManager : Singleton<DataManager>
 
     public void LoadSaveSlot(int i)
     {
-        if(File.ReadAllText(Application.dataPath + "/Saves/save" + i.ToString() + ".txt") == null)
+        if (!File.Exists(Application.dataPath + "/Saves/save" + i.ToString() + ".txt"))
         {
             return;
         }
@@ -57,7 +65,7 @@ public class DataManager : Singleton<DataManager>
         _trackedScenes = saveSlot.savedScenes;
         _playerData = saveSlot.playerData;
 
-        SceneLoader.instance.LoadPlayerScene(_playerData.currentScene, null, _playerData.characterPosition, _playerData.characterRotation);
+        SceneLoader.instance.LoadPlayerScene(_playerData.currentScene, null, _playerData.characterPosition, _playerData.characterRotation, false, true);
 
         Debug.Log("Loaded Game");
     }
@@ -66,7 +74,7 @@ public class DataManager : Singleton<DataManager>
     {
         Scene currentScene = SceneManager.GetSceneByBuildIndex(SceneLoader.instance.GetCurrentScene());
 
-        if(currentScene.buildIndex == -1)
+        if (currentScene.buildIndex == -1)
         {
             Debug.Log("Checked scene not loaded");
             return;
@@ -118,7 +126,7 @@ public class DataManager : Singleton<DataManager>
     {
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
 
-        if(playerObject == null)
+        if (playerObject == null)
         {
             //No player object in scene
             return;
@@ -126,12 +134,38 @@ public class DataManager : Singleton<DataManager>
 
         PlayerCharacterManager playerCharacterManager = playerObject.GetComponent<PlayerCharacterManager>();
 
-        if(playerCharacterManager == null)
+        if (playerCharacterManager == null)
         {
             Debug.Log("trying to save player data with no active player");
             return;
         }
 
+        //The character sheet data
+        _playerData.playerName = playerCharacterManager.characterSheet.characterName;
+        _playerData.pronounInt = ((int)playerCharacterManager.characterSheet.characterPronouns);
+
+        _playerData.colorHair = ColorUtility.ToHtmlStringRGBA(playerCharacterManager.characterSheet.characterHairColor);
+
+        if(playerCharacterManager.characterSheet.characterHair != null)
+        {
+            _playerData.hairSprite = playerCharacterManager.characterSheet.characterHair.name;
+        }
+        else
+        {
+            _playerData.hairSprite = "";
+        }
+
+        if (playerCharacterManager.characterSheet.characterBeard != null)
+        {
+            _playerData.beardSprite = playerCharacterManager.characterSheet.characterBeard.name;
+        }
+        else
+        {
+            _playerData.beardSprite = "";
+        }
+        
+
+        //The player character manager specific data
         _playerData.currentScene = SceneLoader.instance.GetCurrentScene();
         _playerData.characterPosition = playerCharacterManager.transform.position;
         _playerData.characterRotation = playerCharacterManager.transform.rotation.eulerAngles;
@@ -139,38 +173,64 @@ public class DataManager : Singleton<DataManager>
         _playerData.healthCurrent = playerCharacterManager.healthCurrent;
         _playerData.staminaCurrent = playerCharacterManager.staminaCurrent;
 
-        _playerData.abilities.body = playerCharacterManager.characterSheet.abilities.body;
-        _playerData.abilities.hands = playerCharacterManager.characterSheet.abilities.hands;
-        _playerData.abilities.mind = playerCharacterManager.characterSheet.abilities.mind;
-        _playerData.abilities.heart = playerCharacterManager.characterSheet.abilities.heart;
+        _playerData.bodyLevel = playerCharacterManager.characterSheet.abilities.body;
+        _playerData.handsLevel = playerCharacterManager.characterSheet.abilities.hands;
+        _playerData.mindLevel = playerCharacterManager.characterSheet.abilities.mind;
+        _playerData.heartLevel = playerCharacterManager.characterSheet.abilities.heart;
 
-        _playerData.currentInventory = new(playerCharacterManager.currentInventory);
-        _playerData.currentSpells = new(playerCharacterManager.currentSpells);
-        _playerData.currentSkills = new(playerCharacterManager.currentSkills);
+        _playerData.currentInventory.Clear();
+        foreach (Item item in playerCharacterManager.currentInventory)
+        {
+            _playerData.currentInventory.Add(item.uniqueID);
+        }
+
+        _playerData.currentSpells.Clear();
+        foreach (Spell spell in playerCharacterManager.currentSpells)
+        {
+            _playerData.currentSpells.Add(spell.uniqueID);
+        }
+
+        _playerData.currentSkills.Clear();
+        foreach (Skill skill in playerCharacterManager.currentSkills)
+        {
+            _playerData.currentSkills.Add(skill.uniqueID);
+        }
 
         //Equipped
-        _playerData.equippedWeapon = playerCharacterManager.equippedWeapon;
-        _playerData.equippedShield = playerCharacterManager.equippedShield;
+        if (playerCharacterManager.equippedWeapon != null) { _playerData.equippedWeapon = playerCharacterManager.equippedWeapon.GetUniqueID();} else { _playerData.equippedWeapon = ""; };
+        if (playerCharacterManager.equippedShield != null) { _playerData.equippedShield = playerCharacterManager.equippedShield.GetUniqueID(); } else { _playerData.equippedShield = ""; };
 
-        _playerData.equippedArmour = playerCharacterManager.equippedArmour;
-        _playerData.equippedCape = playerCharacterManager.equippedCape;
-        _playerData.equippedFeet = playerCharacterManager.equippedFeet;
-        _playerData.equippedGreaves = playerCharacterManager.equippedGreaves;
-        _playerData.equippedHands = playerCharacterManager.equippedHands;
-        _playerData.equippedHelmet = playerCharacterManager.equippedHelmet;
-        _playerData.equippedPants = playerCharacterManager.equippedPants;
-        _playerData.equippedShirt = playerCharacterManager.equippedShirt;
+        if (playerCharacterManager.equippedArmour != null) { _playerData.equippedArmour = playerCharacterManager.equippedArmour.GetUniqueID(); } else { _playerData.equippedArmour = ""; };
+        if (playerCharacterManager.equippedCape != null) { _playerData.equippedCape = playerCharacterManager.equippedCape.GetUniqueID(); } else { _playerData.equippedCape = ""; };
+        if (playerCharacterManager.equippedFeet != null) { _playerData.equippedFeet = playerCharacterManager.equippedFeet.GetUniqueID(); } else { _playerData.equippedFeet = ""; };
+        if (playerCharacterManager.equippedGreaves != null) { _playerData.equippedGreaves = playerCharacterManager.equippedGreaves.GetUniqueID(); } else { _playerData.equippedGreaves = ""; };
+        if (playerCharacterManager.equippedHands != null) { _playerData.equippedHands = playerCharacterManager.equippedHands.GetUniqueID(); } else { _playerData.equippedHands = ""; };
+        if (playerCharacterManager.equippedHelmet != null) { _playerData.equippedHelmet = playerCharacterManager.equippedHelmet.GetUniqueID(); } else { _playerData.equippedHelmet = ""; };
+        if (playerCharacterManager.equippedPants != null) { _playerData.equippedPants = playerCharacterManager.equippedPants.GetUniqueID(); } else { _playerData.equippedPants = ""; };
+        if (playerCharacterManager.equippedShirt != null) { _playerData.equippedShirt = playerCharacterManager.equippedShirt.GetUniqueID(); } else { _playerData.equippedShirt = ""; };
 
-        _playerData.equippedSpell1 = playerCharacterManager.GetPlayerMagic().GetEquippedSpell(1);
-        _playerData.equippedSpell2 = playerCharacterManager.GetPlayerMagic().GetEquippedSpell(2);
+        PlayerMagic playerMagic = playerCharacterManager.GetPlayerMagic();
 
-        _playerData.learnedSpell1 = playerCharacterManager.GetPlayerMagic().GetLearnedSpell(1);
-        _playerData.learnedSpell2 = playerCharacterManager.GetPlayerMagic().GetLearnedSpell(2);
+        if(playerMagic.GetEquippedSpell(1) != null) { _playerData.equippedSpell1 = playerCharacterManager.GetPlayerMagic().GetEquippedSpell(1).uniqueID; } else { _playerData.equippedSpell1 = ""; };
+        if (playerMagic.GetEquippedSpell(2) != null) { _playerData.equippedSpell2 = playerCharacterManager.GetPlayerMagic().GetEquippedSpell(2).uniqueID; } else { _playerData.equippedSpell2 = ""; };
+
+        if (playerMagic.GetLearnedSpell(1) != null) { _playerData.learnedSpell1 = playerCharacterManager.GetPlayerMagic().GetLearnedSpell(1).uniqueID; } else { _playerData.learnedSpell1 = ""; };
+        if (playerMagic.GetLearnedSpell(2) != null) { _playerData.learnedSpell2 = playerCharacterManager.GetPlayerMagic().GetLearnedSpell(2).uniqueID; } else { _playerData.learnedSpell2 = ""; };
 
         _playerData.currentEffects = playerCharacterManager.currentEffects;
 
-        _playerData.quests = playerCharacterManager._playerQuests;
-        _playerData.stateChecks = playerCharacterManager.stateChecks;
+        _playerData.quests.Clear();
+        foreach (Quest quest in playerCharacterManager._playerQuests)
+        {
+            _playerData.quests.Add(quest.uniqueID);
+        }
+
+        _playerData.stateChecks.Clear();
+        foreach (StateCheck stateCheck in playerCharacterManager.stateChecks)
+        {
+            _playerData.stateChecks.Add(stateCheck.uniqueID);
+        }
+
         _playerData.alreadyRunDialogueTopics = playerCharacterManager.alreadyRunDialogueTopics;
 
         _playerData.currentDay = TimeController.GetDays();
@@ -199,7 +259,7 @@ public class DataManager : Singleton<DataManager>
                     }
                 }
 
-                if(targetTracker != null)
+                if (targetTracker != null)
                 {
                     break;
                 }
@@ -209,6 +269,12 @@ public class DataManager : Singleton<DataManager>
                 targetTracker = newCharacterDataTracker;
                 break;
             }
+        }
+
+        if(targetTracker == null)
+        {
+            Debug.Log("Invalid tracked character");
+            return;
         }
 
         //The different stats to save//
@@ -280,12 +346,12 @@ public class DataManager : Singleton<DataManager>
             }
         }
 
-        LoadPlayerData(_playerData);
+        LoadPlayerData();
         LoadSceneDataCharacters(trackedSceneName, targetSceneData);
         LoadSceneDataContainers(trackedSceneName, targetSceneData);
     }
 
-    private void LoadPlayerData(PlayerDataTracker playerData)
+    private void LoadPlayerData()
     {
         PlayerCharacterManager playerCharacterManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacterManager>();
 
@@ -295,53 +361,98 @@ public class DataManager : Singleton<DataManager>
             return;
         }
 
+        //Character sheet
+        playerCharacterManager.characterSheet.characterName = _playerData.playerName;
+        playerCharacterManager.characterSheet.characterPronouns = (CharacterPronouns)_playerData.pronounInt;
+
+        ColorUtility.TryParseHtmlString("#" + _playerData.colorHair, out Color hair);
+
+        playerCharacterManager.characterSheet.characterHairColor = hair;
+
+        if (_playerData.hairSprite != "") { playerCharacterManager.characterSheet.characterHair = spriteDatabase.GetHairFromName(_playerData.hairSprite); }
+        else { playerCharacterManager.characterSheet.characterHair = null; }
+        if(_playerData.beardSprite != "") { playerCharacterManager.characterSheet.characterBeard = spriteDatabase.GetBeardFromName(_playerData.beardSprite); }
+        else { playerCharacterManager.characterSheet.characterBeard = null; }
+
+
+        //Player manager
         playerCharacterManager.healthCurrent = _playerData.healthCurrent;
         playerCharacterManager.staminaCurrent = _playerData.staminaCurrent;
 
-        playerCharacterManager.characterSheet.abilities.body =_playerData.abilities.body;
-        playerCharacterManager.characterSheet.abilities.hands = _playerData.abilities.hands;
-        playerCharacterManager.characterSheet.abilities.mind = _playerData.abilities.mind;
-        playerCharacterManager.characterSheet.abilities.heart = _playerData.abilities.heart;
+        playerCharacterManager.characterSheet.abilities.body = _playerData.bodyLevel;
+        playerCharacterManager.characterSheet.abilities.hands = _playerData.handsLevel;
+        playerCharacterManager.characterSheet.abilities.mind = _playerData.mindLevel;
+        playerCharacterManager.characterSheet.abilities.heart = _playerData.heartLevel;
 
-        playerCharacterManager.currentInventory = _playerData.currentInventory;
-        playerCharacterManager.currentSpells = _playerData.currentSpells;
-        playerCharacterManager.currentSkills = _playerData.currentSkills;
+        playerCharacterManager.currentInventory.Clear();
+        foreach (string uniqueID in _playerData.currentInventory)
+        {
+            Item item = Instantiate(scriptableObjectDatabase.GetItemFromID(uniqueID));
 
-        //Equipped
-        playerCharacterManager.EquipItem("weapon", _playerData.equippedWeapon);
-        playerCharacterManager.EquipItem("shield", _playerData.equippedShield);
+            playerCharacterManager.currentInventory.Add(item);
 
-        playerCharacterManager.EquipItem("equipment", _playerData.equippedArmour);
-        playerCharacterManager.EquipItem("equipment", _playerData.equippedCape);
-        playerCharacterManager.EquipItem("equipment", _playerData.equippedFeet);
-        playerCharacterManager.EquipItem("equipment", _playerData.equippedGreaves);
-        playerCharacterManager.EquipItem("equipment", _playerData.equippedHands);
-        playerCharacterManager.EquipItem("equipment", _playerData.equippedHelmet);
-        playerCharacterManager.EquipItem("equipment", _playerData.equippedPants);
-        playerCharacterManager.EquipItem("equipment", _playerData.equippedShirt);
+            if (item.uniqueID == _playerData.equippedWeapon) { playerCharacterManager.EquipItem("weapon", item); }
+            if (item.uniqueID == _playerData.equippedShield) { playerCharacterManager.EquipItem("shield", item); }
 
-        playerCharacterManager.GetPlayerMagic().PrepareSpell(_playerData.equippedSpell1);
-        playerCharacterManager.GetPlayerMagic().PrepareSpell(_playerData.equippedSpell2);
+            if (item.uniqueID == _playerData.equippedArmour) { playerCharacterManager.EquipItem("equipment", item); }
+            if (item.uniqueID == _playerData.equippedCape) { playerCharacterManager.EquipItem("equipment", item); }
+            if (item.uniqueID == _playerData.equippedFeet) { playerCharacterManager.EquipItem("equipment", item); }
+            if (item.uniqueID == _playerData.equippedGreaves) { playerCharacterManager.EquipItem("equipment", item); }
+            if (item.uniqueID == _playerData.equippedHands) { playerCharacterManager.EquipItem("equipment", item); }
+            if (item.uniqueID == _playerData.equippedHelmet) { playerCharacterManager.EquipItem("equipment", item); }
+            if (item.uniqueID == _playerData.equippedPants) { playerCharacterManager.EquipItem("equipment", item); }
+            if (item.uniqueID == _playerData.equippedShirt) { playerCharacterManager.EquipItem("equipment", item); }
+        }
 
-        playerCharacterManager.GetPlayerMagic().LearnSpell(_playerData.learnedSpell1);
-        playerCharacterManager.GetPlayerMagic().LearnSpell(_playerData.learnedSpell2);
+        playerCharacterManager.currentSpells.Clear();
+        foreach (string uniqueID in this._playerData.currentSpells)
+        {
+            Spell spell = Instantiate(scriptableObjectDatabase.GetSpellFromID(uniqueID));
+            playerCharacterManager.currentSpells.Add(spell);
 
-        foreach(Effect effect in _playerData.currentEffects)
+            if (spell.uniqueID == this._playerData.learnedSpell1) { playerCharacterManager.GetPlayerMagic().LearnSpell(spell); };
+            if (spell.uniqueID == this._playerData.learnedSpell2) { playerCharacterManager.GetPlayerMagic().LearnSpell(spell); };
+
+            if (spell.uniqueID == this._playerData.equippedSpell1) { playerCharacterManager.GetPlayerMagic().PrepareSpell(spell); };
+            if (spell.uniqueID == this._playerData.equippedSpell2) { playerCharacterManager.GetPlayerMagic().PrepareSpell(spell); };
+        }
+
+        playerCharacterManager.characterSheet.skills.Clear();
+        foreach (string uniqueID in this._playerData.currentSkills)
+        {
+            Skill skill = Instantiate(scriptableObjectDatabase.GetSkillFromID(uniqueID));
+            playerCharacterManager.characterSheet.skills.Add(skill);
+        }
+
+        foreach (Effect effect in this._playerData.currentEffects)
         {
             playerCharacterManager.AddEffect(effect);
         }
 
-        playerCharacterManager._playerQuests = _playerData.quests;
-        playerCharacterManager.stateChecks = _playerData.stateChecks;
-        playerCharacterManager.alreadyRunDialogueTopics = _playerData.alreadyRunDialogueTopics;
+        playerCharacterManager._playerQuests.Clear();
+        foreach (string uniqueID in this._playerData.quests)
+        {
+            Quest quest = Instantiate(scriptableObjectDatabase.GetQuestFromID(uniqueID));
+            playerCharacterManager._playerQuests.Add(quest);
+        }
 
+        playerCharacterManager.stateChecks.Clear();
+        foreach (string uniqueID in this._playerData.stateChecks)
+        {
+            StateCheck stateCheck = scriptableObjectDatabase.GetStateCheckFromID(uniqueID);
+            playerCharacterManager.stateChecks.Add(stateCheck);
+        }
 
-        TimeController.SetTrackedTime(_playerData.currentDay, _playerData.currentHour, _playerData.currentMinute);
+        playerCharacterManager.alreadyRunDialogueTopics = this._playerData.alreadyRunDialogueTopics;
+
+        TimeController.SetTrackedTime(this._playerData.currentDay, this._playerData.currentHour, this._playerData.currentMinute);
+
+        playerCharacterManager.LoadPlayer();
     }
 
     private void LoadSceneDataCharacters(string trackedSceneName, SceneData sceneData)
     {
-        List<CharacterManager> sceneCharacters = _activeCharacters;
+        List<CharacterManager> sceneCharacters = activeCharacters;
 
         foreach (CharacterManager character in sceneCharacters)
         {
@@ -423,5 +534,7 @@ public class DataManager : Singleton<DataManager>
         newTrackedScene.trackedSceneName = loadedScene.name;
 
         _trackedScenes.Add(newTrackedScene);
+
+        LoadPlayerData();
     }
 }

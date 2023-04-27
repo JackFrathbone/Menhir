@@ -70,7 +70,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 6
     m_NumAlphaKeys: 2
-  interiorAmbientColour: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
+  interiorAmbientColour: {r: 0.03773582, g: 0.03773582, b: 0.03773582, a: 1}
   skyboxUpperColour:
     serializedVersion: 2
     key0: {r: 0.0068084756, g: 0.03999977, b: 0.084905684, a: 1}

@@ -126,7 +126,7 @@ public class PlayerDialogueController : MonoBehaviour
         //Check if dialogue can run once, and then set it true
         if (topic.topicRunOnce)
         {
-            _playerCharacterManager.alreadyRunDialogueTopics.Add(topic);
+            _playerCharacterManager.alreadyRunDialogueTopics.Add(topic.uniqueID);
         }
 
         NextNodeViaTopic(topic);
@@ -148,7 +148,7 @@ public class PlayerDialogueController : MonoBehaviour
 
         foreach (DialogueTopicsNode.Topic topic in (_currentDialogueGraph.current as DialogueTopicsNode).topics)
         {
-            if (!_playerCharacterManager.alreadyRunDialogueTopics.Contains(topic) && CompareStateChecks(topic) && ItemCheck(topic))
+            if (!_playerCharacterManager.alreadyRunDialogueTopics.Contains(topic.uniqueID) && CompareStateChecks(topic) && ItemCheck(topic))
             {
                 GameObject topicButton = Instantiate(dialogueTopicButton, dialogueText.transform.parent);
                 topicButton.GetComponentInChildren<TextMeshProUGUI>().text = SetTopicButtonText(topic);
@@ -175,6 +175,15 @@ public class PlayerDialogueController : MonoBehaviour
         foreach (StateCheck stateCheck in topic.topicStateChecks)
         {
             if (_playerCharacterManager.stateChecks.Contains(stateCheck))
+            {
+                return true;
+            }
+        }
+
+        //If there are inactive checks, check if the player doesn't have
+        foreach (StateCheck stateCheck in topic.topicStateChecksInactive)
+        {
+            if (!_playerCharacterManager.stateChecks.Contains(stateCheck))
             {
                 return true;
             }
@@ -379,6 +388,17 @@ public class PlayerDialogueController : MonoBehaviour
         else if (_currentDialogueGraph.current is DialogueQuestNode)
         {
             _playerCharacterManager.AddQuest((_currentDialogueGraph.current as DialogueQuestNode).questToAdd, (_currentDialogueGraph.current as DialogueQuestNode).questEntries);
+            NextNode();
+        }
+        //If it is a load level node
+        else if(_currentDialogueGraph.current is DialogueLoadLevelNode)
+        {
+            SceneLoader.instance.LoadPlayerScene((_currentDialogueGraph.current as DialogueLoadLevelNode).sceneIndex, "default", Vector3.zero, Vector3.zero, true, true);
+        }
+        //If it is a give object node
+        else if (_currentDialogueGraph.current is DialogueGiveItemNode)
+        {
+            _playerCharacterManager.AddItem((_currentDialogueGraph.current as DialogueGiveItemNode).itemToGive);
             NextNode();
         }
         //If not the above return to the entry node

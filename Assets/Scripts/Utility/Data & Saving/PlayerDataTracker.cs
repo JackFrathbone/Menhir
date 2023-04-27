@@ -5,51 +5,64 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerDataTracker
 {
+    [Header("Character Sheet")]
+    [ReadOnly] public string playerName;
+    [ReadOnly] public int pronounInt;
+
+    [ReadOnly] public string colorHair;
+
+    [ReadOnly] public string hairSprite;
+    [ReadOnly] public string beardSprite;
+
     [Header("Location")]
-    public int currentScene;
-    public Vector3 characterPosition;
-    public Vector3 characterRotation;
+    [ReadOnly] public int currentScene;
+    [ReadOnly] public Vector3 characterPosition;
+    [ReadOnly] public Vector3 characterRotation;
 
     [Header("Status")]
-    public float healthCurrent;
-    public float staminaCurrent;
+    [ReadOnly] public float healthCurrent;
+    [ReadOnly] public float staminaCurrent;
 
-    public Abilities abilities;
+    //Abilities
+    [ReadOnly] public int bodyLevel;
+    [ReadOnly] public int handsLevel;
+    [ReadOnly] public int mindLevel;
+    [ReadOnly] public int heartLevel;
 
     [Header("Inventory/Magic/Skills")]
-    public List<Item> currentInventory = new();
-    public List<Spell> currentSpells = new();
-    public List<Skill> currentSkills = new();
+    [ReadOnly] public List<string> currentInventory = new();
+    [ReadOnly] public List<string> currentSpells = new();
+    [ReadOnly] public List<string> currentSkills = new();
 
     [Header("Equipped")]
-    public Item equippedWeapon;
-    public ShieldItem equippedShield;
+    [ReadOnly] public string equippedWeapon;
+    [ReadOnly] public string equippedShield;
 
-    public EquipmentItem equippedArmour;
-    public EquipmentItem equippedCape;
-    public EquipmentItem equippedFeet;
-    public EquipmentItem equippedGreaves;
-    public EquipmentItem equippedHands;
-    public EquipmentItem equippedHelmet;
-    public EquipmentItem equippedPants;
-    public EquipmentItem equippedShirt;
+    [ReadOnly] public string equippedArmour;
+    [ReadOnly] public string equippedCape;
+    [ReadOnly] public string equippedFeet;
+    [ReadOnly] public string equippedGreaves;
+    [ReadOnly] public string equippedHands;
+    [ReadOnly] public string equippedHelmet;
+    [ReadOnly] public string equippedPants;
+    [ReadOnly] public string equippedShirt;
 
-    public Spell equippedSpell1;
-    public Spell equippedSpell2;
+    [ReadOnly] public string equippedSpell1;
+    [ReadOnly] public string equippedSpell2;
 
-    public Spell learnedSpell1;
-    public Spell learnedSpell2;
+    [ReadOnly] public string learnedSpell1;
+    [ReadOnly] public string learnedSpell2;
 
     [Header("Active Effects")]
-    public List<Effect> currentEffects = new();
+    [ReadOnly] public List<Effect> currentEffects = new();
 
     [Header("Quests & States")]
-    public List<Quest> quests = new();
-    public List<StateCheck> stateChecks = new();
-    public List<DialogueTopicsNode.Topic> alreadyRunDialogueTopics = new();
+    [ReadOnly] public List<string> quests = new();
+    [ReadOnly] public List<string> stateChecks = new();
+    [ReadOnly] public List<string> alreadyRunDialogueTopics = new();
 
     [Header("World Data")]
-    public int currentDay;
-    public int currentHour;
-    public int currentMinute;
+    [ReadOnly] public int currentDay;
+    [ReadOnly] public int currentHour;
+    [ReadOnly] public int currentMinute;
 }

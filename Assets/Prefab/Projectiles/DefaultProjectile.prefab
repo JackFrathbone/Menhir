@@ -82,3 +82,5 @@ MonoBehaviour:
   hitEvent:
     m_PersistentCalls:
       m_Calls: []
+  _spellAreaPrefab: {fileID: 3136429193910270166, guid: 275904d03a956be43a122ec913ae6859, type: 3}
+  spellAreaScale: 0

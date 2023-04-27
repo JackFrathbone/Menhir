@@ -14,9 +14,9 @@ public class PlayerSpawnPoint : MonoBehaviour
     private void Start()
     {
         //If no player in scene, load one in
-        if (GameObject.FindGameObjectWithTag("Player") == null && spawnName == "default")
+        if (GameObject.FindGameObjectWithTag("Player") == null && spawnName == "default" && FindObjectOfType<SceneLoader>() == null)
         {
-            //SceneLoader.instance.LoadPlayerScene(gameObject.scene.buildIndex, "default", Vector3.zero);
+            SceneLoader.instance.LoadPlayerScene(gameObject.scene.buildIndex, "default", Vector3.zero, Vector3.zero, false, false);
         }
     }
 }

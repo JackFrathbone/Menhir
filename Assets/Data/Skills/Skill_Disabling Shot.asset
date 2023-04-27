@@ -16,3 +16,4 @@ MonoBehaviour:
   skillDescription: Slow down enemies with your ranged attacks. All successful hits
     against characters with a ranged weapon makes them slower for a period of time.
   skillItems: []
+  uniqueID: Skill_Disabling Shot36094

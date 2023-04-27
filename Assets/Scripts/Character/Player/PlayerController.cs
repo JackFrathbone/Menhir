@@ -220,4 +220,10 @@ public class PlayerController : MonoBehaviour
             _playerFootstep.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }
+
+    private void OnDestroy()
+    {
+        _playerFootstep.stop(STOP_MODE.IMMEDIATE);
+        _playerFootstep.release();
+    }
 }

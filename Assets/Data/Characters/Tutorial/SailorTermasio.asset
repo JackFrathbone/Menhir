@@ -16,7 +16,7 @@ MonoBehaviour:
   characterDescription: A young cheerful man with long hair and a patchy beard. He
     is wearing a thick and beautifully embroided purple cloak.
   characterPronouns: 0
-  characterFaction: {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
+  characterFaction: {fileID: 11400000, guid: b47eab732734e23459e950da2d0bacd7, type: 2}
   characterAggression: 0
   characterInventory:
   - {fileID: 11400000, guid: 5bcbf4a34402e5b4b8ce4cb537a1fc03, type: 2}

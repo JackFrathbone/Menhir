@@ -22,9 +22,9 @@ public class TimeController : MonoBehaviour
     public delegate void onWeatherUpdateDelegate();
     public static onWeatherUpdateDelegate onWeatherUpdate;
 
-    private void Start()
+    private void Awake()
     {
-        AddHours(_currentHour);
+        SetTrackedTime(0, _currentHour, 0);
     }
 
     private void Update()

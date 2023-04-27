@@ -15,6 +15,5 @@ MonoBehaviour:
   skillName: Assassin
   skillDescription: Deal extra damage against the unsuspecting. Gain advantage for
     the first hit when attacking a character you are not detected by.
-  skillMaxLevel: 1
-  skillLevel: 1
   skillItems: []
+  uniqueID: Skill_Assassin36090

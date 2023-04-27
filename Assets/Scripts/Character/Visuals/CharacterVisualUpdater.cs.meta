@@ -3,7 +3,21 @@ guid: 7480fa830449b374f84abd0450ae09bd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _spriteDatabase: {fileID: 11400000, guid: 6a3ceea74ea28c547b00654ead5fb428, type: 2}
+  - _baseRenderer: {instanceID: 0}
+  - _armRenderer: {instanceID: 0}
+  - _handsRenderer: {instanceID: 0}
+  - _legRenderer: {instanceID: 0}
+  - _feetRenderer: {instanceID: 0}
+  - _hairRenderer: {instanceID: 0}
+  - _beardRenderer: {instanceID: 0}
+  - _armourRenderer: {instanceID: 0}
+  - _capeRenderer: {instanceID: 0}
+  - _capefrontRenderer: {instanceID: 0}
+  - _greavesRenderer: {instanceID: 0}
+  - _helmetRenderer: {instanceID: 0}
+  - _shirtRenderer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

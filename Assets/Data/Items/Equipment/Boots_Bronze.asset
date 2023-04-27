@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b21fdad12a1b040a5a3357d9c08265, type: 3}
+  m_Name: Boots_Bronze
+  m_EditorClassIdentifier: 
+  itemName: Bronze Plated Boots
+  itemDescription: A pair of heavy leather boots with two bronze plates strapped
+    to the front, and bronze hobnails in the sole.
+  itemWeight: 3
+  itemIcon: {fileID: 8354394645767491671, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
+  uniqueID: Boots_Bronze27912
+  clearID: 0
+  equipmentType: 2
+  equipmentDefence: 3
+  equipmentModel: {fileID: 21300000, guid: ea153144449d214478c8cf6b82a8073e, type: 3}
+  equipmentColor: {r: 0.7254902, g: 0.44705886, b: 0.17254902, a: 1}

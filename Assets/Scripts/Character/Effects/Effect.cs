@@ -43,7 +43,10 @@ public class Effect
     [Tooltip("Effect does x amount")]
     public int effectStrength;
     [Tooltip("for x seconds")]
-    public int effectSeconds;
+    [Range(1,60)] public int effectSeconds;
+
+    [Tooltip("chance of effect applying. 0 or 100 mean it always applies")]
+    public float effectChance = 100;
 
     //This is only used for specific effects
     [Header("Extra Data")]
@@ -64,13 +67,13 @@ public class Effect
     {
         //Debug.Log(effectType.ToString() + " on " + targetCharacter.characterSheet.characterName);
 
-        effectSecondsPassed--;
-
-        if(effectSecondsPassed <= 0)
+        if (effectSecondsPassed <= 0)
         {
             EndEffect(targetCharacter);
             return;
         }
+
+        effectSecondsPassed--;
 
         switch (effectType)
         {

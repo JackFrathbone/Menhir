@@ -11,7 +11,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] GameObject _weaponParent;
     [SerializeField] GameObject _equipmentParent;
     [SerializeField] GameObject _potionParent;
-    [SerializeField] GameObject _foodParent;
+    [SerializeField] GameObject _spellParent;
     [SerializeField] GameObject _writingParent;
     [SerializeField] GameObject _otherParent;
 
@@ -65,8 +65,11 @@ public class PlayerInventory : MonoBehaviour
         _playerInventoryDescription = GetComponent<PlayerInventoryDescription>();
 
         _playerCharacterManager = GameManager.instance.playerObject.GetComponent<PlayerCharacterManager>();
+    }
 
-        foreach(Transform child in _baseDisplayParent)
+    public void Load()
+    {
+        foreach (Transform child in _baseDisplayParent)
         {
             Image image = child.GetComponent<Image>();
             if (image != null)
@@ -75,17 +78,19 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        if(_playerCharacterManager.characterSheet.characterHair != null)
+        if (_playerCharacterManager.characterSheet.characterHair != null)
         {
             _hairDisplay.sprite = _playerCharacterManager.characterSheet.characterHair;
             _hairDisplay.color = _playerCharacterManager.characterSheet.characterHairColor;
         }
 
-        if (_playerCharacterManager.characterSheet.characterHair != null)
+        if (_playerCharacterManager.characterSheet.characterBeard != null)
         {
             _beardDisplay.sprite = _playerCharacterManager.characterSheet.characterBeard;
             _beardDisplay.color = _playerCharacterManager.characterSheet.characterHairColor;
         }
+
+        RefreshInventory();
     }
 
     public void RefreshInventory()
@@ -165,6 +170,14 @@ public class PlayerInventory : MonoBehaviour
 
                 _buttonsToDelete.Add(button.gameObject);
             }
+            else if (item is SpellItem)
+            {
+                button = Instantiate(_InventoryButtonPrefab, _potionParent.transform.parent).GetComponent<PlayerInventoryButton>();
+                button.transform.SetSiblingIndex(_spellParent.transform.GetSiblingIndex() + 1);
+                button.SetItem(item, this, false, null);
+
+                _buttonsToDelete.Add(button.gameObject);
+            }
             else
             {
                 button = Instantiate(_InventoryButtonPrefab, _otherParent.transform.parent).GetComponent<PlayerInventoryButton>();
@@ -216,7 +229,7 @@ public class PlayerInventory : MonoBehaviour
     {
         _playerCharacterManager.RemoveItem(i);
 
-        ItemContainer itemContainer = Instantiate(_itemContainerPrefab, _playerCharacterManager.GetComponentInChildren<CharacterController>().transform.position ,Quaternion.identity).GetComponent<ItemContainer>();
+        ItemContainer itemContainer = Instantiate(_itemContainerPrefab, _playerCharacterManager.GetComponentInChildren<CharacterController>().transform.position, Quaternion.identity).GetComponent<ItemContainer>();
         itemContainer.inventory.Add(i);
 
         SceneLoader.instance.MoveObjectToScene(itemContainer.gameObject);
@@ -257,7 +270,7 @@ public class PlayerInventory : MonoBehaviour
             _shieldButton.gameObject.SetActive(false);
         }
 
-        if(_playerCharacterManager.equippedArmour != null)
+        if (_playerCharacterManager.equippedArmour != null)
         {
             _armourButton.gameObject.SetActive(true);
 

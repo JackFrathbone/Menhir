@@ -21,6 +21,7 @@ public class PlayerCharacterManager : CharacterManager
     private PlayerCombat _PlayerCombat;
     private PlayerController _playerController;
     [SerializeField] PlayerMagic _playerMagic;
+    private PlayerInventory _playerInventory;
 
     //Unique player data
     [ReadOnly] public List<Quest> _playerQuests = new();
@@ -30,14 +31,32 @@ public class PlayerCharacterManager : CharacterManager
         base.Awake();
         _PlayerCombat = GetComponent<PlayerCombat>();
         _playerController = GetComponent<PlayerController>();
+        _playerInventory = _playerMagic.GetComponent<PlayerInventory>();
     }
 
     protected override void Start()
     {
         _playerActiveUI = GameManager.instance.PlayerUIObject.GetComponent<PlayerActiveUI>();
         _PlayerCharacterStatsDisplay = GameManager.instance.PlayerUIObject.GetComponent<PlayerCharacterStatsDisplay>();
-        base.Start();
+        //base.Start();
+    }
+
+    //Used when loading player data, to make all the related functions onyl start when everything is updated
+    public void LoadPlayer()
+    {
+        foreach (Skill skill in characterSheet.skills)
+        {
+            AddSkill(skill);
+        }
+
+        SetCurrentStatus();
+        InvokeRepeating(nameof(RunEffects), 0f, 1f);
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
+
+        _playerInventory.Load();
+
+        _playerInventory.RefreshEquippedItemsDisplay();
+        _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
     }
 
     protected override void RegenStamina()
@@ -70,7 +89,7 @@ public class PlayerCharacterManager : CharacterManager
 
     public void EquipItem(string itemType, Item i)
     {
-        if(i == null)
+        if (i == null)
         {
             return;
         }
