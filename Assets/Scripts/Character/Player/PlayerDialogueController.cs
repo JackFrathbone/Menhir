@@ -401,6 +401,15 @@ public class PlayerDialogueController : MonoBehaviour
             _playerCharacterManager.AddItem((_currentDialogueGraph.current as DialogueGiveItemNode).itemToGive);
             NextNode();
         }
+        //If it is a action node
+        else if (_currentDialogueGraph.current is DialogueStateActionNode)
+        {
+            foreach(Action action in (_currentDialogueGraph.current as DialogueStateActionNode).actionToRun)
+            {
+                action.StartAction();
+            }
+            NextNode();
+        }
         //If not the above return to the entry node
         else
         {

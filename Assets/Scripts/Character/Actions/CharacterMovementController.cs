@@ -46,6 +46,11 @@ public class CharacterMovementController : MonoBehaviour
         }
     }
 
+    public void MoveToPosition(Vector3 target)
+    {
+        _navMeshAgent.SetDestination(target);
+    }
+
     public void SetTarget(Transform target)
     {
         _target = target;

@@ -114,7 +114,7 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void SetCharacterState()
     {
-
+        
     }
 
     protected virtual void SetCurrentStatus()
