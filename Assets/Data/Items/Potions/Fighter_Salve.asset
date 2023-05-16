@@ -16,8 +16,8 @@ MonoBehaviour:
   itemDescription: A pungent oil that is rubbed into the chest, will cause a temporary
     boost to strength.
   itemWeight: 0.5
-  itemIcon: {fileID: 0}
-  uniqueID: Fighter_Salve27988
+  itemIcon: {fileID: 21300000, guid: 7776d2842ca175a408c6277c01c5cc6f, type: 3}
+  uniqueID: Fighter_Salve29220
   clearID: 0
   potionEffects:
   - effectType: 8

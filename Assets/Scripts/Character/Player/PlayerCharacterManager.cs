@@ -3,6 +3,20 @@ using UnityEngine;
 
 public class PlayerCharacterManager : CharacterManager
 {
+    [Header("Defaults")]
+    [SerializeField] Faction _playerFaction;
+
+    [Header("Dialogue")]
+    //Uses dialogue IDs
+    [ReadOnly] public List<string> alreadyRunDialogueTopics;
+
+    [Header("Visuals")]
+    public Color characterSkintone = Color.white;
+    public Color characterHairColor = Color.black;
+    public Sprite characterHair;
+    public Sprite characterBeard;
+
+    [Header("Visual References")]
     [SerializeField] SpriteRenderer _playerWeaponMelee;
     [SerializeField] SpriteRenderer _playerWeaponRanged;
     [SerializeField] SpriteRenderer _playerShield;
@@ -28,7 +42,11 @@ public class PlayerCharacterManager : CharacterManager
 
     protected override void Awake()
     {
+        //Set the player defaults
+        characterFaction = _playerFaction;
+
         base.Awake();
+
         _PlayerCombat = GetComponent<PlayerCombat>();
         _playerController = GetComponent<PlayerController>();
         _playerInventory = _playerMagic.GetComponent<PlayerInventory>();
@@ -44,11 +62,6 @@ public class PlayerCharacterManager : CharacterManager
     //Used when loading player data, to make all the related functions onyl start when everything is updated
     public void LoadPlayer()
     {
-        foreach (Skill skill in characterSheet.skills)
-        {
-            AddSkill(skill);
-        }
-
         SetCurrentStatus();
         InvokeRepeating(nameof(RunEffects), 0f, 1f);
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
@@ -268,6 +281,13 @@ public class PlayerCharacterManager : CharacterManager
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
         _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
+
+        //If the player is dead then move them to the death screen
+        if(characterState == CharacterState.dead || characterState == CharacterState.wounded)
+        {
+            GameManager.instance.UnlockCursor();
+            SceneLoader.instance.LoadMenuScene(9);
+        }
     }
 
     public override void AddStamina(float i)

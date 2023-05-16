@@ -17,13 +17,13 @@ MonoBehaviour:
     tool.
   itemWeight: 1.8
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Handaxe_Bronze_Basic28042
+  uniqueID: Handaxe_Bronze_Basic29272
   clearID: 0
   weaponMeleeType: Axe
   twoHanded: 0
-  weaponDamage: 4
-  weaponRollAmount: 2
-  weaponDefence: 3
+  weaponDamage: 8
+  weaponBlunt: 2
+  weaponDefence: 0
   weaponSpeed: 0.4
   weaponRange: 1.85
   weaponModel: {fileID: 21300000, guid: 8587e0d6df6267447acaca156749aa4d, type: 3}

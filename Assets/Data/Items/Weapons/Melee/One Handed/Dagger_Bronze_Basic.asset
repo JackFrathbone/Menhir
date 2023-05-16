@@ -16,13 +16,13 @@ MonoBehaviour:
   itemDescription: A sturdy bronze dagger with a sharp edge. Reliable and practical.
   itemWeight: 1
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Dagger_Bronze_Basic26422
+  uniqueID: Dagger_Bronze_Basic29270
   clearID: 0
   weaponMeleeType: Dagger
   twoHanded: 0
-  weaponDamage: 4
-  weaponRollAmount: 1
-  weaponDefence: 2
+  weaponDamage: 6
+  weaponBlunt: 0
+  weaponDefence: -1
   weaponSpeed: 1
   weaponRange: 1
   weaponModel: {fileID: 21300000, guid: 85e6a2d3c7d4e95499cf4cb9b6a90787, type: 3}

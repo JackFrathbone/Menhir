@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class StateActionManager : Singleton<StateActionManager>
 {
-    //Find a specific character in scene
-    public CharacterManager GetCharacter(string charName)
+    //Find all characters using the specific character sheet
+    public List<NonPlayerCharacterManager> GetCharactersFromSheet(CharacterSheet characterSheet)
     {
-        foreach(CharacterManager character in DataManager.instance.activeCharacters)
+        List<NonPlayerCharacterManager> characters = DataManager.instance.GetActiveCharacters();
+        List<NonPlayerCharacterManager> actionCharacters = new();
+
+        if (characters.Count == 0)
         {
-            if(character.characterSheet.characterName == charName)
+            Debug.Log("No characters in scene");
+            return null;
+        }
+
+        foreach(CharacterManager character in characters)
+        {
+            if(character.characterName == characterSheet.characterName && character is NonPlayerCharacterManager)
             {
-                return character;
+                actionCharacters.Add(character as NonPlayerCharacterManager);
             }
         }
 
-        return null;
+        return actionCharacters;
     }
 }

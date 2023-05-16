@@ -1,10 +1,31 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using System.Collections.Generic;
 
 //The non-player character manager is for managing human NPCs, with references for animation and AI
 public class NonPlayerCharacterManager : CharacterManager
 {
+    [Header("Character Sheet")]
+    [SerializeField] protected CharacterSheet _baseCharacterSheet;
+    [HideInInspector] private CharacterSheet _characterSheet = null;
+
+    [Header("Dialogue")]
+    [ReadOnly] public string characterDescription;
+    [ReadOnly] public string characterGreeting;
+    [ReadOnly] public string characterWoundedGreeting;
+    [ReadOnly] public DialogueGraph characterDialogueGraph;
+
+    [Header("States")]
+    [ReadOnly] public bool isHidden;
+
+    [Header("Visuals")]
+    [ReadOnly] public bool randomiseVisuals;
+    [ReadOnly] public Color characterSkintone = Color.white;
+    [ReadOnly] public Color characterHairColor = Color.black;
+    [ReadOnly] public Sprite characterHair;
+    [ReadOnly] public Sprite characterBeard;
+
     [Header("References")]
     private CharacterMovementController _characterMovementController;
     private CharacterAnimationController _animationController;
@@ -13,7 +34,9 @@ public class NonPlayerCharacterManager : CharacterManager
 
     protected override void Awake()
     {
-        base.Awake();
+        _characterSheet = Instantiate(_baseCharacterSheet);
+        SetDataFromCharacterSheet();
+
         _animationController = GetComponentInChildren<CharacterAnimationController>();
         _VisualUpdater = GetComponentInChildren<CharacterVisualUpdater>();
         _characterCombatController = GetComponentInChildren<CharacterCombatController>();
@@ -23,14 +46,25 @@ public class NonPlayerCharacterManager : CharacterManager
     protected override void Start()
     {
         base.Start();
+
+        characterState = _characterSheet.startState;
         SetCharacterState();
         _characterMovementController = GetComponent<CharacterMovementController>();
     }
 
+
     private void OnEnable()
     {
-        DataManager.instance.activeCharacters.Add(this);
+        DataManager.instance.AddActiveCharacter(this);
     }
+
+/*#if UNITY_STANDALONE
+    private void OnDisable()
+    {
+        DataManager.instance.RemoveActiveCharacter(this);
+    }
+
+#endif*/
 
     private void OnValidate()
     {
@@ -38,6 +72,38 @@ public class NonPlayerCharacterManager : CharacterManager
         {
             name = _baseCharacterSheet.characterName;
         }
+    }
+
+    private void SetDataFromCharacterSheet()
+    {
+        characterName = _characterSheet.characterName;
+        characterDescription = _characterSheet.characterDescription;
+        characterPronouns = _characterSheet.characterPronouns;
+        characterFaction = _characterSheet.characterFaction;
+        characterAggression = _characterSheet.characterAggression;
+
+        currentInventory = new List<Item>(_characterSheet.characterInventory);
+        currentSpells = new List<Spell>(_characterSheet.characterSpells);
+
+        characterGreeting = _characterSheet.characterGreeting;
+        characterWoundedGreeting = _characterSheet.characterWoundedGreeting;
+        characterDialogueGraph = _characterSheet.characterDialogueGraph;
+
+        abilities = _characterSheet.abilities;
+
+        foreach (Skill skill in _characterSheet.skills)
+        {
+            AddSkill(skill);
+        }
+
+        isHidden = _characterSheet.startHidden;
+        characterState = _characterSheet.startState;
+
+        randomiseVisuals = _characterSheet.randomiseVisuals;
+        characterSkintone = _characterSheet.characterSkintone;
+        characterHairColor = _characterSheet.characterHairColor;
+        characterHair = _characterSheet.characterHair;
+        characterBeard = _characterSheet.characterBeard;
     }
 
     public override void SetCharacterState()

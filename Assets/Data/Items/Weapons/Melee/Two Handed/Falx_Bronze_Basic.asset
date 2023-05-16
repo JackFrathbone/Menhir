@@ -17,13 +17,13 @@ MonoBehaviour:
     spear. A native design of Staen used for hunting dangerous bog creatures.
   itemWeight: 2.5
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Falx_Bronze_Basic28054
+  uniqueID: Falx_Bronze_Basic29280
   clearID: 0
   weaponMeleeType: Falx
   twoHanded: 1
-  weaponDamage: 6
-  weaponRollAmount: 2
-  weaponDefence: 4
+  weaponDamage: 12
+  weaponBlunt: 1
+  weaponDefence: 3
   weaponSpeed: 0.5
-  weaponRange: 3
+  weaponRange: 2.5
   weaponModel: {fileID: 21300000, guid: e5e366633e162bd49b52da6f2f55a479, type: 3}

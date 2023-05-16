@@ -58,11 +58,9 @@ public class SceneLoader : Singleton<SceneLoader>
     }
 
     //Load the scene, then load the player scene in afterwards
-    public void LoadPlayerScene(int i, string spawnPointName, Vector3 overrideTransform, Vector3 overrideRotation, bool saveData, bool loadData)
+    public void LoadPlayerScene(int targetScene, string spawnPointName, Vector3 overrideTransform, Vector3 overrideRotation, bool saveData, bool loadData)
     {
-        _currentScene = i;
-
-        StartCoroutine(WaitForLoadPlayerScene(spawnPointName, overrideTransform, overrideRotation, saveData, loadData));
+        StartCoroutine(WaitForLoadPlayerScene(targetScene, spawnPointName, overrideTransform, overrideRotation, saveData, loadData));
     }
 
     public bool CheckSceneLoaded(int i)
@@ -128,7 +126,7 @@ public class SceneLoader : Singleton<SceneLoader>
         }
     }
 
-    IEnumerator WaitForLoadPlayerScene(string spawnPointName, Vector3 overrideTransform, Vector3 overrideRotation, bool saveData, bool loadData)
+    IEnumerator WaitForLoadPlayerScene(int targetScene, string spawnPointName, Vector3 overrideTransform, Vector3 overrideRotation, bool saveData, bool loadData)
     {
         //Saves all the data from a scene being unloaded
         if (saveData)
@@ -136,16 +134,19 @@ public class SceneLoader : Singleton<SceneLoader>
             yield return new WaitUntil(() => DataManager.instance.SaveSceneData(_currentScene) == true);
         }
 
-        //Clear the active character
-        DataManager.instance.activeCharacters.Clear();
+        //Set the new currrent scene to be the scene thats getting loaded
+        _currentScene = targetScene;
 
         AsyncOperation asyncLoad;
 
         Scene currentScene = SceneManager.GetSceneByBuildIndex(_currentScene);
 
-        //Dont load scene if already loaded
+        //Check if current scene is loaded, and if not then load it in
         if (currentScene.buildIndex == -1)
         {
+            //Clear the active characters in DataManager instance
+            DataManager.instance.ClearActiveCharacters();
+
             //Loads the target scene
             asyncLoad = SceneManager.LoadSceneAsync(_currentScene, LoadSceneMode.Single);
 
@@ -204,7 +205,7 @@ public class SceneLoader : Singleton<SceneLoader>
                 if(playerSpawnPoint.spawnName == spawnPointName)
                 {
                     charC.enabled = false;
-                    charC.transform.SetPositionAndRotation(playerSpawnPoint.transform.position, playerSpawnPoint.transform.rotation);
+                    charC.transform.SetPositionAndRotation(playerSpawnPoint.GetSpawnTransform().transform.position, playerSpawnPoint.GetSpawnTransform().transform.rotation);
                     charC.enabled = true;
                 }
             }

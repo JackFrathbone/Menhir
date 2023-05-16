@@ -17,9 +17,6 @@ public class CharacterDataTracker
     [Header("Inventory")]
     public List<Item> currentInventory = new();
 
-    [Header("Dialogue")]
-    public List<string> alreadyRunDialogueTopics = new();
-
     [Header("Active Effects")]
     public List<Effect> currentEffects = new();
 

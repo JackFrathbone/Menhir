@@ -5,6 +5,9 @@ public class PlayerInput : MonoBehaviour
     [Header("References")]
     [SerializeField] GameObject _characterMenu;
     [SerializeField] GameObject _pauseMenu;
+    [SerializeField] GameObject _playerTorch;
+
+    private bool _torchToggle = false;
 
     private PlayerInventory _playerInventory;
     private PlayerMagic _playerMagic;
@@ -16,7 +19,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerCharacterManager _playerCharacterManager;
 
     private GameObject _target;
-    private enum ActivateMode{disable, search, talk, door};
+    private enum ActivateMode { disable, search, talk, door, item };
     private ActivateMode _activateMode;
 
     private void Awake()
@@ -60,7 +63,7 @@ public class PlayerInput : MonoBehaviour
                 CharacterManager targetChar = hit.collider.GetComponentInParent<CharacterManager>();
 
                 //If alive and friendly// Compares character faction to target faction
-                if ((targetChar.characterState == CharacterState.alive && !Factions.FactionHostilityCheck(_playerCharacterManager.characterSheet.characterFaction, targetChar.characterSheet.characterFaction, targetChar.characterSheet.characterAggression)) || targetChar.characterState == CharacterState.wounded)
+                if ((targetChar.characterState == CharacterState.alive && !Factions.FactionHostilityCheck(_playerCharacterManager.characterFaction, targetChar.characterFaction, targetChar.characterAggression)) || targetChar.characterState == CharacterState.wounded)
                 {
                     //Check here if there is dialogue
                     _playerActiveUI.EnableCrosshairText("Talk to");
@@ -76,6 +79,11 @@ public class PlayerInput : MonoBehaviour
             {
                 _playerActiveUI.EnableCrosshairText("Search");
                 _activateMode = ActivateMode.search;
+            }
+            else if (hit.collider.CompareTag("ItemSingle"))
+            {
+                _playerActiveUI.EnableCrosshairText("Take Item");
+                _activateMode = ActivateMode.item;
             }
             else if (hit.collider.CompareTag("Door"))
             {
@@ -159,6 +167,20 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
+        if (Input.GetButtonDown("ToggleTorch"))
+        {
+            _torchToggle = !_torchToggle;
+
+            if (_torchToggle)
+            {
+                _playerTorch.SetActive(true);
+            }
+            else
+            {
+                _playerTorch.SetActive(false);
+            }
+        }
+
         if (Input.GetButtonDown("Spell1"))
         {
             _playerMagic.SetSelectedSpell(1);
@@ -169,7 +191,7 @@ public class PlayerInput : MonoBehaviour
             _playerMagic.SetSelectedSpell(2);
         }
 
-        if(Input.GetButtonDown("CastSpell"))
+        if (Input.GetButtonDown("CastSpell"))
         {
             _playerMagic.CastSpell(_playerMagic.GetSelectedSpell());
         }
@@ -177,14 +199,14 @@ public class PlayerInput : MonoBehaviour
         //Activate objects that are currently looked at
         if (Input.GetButtonDown("Activate"))
         {
-            if(_activateMode != ActivateMode.disable && _target != null && !GameManager.instance.isPaused)
+            if (_activateMode != ActivateMode.disable && _target != null && !GameManager.instance.isPaused)
             {
                 switch (_activateMode)
                 {
                     case ActivateMode.search:
                         //If container is a dead character
 
-                            if (_target.CompareTag("Character") && GameManager.instance.CheckCanPause("characterMenu"))
+                        if (_target.CompareTag("Character") && GameManager.instance.CheckCanPause("characterMenu"))
                         {
                             GameManager.instance.PauseGame(true, "characterMenu");
                             _playerInventory.RefreshInventory();
@@ -192,7 +214,7 @@ public class PlayerInput : MonoBehaviour
                             _characterMenu.SetActive(true);
                             _playerInventory.OpenSearchInventory(_target.GetComponentInParent<ItemContainer>());
                         }
-                        else if(_target.CompareTag("ItemContainer") && GameManager.instance.CheckCanPause("characterMenu"))
+                        else if (_target.CompareTag("ItemContainer") && GameManager.instance.CheckCanPause("characterMenu"))
                         {
                             GameManager.instance.PauseGame(true, "characterMenu");
                             _playerInventory.RefreshInventory();
@@ -205,7 +227,7 @@ public class PlayerInput : MonoBehaviour
                         if (_target.CompareTag("Character") && GameManager.instance.CheckCanPause("dialogueMenu"))
                         {
                             GameManager.instance.PauseGame(true, "dialogueMenu");
-                            _playerDialogueController.StartDialogue(_target.GetComponentInParent<CharacterManager>());
+                            _playerDialogueController.StartDialogue(_target.GetComponentInParent<NonPlayerCharacterManager>());
                         }
                         else
                         {
@@ -215,6 +237,14 @@ public class PlayerInput : MonoBehaviour
                         break;
                     case ActivateMode.door:
                         _target.GetComponent<LoadingDoor>().ActivateLoadingDoor();
+                        break;
+                    case ActivateMode.item:
+                        if (_target.CompareTag("ItemSingle"))
+                        {
+                            ItemSingleDisplay itemDisplay = _target.GetComponent<ItemSingleDisplay>();
+                            _playerCharacterManager.AddItem(itemDisplay.item);
+                            Destroy(itemDisplay.gameObject);
+                        }
                         break;
                 }
             }

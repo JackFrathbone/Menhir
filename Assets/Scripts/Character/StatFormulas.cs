@@ -18,8 +18,11 @@ public static class StatFormulas
     }
 
     //Returns a number which if positive is damage done to target, 0 or negative results in a block
-    public static int CalculateHit(int hitDamage, int ability, int targetDefence, bool advantage, bool targetDisadvantage, bool checkSkillAssassinate, bool checkSkillLuckyStrikeCharacter, bool checkSkillLuckyStrikeTarget, bool checkSkillHonourFighter, bool checkSkillSharpshooter)
+    public static int CalculateHit(int hitDamage, int bluntDamage, int ability, int targetDefence, bool advantage, bool targetDisadvantage, bool checkSkillAssassinate, bool checkSkillLuckyStrikeCharacter, bool checkSkillLuckyStrikeTarget, bool checkSkillHonourFighter, bool checkSkillSharpshooter)
     {
+        //Apply the blunt effect
+        targetDefence -= bluntDamage;
+
         if (checkSkillLuckyStrikeCharacter)
         {
             int critChance = Random.Range(0, 101);

@@ -3,13 +3,13 @@ using UnityEngine;
 public class CharacterAnimationController : MonoBehaviour
 {
     //References//
-    private enum AnimState
+    protected enum AnimState
     {
         alive,
         wounded,
         dead
     }
-    private enum EquipType
+    protected enum EquipType
     {
         unarmed,
         oneHanded,
@@ -18,46 +18,55 @@ public class CharacterAnimationController : MonoBehaviour
     }
 
     [Header("References")]
-    private AnimState _animState;
-    private EquipType _equipType;
-    private bool _hasShield;
-    private Animator _characterAnimator;
+    protected AnimState _animState;
+    protected EquipType _equipType;
+    protected bool _hasShield;
+    protected Animator _characterAnimator;
 
-    private bool _inCombat;
+    protected bool _isWalking;
+    protected bool _inCombat;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _characterAnimator = GetComponent<Animator>();
     }
 
-    public void SetState(int i)
+    public virtual void SetState(int i)
     {
         _animState = (AnimState)i;
 
         CheckState();
     }
 
-    public void SetEquipType(int i)
+    public virtual void SetEquipType(int i)
     {
         _equipType = (EquipType)i;
     }
 
-    public void SetShield(bool hasShield)
+    public virtual void SetShield(bool hasShield)
     {
         _hasShield = hasShield;
     }
 
-    public void CharacterWalkingTrue()
+    public virtual void CharacterWalkingTrue()
     {
-        _characterAnimator.SetBool("isWalking", true);
+        if (!_isWalking)
+        {
+            _characterAnimator.SetBool("isWalking", true);
+            _isWalking = true;
+        }
     }
 
-    public void CharacterWalkingFalse()
+    public virtual void CharacterWalkingFalse()
     {
-        _characterAnimator.SetBool("isWalking", false);
+        if (_isWalking)
+        {
+            _characterAnimator.SetBool("isWalking", false);
+            _isWalking = false;
+        }
     }
 
-    private void CheckState()
+    protected virtual void CheckState()
     {
         _characterAnimator.SetInteger("animState", (int)_animState);
 
@@ -74,33 +83,33 @@ public class CharacterAnimationController : MonoBehaviour
         
     }
 
-    public void StartHolding(float holdSpeed)
+    public virtual void StartHolding(float holdSpeed)
     {
         _characterAnimator.SetFloat("holdSpeed", holdSpeed);
         _characterAnimator.SetBool("isHolding", true);
     }
 
-    public void StopHolding()
+    public virtual void StopHolding()
     {
         _characterAnimator.SetBool("isHolding", false);
     }
 
-    public void HitReaction()
+    public virtual void HitReaction()
     {
         _characterAnimator.SetTrigger("hurtCharacter");
     }
 
-    public void TriggerAttack()
+    public virtual void TriggerAttack()
     {
         _characterAnimator.SetTrigger("attackAction");
     }
 
-    public void TriggerBlock()
+    public virtual void TriggerBlock()
     {
         _characterAnimator.SetTrigger("blockAction");
     }
 
-    public void UpdateCombatState(bool inCombat)
+    public virtual void UpdateCombatState(bool inCombat)
     {
         _inCombat = inCombat;
         CheckState();

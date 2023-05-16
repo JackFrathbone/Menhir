@@ -20,8 +20,7 @@ public class GameManager: Singleton<GameManager>
         isPaused = true;
         pauseOrigin = origin;
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UnlockCursor();
         Time.timeScale = 0;
 
         if(_playerController != null && playerPresent)
@@ -40,8 +39,7 @@ public class GameManager: Singleton<GameManager>
         isPaused = false;
         pauseOrigin = "";
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockCursor();
         Time.timeScale = 1;
 
         if (_playerController != null && playerPresent)
@@ -53,6 +51,18 @@ public class GameManager: Singleton<GameManager>
             _playerController = playerObject.GetComponent<PlayerController>();
             _playerController.StartMovement();
         }
+    }
+
+    public void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public bool CheckCanPause(string pauseCompare)

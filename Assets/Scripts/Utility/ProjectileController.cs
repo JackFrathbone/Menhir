@@ -50,6 +50,8 @@ public class ProjectileController : MonoBehaviour
         {
             if (collision.collider.CompareTag("Character") || collision.collider.CompareTag("Player"))
             {
+                print("adding effects");
+
                 hitEvent.Invoke();
 
                 if (effects.Count != 0)

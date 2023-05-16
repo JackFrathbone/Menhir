@@ -9,7 +9,7 @@ public class PlayerDataTracker
     [ReadOnly] public string playerName;
     [ReadOnly] public int pronounInt;
 
-    [ReadOnly] public string colorHair;
+    [ReadOnly] public string colorHair; 
 
     [ReadOnly] public string hairSprite;
     [ReadOnly] public string beardSprite;

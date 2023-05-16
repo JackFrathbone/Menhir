@@ -26,15 +26,15 @@ public class PlayerCharacterStatsDisplay : MonoBehaviour
 
     public void UpdateStatDisplay(PlayerCharacterManager playerCharacterManager)
     {
-        _playerName.text = playerCharacterManager.characterSheet.characterName;
+        _playerName.text = playerCharacterManager.characterName;
 
         _playerHealth.text = "Health: " + playerCharacterManager.healthCurrent.ToString() +"/"+ playerCharacterManager.healthTotal.ToString();
         _playerStamina.text = "Stamina: " + playerCharacterManager.staminaCurrent.ToString() + "/" + playerCharacterManager.staminaTotal.ToString();
 
-        _abilityPhyisque.text = "Body " + playerCharacterManager.characterSheet.abilities.body;
-        _abilityAgility.text = "Hands " + playerCharacterManager.characterSheet.abilities.hands;
-        _abilityMental.text = "Mind " + playerCharacterManager.characterSheet.abilities.mind;
-        _abilitySocial.text = "Heart " + playerCharacterManager.characterSheet.abilities.heart;
+        _abilityPhyisque.text = "Body " + playerCharacterManager.abilities.body;
+        _abilityAgility.text = "Hands " + playerCharacterManager.abilities.hands;
+        _abilityMental.text = "Mind " + playerCharacterManager.abilities.mind;
+        _abilitySocial.text = "Heart " + playerCharacterManager.abilities.heart;
     }
 
     public void AddSkill(Skill skill)

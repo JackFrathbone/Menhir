@@ -3,13 +3,31 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class PlayerCharacterCreation : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Settings")]
     [SerializeField] int _startingScene = 4;
 
-    [SerializeField] CharacterSheet _playerCharacterSheet;
+    //All the basic items all characters should have
+    [SerializeField] List<Item> _defaultItems = new();
+    [SerializeField] Item _defaultShirt;
+    [SerializeField] Item _defaultPants;
+    [SerializeField] Item _defaultShoes;
+
+    [SerializeField] List<Item> _backgroundListBanesman = new();
+    [SerializeField] List<Item> _backgroundListDiplomat = new();
+    [SerializeField] List<Item> _backgroundListHero = new();
+    [SerializeField] List<Item> _backgroundListScout = new();
+    [SerializeField] List<Item> _backgroundListScholar = new();
+    [SerializeField] List<Item> _backgroundListTrader = new();
+    [SerializeField] List<Item> _backgroundListWarrior = new();
+
+    [SerializeField] int _startingHour;
+
+    [Header("References")]
+    private PlayerDataTracker _playerDataTracker = new();
 
     //Bio
     private string _characterName;
@@ -29,18 +47,6 @@ public class PlayerCharacterCreation : MonoBehaviour
 
     //Background
     [SerializeField] TextMeshProUGUI _backgroundDescription;
-
-    //All the basic items all characters should have
-    [SerializeField] List<Item> _defaultItems = new();
-
-    [SerializeField] List<Item> _backgroundListBanesman = new();
-    [SerializeField] List<Item> _backgroundListDiplomat = new();
-    [SerializeField] List<Item> _backgroundListHero = new();
-    [SerializeField] List<Item> _backgroundListScout = new();
-    [SerializeField] List<Item> _backgroundListScholar = new();
-    [SerializeField] List<Item> _backgroundListTrader = new();
-    [SerializeField] List<Item> _backgroundListWarrior = new();
-
     private List<Item> backgroundListFinal = new();
     private string _selectedBackground;
 
@@ -435,39 +441,54 @@ public class PlayerCharacterCreation : MonoBehaviour
     public void SetCharacterSheet()
     {
         //Bio
-        _playerCharacterSheet.characterName = _characterName;
-        _playerCharacterSheet.characterPronouns = _characterPronouns;
+        _playerDataTracker.playerName = _characterName;
+        _playerDataTracker.pronounInt = (int)_characterPronouns;
 
         //Looks
-        _playerCharacterSheet.characterHairColor = _hairColourOptions[_onColour];
-        _playerCharacterSheet.characterHair = _hairOptions[_onHair];
-        _playerCharacterSheet.characterBeard = _beardOptions[_onBeard];
+        _playerDataTracker.colorHair = ColorUtility.ToHtmlStringRGBA(_hairColourOptions[_onColour]);
+        if(_hairOptions[_onHair] != null) { _playerDataTracker.hairSprite = _hairOptions[_onHair].name; };
+        if (_beardOptions[_onBeard] != null) { _playerDataTracker.beardSprite = _beardOptions[_onBeard].name; };
+        
 
-        //background
-        _playerCharacterSheet.characterInventory.Clear();
-
-        foreach(Item item in _defaultItems)
+        //Make a final list of all items
+        foreach (Item item in _defaultItems)
         {
             backgroundListFinal.Add(item);
         }
 
-        _playerCharacterSheet.characterInventory = backgroundListFinal;
+        //Add them to the inventory
+        foreach(Item item in backgroundListFinal)
+        {
+            _playerDataTracker.currentInventory.Add(item.uniqueID);
+        }
+
+        _playerDataTracker.currentInventory.Add(_defaultShirt.uniqueID);
+        _playerDataTracker.currentInventory.Add(_defaultPants.uniqueID);
+        _playerDataTracker.currentInventory.Add(_defaultShoes.uniqueID);
+
+        //Make the player where pants and a shirt
+        _playerDataTracker.equippedShirt = _defaultShirt.uniqueID;
+        _playerDataTracker.equippedPants = _defaultPants.uniqueID;
+        _playerDataTracker.equippedFeet = _defaultShoes.uniqueID;
+
 
         //Abilities
-        _playerCharacterSheet.abilities.body = _body;
-        _playerCharacterSheet.abilities.hands = _hands;
-        _playerCharacterSheet.abilities.mind = _mind;
-        _playerCharacterSheet.abilities.heart = _heart;
+        _playerDataTracker.bodyLevel = _body;
+        _playerDataTracker.handsLevel = _hands;
+        _playerDataTracker.mindLevel = _mind;
+        _playerDataTracker.heartLevel = _heart;
 
-        //Skills
-        _playerCharacterSheet.skills.Clear();
+        //Set the skills
+        _playerDataTracker.currentSkills.Add(_setSkill1.uniqueID);
+        _playerDataTracker.currentSkills.Add(_setSkill2.uniqueID);
 
-        _playerCharacterSheet.skills.Add(_setSkill1);
-        _playerCharacterSheet.skills.Add(_setSkill2);
+        //Set the time
+        _playerDataTracker.currentHour = _startingHour;
 
-        UnityEditor.EditorUtility.SetDirty(_playerCharacterSheet);
+        //Save the tracker
+        DataManager.instance.SetPlayerTracker(_playerDataTracker);
 
-        SceneLoader.instance.LoadPlayerScene(_startingScene, "default", Vector3.zero, Vector3.zero, false, false);
+        SceneLoader.instance.LoadPlayerScene(_startingScene, "default", Vector3.zero, Vector3.zero, false, true);
     }
 
     public void SetImageColourGreen(Image image)

@@ -23,50 +23,42 @@ public class CharacterVisualUpdater : MonoBehaviour
     [SerializeField] SpriteRenderer _helmetRenderer;
     [SerializeField] SpriteRenderer _shirtRenderer;
 
-    public void SetVisuals(CharacterManager charManager)
+    public void SetVisuals(NonPlayerCharacterManager charManager)
     {
-        SetBaseVisuals(charManager.characterSheet);
+        SetBaseVisuals(charManager);
         SetEquipmentVisuals(charManager);
     }
 
-    private void SetBaseVisuals(CharacterSheet charSheet)
+    private void SetBaseVisuals(NonPlayerCharacterManager charManager)
     {
         //For the skintone
-        _baseRenderer.color = charSheet.characterSkintone;
-        _armRenderer.color = charSheet.characterSkintone;
-        _legRenderer.color = charSheet.characterSkintone;
-        _handsRenderer.color = charSheet.characterSkintone;
-        _feetRenderer.color = charSheet.characterSkintone;
+        _baseRenderer.color = charManager.characterSkintone;
+        _armRenderer.color = charManager.characterSkintone;
+        _legRenderer.color = charManager.characterSkintone;
+        _handsRenderer.color = charManager.characterSkintone;
+        _feetRenderer.color = charManager.characterSkintone;
 
         //For the hair
-        _hairRenderer.color = charSheet.characterHairColor;
-        _beardRenderer.color = charSheet.characterHairColor;
+        _hairRenderer.color = charManager.characterHairColor;
+        _beardRenderer.color = charManager.characterHairColor;
 
         //Currently only randomise the hair and bear options
-        if (charSheet.randomiseVisuals)
+        if (charManager.randomiseVisuals)
         {
-            int randomHair = _spriteDatabase.hairSprites.Count + 1;
-            if(randomHair <= _spriteDatabase.hairSprites.Count)
-            {
-                _hairRenderer.sprite = _spriteDatabase.hairSprites[randomHair];
-            }
+            _hairRenderer.sprite = _spriteDatabase.GetRandomHair();
 
-            int randomBeard = _spriteDatabase.beardSprites.Count + 1;
-            if (randomBeard <= _spriteDatabase.beardSprites.Count)
-            {
-                _beardRenderer.sprite = _spriteDatabase.hairSprites[randomHair];
-            }
+            _beardRenderer.sprite = _spriteDatabase.GetRandomBeard();
         }
         else
         {
-            _hairRenderer.sprite = charSheet.characterHair;
-            _beardRenderer.sprite = charSheet.characterBeard;
+            _hairRenderer.sprite = charManager.characterHair;
+            _beardRenderer.sprite = charManager.characterBeard;
         }
 
 
     }
 
-    private void SetEquipmentVisuals(CharacterManager charManager)
+    private void SetEquipmentVisuals(NonPlayerCharacterManager charManager)
     {
         //Equipment with visual models
         if (charManager.equippedArmour != null)
@@ -110,6 +102,9 @@ public class CharacterVisualUpdater : MonoBehaviour
         {
             _helmetRenderer.sprite = charManager.equippedHelmet.equipmentModel;
             _helmetRenderer.color = charManager.equippedHelmet.equipmentColor;
+
+            //Hide the hair if helmet equipped
+            _hairRenderer.sprite = null;
         }
         else
         {
@@ -133,7 +128,7 @@ public class CharacterVisualUpdater : MonoBehaviour
         }
         else
         {
-            _legRenderer.color = charManager.characterSheet.characterSkintone;
+            _legRenderer.color = charManager.characterSkintone;
         }
 
         if (charManager.equippedHands != null)
@@ -142,7 +137,7 @@ public class CharacterVisualUpdater : MonoBehaviour
         }
         else
         {
-            _handsRenderer.color = charManager.characterSheet.characterSkintone;
+            _handsRenderer.color = charManager.characterSkintone;
         }
 
         if (charManager.equippedFeet != null)
@@ -151,7 +146,7 @@ public class CharacterVisualUpdater : MonoBehaviour
         }
         else
         {
-            _feetRenderer.color = charManager.characterSheet.characterSkintone;
+            _feetRenderer.color = charManager.characterSkintone;
         }
     }
 }

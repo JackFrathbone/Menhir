@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum ActionType
@@ -16,7 +17,7 @@ public class Action
 {
     [Header("Target Settings")]
     public ActionType actionType;
-    public string targetName;
+    public CharacterSheet targetChar;
 
     [Header("Set Data")]
     public bool setHidden;
@@ -27,47 +28,53 @@ public class Action
     public Vector3 setMoveTarget;
     public Item addItem;
 
-
-    private StateActionManager _actionManager;
-
     public virtual void StartAction()
     {
-        _actionManager = StateActionManager.instance;
         RunAction();
     }
 
     protected virtual void RunAction()
     {
-        NonPlayerCharacterManager targetCharacter = StateActionManager.instance.GetCharacter(targetName).GetComponent<NonPlayerCharacterManager>();
+        List<NonPlayerCharacterManager> targetCharacters = StateActionManager.instance.GetCharactersFromSheet(targetChar);
 
-        switch (actionType)
+        if (targetCharacters == null || targetCharacters.Count == 0)
         {
-            case ActionType.Set_Char_Hidden:
-                targetCharacter.isHidden = setHidden;
-                break;
-            case ActionType.Set_Char_Aggresion:
-                targetCharacter.characterSheet.characterAggression = setAggression;
-                break;
-            case ActionType.Set_Char_Faction:
-                targetCharacter.characterSheet.characterFaction = setFaction;
-                break;
-            case ActionType.Set_Char_State:
-                targetCharacter.characterState = setCharacterState;
-                targetCharacter.SetCharacterState();
-                break;
-            case ActionType.Set_Char_Position:
-                targetCharacter.transform.position = setPosition;
-                break;
-            case ActionType.Set_Char_MoveTarget:
-                CharacterMovementController charMover = targetCharacter.GetComponent<CharacterMovementController>();
-                if(charMover != null)
-                {
-                    charMover.MoveToPosition(setMoveTarget);
-                }
-                break;
-            case ActionType.Add_Char_Item:
-                targetCharacter.AddItem(addItem);
-                break;
+            Debug.Log("No valid character");
+            return;
+        }
+
+        foreach (NonPlayerCharacterManager targetChar in targetCharacters)
+        {
+            switch (actionType)
+            {
+                case ActionType.Set_Char_Hidden:
+                    targetChar.isHidden = setHidden;
+                    break;
+                case ActionType.Set_Char_Aggresion:
+                    targetChar.characterAggression = setAggression;
+                    break;
+                case ActionType.Set_Char_Faction:
+                    targetChar.characterFaction = setFaction;
+                    break;
+                case ActionType.Set_Char_State:
+                    targetChar.characterState = setCharacterState;
+                    targetChar.SetCharacterState();
+                    break;
+                case ActionType.Set_Char_Position:
+                    targetChar.transform.position = setPosition;
+                    break;
+                case ActionType.Set_Char_MoveTarget:
+                    CharacterMovementController charMover = targetChar.GetComponent<CharacterMovementController>();
+                    if (charMover != null)
+                    {
+                        Debug.Log("ee");
+                        charMover.MoveToPosition(setMoveTarget);
+                    }
+                    break;
+                case ActionType.Add_Char_Item:
+                    targetChar.AddItem(addItem);
+                    break;
+            }
         }
     }
 }

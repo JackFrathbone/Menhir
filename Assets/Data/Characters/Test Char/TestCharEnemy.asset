@@ -27,8 +27,7 @@ MonoBehaviour:
   characterSpells: []
   characterGreeting: Uwu hewwo
   characterWoundedGreeting: Oof ouch my bones
-  characterDialogueTopics: []
-  characterDialogueGraph: {fileID: 11400000, guid: 84363fbd33ef39e4183b32a2ec88c9e7, type: 2}
+  characterDialogueGraph: {fileID: 0}
   abilities:
     body: 3
     hands: 3
@@ -36,6 +35,7 @@ MonoBehaviour:
     heart: 3
   skills: []
   startHidden: 0
+  startState: 0
   randomiseVisuals: 0
   characterSkintone: {r: 1, g: 0.85882354, b: 0.6745098, a: 1}
   characterHairColor: {r: 1, g: 0, b: 0, a: 1}

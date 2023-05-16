@@ -19,7 +19,7 @@ public class PlayerDialogueController : MonoBehaviour
 
     private TextMeshProUGUI descriptionText;
 
-    private CharacterManager currentCharacterManager;
+    private NonPlayerCharacterManager currentCharacterManager;
 
     //List of all current topic buttons to be deleted
     readonly private List<GameObject> topicButtonsToDelete = new();
@@ -39,12 +39,12 @@ public class PlayerDialogueController : MonoBehaviour
         descriptionText = descriptionBox.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void StartDialogue(CharacterManager characterManager)
+    public void StartDialogue(NonPlayerCharacterManager targetCharacter)
     {
-        //Gets the player data needed
-        currentCharacterManager = characterManager;
-        characterNameText.text = currentCharacterManager.characterSheet.characterName;
-        _currentDialogueGraph = characterManager.dialogueGraphInstance;
+        //Gets the target data needed
+        currentCharacterManager = targetCharacter;
+        characterNameText.text = currentCharacterManager.characterName;
+        _currentDialogueGraph = currentCharacterManager.characterDialogueGraph;
 
         //Set the UI states
         descriptionBox.SetActive(false);
@@ -58,11 +58,11 @@ public class PlayerDialogueController : MonoBehaviour
             //Sets the default greeting based on target state
             if (currentCharacterManager.characterState == CharacterState.alive)
             {
-                dialogueText.text = ReplaceText(currentCharacterManager.characterSheet.characterGreeting);
+                dialogueText.text = ReplaceText(currentCharacterManager.characterGreeting);
             }
             else if (currentCharacterManager.characterState == CharacterState.wounded)
             {
-                dialogueText.text = ReplaceText(currentCharacterManager.characterSheet.characterWoundedGreeting);
+                dialogueText.text = ReplaceText(currentCharacterManager.characterWoundedGreeting);
             }
 
             dialogueNextButton.GetComponent<Button>().onClick.AddListener(delegate { LoadBaseTopics(); });
@@ -74,11 +74,11 @@ public class PlayerDialogueController : MonoBehaviour
 
             if (currentCharacterManager.characterState == CharacterState.alive)
             {
-                dialogueText.text = ReplaceText(currentCharacterManager.characterSheet.characterGreeting);
+                dialogueText.text = ReplaceText(currentCharacterManager.characterGreeting);
             }
             else if (currentCharacterManager.characterState == CharacterState.wounded)
             {
-                dialogueText.text = ReplaceText(currentCharacterManager.characterSheet.characterWoundedGreeting);
+                dialogueText.text = ReplaceText(currentCharacterManager.characterWoundedGreeting);
             }
         }
     }
@@ -222,19 +222,19 @@ public class PlayerDialogueController : MonoBehaviour
         //Passes true unless a player doesnt have enough points in any ability
         bool passCheck = true;
 
-        if (topic.topicAbilityChecks.body != 0 && _playerCharacterManager.characterSheet.abilities.body < topic.topicAbilityChecks.body)
+        if (topic.topicAbilityChecks.body != 0 && _playerCharacterManager.abilities.body < topic.topicAbilityChecks.body)
         {
             passCheck = false;
         }
-        else if (topic.topicAbilityChecks.hands != 0 && _playerCharacterManager.characterSheet.abilities.hands < topic.topicAbilityChecks.hands)
+        else if (topic.topicAbilityChecks.hands != 0 && _playerCharacterManager.abilities.hands < topic.topicAbilityChecks.hands)
         {
             passCheck = false;
         }
-        else if (topic.topicAbilityChecks.mind != 0 && _playerCharacterManager.characterSheet.abilities.mind < topic.topicAbilityChecks.mind)
+        else if (topic.topicAbilityChecks.mind != 0 && _playerCharacterManager.abilities.mind < topic.topicAbilityChecks.mind)
         {
             passCheck = false;
         }
-        else if (topic.topicAbilityChecks.heart != 0 && _playerCharacterManager.characterSheet.abilities.heart < topic.topicAbilityChecks.heart)
+        else if (topic.topicAbilityChecks.heart != 0 && _playerCharacterManager.abilities.heart < topic.topicAbilityChecks.heart)
         {
             passCheck = false;
         }
@@ -300,7 +300,7 @@ public class PlayerDialogueController : MonoBehaviour
 
     private void ShowCharacterDescription()
     {
-        descriptionText.text = currentCharacterManager.characterSheet.characterDescription;
+        descriptionText.text = currentCharacterManager.characterDescription;
         descriptionBox.SetActive(true);
     }
 
@@ -410,6 +410,11 @@ public class PlayerDialogueController : MonoBehaviour
             }
             NextNode();
         }
+        //If it is a quit node then exit dialogue completely
+        else if (_currentDialogueGraph.current is DialogueQuitNode)
+        {
+            EndDialogue();
+        }
         //If not the above return to the entry node
         else
         {
@@ -447,7 +452,7 @@ public class PlayerDialogueController : MonoBehaviour
     //This takes in a string and replaces all relevant cases with the players data such as name and pronouns
     private string ReplaceText(string s)
     {
-       string newS = s.Replace("%pcName", _playerCharacterManager.characterSheet.characterName);
+       string newS = s.Replace("%pcName", _playerCharacterManager.characterName);
 
         return newS;
     }

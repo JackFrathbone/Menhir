@@ -8,7 +8,7 @@ public class WeaponMeleeItem : Item
     public bool twoHanded;
 
     public int weaponDamage;
-    public int weaponRollAmount;
+    public int weaponBlunt;
     public int weaponDefence;
     //How long the windup to attack is, in seconds
     public float weaponSpeed;

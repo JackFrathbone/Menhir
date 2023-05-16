@@ -16,8 +16,8 @@ MonoBehaviour:
   itemDescription: A strong smelling paste made of crushed herbs and oil. Placed
     on wounds they will start to quickly close and scab over.
   itemWeight: 0.5
-  itemIcon: {fileID: 0}
-  uniqueID: Healing_Salve27994
+  itemIcon: {fileID: 21300000, guid: 7776d2842ca175a408c6277c01c5cc6f, type: 3}
+  uniqueID: Healing_Salve29226
   clearID: 0
   potionEffects:
   - effectType: 0

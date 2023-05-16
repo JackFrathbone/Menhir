@@ -12,36 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
   m_Name: PlayerSheet
   m_EditorClassIdentifier: 
-  characterName: Farset
+  characterName: 
   characterDescription: 
-  characterPronouns: 1
+  characterPronouns: 0
   characterFaction: {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
   characterAggression: 1
-  characterInventory:
-  - {fileID: 11400000, guid: 69d9ba3a81ba4e044bb02be78c72e2a9, type: 2}
-  - {fileID: 11400000, guid: b2ffb314caca1c14098ed7a71c4193b7, type: 2}
-  - {fileID: 11400000, guid: 23d403f092622b2468134fc886f3c368, type: 2}
-  - {fileID: 11400000, guid: c4c7e0b7a2689144bb90878bec96063f, type: 2}
-  - {fileID: 11400000, guid: 4f683bfa6ac07e6489022b17bc752afa, type: 2}
-  - {fileID: 11400000, guid: cb963c3130e822845902f25a57d18a6d, type: 2}
-  - {fileID: 11400000, guid: fa697dccec3744d40b8aa66131fa6bf4, type: 2}
-  - {fileID: 11400000, guid: 0893c16e08ba32f49a3b3dd4a0dd909c, type: 2}
-  - {fileID: 11400000, guid: 6f6425ff5bfb6d2468125f96c5803d59, type: 2}
+  characterInventory: []
   characterSpells: []
   characterGreeting: 
   characterWoundedGreeting: 
   characterDialogueGraph: {fileID: 0}
   abilities:
-    body: 3
-    hands: 4
-    mind: 6
-    heart: 4
-  skills:
-  - {fileID: 11400000, guid: 4fa1470eca36e2445b01f204f0a1d5a8, type: 2}
-  - {fileID: 11400000, guid: a9f1f96b243bf7e4084dae09f3d02fc4, type: 2}
+    body: 0
+    hands: 0
+    mind: 0
+    heart: 0
+  skills: []
   startHidden: 0
   randomiseVisuals: 0
   characterSkintone: {r: 0.77647066, g: 0.5254902, b: 0.25882354, a: 1}
-  characterHairColor: {r: 0.45490196, g: 0.11372549, b: 0.050980393, a: 1}
-  characterHair: {fileID: 6753916780000190641, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  characterHairColor: {r: 1, g: 1, b: 1, a: 1}
+  characterHair: {fileID: 0}
   characterBeard: {fileID: 0}

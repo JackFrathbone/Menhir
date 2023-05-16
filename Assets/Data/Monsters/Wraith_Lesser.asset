@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1745d4fac8bc1847b273ff04d37affc, type: 3}
+  m_Name: Wraith_Lesser
+  m_EditorClassIdentifier: 
+  monsterName: Lesser Wraith
+  monsterInventory:
+  - {fileID: 11400000, guid: 2e02f09fa92e10c41a2303262a6fd971, type: 2}
+  health: 4
+  damage: 0
+  bluntDamage: 0
+  range: 0
+  attackSpeed: 3
+  isRanged: 1
+  projectilePrefab: {fileID: 3784735241220424099, guid: e2b895085913cc54c95260aba652cbf9, type: 3}
+  projectileEffects:
+  - effectType: 1
+    effectStrength: 2
+    effectSeconds: 1
+    effectChance: 100
+  defence: 1
+  moveSpeed: 5
+  startHidden: 0
+  startState: 0
+  idleSprite: {fileID: 21300000, guid: 8b8838ee60680d746987560b01b7f3a2, type: 3}
+  walk1Sprite: {fileID: 21300000, guid: 8b8838ee60680d746987560b01b7f3a2, type: 3}
+  walk2Sprite: {fileID: 21300000, guid: ecbbb43ccc1c36d4ebd4826a145506da, type: 3}
+  holdSprite: {fileID: 21300000, guid: 2fda20433607f784cb69c79a8547eafd, type: 3}
+  hitSprite: {fileID: 21300000, guid: d24e7e0b75e1a244bb9687d6fd4315ef, type: 3}
+  blockSprite: {fileID: 21300000, guid: bb6f2989e4c152b4684f9464fa65b734, type: 3}
+  deadSprite: {fileID: 528531067460024463, guid: 58ef1cf0addbde24eababf508cd4955e, type: 3}

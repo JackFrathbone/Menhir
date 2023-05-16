@@ -17,7 +17,7 @@ MonoBehaviour:
     handle.
   itemWeight: 1
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Staff_Poison_Basic28028
+  uniqueID: Staff_Poison_Basic29258
   clearID: 0
   focusModel: {fileID: 21300000, guid: 59768ade6c031784ba5b08cf9884d2f8, type: 3}
   projectilePrefab: {fileID: 3784735241220424099, guid: e2b895085913cc54c95260aba652cbf9, type: 3}

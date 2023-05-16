@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Tin Ring
   itemDescription: A polished gold ring, with small details across its shiny surface.
   itemWeight: 0.5
-  itemIcon: {fileID: -4325431805895911581, guid: 5e9f1aadf8585f74cb1dade7b64e00af, type: 3}
-  uniqueID: Ring_Gold27934
+  itemIcon: {fileID: 21300000, guid: ae81cf1de2cc166418f98874c83c7e85, type: 3}
+  uniqueID: Ring_Gold29168
   clearID: 0

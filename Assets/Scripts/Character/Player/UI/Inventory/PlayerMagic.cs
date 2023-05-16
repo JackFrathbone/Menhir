@@ -258,6 +258,29 @@ public class PlayerMagic : MonoBehaviour
             return;
         }
 
+        bool costPass = true;
+
+        //Check if player has the items needed
+        foreach (Item item in spell.castingCostItems)
+        {
+            if (!_playerCharacterManager.currentInventory.Contains(item))
+            {
+                costPass = false;
+            }
+        }
+
+        if (!costPass)
+        {
+            return;
+        }
+
+        //Remove the items for the spell
+        foreach (Item item in spell.castingCostItems)
+        {
+            _playerCharacterManager.RemoveItem(item);
+        }
+
+        //Assign the spell to a learned spell slot
         if (_freeSpell1 == null)
         {
             _freeSpell1 = spell;

@@ -17,13 +17,13 @@ MonoBehaviour:
     and cheap weapon.
   itemWeight: 2
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Shortspear_Stone_Basic28048
+  uniqueID: Shortspear_Stone_Basic10572
   clearID: 0
   weaponMeleeType: Shortspear
   twoHanded: 0
-  weaponDamage: 4
-  weaponRollAmount: 1
-  weaponDefence: 4
+  weaponDamage: 8
+  weaponBlunt: 0
+  weaponDefence: 1
   weaponSpeed: 0.5
   weaponRange: 2.5
   weaponModel: {fileID: 21300000, guid: f55f1348715b87444ab5825ae83ee1c9, type: 3}

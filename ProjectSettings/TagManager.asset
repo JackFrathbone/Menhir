@@ -12,6 +12,7 @@ TagManager:
   - SpawnPoint
   - CharactersParent
   - InteractablesParent
+  - ItemSingle
   layers:
   - Default
   - TransparentFX

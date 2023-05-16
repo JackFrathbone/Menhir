@@ -11,21 +11,29 @@ public class CharacterAI : MonoBehaviour
         flee
     }
 
-    [ReadOnly] public List<CharacterManager> _targets = new();
-    private readonly List<CharacterManager> _inDetectionRange = new();
+    [Header("Settings")]
+    [SerializeField] bool debugMode;
 
-    //References
+    [Header("References")]
+    [ReadOnly] public List<CharacterManager> _targets = new();
+    //Used for raycasting eyesight
+    private Collider characterCollider;
     private CharacterMovementController _movementController;
     private CharacterCombatController _combatController;
-    private NonPlayerCharacterManager _NPCCharacterManager;
+    private CharacterManager _characterManager;
     private CharacterAnimationController _animationController;
+
+    [Header("Data")]
+    [ReadOnly] [SerializeField] Actions currentAction = Actions.idle;
 
     private void Awake()
     {
         _movementController = GetComponent<CharacterMovementController>();
         _combatController = GetComponent<CharacterCombatController>();
-        _NPCCharacterManager = GetComponent<NonPlayerCharacterManager>();
+        _characterManager = GetComponent<CharacterManager>();
         _animationController = GetComponentInChildren<CharacterAnimationController>();
+
+        characterCollider = GetComponent<Collider>();
 
         InvokeRepeating(nameof(CheckArea), 1f, 1f);
     }
@@ -39,30 +47,52 @@ public class CharacterAI : MonoBehaviour
         foreach (RaycastHit hitObject in hits)
         {
             CharacterManager targetCharacter;
+
+            //If it as character
             if (targetCharacter = hitObject.transform.gameObject.GetComponent<CharacterManager>())
             {
-                detectedCharacters.Add(targetCharacter);
-
-                if (!targetCharacter.CheckSkill_Sneak())
+                //Ignore if the parent is this object or if its already being tracked
+                if (targetCharacter.transform == this.transform || _targets.Contains(targetCharacter))
                 {
-                    CheckTarget(targetCharacter);
+                    continue;
                 }
 
-                if (!_inDetectionRange.Contains(targetCharacter))
+                //Check if they are in direct line of sight otherwise skip this character
+                if (Physics.Raycast(characterCollider.bounds.center, hitObject.transform.position - characterCollider.bounds.center, out RaycastHit hit, 10f))
                 {
-                    _inDetectionRange.Add(targetCharacter);
+                    if (hit.transform != hitObject.transform)
+                    {
+                        //Char is blocked
+                        continue;
+                    }
                 }
 
-                if (!targetCharacter.inDetectionRange.Contains(_NPCCharacterManager))
+
+                if (targetCharacter != _characterManager)
                 {
-                    targetCharacter.inDetectionRange.Add(_NPCCharacterManager);
+                    detectedCharacters.Add(targetCharacter);
+
+                    if (!targetCharacter.CheckSkill_Sneak())
+                    {
+                        CheckTarget(targetCharacter);
+                    }
+
+                    if (!_characterManager.inDetectionRange.Contains(targetCharacter))
+                    {
+                        _characterManager.inDetectionRange.Add(targetCharacter);
+                    }
+
+                    if (!targetCharacter.inDetectionRange.Contains(_characterManager))
+                    {
+                        targetCharacter.inDetectionRange.Add(_characterManager);
+                    }
                 }
             }
         }
 
         //Check which ones from the previous detection list are not present
         List<CharacterManager> charsToRemove = new();
-        foreach (CharacterManager character in _inDetectionRange)
+        foreach (CharacterManager character in _characterManager.inDetectionRange)
         {
             if (!detectedCharacters.Contains(character))
             {
@@ -73,28 +103,44 @@ public class CharacterAI : MonoBehaviour
         //Remove these non-detected ones
         foreach (CharacterManager charToRemove in charsToRemove)
         {
-            charToRemove.inDetectionRange.Remove(_NPCCharacterManager);
-            _inDetectionRange.Remove(charToRemove);
+            charToRemove.inDetectionRange.Remove(_characterManager);
+            _characterManager.inDetectionRange.Remove(charToRemove);
         }
     }
 
     //Used to interrupt sneaking players
     public void DetectTarget(CharacterManager characterManager)
     {
+        if (debugMode)
+        {
+            Debug.Log("Detected sneaking character");
+        }
+
         CheckTarget(characterManager);
     }
 
-    private void CheckTarget(CharacterManager characterManager)
+    private void CheckTarget(CharacterManager targetCharacter)
     {
-        //Checks if hostile and isnt sneaking
-        if (Factions.FactionHostilityCheck(_NPCCharacterManager.characterSheet.characterFaction, characterManager.characterSheet.characterFaction, _NPCCharacterManager.characterSheet.characterAggression))
+        if (debugMode)
         {
-            if (!_targets.Contains(characterManager) && characterManager.characterState == CharacterState.alive)
+            Debug.Log("Checking target");
+        }
+
+        //If the character is dead or wounded
+        if ((targetCharacter.characterState == CharacterState.dead || targetCharacter.characterState == CharacterState.wounded) && _targets.Contains(targetCharacter))
+        {
+            _targets.Remove(targetCharacter);
+        }
+
+        //Checks if hostile and isnt sneaking
+        if (Factions.FactionHostilityCheck(_characterManager.characterFaction, targetCharacter.characterFaction, _characterManager.characterAggression))
+        {
+            if (!_targets.Contains(targetCharacter) && targetCharacter.characterState == CharacterState.alive)
             {
-                _targets.Add(characterManager);
+                _targets.Add(targetCharacter);
                 UpdateTargetlist();
             }
-            else if (_targets.Contains(characterManager) && characterManager.characterState == CharacterState.alive)
+            else if (_targets.Contains(targetCharacter) && targetCharacter.characterState == CharacterState.alive)
             {
                 UpdateTargetlist();
             }
@@ -103,6 +149,11 @@ public class CharacterAI : MonoBehaviour
 
     public void UpdateTargetlist()
     {
+        if (debugMode)
+        {
+            Debug.Log("Update target list");
+        }
+
         //If there are targets, always attack the first in the list, otherwise go back to start
         if (_targets.Count > 0 && _targets[0] != null)
         {
@@ -116,15 +167,21 @@ public class CharacterAI : MonoBehaviour
 
     public void RemoveTarget(CharacterManager target)
     {
+        if (debugMode)
+        {
+            Debug.Log("Remove target");
+        }
+
         if (target == null)
         {
-            print("null target");
             return;
         }
 
         if (_targets.Contains(target))
         {
             _targets.Remove(target);
+
+            //Choose next target in list
             UpdateTargetlist();
         }
         else
@@ -135,11 +192,18 @@ public class CharacterAI : MonoBehaviour
 
     private void ChangeCurrenAction(Actions action, CharacterManager target)
     {
+        if (debugMode)
+        {
+            Debug.Log("Change current action");
+        }
+
+        currentAction = action;
+
         switch (action)
         {
             case Actions.idle:
                 _animationController.StopHolding();
-                print("dd");
+                _animationController.SetEquipType(0);
                 _combatController.StopCombat();
                 _movementController.ReturnToStart();
                 break;
@@ -152,17 +216,17 @@ public class CharacterAI : MonoBehaviour
 
     private void OnDisable()
     {
-        foreach(CharacterManager character in _inDetectionRange)
+        foreach (CharacterManager character in _characterManager.inDetectionRange)
         {
-            character.inDetectionRange.Remove(_NPCCharacterManager);
+            character.inDetectionRange.Remove(_characterManager);
         }
     }
 
     private void OnDestroy()
     {
-        foreach (CharacterManager character in _inDetectionRange)
+        foreach (CharacterManager character in _characterManager.inDetectionRange)
         {
-            character.inDetectionRange.Remove(_NPCCharacterManager);
+            character.inDetectionRange.Remove(_characterManager);
         }
     }
 }

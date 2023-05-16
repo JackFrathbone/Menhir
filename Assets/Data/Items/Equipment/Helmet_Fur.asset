@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Helmet_Fur
   m_EditorClassIdentifier: 
   itemName: Fur Cap
-  itemDescription: A soft fur cap, favoured by the fen wizards. It provides some
-    head protection and keeps ears warm on cold nights.
+  itemDescription: A soft fur cap, favoured by the fen wizards. No protection but
+    cozy at night.
   itemWeight: 0.25
   itemIcon: {fileID: 6361351448533257067, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Helmet_Fur27928
+  uniqueID: Helmet_Fur29162
   clearID: 0
   equipmentType: 5
-  equipmentDefence: 1
+  equipmentDefence: 0
   equipmentModel: {fileID: 21300000, guid: 2f61dfe939a8e5e4fbaacdc76229a424, type: 3}
   equipmentColor: {r: 1, g: 1, b: 1, a: 1}

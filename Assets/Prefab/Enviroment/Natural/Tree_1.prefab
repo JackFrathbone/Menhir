@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 181fb04902b8a604089ade64bc63566f, type: 3}
     - target: {fileID: 3641314797447014867, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}
       propertyPath: m_Name
-      value: Trees_1
+      value: Tree_1
       objectReference: {fileID: 0}
     - target: {fileID: 3641314797447014870, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}
       propertyPath: m_RootOrder

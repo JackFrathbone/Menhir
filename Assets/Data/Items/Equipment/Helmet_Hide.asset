@@ -17,9 +17,9 @@ MonoBehaviour:
     used by tin miners it has become a common sight on Staenish battlefields.
   itemWeight: 0.5
   itemIcon: {fileID: 6361351448533257067, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Helmet_Hide27930
+  uniqueID: Helmet_Hide29164
   clearID: 0
   equipmentType: 5
-  equipmentDefence: 2
+  equipmentDefence: 1
   equipmentModel: {fileID: 21300000, guid: 7d26f78bb653fda488fd98bc68c1242f, type: 3}
   equipmentColor: {r: 1, g: 1, b: 1, a: 1}

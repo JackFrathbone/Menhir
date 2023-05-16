@@ -8,19 +8,21 @@ public class DialogueTopicsNode : DialogueBaseNode
 	[Input] public int entry;
 	[Output(dynamicPortList = true)] public List<Topic> topics = new();
 
-#if UNITY_EDITOR
-	[InspectorButton("GenerateID")]
-	public bool generateID;
 
-	public void GenerateID()
-	{
-		foreach(Topic topic in topics)
-        {
-			topic.uniqueID = topic.topicTitle + (UnityEngine.Random.Range(0, 9999)).ToString();
+#if UNITY_EDITOR
+	private void OnValidate()
+    {
+		foreach (Topic topic in topics)
+		{
+			string sCheck = topic.topicTitle.Replace(" ", "");
+
+			if (!topic.uniqueID.Contains(sCheck))
+            {
+				topic.uniqueID = sCheck + (UnityEngine.Random.Range(0, 9999)).ToString();
+			}
 		}
 	}
 #endif
-
 
 	[System.Serializable]
 	public class Topic

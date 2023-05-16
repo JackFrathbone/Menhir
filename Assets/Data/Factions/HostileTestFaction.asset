@@ -17,3 +17,4 @@ MonoBehaviour:
   alliedFactions: []
   hostileFactions:
   - {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
+  - {fileID: 11400000, guid: b47eab732734e23459e950da2d0bacd7, type: 2}

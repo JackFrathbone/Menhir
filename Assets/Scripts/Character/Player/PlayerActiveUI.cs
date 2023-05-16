@@ -37,7 +37,7 @@ public class PlayerActiveUI : MonoBehaviour
         _targetHealth.maxValue = target.healthTotal;
         _targetHealth.value = target.healthCurrent;
 
-        _targetName.text = target.characterSheet.characterName;
+        _targetName.text = target.characterName;
 
         _targetStatusParent.SetActive(true);
 

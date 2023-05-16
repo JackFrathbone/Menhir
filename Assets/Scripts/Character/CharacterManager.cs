@@ -2,12 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum CharacterState { alive, wounded, dead };
+public enum CharacterPronouns { He, She, They };
 
 public class CharacterManager : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] protected CharacterSheet _baseCharacterSheet;
-    [HideInInspector] public CharacterSheet characterSheet = null;
+    [Header("Character Data")]
+    [ReadOnly] public string characterName;
+    [ReadOnly] public CharacterPronouns characterPronouns;
+    [ReadOnly] public Faction characterFaction;
+    [Tooltip("Passive prevents all combat, neutral checks faction relations before deciding on combat, aggresive always starts combat")]
+    [ReadOnly] public Aggression characterAggression = Aggression.Neutral;
+
+    [Header("Ability Scores")]
+    [ReadOnly] public Abilities abilities;
 
     [Header("Status")]
     [ReadOnly] public float healthCurrent;
@@ -41,19 +48,12 @@ public class CharacterManager : MonoBehaviour
     [Header("Skills")]
     [ReadOnly] public List<Skill> currentSkills = new();
 
-    [Header("Dialogue")]
-    [HideInInspector] public DialogueGraph dialogueGraphInstance;
-    //Uses ids to store
-    [ReadOnly] public List<string> alreadyRunDialogueTopics = new();
-
     [Header("Active Effects")]
     [ReadOnly] public List<Effect> currentEffects = new();
     //Used to track effect that have ended and need to be removed
     [HideInInspector] public List<Effect> endedEffects = new();
 
     [Header("Character States")]
-
-    [ReadOnly] public bool isHidden;
     [ReadOnly] public CharacterState characterState;
     [ReadOnly] public bool hasAdvantage;
     [ReadOnly] public bool hasDisadvantage;
@@ -70,23 +70,12 @@ public class CharacterManager : MonoBehaviour
 
     protected virtual void Awake()
     {
-        characterSheet = Instantiate(_baseCharacterSheet);
-        currentInventory = new List<Item>(characterSheet.characterInventory);
-        currentSpells = new List<Spell>(characterSheet.characterSpells);
-        dialogueGraphInstance = characterSheet.characterDialogueGraph;
-
-        isHidden = characterSheet.startHidden;
     }
 
     protected virtual void Start()
     {
         SetCurrentStatus();
         InvokeRepeating(nameof(RunEffects), 0f, 1f);
-
-        foreach (Skill skill in characterSheet.skills)
-        {
-            AddSkill(skill);
-        }
     }
 
     protected virtual void Update()
@@ -107,28 +96,28 @@ public class CharacterManager : MonoBehaviour
         }
         else
         {
-            AddStamina(StatFormulas.StaminaRegenRate(characterSheet.abilities.hands) * Time.deltaTime);
+            AddStamina(StatFormulas.StaminaRegenRate(abilities.hands) * Time.deltaTime);
             return;
         }
     }
 
     public virtual void SetCharacterState()
     {
-        
+
     }
 
     protected virtual void SetCurrentStatus()
     {
-        healthTotal = StatFormulas.TotalCharacterHealth(characterSheet.abilities.body);
+        healthTotal = StatFormulas.TotalCharacterHealth(abilities.body);
         healthCurrent = healthTotal;
 
-        staminaTotal = StatFormulas.TotalCharacterStamina(characterSheet.abilities.hands);
+        staminaTotal = StatFormulas.TotalCharacterStamina(abilities.hands);
         staminaCurrent = staminaTotal;
     }
 
     public virtual bool CheckHostility(Faction targetFaction)
     {
-        if (characterSheet.characterAggression == Aggression.Hostile)
+        if (characterAggression == Aggression.Hostile)
         {
             return true;
         }
@@ -164,7 +153,7 @@ public class CharacterManager : MonoBehaviour
             shieldDefence = equippedShield.shieldDefence;
         }
 
-        return StatFormulas.GetTotalDefence(weaponDefence, armourDefenceTotal, shieldDefence, _baseCharacterSheet.abilities.hands, bonusDefence, isRangedAttack);
+        return StatFormulas.GetTotalDefence(weaponDefence, armourDefenceTotal, shieldDefence, abilities.hands, bonusDefence, isRangedAttack);
     }
 
     public virtual void AddHealth(float i)
@@ -243,16 +232,16 @@ public class CharacterManager : MonoBehaviour
         switch (abilityName)
         {
             case "body":
-                characterSheet.abilities.body += i;
+                abilities.body += i;
                 break;
             case "hands":
-                characterSheet.abilities.hands += i;
+                abilities.hands += i;
                 break;
             case "mind":
-                characterSheet.abilities.mind += i;
+                abilities.mind += i;
                 break;
             case "heart":
-                characterSheet.abilities.heart += i;
+                abilities.heart += i;
                 break;
         }
     }
@@ -265,6 +254,63 @@ public class CharacterManager : MonoBehaviour
     public virtual void SetParalyseState(bool isParalysed)
     {
 
+    }
+
+    public virtual void GetCurrentWeaponStats(out int damage, out int bluntDamage, out int defence, out float range, out float speed, out bool isRanged, out GameObject projectile, out List<Effect> effects, out float weaponWeight)
+    {
+        if(equippedWeapon != null)
+        {
+            if (equippedWeapon is WeaponMeleeItem meleeItem)
+            {
+
+                damage = (equippedWeapon as WeaponMeleeItem).weaponDamage;
+                bluntDamage = (equippedWeapon as WeaponMeleeItem).weaponBlunt;
+                defence = (equippedWeapon as WeaponMeleeItem).weaponDefence;
+                range = (equippedWeapon as WeaponMeleeItem).weaponRange;
+                speed = (equippedWeapon as WeaponMeleeItem).weaponSpeed;
+                isRanged = false;
+                projectile = null;
+                effects = null;
+                weaponWeight = equippedWeapon.itemWeight;
+                return;
+            }
+            else if (equippedWeapon is WeaponRangedItem rangedItem)
+            {
+                damage = (equippedWeapon as WeaponRangedItem).weaponDamage;
+                bluntDamage = 0;
+                defence = 0;
+                range = 15;
+                speed = (equippedWeapon as WeaponRangedItem).weaponSpeed;
+                isRanged = true;
+                projectile = (equippedWeapon as WeaponRangedItem).projectilePrefab;
+                effects = null;
+                weaponWeight = equippedWeapon.itemWeight;
+                return;
+            }
+            else if (equippedWeapon is WeaponFocusItem focusItem)
+            {
+                damage = 0;
+                bluntDamage = 0;
+                defence = 0;
+                range = 15;
+                speed = (equippedWeapon as WeaponFocusItem).castingSpeed;
+                isRanged = true;
+                projectile = (equippedWeapon as WeaponFocusItem).projectilePrefab;
+                effects = (equippedWeapon as WeaponFocusItem).focusEffects;
+                weaponWeight = equippedWeapon.itemWeight;
+                return;
+            }
+        }
+
+        damage = 0;
+        bluntDamage = 0;
+        defence = 0;
+        range = 0;
+        speed = 0;
+        isRanged = false;
+        projectile = null;
+        effects = null;
+        weaponWeight = 0;
     }
 
     public virtual void SetBonusDefence(int i)
@@ -315,6 +361,11 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void StartCombat(CharacterManager combatCharacter)
     {
+        if (inCombatWith.Contains(combatCharacter))
+        {
+            return;
+        }
+
         inCombat = true;
         inCombatWith.Add(combatCharacter);
 
@@ -395,6 +446,11 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+    public virtual void UpdateAnimationState(string stateName, int stateInt)
+    {
+
+    }
+
     public virtual void AddItem(Item i)
     {
         currentInventory.Add(i);
@@ -419,11 +475,11 @@ public class CharacterManager : MonoBehaviour
     public virtual void AddEffect(Effect effect)
     {
         //If the effect chance is not 100 or 0, the check if it passes
-        if(effect.effectChance != 100 && effect.effectChance != 0)
+        if (effect.effectChance != 100 && effect.effectChance != 0)
         {
             float effectChance = Random.Range(0f, 100f);
 
-            if(effect.effectChance >= effectChance)
+            if (effect.effectChance >= effectChance)
             {
                 return;
             }
@@ -559,7 +615,7 @@ public class CharacterManager : MonoBehaviour
 
                 foreach (CharacterManager character in currentDetectedCharacter)
                 {
-                    if(character == null)
+                    if (character == null)
                     {
                         break;
                     }

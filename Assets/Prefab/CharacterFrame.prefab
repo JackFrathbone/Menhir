@@ -1657,8 +1657,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a4e8961bb398745a74734b71a8de9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseCharacterSheet: {fileID: 0}
-  characterSheet: {fileID: 0}
+  characterName: 
+  characterPronouns: 0
+  characterFaction: {fileID: 0}
+  characterAggression: 1
+  abilities:
+    body: 3
+    hands: 3
+    mind: 3
+    heart: 3
   healthCurrent: 0
   staminaCurrent: 0
   healthTotal: 0
@@ -1680,11 +1687,8 @@ MonoBehaviour:
   currentInventory: []
   currentSpells: []
   currentSkills: []
-  dialogueGraphInstance: {fileID: 0}
-  alreadyRunDialogueTopics: []
   currentEffects: []
   endedEffects: []
-  isHidden: 0
   characterState: 0
   hasAdvantage: 0
   hasDisadvantage: 0
@@ -1699,6 +1703,17 @@ MonoBehaviour:
     effectStrength: 1
     effectSeconds: 5
     effectChance: 100
+  _baseCharacterSheet: {fileID: 0}
+  characterDescription: 
+  characterGreeting: 
+  characterWoundedGreeting: 
+  characterDialogueGraph: {fileID: 0}
+  isHidden: 0
+  randomiseVisuals: 0
+  characterSkintone: {r: 1, g: 1, b: 1, a: 1}
+  characterHairColor: {r: 0, g: 0, b: 0, a: 1}
+  characterHair: {fileID: 0}
+  characterBeard: {fileID: 0}
 --- !u!114 &9141259796133134377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1712,6 +1727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backwardsTarget: {fileID: 2084521072314489010}
+  _target: {fileID: 0}
 --- !u!114 &8312353042365728651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1724,8 +1740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a6067023c1f584aa46e85023961abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bloodSplatterPrefab: {fileID: 9194005479614703796, guid: f5235c299da1df146b9d0c7553e88728, type: 3}
   _projectileSpawn: {fileID: 8561192949673368434}
-  _combatTarget: {fileID: 0}
 --- !u!114 &2286868594137043318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1739,3 +1755,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targets: []
+  currentAction: 0
+  raycastPosition: {fileID: 8561192949673368434}

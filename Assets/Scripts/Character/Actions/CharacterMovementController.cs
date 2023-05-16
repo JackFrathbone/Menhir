@@ -4,11 +4,13 @@ using UnityEngine.AI;
 public class CharacterMovementController : MonoBehaviour
 {
     [Header("References")]
+    //For pointing the projectile target at targets
+    [SerializeField] Transform _projectileSpawn;
     //For use when character avoid the player
     [SerializeField] Transform _backwardsTarget;
 
     private NavMeshAgent _navMeshAgent;
-    private Transform _target;
+    [SerializeField, ReadOnly] Transform _target;
 
     private CharacterAnimationController _characterAnimation;
 
@@ -44,6 +46,11 @@ public class CharacterMovementController : MonoBehaviour
         {
             _characterAnimation.CharacterWalkingFalse();
         }
+
+        //Set the char to face the target, for shooting projectiles and spells, moves both the transform and the projectile spawn
+        Quaternion targetRotation = Quaternion.LookRotation(_target.transform.position - _projectileSpawn.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f * Time.deltaTime);
+        _projectileSpawn.rotation = Quaternion.Slerp(_projectileSpawn.rotation, targetRotation, 1f * Time.deltaTime);
     }
 
     public void MoveToPosition(Vector3 target)

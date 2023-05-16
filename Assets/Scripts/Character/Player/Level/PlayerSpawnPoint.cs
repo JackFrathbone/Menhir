@@ -19,4 +19,9 @@ public class PlayerSpawnPoint : MonoBehaviour
             SceneLoader.instance.LoadPlayerScene(gameObject.scene.buildIndex, "default", Vector3.zero, Vector3.zero, false, false);
         }
     }
+
+    public Transform GetSpawnTransform()
+    {
+        return playerSpawnTransform;
+    }
 }

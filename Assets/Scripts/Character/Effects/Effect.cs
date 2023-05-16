@@ -43,7 +43,7 @@ public class Effect
     [Tooltip("Effect does x amount")]
     public int effectStrength;
     [Tooltip("for x seconds")]
-    [Range(1,60)] public int effectSeconds;
+    [Range(1,60)] public int effectSeconds = 1;
 
     [Tooltip("chance of effect applying. 0 or 100 mean it always applies")]
     public float effectChance = 100;

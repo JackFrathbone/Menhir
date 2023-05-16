@@ -16,8 +16,8 @@ MonoBehaviour:
   itemDescription: A white paste that when rubbed into skin will provide temporary
     resistance to magical damage.
   itemWeight: 0.5
-  itemIcon: {fileID: 0}
-  uniqueID: Spellscreen_Salve27998
+  itemIcon: {fileID: 21300000, guid: 7776d2842ca175a408c6277c01c5cc6f, type: 3}
+  uniqueID: Spellscreen_Salve29230
   clearID: 0
   potionEffects:
   - effectType: 19

@@ -74,20 +74,20 @@ public class PlayerInventory : MonoBehaviour
             Image image = child.GetComponent<Image>();
             if (image != null)
             {
-                image.color = _playerCharacterManager.characterSheet.characterSkintone;
+                image.color = _playerCharacterManager.characterSkintone;
             }
         }
 
-        if (_playerCharacterManager.characterSheet.characterHair != null)
+        if (_playerCharacterManager.characterHair != null)
         {
-            _hairDisplay.sprite = _playerCharacterManager.characterSheet.characterHair;
-            _hairDisplay.color = _playerCharacterManager.characterSheet.characterHairColor;
+            _hairDisplay.sprite = _playerCharacterManager.characterHair;
+            _hairDisplay.color = _playerCharacterManager.characterHairColor;
         }
 
-        if (_playerCharacterManager.characterSheet.characterBeard != null)
+        if (_playerCharacterManager.characterBeard != null)
         {
-            _beardDisplay.sprite = _playerCharacterManager.characterSheet.characterBeard;
-            _beardDisplay.color = _playerCharacterManager.characterSheet.characterHairColor;
+            _beardDisplay.sprite = _playerCharacterManager.characterBeard;
+            _beardDisplay.color = _playerCharacterManager.characterHairColor;
         }
 
         RefreshInventory();
@@ -201,7 +201,7 @@ public class PlayerInventory : MonoBehaviour
 
         _buttonsToDeleteSearch.Clear();
 
-        List<Item> tempInventory = new(itemContainer.inventory);
+        List<Item> tempInventory = itemContainer.inventory;
         foreach (Item item in tempInventory)
         {
             PlayerInventoryButton button = Instantiate(_InventoryButtonPrefab, _searchParent.parent).GetComponent<PlayerInventoryButton>();

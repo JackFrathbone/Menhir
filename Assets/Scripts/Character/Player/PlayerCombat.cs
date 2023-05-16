@@ -99,7 +99,7 @@ public class PlayerCombat : MonoBehaviour
         {
             _weaponMeleeAnimator.SetBool("isHolding", false);
             _shieldAnimator.SetBool("isHolding", false);
-            SetHoldSpeed(_weaponSpeed/2);
+            SetHoldSpeed(_weaponSpeed / 2);
         }
         else if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponRangedItem))
         {
@@ -224,39 +224,39 @@ public class PlayerCombat : MonoBehaviour
         if (target.CompareTag("Character"))
         {
             //check if you hitting the right thing
-            if(target.GetComponent<CharacterManager>() == null)
+            if (target.GetComponent<CharacterManager>() == null)
             {
                 return;
             }
 
             //Get the various checks
             int weaponDamage = 0;
-            int weaponRolls = 0;
+            int weaponBlunt = 0;
             int weaponAbility = 0;
             bool isRangedAttack = false;
 
             if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
             {
-                weaponAbility = _playerCharacterManager.characterSheet.abilities.body;
+                weaponAbility = _playerCharacterManager.abilities.body;
                 weaponDamage = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponDamage + _playerCharacterManager.bonusDamage;
-                weaponRolls = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponRollAmount;
+                weaponBlunt = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponBlunt;
             }
             else if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
             {
-                weaponAbility = _playerCharacterManager.characterSheet.abilities.hands;
+                weaponAbility = _playerCharacterManager.abilities.hands;
                 weaponDamage = (_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponDamage + _playerCharacterManager.bonusDamage;
-                weaponRolls = (_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponRollAmount;
+                weaponBlunt = 0;
                 isRangedAttack = true;
             }
 
             //Randomises the damage
-            weaponDamage = StatFormulas.RollDice(weaponDamage, weaponRolls);
+            weaponDamage = StatFormulas.RollDice(weaponDamage, 1);
 
             //Get targets stats
             CharacterManager targetCharacterManager = target.GetComponentInParent<CharacterManager>();
             _playerActiveUI.UpdateTargetStatusUI(targetCharacterManager);
             int targetDefence = targetCharacterManager.GetTotalDefence(isRangedAttack);
-            int hitDamage = StatFormulas.CalculateHit(weaponDamage, weaponAbility, targetDefence, _playerCharacterManager.hasAdvantage, targetCharacterManager.hasDisadvantage, _playerCharacterManager.CheckSkill_Assassinate(), _playerCharacterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill("Lucky Strike"), _playerCharacterManager.CheckSkill_HonourFighter(), _playerCharacterManager.CheckSkill_Sharpshooter());
+            int hitDamage = StatFormulas.CalculateHit(weaponDamage, weaponBlunt, weaponAbility, targetDefence, _playerCharacterManager.hasAdvantage, targetCharacterManager.hasDisadvantage, _playerCharacterManager.CheckSkill_Assassinate(), _playerCharacterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill("Lucky Strike"), _playerCharacterManager.CheckSkill_HonourFighter(), _playerCharacterManager.CheckSkill_Sharpshooter());
 
             //Check if the character is already wounded and if yes make all attacks hit
             if (targetCharacterManager.characterState == CharacterState.wounded)

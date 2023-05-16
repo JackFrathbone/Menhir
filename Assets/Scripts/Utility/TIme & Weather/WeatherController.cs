@@ -47,6 +47,11 @@ public class WeatherController : MonoBehaviour
 
     private void OnEnable()
     {
+        if (Camera.main != null)
+        {
+            Camera.main.clearFlags = CameraClearFlags.Skybox;
+        }
+
         TimeController.onLightingUpdate += UpdateLighting;
         TimeController.onWeatherUpdate += GetRandomWeather;
     }

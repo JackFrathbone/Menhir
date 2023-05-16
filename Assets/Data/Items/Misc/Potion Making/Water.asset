@@ -16,6 +16,6 @@ MonoBehaviour:
   itemDescription: Fresh untainted water that has been boiled, strained and purified.
     Used as the basis of potions.
   itemWeight: 0.25
-  itemIcon: {fileID: 0}
-  uniqueID: Water27976
+  itemIcon: {fileID: 21300000, guid: 4a992582b0d70c2459ecb215d2cf80ce, type: 3}
+  uniqueID: Water29208
   clearID: 0

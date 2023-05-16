@@ -6,6 +6,7 @@ public class Faction : ScriptableObject
 {
     [Header("Faction Data")]
     public string factionName;
+    [TextArea(1,3)]
     public string factionDescription;
 
     [Header("Faction Relations")]

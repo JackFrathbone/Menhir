@@ -13,7 +13,6 @@ public class WeaponRangedItem : Item
     public string weaponRangedType;
 
     public int weaponDamage;
-    public int weaponRollAmount;
     //How long the windup to attack is, in seconds
     public float weaponSpeed;
 }

@@ -5305,42 +5305,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingScene: 4
-  _playerCharacterSheet: {fileID: 11400000, guid: 617dcf697d734fa4b8717dbf8e969df7, type: 2}
-  _hairOptions:
-  - {fileID: 0}
-  - {fileID: -4533249740495524082, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  - {fileID: -8142348151292379780, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  - {fileID: -8407589438536067022, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  - {fileID: -3330146215110097417, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  - {fileID: 7453196644828883793, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  - {fileID: 7284716698216589776, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  - {fileID: 6753916780000190641, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  - {fileID: 6184120087409723368, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  - {fileID: 327331573708330604, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  - {fileID: 633597387063541697, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
-  _beardOptions:
-  - {fileID: 0}
-  - {fileID: 4370024317117596018, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
-  - {fileID: 6551469346083184877, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
-  - {fileID: 8816914586026983915, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
-  - {fileID: -7939376082276279292, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
-  - {fileID: 4437371021102187080, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
-  _hairColourOptions:
-  - {r: 0.1509434, g: 0.14624725, b: 0.14311142, a: 1}
-  - {r: 0.2784314, g: 0.22352941, b: 0.007843138, a: 1}
-  - {r: 0.1764706, g: 0.13333334, b: 0.023529412, a: 1}
-  - {r: 0.45490196, g: 0.11372549, b: 0.050980393, a: 1}
-  - {r: 0.5647059, g: 0.32941177, b: 0.14117648, a: 1}
-  - {r: 0.8980392, g: 0.78039217, b: 0.0627451, a: 1}
-  _hairImage: {fileID: 1947559378}
-  _beardImage: {fileID: 1632737741}
-  _backgroundDescription: {fileID: 1191482038}
   _defaultItems:
-  - {fileID: 11400000, guid: 4f683bfa6ac07e6489022b17bc752afa, type: 2}
-  - {fileID: 11400000, guid: cb963c3130e822845902f25a57d18a6d, type: 2}
-  - {fileID: 11400000, guid: fa697dccec3744d40b8aa66131fa6bf4, type: 2}
-  - {fileID: 11400000, guid: 0893c16e08ba32f49a3b3dd4a0dd909c, type: 2}
   - {fileID: 11400000, guid: 6f6425ff5bfb6d2468125f96c5803d59, type: 2}
+  _defaultShirt: {fileID: 11400000, guid: 4f683bfa6ac07e6489022b17bc752afa, type: 2}
+  _defaultPants: {fileID: 11400000, guid: cb963c3130e822845902f25a57d18a6d, type: 2}
+  _defaultShoes: {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
   _backgroundListBanesman:
   - {fileID: 11400000, guid: 009b492b71df9834598a5d0a5edcd426, type: 2}
   - {fileID: 11400000, guid: 009b492b71df9834598a5d0a5edcd426, type: 2}
@@ -5371,6 +5340,36 @@ MonoBehaviour:
   _backgroundListWarrior:
   - {fileID: 11400000, guid: 18aed67f929e4624c97357cf884334e5, type: 2}
   - {fileID: 11400000, guid: b66f4aa74197619409e5bc985e064055, type: 2}
+  _startingHour: 8
+  _hairOptions:
+  - {fileID: 0}
+  - {fileID: -4533249740495524082, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  - {fileID: -8142348151292379780, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  - {fileID: -8407589438536067022, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  - {fileID: -3330146215110097417, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  - {fileID: 7453196644828883793, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  - {fileID: 7284716698216589776, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  - {fileID: 6753916780000190641, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  - {fileID: 6184120087409723368, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  - {fileID: 327331573708330604, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  - {fileID: 633597387063541697, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  _beardOptions:
+  - {fileID: 0}
+  - {fileID: 4370024317117596018, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
+  - {fileID: 6551469346083184877, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
+  - {fileID: 8816914586026983915, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
+  - {fileID: -7939376082276279292, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
+  - {fileID: 4437371021102187080, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}
+  _hairColourOptions:
+  - {r: 0.1509434, g: 0.14624725, b: 0.14311142, a: 1}
+  - {r: 0.2784314, g: 0.22352941, b: 0.007843138, a: 1}
+  - {r: 0.1764706, g: 0.13333334, b: 0.023529412, a: 1}
+  - {r: 0.45490196, g: 0.11372549, b: 0.050980393, a: 1}
+  - {r: 0.5647059, g: 0.32941177, b: 0.14117648, a: 1}
+  - {r: 0.8980392, g: 0.78039217, b: 0.0627451, a: 1}
+  _hairImage: {fileID: 1947559378}
+  _beardImage: {fileID: 1632737741}
+  _backgroundDescription: {fileID: 1191482038}
   _abilityPointsLeftText: {fileID: 1357553310}
   _bodyText: {fileID: 570643017}
   _handsText: {fileID: 172324641}

@@ -16,13 +16,13 @@ MonoBehaviour:
   itemDescription: A two handed warrior axe with a large curved axehead.
   itemWeight: 2.5
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Axe_Bronze_Basic28050
+  uniqueID: Axe_Bronze_Basic29276
   clearID: 0
   weaponMeleeType: Axe
   twoHanded: 1
-  weaponDamage: 6
-  weaponRollAmount: 1
-  weaponDefence: 3
+  weaponDamage: 12
+  weaponBlunt: 4
+  weaponDefence: 0
   weaponSpeed: 0.5
   weaponRange: 2.5
   weaponModel: {fileID: 21300000, guid: 35b8ac03bd4e7254da6104aec38cc0f1, type: 3}

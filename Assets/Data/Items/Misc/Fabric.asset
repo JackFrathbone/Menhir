@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Fabric
   itemDescription: A piece of plain cloth
   itemWeight: 0.15
-  itemIcon: {fileID: 0}
-  uniqueID: Fabric27944
+  itemIcon: {fileID: 21300000, guid: 252e1fef9c392bc469bbd47d2f2520e6, type: 3}
+  uniqueID: Fabric29176
   clearID: 0

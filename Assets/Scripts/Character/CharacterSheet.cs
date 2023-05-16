@@ -1,19 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CharacterPronouns
-{
-    He,
-    She,
-    They
-}
-
 [CreateAssetMenu(menuName = "Characters/New Character Sheet")]
 public class CharacterSheet : ScriptableObject
 {
     [Header("Character Bio")]
     public string characterName;
-    [Tooltip("Developer description to keep track"), TextArea(3, 5)]
+    [Tooltip("Description for dialogue box"), TextArea(3, 5)]
     public string characterDescription;
     public CharacterPronouns characterPronouns;
     public Faction characterFaction;
@@ -29,7 +22,6 @@ public class CharacterSheet : ScriptableObject
     public string characterGreeting;
     [Tooltip("The generic greeting on starting dialogue while character is wounded")]
     public string characterWoundedGreeting;
-
     [Tooltip("All the dialogue topics this character has")]
     public DialogueGraph characterDialogueGraph;
 
@@ -37,11 +29,12 @@ public class CharacterSheet : ScriptableObject
     public Abilities abilities;
 
     [Header("Skills")]
-    public List<Skill> skills;
+    public List<Skill> skills = new();
 
     [Header("World States")]
     [Tooltip("Will make the character start disabled in the world")]
-    public bool startHidden;
+    public bool startHidden = false;
+    public CharacterState startState = CharacterState.alive;
 
     [Header("Visuals")]
     [Tooltip("Will randomly choose character looks")]

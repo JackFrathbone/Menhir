@@ -13,6 +13,7 @@ public class PlayerInventoryDescription : MonoBehaviour
     [Header("Stats")]
     [SerializeField] TextMeshProUGUI _itemWeaponType;
     [SerializeField] TextMeshProUGUI _itemDamage;
+    [SerializeField] TextMeshProUGUI _itemBlunt;
     [SerializeField] TextMeshProUGUI _itemDefence;
     [SerializeField] TextMeshProUGUI _itemRange;
     [SerializeField] TextMeshProUGUI _itemSpeed;
@@ -52,12 +53,14 @@ public class PlayerInventoryDescription : MonoBehaviour
         {
             _itemWeaponType.gameObject.SetActive(true);
             _itemDamage.gameObject.SetActive(true);
+            _itemBlunt.gameObject.SetActive(true);
             _itemRange.gameObject.SetActive(true);
             _itemSpeed.gameObject.SetActive(true);
             _itemDefence.gameObject.SetActive(true);
 
             _itemWeaponType.text = "Weapon Type: " + (item as WeaponMeleeItem).weaponMeleeType;
-            _itemDamage.text = "Damage: " + (item as WeaponMeleeItem).weaponRollAmount.ToString() + "D" + (item as WeaponMeleeItem).weaponDamage.ToString();
+            _itemDamage.text = "Damage: " + "D" + (item as WeaponMeleeItem).weaponDamage.ToString();
+            _itemBlunt.text = "Blunt:" + (item as WeaponMeleeItem).weaponBlunt.ToString();
             _itemDefence.text = "Defence: " + (item as WeaponMeleeItem).weaponDefence.ToString("+#;-#;0");
             _itemRange.text = "Range: " + (item as WeaponMeleeItem).weaponRange.ToString();
             _itemSpeed.text = "Speed: " + (item as WeaponMeleeItem).weaponSpeed.ToString();
@@ -71,7 +74,7 @@ public class PlayerInventoryDescription : MonoBehaviour
             _itemSpeed.gameObject.SetActive(true);
 
             _itemWeaponType.text = "Weapon Type: " + (item as WeaponRangedItem).weaponRangedType;
-            _itemDamage.text = "Damage: " + (item as WeaponRangedItem).weaponRollAmount.ToString() + "D" + (item as WeaponRangedItem).weaponDamage.ToString();
+            _itemDamage.text = "Damage: " + "D" + (item as WeaponRangedItem).weaponDamage.ToString();
             _itemSpeed.text = "Speed: " + (item as WeaponRangedItem).weaponSpeed.ToString();
 
             SetButtonEvents("weapon", item, isSearch, itemContainer);
@@ -110,6 +113,10 @@ public class PlayerInventoryDescription : MonoBehaviour
 
             SetButtonEvents("spell", item, isSearch, itemContainer);
         }
+        else
+        {
+            SetButtonEvents("item", item, isSearch, itemContainer);
+        }
     }
 
     //Used to enable the equip or unequip buttons, and to decide what they link to
@@ -134,7 +141,7 @@ public class PlayerInventoryDescription : MonoBehaviour
         if (!_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)) || (item is ShieldItem))
         {
             //If the item is a focus, dont display equip if your mind isnt high enough
-            if (item is WeaponFocusItem && _playerCharacterManager.characterSheet.abilities.mind < (item as WeaponFocusItem).mindRequirement)
+            if (item is WeaponFocusItem && _playerCharacterManager.abilities.mind < (item as WeaponFocusItem).mindRequirement)
             {
                 return;
             }
@@ -170,6 +177,7 @@ public class PlayerInventoryDescription : MonoBehaviour
     {
         _itemWeaponType.gameObject.SetActive(false);
         _itemDamage.gameObject.SetActive(false);
+        _itemBlunt.gameObject.SetActive(false);
         _itemRange.gameObject.SetActive(false);
         _itemSpeed.gameObject.SetActive(false);
         _itemDefence.gameObject.SetActive(false);

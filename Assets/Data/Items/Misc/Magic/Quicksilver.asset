@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Quicksilver
   itemDescription: A liqud metal, very rare and used exclusively in powerful magic
   itemWeight: 0.25
-  itemIcon: {fileID: 0}
-  uniqueID: Quicksilver27960
+  itemIcon: {fileID: 21300000, guid: 4a992582b0d70c2459ecb215d2cf80ce, type: 3}
+  uniqueID: Quicksilver29192
   clearID: 0
