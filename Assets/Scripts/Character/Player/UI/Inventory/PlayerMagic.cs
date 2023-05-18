@@ -212,6 +212,7 @@ public class PlayerMagic : MonoBehaviour
 
             if (!costPass)
             {
+                MessageBox.instance.Create("You don't have the right items to prepare this spell!", true);
                 return;
             }
 
@@ -271,6 +272,7 @@ public class PlayerMagic : MonoBehaviour
 
         if (!costPass)
         {
+            MessageBox.instance.Create("You don't have the right items to prepare this spell!", true);
             return;
         }
 

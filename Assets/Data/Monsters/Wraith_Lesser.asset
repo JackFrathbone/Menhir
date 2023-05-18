@@ -28,13 +28,14 @@ MonoBehaviour:
     effectSeconds: 1
     effectChance: 100
   defence: 1
-  moveSpeed: 5
+  moveSpeed: 1.5
   startHidden: 0
   startState: 0
-  idleSprite: {fileID: 21300000, guid: 8b8838ee60680d746987560b01b7f3a2, type: 3}
-  walk1Sprite: {fileID: 21300000, guid: 8b8838ee60680d746987560b01b7f3a2, type: 3}
-  walk2Sprite: {fileID: 21300000, guid: ecbbb43ccc1c36d4ebd4826a145506da, type: 3}
-  holdSprite: {fileID: 21300000, guid: 2fda20433607f784cb69c79a8547eafd, type: 3}
-  hitSprite: {fileID: 21300000, guid: d24e7e0b75e1a244bb9687d6fd4315ef, type: 3}
-  blockSprite: {fileID: 21300000, guid: bb6f2989e4c152b4684f9464fa65b734, type: 3}
-  deadSprite: {fileID: 528531067460024463, guid: 58ef1cf0addbde24eababf508cd4955e, type: 3}
+  idleSprite: {fileID: -2131393278, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  walk1Sprite: {fileID: 325990932, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  walk2Sprite: {fileID: -2049269112, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  holdSprite: {fileID: -430944581, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  attackSprite: {fileID: -1587506883, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  hurtSprite: {fileID: 1302831731, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  blockSprite: {fileID: -407058283, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  deadSprite: {fileID: 1148739864, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}

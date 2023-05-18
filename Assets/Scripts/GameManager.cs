@@ -18,9 +18,14 @@ public class GameManager: Singleton<GameManager>
     public void PauseGame(bool playerPresent, string origin)
     {
         isPaused = true;
-        pauseOrigin = origin;
+
+        if(pauseOrigin == "")
+        {
+            pauseOrigin = origin;
+        }
 
         UnlockCursor();
+
         Time.timeScale = 0;
 
         if(_playerController != null && playerPresent)
@@ -39,17 +44,18 @@ public class GameManager: Singleton<GameManager>
         isPaused = false;
         pauseOrigin = "";
 
-        LockCursor();
         Time.timeScale = 1;
 
         if (_playerController != null && playerPresent)
         {
             _playerController.StartMovement();
+            LockCursor();
         }
         else if(_playerController == null && playerPresent)
         {
             _playerController = playerObject.GetComponent<PlayerController>();
             _playerController.StartMovement();
+            LockCursor();
         }
     }
 
@@ -76,6 +82,26 @@ public class GameManager: Singleton<GameManager>
             return true;
         }
         else if(!isPaused && pauseOrigin == pauseCompare)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool CheckCanUnpause(string pauseCompare)
+    {
+        if (!isPaused && pauseOrigin == "")
+        {
+            return true;
+        }
+        else if (isPaused && pauseOrigin == pauseCompare)
+        {
+            return true;
+        }
+        else if (!isPaused && pauseOrigin == pauseCompare)
         {
             return true;
         }

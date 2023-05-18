@@ -67,7 +67,6 @@ public class Action
                     CharacterMovementController charMover = targetChar.GetComponent<CharacterMovementController>();
                     if (charMover != null)
                     {
-                        Debug.Log("ee");
                         charMover.MoveToPosition(setMoveTarget);
                     }
                     break;

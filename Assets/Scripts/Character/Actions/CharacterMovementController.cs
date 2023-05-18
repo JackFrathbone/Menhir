@@ -53,6 +53,11 @@ public class CharacterMovementController : MonoBehaviour
         _projectileSpawn.rotation = Quaternion.Slerp(_projectileSpawn.rotation, targetRotation, 1f * Time.deltaTime);
     }
 
+    public void SetSpeed(float newSpeed)
+    {
+        _navMeshAgent.speed = newSpeed;
+    }
+
     public void MoveToPosition(Vector3 target)
     {
         _navMeshAgent.SetDestination(target);

@@ -23,7 +23,8 @@ public class MonsterSheet : ScriptableObject
     public List<Effect> projectileEffects = new();
 
     public int defence;
-    public int moveSpeed;
+    [Tooltip("Human speed is 3.5")]
+    [Range(0.1f, 6)] public float moveSpeed;
 
     [Header("World States")]
     [Tooltip("Will make the character start disabled in the world")]
@@ -35,7 +36,8 @@ public class MonsterSheet : ScriptableObject
     public Sprite walk1Sprite;
     public Sprite walk2Sprite;
     public Sprite holdSprite;
-    public Sprite hitSprite;
+    public Sprite attackSprite;
+    public Sprite hurtSprite;
     public Sprite blockSprite;
     public Sprite deadSprite;
 }

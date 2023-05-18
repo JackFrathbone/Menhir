@@ -58,13 +58,13 @@ public class NonPlayerCharacterManager : CharacterManager
         DataManager.instance.AddActiveCharacter(this);
     }
 
-/*#if UNITY_STANDALONE
-    private void OnDisable()
-    {
-        DataManager.instance.RemoveActiveCharacter(this);
-    }
+    /*#if UNITY_STANDALONE
+        private void OnDisable()
+        {
+            DataManager.instance.RemoveActiveCharacter(this);
+        }
 
-#endif*/
+    #endif*/
 
     private void OnValidate()
     {
@@ -136,6 +136,7 @@ public class NonPlayerCharacterManager : CharacterManager
                 _animationController.SetState(2);
                 if (GetComponent<ItemContainer>() == null)
                 {
+                    GetComponent<CapsuleCollider>().isTrigger = true;
                     ItemContainer newContainer = gameObject.AddComponent<ItemContainer>();
                     newContainer.SetInventory(currentInventory);
                 }

@@ -26,7 +26,7 @@ public class MonsterCharacterManager : CharacterManager
     [ReadOnly] public List<Effect> projectileEffects = new();
 
     [ReadOnly] public int defence;
-    [ReadOnly] public int moveSpeed;
+    [ReadOnly] public float moveSpeed;
 
     [Header("States")]
     [ReadOnly] public bool isHidden;
@@ -36,7 +36,8 @@ public class MonsterCharacterManager : CharacterManager
     [ReadOnly] public Sprite walk1Sprite;
     [ReadOnly] public Sprite walk2Sprite;
     [ReadOnly] public Sprite holdSprite;
-    [ReadOnly] public Sprite hitSprite;
+    [ReadOnly] public Sprite attackSprite;
+    [ReadOnly] public Sprite hurtSprite;
     [ReadOnly] public Sprite blockSprite;
     [ReadOnly] public Sprite deadSprite;
 
@@ -99,7 +100,8 @@ public class MonsterCharacterManager : CharacterManager
         walk1Sprite = _monsterSheet.walk1Sprite;
         walk2Sprite = _monsterSheet.walk2Sprite;
         holdSprite = _monsterSheet.holdSprite;
-        hitSprite = _monsterSheet.hitSprite;
+        attackSprite = _monsterSheet.attackSprite;
+        hurtSprite = _monsterSheet.hurtSprite;
         blockSprite = _monsterSheet.blockSprite;
         deadSprite = _monsterSheet.deadSprite;
     }
@@ -160,6 +162,7 @@ public class MonsterCharacterManager : CharacterManager
                 if (GetComponent<ItemContainer>() == null)
                 {
                     _monsterAnimationController.SetState(1);
+                    GetComponent<CapsuleCollider>().isTrigger = true;
                     ItemContainer newContainer = gameObject.AddComponent<ItemContainer>();
                     newContainer.SetInventory(currentInventory);
                 }

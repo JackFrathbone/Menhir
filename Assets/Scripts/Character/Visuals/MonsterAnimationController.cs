@@ -9,6 +9,7 @@ public class MonsterAnimationController : CharacterAnimationController
     private MonsterCharacterManager _monsterCharacterManager;
 
     private bool _walkCycle1;
+    private bool _attacking;
 
     protected override void Awake()
     {
@@ -81,7 +82,14 @@ public class MonsterAnimationController : CharacterAnimationController
 
     public override void StartHolding(float holdSpeed)
     {
-        _baseRenderer.sprite = _monsterCharacterManager.holdSprite;
+        if (!_attacking)
+        {
+            _baseRenderer.sprite = _monsterCharacterManager.holdSprite;
+        }
+        else
+        {
+            StartCoroutine(WaitForAttackAnim());
+        }
     }
 
     public override void StopHolding()
@@ -91,12 +99,12 @@ public class MonsterAnimationController : CharacterAnimationController
 
     public override void HitReaction()
     {
-        _baseRenderer.sprite = _monsterCharacterManager.idleSprite;
+        _baseRenderer.sprite = _monsterCharacterManager.hurtSprite;
     }
 
     public override void TriggerAttack()
     {
-        _baseRenderer.sprite = _monsterCharacterManager.hitSprite;
+        _attacking = true;
     }
 
     public override void TriggerBlock()
@@ -107,5 +115,13 @@ public class MonsterAnimationController : CharacterAnimationController
     public override void UpdateCombatState(bool inCombat)
     {
 
+    }
+
+    IEnumerator WaitForAttackAnim()
+    {
+        _baseRenderer.sprite = _monsterCharacterManager.attackSprite;
+        yield return new WaitForSeconds(1f);
+        _attacking = false;
+        StartHolding(0);
     }
 }

@@ -95,13 +95,14 @@ public class DataManager : Singleton<DataManager>
             File.WriteAllText(Application.dataPath + "/Saves/save" + i.ToString() + "/" + "SceneData_" + sceneData.trackedSceneName + ".txt", sceneDataJson);
         }
 
-        Debug.Log("Saved Game");
+        MessageBox.instance.Create("Saved your game!", true);
     }
 
     public void LoadSaveSlot(int i)
     {
         if (!Directory.Exists(Application.dataPath + "/Saves/save" + i.ToString()))
         {
+            MessageBox.instance.Create("This save slot is empty!", false);
             return;
         }
 
@@ -166,7 +167,6 @@ public class DataManager : Singleton<DataManager>
     //Collects all data types from a scene when it is closed
     public bool SaveSceneData(int buildIndex)
     {
-        print("Saving scene data");
         SavePlayerTracker();
 
         List<CharacterManager> characterManagers = new(GameObject.FindObjectsOfType<CharacterManager>());
@@ -355,7 +355,10 @@ public class DataManager : Singleton<DataManager>
         targetTracker.healthCurrent = characterManager.healthCurrent;
         targetTracker.staminaCurrent = characterManager.staminaCurrent;
 
-        targetTracker.currentInventory = characterManager.currentInventory;
+        foreach(Item item in characterManager.currentInventory)
+        {
+            targetTracker.currentInventory.Add(item.uniqueID);
+        }
 
         targetTracker.currentEffects = characterManager.currentEffects;
 
@@ -538,7 +541,16 @@ public class DataManager : Singleton<DataManager>
                     character.healthCurrent = characterDataTracker.healthCurrent;
                     character.staminaCurrent = characterDataTracker.staminaCurrent;
 
-                    character.currentInventory = characterDataTracker.currentInventory;
+                    //Clear the inventory
+                    character.currentInventory.Clear();
+
+                    //Add items via uniqueID
+                    foreach (string uniqueID in characterDataTracker.currentInventory)
+                    {
+                        Item item = Instantiate(scriptableObjectDatabase.GetItemFromID(uniqueID));
+
+                        character.currentInventory.Add(item);
+                    }
 
                     character.currentEffects = characterDataTracker.currentEffects;
 

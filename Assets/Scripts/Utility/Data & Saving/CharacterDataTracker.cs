@@ -15,7 +15,7 @@ public class CharacterDataTracker
     public float staminaCurrent;
 
     [Header("Inventory")]
-    public List<Item> currentInventory = new();
+    public List<string> currentInventory = new();
 
     [Header("Active Effects")]
     public List<Effect> currentEffects = new();

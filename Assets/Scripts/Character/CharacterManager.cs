@@ -463,6 +463,8 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void UsePotionItem(PotionItem potionItem)
     {
+        MessageBox.instance.Create("You drink the potion", true);
+
         foreach (Effect effect in potionItem.potionEffects)
         {
             effect.AddEffect(this);

@@ -99,10 +99,10 @@ public class PlayerDialogueController : MonoBehaviour
 
     public void LoadNextLine()
     {
-        if(_currentSentencesNode != null)
+        if (_currentSentencesNode != null)
         {
             //If there is no next sentence to load
-            if(_currentSentence >= _currentSentencesNode.sentences.Count -1)
+            if (_currentSentence >= _currentSentencesNode.sentences.Count - 1)
             {
                 //Move to the next node
                 NextNode();
@@ -120,6 +120,7 @@ public class PlayerDialogueController : MonoBehaviour
         //Go the next sentences node
         if (!AbilityCheck(topic))
         {
+            MessageBox.instance.Create("You can't convince them", true);
             return;
         }
 
@@ -158,7 +159,6 @@ public class PlayerDialogueController : MonoBehaviour
             }
         }
 
-
         dialogueLeaveButton.transform.SetAsLastSibling();
     }
 
@@ -166,7 +166,7 @@ public class PlayerDialogueController : MonoBehaviour
     private bool CompareStateChecks(DialogueTopicsNode.Topic topic)
     {
         //If no checks
-        if(topic.topicStateChecks.Count == 0)
+        if (topic.topicStateChecks.Count == 0)
         {
             return true;
         }
@@ -206,7 +206,7 @@ public class PlayerDialogueController : MonoBehaviour
         //Go through each item and if not present set to false
         bool passCheck = true;
 
-        foreach(Item item in requiredItems)
+        foreach (Item item in requiredItems)
         {
             if (!_playerCharacterManager.currentInventory.Contains(item))
             {
@@ -354,7 +354,7 @@ public class PlayerDialogueController : MonoBehaviour
         {
             if (port.fieldName == "exit")
             {
-                if(port.Connection != null)
+                if (port.Connection != null)
                 {
                     _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
                 }
@@ -391,7 +391,7 @@ public class PlayerDialogueController : MonoBehaviour
             NextNode();
         }
         //If it is a load level node
-        else if(_currentDialogueGraph.current is DialogueLoadLevelNode)
+        else if (_currentDialogueGraph.current is DialogueLoadLevelNode)
         {
             SceneLoader.instance.LoadPlayerScene((_currentDialogueGraph.current as DialogueLoadLevelNode).sceneIndex, "default", Vector3.zero, Vector3.zero, true, true);
         }
@@ -404,7 +404,7 @@ public class PlayerDialogueController : MonoBehaviour
         //If it is a action node
         else if (_currentDialogueGraph.current is DialogueStateActionNode)
         {
-            foreach(Action action in (_currentDialogueGraph.current as DialogueStateActionNode).actionToRun)
+            foreach (Action action in (_currentDialogueGraph.current as DialogueStateActionNode).actionToRun)
             {
                 action.StartAction();
             }
@@ -429,9 +429,9 @@ public class PlayerDialogueController : MonoBehaviour
     {
         int topicNum = 0;
 
-        foreach(DialogueTopicsNode.Topic topicSearch in (_currentDialogueGraph.current as DialogueTopicsNode).topics)
+        foreach (DialogueTopicsNode.Topic topicSearch in (_currentDialogueGraph.current as DialogueTopicsNode).topics)
         {
-            if(topicSearch == topic)
+            if (topicSearch == topic)
             {
                 break;
             }
@@ -441,7 +441,7 @@ public class PlayerDialogueController : MonoBehaviour
         //Goes to next node
         foreach (NodePort port in _currentDialogueGraph.current.Ports)
         {
-            if (port.fieldName == "topics "+ topicNum.ToString())
+            if (port.fieldName == "topics " + topicNum.ToString())
             {
                 _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
                 break;
@@ -452,7 +452,7 @@ public class PlayerDialogueController : MonoBehaviour
     //This takes in a string and replaces all relevant cases with the players data such as name and pronouns
     private string ReplaceText(string s)
     {
-       string newS = s.Replace("%pcName", _playerCharacterManager.characterName);
+        string newS = s.Replace("%pcName", _playerCharacterManager.characterName);
 
         return newS;
     }

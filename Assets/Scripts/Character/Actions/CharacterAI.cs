@@ -38,6 +38,15 @@ public class CharacterAI : MonoBehaviour
         InvokeRepeating(nameof(CheckArea), 1f, 1f);
     }
 
+    private void Start()
+    {
+        //If the player is a monster set a custom move speed
+        if (_characterManager is MonsterCharacterManager)
+        {
+            _movementController.SetSpeed((_characterManager as MonsterCharacterManager).moveSpeed);
+        }
+    }
+
     private void CheckArea()
     {
         //Get all characters in a set sphere cast area
