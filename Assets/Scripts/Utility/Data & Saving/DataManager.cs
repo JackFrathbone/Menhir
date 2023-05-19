@@ -170,7 +170,6 @@ public class DataManager : Singleton<DataManager>
         SavePlayerTracker();
 
         List<CharacterManager> characterManagers = new(GameObject.FindObjectsOfType<CharacterManager>());
-
         foreach (CharacterManager character in characterManagers)
         {
             if (character.gameObject.scene.buildIndex == buildIndex)
@@ -185,6 +184,15 @@ public class DataManager : Singleton<DataManager>
             if (itemContainer.gameObject.scene.buildIndex == buildIndex)
             {
                 SaveContainerTracker(itemContainer);
+            }
+        }
+
+        List<TriggerController> triggers = new(GameObject.FindObjectsOfType<TriggerController>());
+        foreach(TriggerController trigger in triggers)
+        {
+            if (trigger.triggered)
+            {
+                SaveTriggerTracker(trigger);
             }
         }
 
@@ -404,6 +412,23 @@ public class DataManager : Singleton<DataManager>
         targetTracker.containerPosition = container.transform.position;
     }
 
+    private void SaveTriggerTracker(TriggerController trigger)
+    {
+        Scene targetScene = trigger.gameObject.scene;
+
+        //Find the relevant tracked scene
+        foreach (SceneData sceneData in _trackedScenes)
+        {
+            if (sceneData.trackedSceneName == targetScene.name)
+            {
+                if (!sceneData.triggeredTriggerIDs.Contains(trigger.uniqueID))
+                {
+                    sceneData.triggeredTriggerIDs.Add(trigger.uniqueID);
+                }
+            }
+        }
+    }
+
     private void LoadSceneData(string trackedSceneName)
     {
         SceneData targetSceneData = null;
@@ -420,6 +445,7 @@ public class DataManager : Singleton<DataManager>
         LoadPlayerData();
         LoadSceneDataCharacters(trackedSceneName, targetSceneData);
         LoadSceneDataContainers(trackedSceneName, targetSceneData);
+        LoadSceneDataTriggers(trackedSceneName, targetSceneData);
     }
 
     private void LoadPlayerData()
@@ -602,6 +628,22 @@ public class DataManager : Singleton<DataManager>
                 newItemContainer.transform.position = containerDataTracker.containerPosition;
 
                 SceneLoader.instance.MoveObjectToScene(newItemContainer.gameObject);
+            }
+        }
+    }
+
+    private void LoadSceneDataTriggers(string trackedSceneName, SceneData targetSceneData)
+    {
+        //Get a list of all triggers in the scene
+        List<TriggerController> sceneTriggers = new(GameObject.FindObjectsOfType<TriggerController>());
+
+        //Go through them all
+        foreach(TriggerController trigger in sceneTriggers)
+        {
+            //If the scene data tracker contains the trigger set it to already triggered
+            if (targetSceneData.triggeredTriggerIDs.Contains(trigger.uniqueID))
+            {
+                trigger.triggered = true;
             }
         }
     }

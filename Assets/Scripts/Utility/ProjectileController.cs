@@ -32,6 +32,8 @@ public class ProjectileController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Destroy(GetComponent<Collider>());
+
         hitCollision = collision;
 
         if (effects.Count != 0)

@@ -5182,6 +5182,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1247734940}
     m_Modifications:
     - target: {fileID: 965461033744768361, guid: eb2fd343c2d1dc245b10814e1a7a5d80, type: 3}
+      propertyPath: uniqueID
+      value: Trigger_Tutorial01-60900
+      objectReference: {fileID: 0}
+    - target: {fileID: 965461033744768361, guid: eb2fd343c2d1dc245b10814e1a7a5d80, type: 3}
       propertyPath: _messageBoxText
       value: 'After a long journey by sea, you have stopped to rest at a friendly
         settlement
@@ -5278,7 +5282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7967376315330082520, guid: eb2fd343c2d1dc245b10814e1a7a5d80, type: 3}
       propertyPath: m_Name
-      value: Trigger
+      value: Trigger_Tutorial01
       objectReference: {fileID: 0}
     - target: {fileID: 7967376315330082520, guid: eb2fd343c2d1dc245b10814e1a7a5d80, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5611,7 +5615,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-103452
+  m_Name: pb_Mesh-60890
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

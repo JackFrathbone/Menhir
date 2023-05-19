@@ -26,8 +26,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b66f4aa74197619409e5bc985e064055, type: 2}
   - {fileID: 11400000, guid: 4f615b001e6ed4f49bc4691bc611eb70, type: 2}
   characterSpells: []
-  characterGreeting: Ho!
-  characterWoundedGreeting: Help me brother!
+  characterGreeting: Ho sailor!
+  characterWoundedGreeting: Oh it hurts, but i'll be alright...
   characterDialogueGraph: {fileID: 0}
   abilities:
     body: 5
@@ -36,6 +36,9 @@ MonoBehaviour:
     heart: 4
   skills: []
   startHidden: 0
+  startState: 0
+  invulnerableMode: 0
+  woundedOnlyMode: 1
   randomiseVisuals: 1
   characterSkintone: {r: 0.5372549, g: 0.41176474, b: 0.32156864, a: 1}
   characterHairColor: {r: 0.019607844, g: 0.015686275, b: 0.019607844, a: 1}

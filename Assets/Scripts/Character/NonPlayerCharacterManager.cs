@@ -114,6 +114,12 @@ public class NonPlayerCharacterManager : CharacterManager
             return;
         }
 
+        //if wounded only mode then set dead state to wounded
+        if (_characterSheet.woundedOnlyMode && characterState == CharacterState.dead)
+        {
+            characterState = CharacterState.wounded;
+        }
+
         switch (characterState)
         {
             case CharacterState.alive:
@@ -286,6 +292,12 @@ public class NonPlayerCharacterManager : CharacterManager
 
     public override void DamageHealth(int i)
     {
+        //If invulnerable mode then dont add damage
+        if (_characterSheet.invulnerableMode)
+        {
+            return;
+        }
+
         base.DamageHealth(i);
 
         if (healthCurrent > 0)

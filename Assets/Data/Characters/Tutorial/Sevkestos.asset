@@ -35,6 +35,9 @@ MonoBehaviour:
     heart: 4
   skills: []
   startHidden: 0
+  startState: 0
+  invulnerableMode: 1
+  woundedOnlyMode: 0
   randomiseVisuals: 0
   characterSkintone: {r: 0.3647059, g: 0.23137257, b: 0.17254902, a: 1}
   characterHairColor: {r: 0.49411768, g: 0.17254902, b: 0.08627451, a: 1}

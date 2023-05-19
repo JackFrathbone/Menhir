@@ -13,4 +13,6 @@ public class SceneData
     [Header("Tracked Data")]
     public List<CharacterDataTracker> characterDataTrackers = new();
     public List<ContainerDataTracker> containerDataTrackers = new();
+    //A list of the ids of every trigger that has already been set off
+    public List<string> triggeredTriggerIDs = new();
 }

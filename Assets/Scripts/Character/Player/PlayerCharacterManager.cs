@@ -40,6 +40,9 @@ public class PlayerCharacterManager : CharacterManager
     //Unique player data
     [ReadOnly] public List<Quest> _playerQuests = new();
 
+    [Header("Debug")]
+    [SerializeField] bool _godMode;
+
     protected override void Awake()
     {
         //Set the player defaults
@@ -277,6 +280,12 @@ public class PlayerCharacterManager : CharacterManager
 
     public override void DamageHealth(int i)
     {
+        //if godmode then just dont take damage
+        if (_godMode)
+        {
+            return;
+        }
+
         base.DamageHealth(i);
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);

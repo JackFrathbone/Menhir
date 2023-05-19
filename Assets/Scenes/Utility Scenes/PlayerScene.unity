@@ -21366,15 +21366,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ef5569b431c724ea4ca530e40f82b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
+  characterName: Debug man
   characterPronouns: 0
-  characterFaction: {fileID: 0}
+  characterFaction: {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
   characterAggression: 1
   abilities:
-    body: 3
-    hands: 3
-    mind: 3
-    heart: 3
+    body: 4
+    hands: 4
+    mind: 4
+    heart: 4
   healthCurrent: 0
   staminaCurrent: 0
   healthTotal: 0
@@ -21391,9 +21391,16 @@ MonoBehaviour:
   equippedGreaves: {fileID: 0}
   equippedHands: {fileID: 0}
   equippedHelmet: {fileID: 0}
-  equippedPants: {fileID: 0}
+  equippedPants: {fileID: 11400000, guid: 063b577814dc9f945b758717a94ca71f, type: 2}
   equippedShirt: {fileID: 0}
-  currentInventory: []
+  currentInventory:
+  - {fileID: 11400000, guid: 063b577814dc9f945b758717a94ca71f, type: 2}
+  - {fileID: 11400000, guid: 39b9e5ebe959fca4caa4ec688393d04e, type: 2}
+  - {fileID: 11400000, guid: 990758737cb1ba14aaeb8711f2cf2090, type: 2}
+  - {fileID: 11400000, guid: 6f6425ff5bfb6d2468125f96c5803d59, type: 2}
+  - {fileID: 11400000, guid: 4f615b001e6ed4f49bc4691bc611eb70, type: 2}
+  - {fileID: 11400000, guid: 6b3c7ff206d1a31418bd65f7a962aa84, type: 2}
+  - {fileID: 11400000, guid: e611230158ef72346967bb19c6fb6c23, type: 2}
   currentSpells: []
   currentSkills: []
   currentEffects: []
@@ -22269,10 +22276,10 @@ RectTransform:
   m_Father: {fileID: 835347947785491838}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 407.08374, y: -72.015}
+  m_SizeDelta: {x: 158.8335, y: 144.03}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &2713123262076364751
 RectTransform:
@@ -23164,10 +23171,10 @@ RectTransform:
   m_Father: {fileID: 835347947785491838}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 84.41675, y: -72.015}
+  m_SizeDelta: {x: 168.8335, y: 144.03}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3457435978748710688
 GameObject:
@@ -23641,10 +23648,10 @@ RectTransform:
   m_Father: {fileID: 3370497006407267163}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 84.41675, y: -43.5075}
+  m_SizeDelta: {x: 158.8335, y: 57.015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4002044237593618596
 MonoBehaviour:
@@ -25770,10 +25777,10 @@ RectTransform:
   m_Father: {fileID: 3370497006407267163}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 84.41675, y: -100.5225}
+  m_SizeDelta: {x: 158.8335, y: 57.015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5710012837323948485
 GameObject:
@@ -27191,10 +27198,10 @@ RectTransform:
   m_Father: {fileID: 835347947785491838}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 248.25024, y: -72.015}
+  m_SizeDelta: {x: 158.8335, y: 144.03}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6706932871909614805
 MonoBehaviour:

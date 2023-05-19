@@ -36,6 +36,10 @@ public class CharacterSheet : ScriptableObject
     public bool startHidden = false;
     public CharacterState startState = CharacterState.alive;
 
+    [Header("Character Special States")]
+    public bool invulnerableMode = false;
+    public bool woundedOnlyMode = false;
+
     [Header("Visuals")]
     [Tooltip("Will randomly choose character looks")]
     public bool randomiseVisuals;
