@@ -153,6 +153,106 @@ MonoBehaviour:
     setPosition: {x: 0, y: 0, z: 0}
     setMoveTarget: {x: 149.60043, y: 9.604118, z: 144.68661}
     addItem: {fileID: 0}
+--- !u!114 &-3101003296992029666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 462.05368, y: 1213.4868}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3101003296992029666}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 2
+        node: {fileID: -140701020432669910}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3101003296992029666}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -534154368528968631}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - As long as they aren't my problem anymore i'm happy
+  - Never trust these Kregow, they serve no one but themselves
+  - But thank you for coming along, you'll be dealing with many people like these
+    soon on Staen
+  - Take this [reward] for your help, may it help you on Staen
+  - Lets get the crew back to Arda now
+--- !u!114 &-2680607561691799610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 613a6d9226af3754fb67b75d26eea975, type: 3}
+  m_Name: Dialogue Load Level
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1043.748, y: 1328.7589}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -2680607561691799610}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: -534154368528968631}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -2680607561691799610}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  targetScene:
+    _sceneOB: {fileID: 102900000, guid: 8c550f839a3eb7348a3a3a7b71f98c41, type: 3}
+    _sceneName: Tutorial
+    _scenePath: Assets/Scenes/Locations/Tutorial.unity
+    _buildIndex: 4
+  spawnPointName: spawnBoat
 --- !u!114 &-2520859696050545611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +344,8 @@ MonoBehaviour:
       mind: 0
       heart: 0
     uniqueID: Ican'thelpyou1647
+  generateIDs: 0
+  clearIDs: 0
 --- !u!114 &-600132592185234175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +391,52 @@ MonoBehaviour:
   sentences:
   - Of course, can't deprive the station on Staen of someone so brave i'm sure. Head
     off then sailor...
+--- !u!114 &-534154368528968631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 728, y: 1272}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -534154368528968631}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: -3101003296992029666}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -534154368528968631}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -2680607561691799610}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemToGive: {fileID: 11400000, guid: 6bf668e9c27de3d489708169a7c375c8, type: 2}
 --- !u!114 &-140701020432669910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +457,7 @@ MonoBehaviour:
     - topics
     - topics 0
     - topics 1
+    - topics 2
     values:
     - _fieldName: entry
       _node: {fileID: -140701020432669910}
@@ -356,13 +505,24 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
+    - _fieldName: topics 2
+      _node: {fileID: -140701020432669910}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -3101003296992029666}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   entry: 0
   topics:
   - topicTitle: You needed my help?
     topicRunOnce: 1
     topicStateChecks: []
-    topicStateChecksInactive:
-    - {fileID: 11400000, guid: 884c2575804701f4bb1bb35cbebe8dc5, type: 2}
+    topicStateChecksInactive: []
     topicRequiredItems: []
     topicAbilityChecks:
       body: 0
@@ -382,6 +542,20 @@ MonoBehaviour:
       mind: 0
       heart: 0
     uniqueID: Whatnow?6482
+  - topicTitle: They won't be bothering Arda anymore
+    topicRunOnce: 1
+    topicStateChecks:
+    - {fileID: 11400000, guid: cf675dd2b7101214c8197987b1d676d9, type: 2}
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Theproblemissorted5583
+  generateIDs: 0
+  clearIDs: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +579,10 @@ MonoBehaviour:
   - {fileID: 1484220329998742150}
   - {fileID: -7585313814893279203}
   - {fileID: -7499205801547318948}
-  current: {fileID: -140701020432669910}
+  - {fileID: -3101003296992029666}
+  - {fileID: -534154368528968631}
+  - {fileID: -2680607561691799610}
+  current: {fileID: 1484220329998742150}
 --- !u!114 &1484220329998742150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,7 +625,12 @@ MonoBehaviour:
       _dynamic: 0
   entry: 0
   exit: 0
-  sceneIndex: 8
+  targetScene:
+    _sceneOB: {fileID: 102900000, guid: 0575ed24f47589c41a337f13b4300cbd, type: 3}
+    _sceneName: Wavewatch_Island
+    _scenePath: Assets/Scenes/Locations/Wavewatch_Island.unity
+    _buildIndex: 8
+  spawnPointName: default
 --- !u!114 &7853381331471291167
 MonoBehaviour:
   m_ObjectHideFlags: 0

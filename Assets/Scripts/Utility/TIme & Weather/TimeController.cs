@@ -54,6 +54,7 @@ public class TimeController : MonoBehaviour
     {
         trackedTime.hours += hours;
         trackedTime.TimeCheck();
+        onWeatherUpdate?.Invoke();
     }
 
     public static void SetTrackedTime(int days, int hours, int minutes)

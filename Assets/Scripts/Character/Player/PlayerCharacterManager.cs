@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Udar.SceneField;
 using UnityEngine;
 
 public class PlayerCharacterManager : CharacterManager
@@ -37,8 +38,11 @@ public class PlayerCharacterManager : CharacterManager
     [SerializeField] PlayerMagic _playerMagic;
     private PlayerInventory _playerInventory;
 
-    //Unique player data
-    [ReadOnly] public List<Quest> _playerQuests = new();
+    [Header("Misc Refs")]
+    [ReadOnly] public List<JournalEntry> journalEntries = new();
+
+    [Header("Misc Refs")]
+    [SerializeField] SceneField _deathScene;
 
     [Header("Debug")]
     [SerializeField] bool _godMode;
@@ -73,6 +77,9 @@ public class PlayerCharacterManager : CharacterManager
 
         _playerInventory.RefreshEquippedItemsDisplay();
         _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
+
+        //Set natural effect resist from mind ability
+        SetEffectResist(StatFormulas.MagicResistBonus(abilities.mind));
     }
 
     protected override void RegenStamina()
@@ -146,7 +153,9 @@ public class PlayerCharacterManager : CharacterManager
                 }
                 break;
             case "equipment":
+                //Add magic resist
                 EquipmentItem equipmentItem = (EquipmentItem)i;
+                SetEffectResist(equipmentItem.magicResist);
                 switch (equipmentItem.equipmentType)
                 {
                     case EquipmentType.armour:
@@ -200,6 +209,7 @@ public class PlayerCharacterManager : CharacterManager
                 break;
             case "equipment":
                 EquipmentItem equipmentItem = (EquipmentItem)i;
+                SetEffectResist(-equipmentItem.magicResist);
                 switch (equipmentItem.equipmentType)
                 {
                     case EquipmentType.armour:
@@ -278,7 +288,7 @@ public class PlayerCharacterManager : CharacterManager
         _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
     }
 
-    public override void DamageHealth(int i)
+    public override void DamageHealth(int i, CharacterManager damageSource)
     {
         //if godmode then just dont take damage
         if (_godMode)
@@ -286,7 +296,7 @@ public class PlayerCharacterManager : CharacterManager
             return;
         }
 
-        base.DamageHealth(i);
+        base.DamageHealth(i, null);
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
         _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
@@ -295,7 +305,7 @@ public class PlayerCharacterManager : CharacterManager
         if(characterState == CharacterState.dead || characterState == CharacterState.wounded)
         {
             GameManager.instance.UnlockCursor();
-            SceneLoader.instance.LoadMenuScene(9);
+            SceneLoader.instance.LoadMenuScene(_deathScene.BuildIndex);
         }
     }
 
@@ -350,64 +360,17 @@ public class PlayerCharacterManager : CharacterManager
         _playerWeaponRanged.sprite = s;
     }
 
+    public void AddJournalEntry(JournalEntry entry)
+    {
+        entry.timeStamp = TimeController.GetDays() + TimeController.GetHours() + TimeController.GetMinutes();
+        entry.isArchived = false;
+        journalEntries.Add(entry);
+    }
+
     public override void AddSkill(Skill newSkill)
     {
         base.AddSkill(newSkill);
         _PlayerCharacterStatsDisplay.AddSkill(newSkill);
-    }
-
-    public void AddQuest(Quest quest, List<int> entryNumbers)
-    {
-        if (!_playerQuests.Contains(quest))
-        {
-            _playerQuests.Add(quest);
-
-            foreach (QuestEntry entry in quest.questEntries)
-            {
-                entry.questEntryActive = false;
-            }
-        }
-
-        foreach (QuestEntry entry in quest.questEntries)
-        {
-            foreach(int entryNumber in entryNumbers)
-            {
-                if (entry.questEntryStage == entryNumber)
-                {
-                    entry.questEntryActive = true;
-                }
-            }
-        }
-    }
-
-    public List<Quest> GetQuestsActive()
-    {
-        List<Quest> activeQuests = new();
-
-        foreach(Quest quest in _playerQuests)
-        {
-            if (!quest.questCompleted)
-            {
-                activeQuests.Add(quest);
-            }
-        }
-
-        return activeQuests;
-    }
-
-    public List<Quest> GetQuestsCompleted()
-    {
-        List<Quest> completedQuests = new();
-
-        foreach (Quest quest in _playerQuests)
-        {
-            if (quest.questCompleted)
-            {
-                completedQuests.Add(quest);
-            }
-        }
-
-        return completedQuests;
     }
 
     public PlayerMagic GetPlayerMagic()

@@ -16,9 +16,10 @@ MonoBehaviour:
   itemDescription: A breastplate made of bronze scales, attached to a leather backing.
   itemWeight: 4.5
   itemIcon: {fileID: 1995977949585069193, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Armour_Bronze_Scale10660
+  uniqueID: Armour_Bronze_Scale10670
   clearID: 0
   equipmentType: 0
   equipmentDefence: 2
+  magicResist: 10
   equipmentModel: {fileID: 21300000, guid: 75707156b5fc5684abdab9532682e739, type: 3}
   equipmentColor: {r: 1, g: 1, b: 1, a: 1}

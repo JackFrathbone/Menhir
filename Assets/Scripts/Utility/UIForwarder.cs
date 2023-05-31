@@ -1,3 +1,4 @@
+using Udar.SceneField;
 using UnityEngine;
 
 public class UIForwarder : MonoBehaviour
@@ -8,9 +9,9 @@ public class UIForwarder : MonoBehaviour
         SceneLoader.instance.QuitGame();
     }
 
-    public void ForwardLoadMenuScene(int i)
+    public void ForwardLoadMenuScene(SceneFieldRef targetScene)
     {
-        SceneLoader.instance.LoadMenuScene(i);
+        SceneLoader.instance.LoadMenuScene(targetScene.SceneField.BuildIndex);
     }
     public void ForwardSaveSaveSlot(int i)
     {

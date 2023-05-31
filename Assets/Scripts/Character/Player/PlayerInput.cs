@@ -14,12 +14,13 @@ public class PlayerInput : MonoBehaviour
     private PlayerActiveUI _playerActiveUI;
     private PlayerDialogueController _playerDialogueController;
     private PlayerJournalDisplay _playerJournalDisplay;
+    private TimeWaitController _timeWaitController;
 
     private PlayerCombat _playerCombat;
     private PlayerCharacterManager _playerCharacterManager;
 
     private GameObject _target;
-    private enum ActivateMode { disable, search, talk, door, item };
+    private enum ActivateMode { disable, search, talk, door, item, wait, waitSleep };
     private ActivateMode _activateMode;
 
     private void Awake()
@@ -34,6 +35,7 @@ public class PlayerInput : MonoBehaviour
         _playerActiveUI = GetComponent<PlayerActiveUI>();
         _playerDialogueController = GetComponent<PlayerDialogueController>();
         _playerJournalDisplay = GetComponent<PlayerJournalDisplay>();
+        _timeWaitController = GetComponent<TimeWaitController>();
 
         _playerCombat = GameManager.instance.playerObject.GetComponent<PlayerCombat>();
         _playerCharacterManager = GameManager.instance.playerObject.GetComponent<PlayerCharacterManager>();
@@ -75,6 +77,11 @@ public class PlayerInput : MonoBehaviour
                     _activateMode = ActivateMode.search;
                 }
             }
+            else if (hit.collider.CompareTag("DialogueOnlyCharacter"))
+            {
+                _playerActiveUI.EnableCrosshairText("Talk to");
+                _activateMode = ActivateMode.talk;
+            }
             else if (hit.collider.CompareTag("ItemContainer"))
             {
                 _playerActiveUI.EnableCrosshairText("Search");
@@ -89,6 +96,16 @@ public class PlayerInput : MonoBehaviour
             {
                 _playerActiveUI.EnableCrosshairText("Use Door");
                 _activateMode = ActivateMode.door;
+            }
+            else if (hit.collider.CompareTag("WaitObject"))
+            {
+                _playerActiveUI.EnableCrosshairText("Wait");
+                _activateMode = ActivateMode.wait;
+            }
+            else if (hit.collider.CompareTag("SleepObject"))
+            {
+                _playerActiveUI.EnableCrosshairText("Sleep");
+                _activateMode = ActivateMode.waitSleep;
             }
             else
             {
@@ -115,7 +132,7 @@ public class PlayerInput : MonoBehaviour
                     GameManager.instance.PauseGame(true, "characterMenu");
                     _playerInventory.RefreshInventory();
                     _playerMagic.RefreshSpells();
-                    _playerJournalDisplay.RefreshCurrentQuests();
+                    _playerJournalDisplay.RefreshCurrentJournalEntries();
                     _characterMenu.SetActive(true);
                 }
                 else
@@ -224,6 +241,13 @@ public class PlayerInput : MonoBehaviour
                         }
                         break;
                     case ActivateMode.talk:
+                        if (_target.CompareTag("DialogueOnlyCharacter"))
+                        {
+                            SimpleCharacterManager simpleCharacter = _target.GetComponentInParent<SimpleCharacterManager>();
+                            MessageBox.instance.Create(simpleCharacter.greeting, true);
+                            return;
+                        }
+
                         if (_target.CompareTag("Character") && GameManager.instance.CheckCanPause("dialogueMenu"))
                         {
                             GameManager.instance.PauseGame(true, "dialogueMenu");
@@ -245,6 +269,12 @@ public class PlayerInput : MonoBehaviour
                             _playerCharacterManager.AddItem(itemDisplay.item);
                             Destroy(itemDisplay.gameObject);
                         }
+                        break;
+                    case ActivateMode.wait:
+                        _timeWaitController.OpenWaitMenu(false);
+                        break;
+                    case ActivateMode.waitSleep:
+                        _timeWaitController.OpenWaitMenu(true);
                         break;
                 }
             }

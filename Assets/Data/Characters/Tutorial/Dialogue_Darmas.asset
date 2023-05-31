@@ -42,6 +42,53 @@ MonoBehaviour:
       _dynamic: 0
   exitAlive: 0
   exitWounded: 0
+--- !u!114 &-3364462460317962303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa10cfa6f89fee2418adf22ed352e0a9, type: 3}
+  m_Name: Dialogue Journal Entry
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 664, y: 104}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3364462460317962303}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 3921457705595718773}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3364462460317962303}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  entryToAdd:
+    journalText: Navigator Darmas said that the local leader, navgiator Sevkestos,
+      needs help with some sort of issue
+    timeStamp: 0
+    isArchived: 0
 --- !u!114 &-3033590201280685016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,7 +102,7 @@ MonoBehaviour:
   m_Name: Dialogue Sentences
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 152, y: 312}
+  position: {x: 152, y: 296}
   ports:
     keys:
     - entry
@@ -168,7 +215,8 @@ MonoBehaviour:
   - {fileID: 3921457705595718773}
   - {fileID: -2873340303054225994}
   - {fileID: 7237274117333956566}
-  current: {fileID: 2554065396686843402}
+  - {fileID: -3364462460317962303}
+  current: {fileID: 7237274117333956566}
 --- !u!114 &2087151029090234624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,37 +352,39 @@ MonoBehaviour:
   - topicTitle: Where are we?
     topicRunOnce: 0
     topicStateChecks: []
+    topicStateChecksInactive: []
     topicRequiredItems: []
     topicAbilityChecks:
       body: 0
       hands: 0
       mind: 0
       heart: 0
-    uniqueID: 
-    generateID: 0
+    uniqueID: Wherearewe?1501
   - topicTitle: What now?
     topicRunOnce: 1
     topicStateChecks: []
+    topicStateChecksInactive: []
     topicRequiredItems: []
     topicAbilityChecks:
       body: 0
       hands: 0
       mind: 0
       heart: 0
-    uniqueID: 
-    generateID: 0
+    uniqueID: Whatnow?2120
   - topicTitle: Let's set sail
     topicRunOnce: 1
     topicStateChecks:
     - {fileID: 11400000, guid: 884c2575804701f4bb1bb35cbebe8dc5, type: 2}
+    topicStateChecksInactive: []
     topicRequiredItems: []
     topicAbilityChecks:
       body: 0
       hands: 0
       mind: 0
       heart: 0
-    uniqueID: 
-    generateID: 0
+    uniqueID: Let'ssetsail3784
+  generateIDs: 0
+  clearIDs: 0
 --- !u!114 &3921457705595718773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,7 +420,10 @@ MonoBehaviour:
       _node: {fileID: 3921457705595718773}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: entry
+        node: {fileID: -3364462460317962303}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -421,4 +474,9 @@ MonoBehaviour:
       _dynamic: 0
   entry: 0
   exit: 0
-  sceneIndex: 6
+  targetScene:
+    _sceneOB: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+    _sceneName: Introduction
+    _scenePath: Assets/Scenes/Locations/Introduction.unity
+    _buildIndex: 6
+  spawnPointName: default

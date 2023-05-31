@@ -10,6 +10,7 @@ public class MonsterAnimationController : CharacterAnimationController
 
     private bool _walkCycle1;
     private bool _attacking;
+    private bool _isDead;
 
     protected override void Awake()
     {
@@ -19,16 +20,19 @@ public class MonsterAnimationController : CharacterAnimationController
     private void Start()
     {
         _baseRenderer.sprite = _monsterCharacterManager.idleSprite;
+        _baseRenderer.color = _monsterCharacterManager.spriteColorOverride;
     }
 
     public override void SetState(int i)
     {
-        if(i == 0)
+        if (i == 0)
         {
+            _isDead = false;
             _baseRenderer.sprite = _monsterCharacterManager.idleSprite;
         }
         else
         {
+            _isDead = true;
             _baseRenderer.sprite = _monsterCharacterManager.deadSprite;
         }
     }
@@ -63,6 +67,11 @@ public class MonsterAnimationController : CharacterAnimationController
 
     private void SwitchWalkFrame()
     {
+        if (_isDead)
+        {
+            CancelInvoke();
+        }
+
         if (_walkCycle1)
         {
             _baseRenderer.sprite = _monsterCharacterManager.walk1Sprite;
@@ -82,6 +91,12 @@ public class MonsterAnimationController : CharacterAnimationController
 
     public override void StartHolding(float holdSpeed)
     {
+        if (_isDead)
+        {
+            SetState(1);
+            return;
+        }
+
         if (!_attacking)
         {
             _baseRenderer.sprite = _monsterCharacterManager.holdSprite;
@@ -119,6 +134,11 @@ public class MonsterAnimationController : CharacterAnimationController
 
     IEnumerator WaitForAttackAnim()
     {
+        if (_isDead)
+        {
+            yield return false;
+        }
+
         _baseRenderer.sprite = _monsterCharacterManager.attackSprite;
         yield return new WaitForSeconds(1f);
         _attacking = false;

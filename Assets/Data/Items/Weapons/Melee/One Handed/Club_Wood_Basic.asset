@@ -17,7 +17,7 @@ MonoBehaviour:
     for fighting, suprisngly deadly.
   itemWeight: 10
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Club_Wood_Basic29268
+  uniqueID: Club_Wood_Basic37654
   clearID: 0
   weaponMeleeType: Club
   twoHanded: 0

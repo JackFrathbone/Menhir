@@ -25,6 +25,8 @@ public class WeatherController : MonoBehaviour
     [SerializeField] GameObject _rainLightPrefab;
     [SerializeField] GameObject _rainHeavyPrefab;
 
+    private GameObject _currentRain;
+
     //For audio
     private EventInstance _outdoorAmbience;
 
@@ -122,6 +124,12 @@ public class WeatherController : MonoBehaviour
 
     public void GetRandomWeather()
     {
+        if(_currentRain != null)
+        {
+            Destroy(_currentRain);
+            _currentRain = null;
+        }
+
         int randomWeather = UnityEngine.Random.Range(0, 5);
 
         //requires weather to already be cloudy in order to rain
@@ -205,13 +213,13 @@ public class WeatherController : MonoBehaviour
 
         if (currentWeather == "rainLight")
         {
-            GameObject newPrefab = Instantiate(_rainLightPrefab, _playerTransform.localPosition, Quaternion.identity, _playerTransform);
-            newPrefab.transform.localPosition = particleOffset;
+            _currentRain = Instantiate(_rainLightPrefab, _playerTransform.localPosition, Quaternion.identity, _playerTransform);
+            _currentRain.transform.localPosition = particleOffset;
         }
         else if (currentWeather == "rainHeavy")
         {
-            GameObject newPrefab = Instantiate(_rainHeavyPrefab, _playerTransform.localPosition, Quaternion.identity, _playerTransform);
-            newPrefab.transform.localPosition = particleOffset;
+            _currentRain = Instantiate(_rainHeavyPrefab, _playerTransform.localPosition, Quaternion.identity, _playerTransform);
+            _currentRain.transform.localPosition = particleOffset;
         }
         else
         {

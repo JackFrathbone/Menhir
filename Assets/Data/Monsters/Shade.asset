@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1745d4fac8bc1847b273ff04d37affc, type: 3}
+  m_Name: Shade
+  m_EditorClassIdentifier: 
+  monsterName: Shade
+  monsterInventory:
+  - {fileID: 11400000, guid: 2e02f09fa92e10c41a2303262a6fd971, type: 2}
+  health: 4
+  damage: 0
+  bluntDamage: 0
+  range: 0
+  attackSpeed: 2
+  isRanged: 1
+  projectilePrefab: {fileID: 3784735241220424099, guid: e2b895085913cc54c95260aba652cbf9, type: 3}
+  projectileEffects:
+  - effectType: 1
+    effectStrength: 2
+    effectSeconds: 1
+    effectChance: 100
+  defence: 1
+  moveSpeed: 1.5
+  startHidden: 0
+  startState: 0
+  spriteColorOverride: {r: 1, g: 1, b: 1, a: 0.39215687}
+  idleSprite: {fileID: -2131393278, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  walk1Sprite: {fileID: 325990932, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  walk2Sprite: {fileID: -2049269112, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  holdSprite: {fileID: -430944581, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  attackSprite: {fileID: -1587506883, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  hurtSprite: {fileID: 1302831731, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  blockSprite: {fileID: -407058283, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
+  deadSprite: {fileID: 1148739864, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}

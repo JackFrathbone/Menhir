@@ -9,7 +9,8 @@ public class PlayerDataTracker
     [ReadOnly] public string playerName;
     [ReadOnly] public int pronounInt;
 
-    [ReadOnly] public string colorHair; 
+    [ReadOnly] public string colorHair;
+    [ReadOnly] public string colorSkin;
 
     [ReadOnly] public string hairSprite;
     [ReadOnly] public string beardSprite;
@@ -57,7 +58,7 @@ public class PlayerDataTracker
     [ReadOnly] public List<Effect> currentEffects = new();
 
     [Header("Quests & States")]
-    [ReadOnly] public List<string> quests = new();
+    [ReadOnly] public List<JournalEntry> journalEntries = new();
     [ReadOnly] public List<string> stateChecks = new();
     [ReadOnly] public List<string> alreadyRunDialogueTopics = new();
 

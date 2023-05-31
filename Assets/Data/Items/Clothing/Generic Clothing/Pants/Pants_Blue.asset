@@ -17,7 +17,7 @@ MonoBehaviour:
     with a belt.
   itemWeight: 0.15
   itemIcon: {fileID: -1437952437997359938, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Pants_Blue29128
+  uniqueID: Pants_Blue37518
   clearID: 0
   equipmentType: 6
   equipmentDefence: 0

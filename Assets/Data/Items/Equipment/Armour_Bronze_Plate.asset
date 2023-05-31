@@ -17,9 +17,10 @@ MonoBehaviour:
     It is masterfully crafted with small details and decorations all over.
   itemWeight: 8
   itemIcon: {fileID: 1995977949585069193, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Armour_Bronze_Plate29150
+  uniqueID: Armour_Bronze_Plate37538
   clearID: 0
   equipmentType: 0
   equipmentDefence: 3
+  magicResist: 25
   equipmentModel: {fileID: 21300000, guid: bb6f2989e4c152b4684f9464fa65b734, type: 3}
   equipmentColor: {r: 1, g: 1, b: 1, a: 1}

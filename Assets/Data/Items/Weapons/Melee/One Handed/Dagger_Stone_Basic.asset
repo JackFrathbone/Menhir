@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: A rough flint dagger with a razor sharp edge.
   itemWeight: 1.25
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Dagger_Stone_Basic10700
+  uniqueID: Dagger_Stone_Basic10714
   clearID: 0
   weaponMeleeType: Dagger
   twoHanded: 0

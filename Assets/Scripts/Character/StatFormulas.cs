@@ -12,9 +12,9 @@ public static class StatFormulas
         return (1 + (agility * 2f)) * 2f;
     }
 
-    public static int StaminaRegenRate(int agility)
+    public static float StaminaRegenRate(int agility)
     {
-        return agility / 2;
+        return (float)agility / 12f;
     }
 
     //Returns a number which if positive is damage done to target, 0 or negative results in a block
@@ -121,23 +121,13 @@ public static class StatFormulas
         return (1.5f * weaponWeight) * weaponRange;
     }
 
-    //True is a wound and false is a death
-    public static bool ToWound(float damageOverZero, bool checkSkillWoundingBlows)
+    //True is a wound and false is a death, used heart score to add chance
+    public static bool ToWound(int heartAbility)
     {
-        float output;
+        float output  = Random.Range(0f, 100f);
+        float woundingChance = ((heartAbility - 3) * 10) + 10f;
 
-        if (checkSkillWoundingBlows)
-        {
-            output = Random.Range(0f, 100f) - damageOverZero;
-        }
-        else
-        {
-            output = Random.Range(0f, 100f) + damageOverZero;
-        }
-
-
-
-        if (output >= 50)
+        if (output >= woundingChance)
         {
             return true;
         }
@@ -145,5 +135,20 @@ public static class StatFormulas
         {
             return false;
         }
+    }
+
+    public static int MagicResistBonus(int mindAbility)
+    {
+        return ((mindAbility - 3) * 5);
+    }
+
+    public static int RestRestoreStamina(int hoursPassed)
+    {
+        return 10 * hoursPassed;
+    }
+
+    public static int RestRestoreHealth(int hoursPassed)
+    {
+        return 5 * hoursPassed;
     }
 }

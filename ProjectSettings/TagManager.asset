@@ -13,6 +13,9 @@ TagManager:
   - CharactersParent
   - InteractablesParent
   - ItemSingle
+  - WaitObject
+  - SleepObject
+  - DialogueOnlyCharacter
   layers:
   - Default
   - TransparentFX

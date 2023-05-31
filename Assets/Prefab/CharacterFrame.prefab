@@ -1726,6 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f6d132ca3d15340af3b14358288e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _projectileSpawn: {fileID: 8561192949673368434}
   _backwardsTarget: {fileID: 2084521072314489010}
   _target: {fileID: 0}
 --- !u!114 &8312353042365728651
@@ -1754,6 +1755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879c5c9728d080046b1377b5e1ec67fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   _targets: []
   currentAction: 0
-  raycastPosition: {fileID: 8561192949673368434}

@@ -32,6 +32,8 @@ public class MonsterCharacterManager : CharacterManager
     [ReadOnly] public bool isHidden;
 
     [Header("Mosnter Visuals")]
+    [ReadOnly] public Color spriteColorOverride;
+
     [ReadOnly] public Sprite idleSprite;
     [ReadOnly] public Sprite walk1Sprite;
     [ReadOnly] public Sprite walk2Sprite;
@@ -96,6 +98,7 @@ public class MonsterCharacterManager : CharacterManager
         isHidden = _monsterSheet.startHidden;
         characterState = _monsterSheet.startState;
 
+        spriteColorOverride = _monsterSheet.spriteColorOverride;
         idleSprite = _monsterSheet.idleSprite;
         walk1Sprite = _monsterSheet.walk1Sprite;
         walk2Sprite = _monsterSheet.walk2Sprite;
@@ -106,9 +109,9 @@ public class MonsterCharacterManager : CharacterManager
         deadSprite = _monsterSheet.deadSprite;
     }
 
-    public override void DamageHealth(int i)
+    public override void DamageHealth(int i, CharacterManager damageSource)
     {
-        base.DamageHealth(i);
+        base.DamageHealth(i, null);
 
         if (healthCurrent > 0)
         {

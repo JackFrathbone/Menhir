@@ -30,7 +30,8 @@ public enum EffectType
     Drain_Attack,
     Remove_Effects,
     Gain_Advantage,
-    Gain_Disadvantage
+    Gain_Disadvantage,
+    Invisibility
 }
 
 [System.Serializable]
@@ -81,13 +82,13 @@ public class Effect
                 targetCharacter.AddHealth(effectStrength);
                 break;
             case EffectType.Damage_Health:
-                targetCharacter.DamageHealth(effectStrength);
+                targetCharacter.DamageHealth(effectStrength, null);
                 break;
             case EffectType.Fortify_Health:
                 targetCharacter.AddHealth(effectStrength);
                 break;
             case EffectType.Drain_Health:
-                targetCharacter.DamageHealth(effectStrength);
+                targetCharacter.DamageHealth(effectStrength, null);
                 break;
             case EffectType.Restore_Stamina:
                 targetCharacter.AddStamina(effectStrength);
@@ -160,6 +161,9 @@ public class Effect
             case EffectType.Gain_Disadvantage:
                 targetCharacter.SetDisadvantage(true);
                 break;
+            case EffectType.Invisibility:
+                targetCharacter.isInvisible = false;
+                break;
         }
     }
 
@@ -175,7 +179,7 @@ public class Effect
                 //na
                 break;
             case EffectType.Fortify_Health:
-                targetCharacter.DamageHealth(effectStrength);
+                targetCharacter.DamageHealth(effectStrength, null);
                 break;
             case EffectType.Drain_Health:
                 targetCharacter.AddHealth(effectStrength);
@@ -250,6 +254,9 @@ public class Effect
                 break;
             case EffectType.Gain_Disadvantage:
                 targetCharacter.SetDisadvantage(false);
+                break;
+            case EffectType.Invisibility:
+                targetCharacter.isInvisible = false;
                 break;
         }
 

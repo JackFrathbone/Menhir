@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Udar.SceneField;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +8,7 @@ public class SceneLoader : Singleton<SceneLoader>
 {
     [Header("Settings")]
     //The scene to load the player into when starting from the Player Scene for testing purposes
-    [SerializeField] int _defaultScene;
+    [SerializeField] SceneField _defaultScene;
 
 
     [Header("Data")]
@@ -43,7 +44,7 @@ public class SceneLoader : Singleton<SceneLoader>
 
         if (currentScene == _playerScene)
         {
-            LoadPlayerScene(_defaultScene, "default", Vector3.zero, Vector3.zero, false, true);
+            LoadPlayerScene(_defaultScene.BuildIndex, "default", Vector3.zero, Vector3.zero, false, true);
         }
         else
         {
@@ -52,9 +53,9 @@ public class SceneLoader : Singleton<SceneLoader>
     }
 
     //For loading scenes without additional additive scenes
-    public void LoadMenuScene(int i)
+    public void LoadMenuScene(int sceneIndex)
     {
-        SceneManager.LoadScene(i, LoadSceneMode.Single);
+        SceneManager.LoadScene(sceneIndex, LoadSceneMode.Single);
     }
 
     //Load the scene, then load the player scene in afterwards

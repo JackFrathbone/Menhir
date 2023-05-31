@@ -18,9 +18,10 @@ MonoBehaviour:
     A Staenish design based off of those worn by Akhetian soldiers.
   itemWeight: 3
   itemIcon: {fileID: 6361351448533257067, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Helmet_Bronze_Crested27660
+  uniqueID: Helmet_Bronze_Crested30098
   clearID: 0
   equipmentType: 5
   equipmentDefence: 3
+  magicResist: 10
   equipmentModel: {fileID: 21300000, guid: 5331184f533f57747a1750e15a533339, type: 3}
   equipmentColor: {r: 1, g: 1, b: 1, a: 1}

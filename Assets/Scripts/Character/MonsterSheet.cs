@@ -32,6 +32,8 @@ public class MonsterSheet : ScriptableObject
     public CharacterState startState = CharacterState.alive;
 
     [Header("Mosnter Visuals")]
+    public Color spriteColorOverride = Color.white;
+
     public Sprite idleSprite;
     public Sprite walk1Sprite;
     public Sprite walk2Sprite;

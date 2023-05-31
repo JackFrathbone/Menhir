@@ -166,30 +166,32 @@ public class PlayerDialogueController : MonoBehaviour
     private bool CompareStateChecks(DialogueTopicsNode.Topic topic)
     {
         //If no checks
-        if (topic.topicStateChecks.Count == 0)
+        if (topic.topicStateChecks.Count == 0 && topic.topicStateChecksInactive.Count == 0)
         {
             return true;
         }
 
+        bool passCheck = true;
+
         //If there checks
         foreach (StateCheck stateCheck in topic.topicStateChecks)
         {
-            if (_playerCharacterManager.stateChecks.Contains(stateCheck))
+            if (!_playerCharacterManager.stateChecks.Contains(stateCheck))
             {
-                return true;
+                passCheck = false;
             }
         }
 
         //If there are inactive checks, check if the player doesn't have
         foreach (StateCheck stateCheck in topic.topicStateChecksInactive)
         {
-            if (!_playerCharacterManager.stateChecks.Contains(stateCheck))
+            if (_playerCharacterManager.stateChecks.Contains(stateCheck))
             {
-                return true;
+                passCheck = false; ;
             }
         }
 
-        return false;
+        return passCheck;
     }
 
     //Checks required items by items in players inventory
@@ -282,6 +284,9 @@ public class PlayerDialogueController : MonoBehaviour
     {
         ClearAllTopicButtons();
         currentCharacterManager = null;
+        _currentDialogueGraph = null;
+        _currentSentencesNode = null;
+        _currentSentence = 0;
         GameManager.instance.UnPauseGame(true);
         dialogueUI.SetActive(false);
     }
@@ -384,16 +389,16 @@ public class PlayerDialogueController : MonoBehaviour
 
             NextNode();
         }
-        //If it is a quest node
-        else if (_currentDialogueGraph.current is DialogueQuestNode)
+        //If it is a jorunal entry node
+        else if (_currentDialogueGraph.current is DialogueJournalEntryNode)
         {
-            _playerCharacterManager.AddQuest((_currentDialogueGraph.current as DialogueQuestNode).questToAdd, (_currentDialogueGraph.current as DialogueQuestNode).questEntries);
+            _playerCharacterManager.AddJournalEntry((_currentDialogueGraph.current as DialogueJournalEntryNode).entryToAdd);
             NextNode();
         }
         //If it is a load level node
         else if (_currentDialogueGraph.current is DialogueLoadLevelNode)
         {
-            SceneLoader.instance.LoadPlayerScene((_currentDialogueGraph.current as DialogueLoadLevelNode).sceneIndex, "default", Vector3.zero, Vector3.zero, true, true);
+            SceneLoader.instance.LoadPlayerScene((_currentDialogueGraph.current as DialogueLoadLevelNode).targetScene.BuildIndex, (_currentDialogueGraph.current as DialogueLoadLevelNode).spawnPointName, Vector3.zero, Vector3.zero, true, true);
         }
         //If it is a give object node
         else if (_currentDialogueGraph.current is DialogueGiveItemNode)

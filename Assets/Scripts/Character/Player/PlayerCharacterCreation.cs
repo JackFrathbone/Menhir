@@ -1,14 +1,14 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEditor;
+using Udar.SceneField;
 
 public class PlayerCharacterCreation : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] int _startingScene = 4;
+    [SerializeField] SceneField _startingScene;
 
     //All the basic items all characters should have
     [SerializeField] List<Item> _defaultItems = new();
@@ -25,6 +25,8 @@ public class PlayerCharacterCreation : MonoBehaviour
     [SerializeField] List<Item> _backgroundListWarrior = new();
 
     [SerializeField] int _startingHour;
+
+    [SerializeField] Color _playerSkintone;
 
     [Header("References")]
     private PlayerDataTracker _playerDataTracker = new();
@@ -445,6 +447,7 @@ public class PlayerCharacterCreation : MonoBehaviour
         _playerDataTracker.pronounInt = (int)_characterPronouns;
 
         //Looks
+        _playerDataTracker.colorSkin = ColorUtility.ToHtmlStringRGBA(_playerSkintone);
         _playerDataTracker.colorHair = ColorUtility.ToHtmlStringRGBA(_hairColourOptions[_onColour]);
         if(_hairOptions[_onHair] != null) { _playerDataTracker.hairSprite = _hairOptions[_onHair].name; };
         if (_beardOptions[_onBeard] != null) { _playerDataTracker.beardSprite = _beardOptions[_onBeard].name; };
@@ -488,7 +491,7 @@ public class PlayerCharacterCreation : MonoBehaviour
         //Save the tracker
         DataManager.instance.SetPlayerTracker(_playerDataTracker);
 
-        SceneLoader.instance.LoadPlayerScene(_startingScene, "default", Vector3.zero, Vector3.zero, false, true);
+        SceneLoader.instance.LoadPlayerScene(_startingScene.BuildIndex, "default", Vector3.zero, Vector3.zero, false, true);
     }
 
     public void SetImageColourGreen(Image image)

@@ -18,6 +18,7 @@ public class EquipmentItem : Item
     [Header("Equipment Data")]
     public EquipmentType equipmentType;
     public int equipmentDefence;
+    public int magicResist;
 
     [Header("Equipment Visuals")]
     public Sprite equipmentModel;

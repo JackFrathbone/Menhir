@@ -231,48 +231,56 @@ public class NonPlayerCharacterManager : CharacterManager
                     case EquipmentType.armour:
                         if (equippedArmour == null)
                         {
+                            SetEffectResist(equipmentItem.magicResist);
                             equippedArmour = equipmentItem;
                         }
                         break;
                     case EquipmentType.cape:
                         if (equippedCape == null)
                         {
+                            SetEffectResist(equipmentItem.magicResist);
                             equippedCape = equipmentItem;
                         }
                         break;
                     case EquipmentType.feet:
                         if (equippedFeet == null)
                         {
+                            SetEffectResist(equipmentItem.magicResist);
                             equippedFeet = equipmentItem;
                         }
                         break;
                     case EquipmentType.greaves:
                         if (equippedGreaves == null)
                         {
+                            SetEffectResist(equipmentItem.magicResist);
                             equippedGreaves = equipmentItem;
                         }
                         break;
                     case EquipmentType.hands:
                         if (equippedHands == null)
                         {
+                            SetEffectResist(equipmentItem.magicResist);
                             equippedHands = equipmentItem;
                         }
                         break;
                     case EquipmentType.helmet:
                         if (equippedHelmet == null)
                         {
+                            SetEffectResist(equipmentItem.magicResist);
                             equippedHelmet = equipmentItem;
                         }
                         break;
                     case EquipmentType.pants:
                         if (equippedPants == null)
                         {
+                            SetEffectResist(equipmentItem.magicResist);
                             equippedPants = equipmentItem;
                         }
                         break;
                     case EquipmentType.shirt:
                         if (equippedShirt == null)
                         {
+                            SetEffectResist(equipmentItem.magicResist);
                             equippedShirt = equipmentItem;
                         }
                         break;
@@ -290,7 +298,7 @@ public class NonPlayerCharacterManager : CharacterManager
         }
     }
 
-    public override void DamageHealth(int i)
+    public override void DamageHealth(int i, CharacterManager damageSource)
     {
         //If invulnerable mode then dont add damage
         if (_characterSheet.invulnerableMode)
@@ -298,7 +306,7 @@ public class NonPlayerCharacterManager : CharacterManager
             return;
         }
 
-        base.DamageHealth(i);
+        base.DamageHealth(i, damageSource);
 
         if (healthCurrent > 0)
         {

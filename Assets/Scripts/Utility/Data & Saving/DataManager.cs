@@ -128,7 +128,7 @@ public class DataManager : Singleton<DataManager>
             }
         }
 
-        foreach(string sceneDataName in sceneDataFileNames)
+        foreach (string sceneDataName in sceneDataFileNames)
         {
             string sceneDataString = File.ReadAllText(Application.dataPath + "/Saves/save" + i.ToString() + "/" + sceneDataName);
             SceneData sceneData = JsonUtility.FromJson<SceneData>(sceneDataString);
@@ -188,7 +188,7 @@ public class DataManager : Singleton<DataManager>
         }
 
         List<TriggerController> triggers = new(GameObject.FindObjectsOfType<TriggerController>());
-        foreach(TriggerController trigger in triggers)
+        foreach (TriggerController trigger in triggers)
         {
             if (trigger.triggered)
             {
@@ -297,10 +297,10 @@ public class DataManager : Singleton<DataManager>
 
         _playerData.currentEffects = playerCharacterManager.currentEffects;
 
-        _playerData.quests.Clear();
-        foreach (Quest quest in playerCharacterManager._playerQuests)
+        _playerData.journalEntries.Clear();
+        foreach (JournalEntry entry in playerCharacterManager.journalEntries)
         {
-            _playerData.quests.Add(quest.uniqueID);
+            _playerData.journalEntries.Add(entry);
         }
 
         _playerData.stateChecks.Clear();
@@ -363,7 +363,7 @@ public class DataManager : Singleton<DataManager>
         targetTracker.healthCurrent = characterManager.healthCurrent;
         targetTracker.staminaCurrent = characterManager.staminaCurrent;
 
-        foreach(Item item in characterManager.currentInventory)
+        foreach (Item item in characterManager.currentInventory)
         {
             targetTracker.currentInventory.Add(item.uniqueID);
         }
@@ -466,6 +466,10 @@ public class DataManager : Singleton<DataManager>
 
         playerCharacterManager.characterHairColor = hair;
 
+        ColorUtility.TryParseHtmlString("#" + _playerData.colorSkin, out Color skin);
+
+        playerCharacterManager.characterSkintone = skin;
+
         if (_playerData.hairSprite != "") { playerCharacterManager.characterHair = spriteDatabase.GetHairFromName(_playerData.hairSprite); }
         else { playerCharacterManager.characterHair = null; }
         if (_playerData.beardSprite != "") { playerCharacterManager.characterBeard = spriteDatabase.GetBeardFromName(_playerData.beardSprite); }
@@ -526,11 +530,10 @@ public class DataManager : Singleton<DataManager>
             playerCharacterManager.AddEffect(effect);
         }
 
-        playerCharacterManager._playerQuests.Clear();
-        foreach (string uniqueID in this._playerData.quests)
+        playerCharacterManager.journalEntries.Clear();
+        foreach (JournalEntry entry in this._playerData.journalEntries)
         {
-            Quest quest = Instantiate(scriptableObjectDatabase.GetQuestFromID(uniqueID));
-            playerCharacterManager._playerQuests.Add(quest);
+            playerCharacterManager.journalEntries.Add(entry);
         }
 
         playerCharacterManager.stateChecks.Clear();
@@ -638,7 +641,7 @@ public class DataManager : Singleton<DataManager>
         List<TriggerController> sceneTriggers = new(GameObject.FindObjectsOfType<TriggerController>());
 
         //Go through them all
-        foreach(TriggerController trigger in sceneTriggers)
+        foreach (TriggerController trigger in sceneTriggers)
         {
             //If the scene data tracker contains the trigger set it to already triggered
             if (targetSceneData.triggeredTriggerIDs.Contains(trigger.uniqueID))

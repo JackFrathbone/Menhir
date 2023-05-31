@@ -17,7 +17,7 @@ MonoBehaviour:
     handle.
   itemWeight: 1
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Sceptre_Fire_Basic29250
+  uniqueID: Sceptre_Fire_Basic37636
   clearID: 0
   focusModel: {fileID: 21300000, guid: f8512653e473eff41b3936198a9bbf42, type: 3}
   projectilePrefab: {fileID: 3784735241220424099, guid: a6b2a86a97599c94d83b70f8dd8716b1, type: 3}

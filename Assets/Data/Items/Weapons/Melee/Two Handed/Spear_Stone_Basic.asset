@@ -17,7 +17,7 @@ MonoBehaviour:
     is an effective weapon.
   itemWeight: 2.5
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Spear_Stone_Basic10552
+  uniqueID: Spear_Stone_Basic10550
   clearID: 0
   weaponMeleeType: Spear
   twoHanded: 1

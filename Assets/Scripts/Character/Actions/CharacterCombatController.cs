@@ -280,7 +280,7 @@ public class CharacterCombatController : MonoBehaviour
                 AudioManager.instance.PlayOneShot("event:/CombatHit", targetCharacterManager.transform.position);
 
                 //Do damage to target
-                targetCharacterManager.DamageHealth(StatFormulas.Damage(hitDamage));
+                targetCharacterManager.DamageHealth(StatFormulas.Damage(hitDamage), _characterManager);
 
                 _characterManager.CheckSkill_DisablingShot(targetCharacterManager);
             }

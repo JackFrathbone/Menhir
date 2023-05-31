@@ -5304,7 +5304,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3087522f23cae5c438db7bf4813635d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingScene: 4
+  _startingScene:
+    _sceneOB: {fileID: 102900000, guid: 8c550f839a3eb7348a3a3a7b71f98c41, type: 3}
+    _sceneName: Tutorial
+    _scenePath: Assets/Scenes/Locations/Tutorial.unity
+    _buildIndex: 4
   _defaultItems:
   - {fileID: 11400000, guid: 6f6425ff5bfb6d2468125f96c5803d59, type: 2}
   _defaultShirt: {fileID: 11400000, guid: 4f683bfa6ac07e6489022b17bc752afa, type: 2}
@@ -5341,6 +5345,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 18aed67f929e4624c97357cf884334e5, type: 2}
   - {fileID: 11400000, guid: b66f4aa74197619409e5bc985e064055, type: 2}
   _startingHour: 8
+  _playerSkintone: {r: 0.7764706, g: 0.5254902, b: 0.25882354, a: 1}
   _hairOptions:
   - {fileID: 0}
   - {fileID: -4533249740495524082, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
@@ -9308,7 +9313,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Explanation about typical naming in the characters culture.
+  m_text: 'In Akhetian culture names are usuall broken up into two  ''consonant,
+    vowel, consonant'' sets such as dartak, sevtet, cassan.
+
+    Male names are usually
+    ended with ''io'', ''as'' or ''et'' while non-gendered names add another set.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8899fba2bfbc8524e8bf1b5b9eaee9bb, type: 2}
   m_sharedMaterial: {fileID: 8639488428218644234, guid: 8899fba2bfbc8524e8bf1b5b9eaee9bb, type: 2}
@@ -11068,15 +11077,17 @@ MonoBehaviour:
     Mind:
 
     How much
-    you know, your magical skills and your problem solving. Allows you to cast more
-    powerful ritual spells, and use more powerful magical focus weapons.
+    you know, your magical skills and your ability to resist magic. Allows you to
+    cast more powerful ritual spells, use more powerful magical items, and increase
+    your chance to resist magic.
 
 
     Heart:
 
-    How
-    well you get on with others, how well you manipulate and convince. Allows you
-    to pass harder dialogue checks, and get better deals while trading.'
+    How well you get on with others,
+    how well you manipulate and convince. Allows you to pass harder dialogue checks
+    and access better trades. Increases the chance that characters will be wounded
+    instead of killed.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8899fba2bfbc8524e8bf1b5b9eaee9bb, type: 2}
   m_sharedMaterial: {fileID: 8639488428218644234, guid: 8899fba2bfbc8524e8bf1b5b9eaee9bb, type: 2}
@@ -14056,8 +14067,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Explanation about typical role of gender identity in your culture and the
-    greater world.
+  m_text: 'In Akhet woman are traditionally seen as smart and organised while men
+    are strong and honorable, with woman taking most leadership roles while men are
+    expected to do hard work and keep the law. A third gender is recognised as a
+    mix of both masculine and feminine traits, which is religiously significant as
+    a gift from the gods. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8899fba2bfbc8524e8bf1b5b9eaee9bb, type: 2}
   m_sharedMaterial: {fileID: 8639488428218644234, guid: 8899fba2bfbc8524e8bf1b5b9eaee9bb, type: 2}

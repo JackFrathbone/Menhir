@@ -66,6 +66,7 @@ public class CharacterManager : MonoBehaviour
     [ReadOnly] public int oneManArmyDefenceBonus;
     [Tooltip("How many eyes are currently on the character")]
     [ReadOnly] public List<CharacterManager> inDetectionRange = new();
+    [ReadOnly] public bool isInvisible = false;
     public Effect _disablingShotEffect;
 
     protected virtual void Awake()
@@ -76,6 +77,9 @@ public class CharacterManager : MonoBehaviour
     {
         SetCurrentStatus();
         InvokeRepeating(nameof(RunEffects), 0f, 1f);
+
+        //Set natural effect resist from mind ability
+        SetEffectResist(StatFormulas.MagicResistBonus(abilities.mind));
     }
 
     protected virtual void Update()
@@ -90,6 +94,7 @@ public class CharacterManager : MonoBehaviour
             staminaCurrent = staminaTotal;
             return;
         }
+
         if (staminaCurrent < 0)
         {
             staminaCurrent = 0;
@@ -169,7 +174,7 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
-    public virtual void DamageHealth(int i)
+    public virtual void DamageHealth(int i, CharacterManager damageSource)
     {
         if (characterState == CharacterState.alive)
         {
@@ -183,10 +188,17 @@ public class CharacterManager : MonoBehaviour
 
             if (healthCurrent <= 0)
             {
-                //Check if the character is wounded or dead
-                if (StatFormulas.ToWound(healthCurrent, CheckSkill("Wounding Blows")))
+                if (damageSource != null)
                 {
-                    characterState = CharacterState.wounded;
+                    //Check if the character is wounded or dead
+                    if (StatFormulas.ToWound(damageSource.abilities.heart))
+                    {
+                        characterState = CharacterState.wounded;
+                    }
+                    else
+                    {
+                        characterState = CharacterState.dead;
+                    }
                 }
                 else
                 {
@@ -229,6 +241,9 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void ChangeAbilityTotal(int i, string abilityName)
     {
+        //Take away current natual bonus to resist magic
+        effectResistChance -= StatFormulas.MagicResistBonus(abilities.mind);
+
         switch (abilityName)
         {
             case "body":
@@ -244,6 +259,9 @@ public class CharacterManager : MonoBehaviour
                 abilities.heart += i;
                 break;
         }
+
+        //Set natural effect resist from mind ability
+        SetEffectResist(StatFormulas.MagicResistBonus(abilities.mind));
     }
 
     public virtual void SetSlowState(bool isSlowed)
@@ -258,7 +276,7 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void GetCurrentWeaponStats(out int damage, out int bluntDamage, out int defence, out float range, out float speed, out bool isRanged, out GameObject projectile, out List<Effect> effects, out float weaponWeight)
     {
-        if(equippedWeapon != null)
+        if (equippedWeapon != null)
         {
             if (equippedWeapon is WeaponMeleeItem meleeItem)
             {
@@ -602,8 +620,14 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+    //Used for checking if the player has the sneak skill, or has an invisibility effect active
     public virtual bool CheckSkill_Sneak()
     {
+        if (isInvisible && isCrouching && inCombatWith.Count == 0)
+        {
+            return true;
+        }
+
         if (CheckSkill("Sneak") && isCrouching && inCombatWith.Count == 0 && inDetectionRange.Count <= 2)
         {
             return true;

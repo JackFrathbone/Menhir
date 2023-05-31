@@ -15,8 +15,6 @@ public class ScriptableObjectDatabase : ScriptableObject
     public List<Spell> allSpells = new();
     [Header("Skills")]
     public List<Skill> allSkills = new();
-    [Header("Quest")]
-    public List<Quest> allQuests = new();
     [Header("State Check")]
     public List<StateCheck> allStateChecks = new();
 
@@ -77,25 +75,6 @@ public class ScriptableObjectDatabase : ScriptableObject
         return null;
     }
 
-    public Quest GetQuestFromID(string uniqueID)
-    {
-        if (uniqueID == "" || uniqueID == null)
-        {
-            return null;
-        }
-
-        foreach (Quest quest in allQuests)
-        {
-            if (quest.uniqueID == uniqueID)
-            {
-                return quest;
-            }
-        }
-
-        Debug.Log("Quest does not exist!");
-        return null;
-    }
-
     public StateCheck GetStateCheckFromID(string uniqueID)
     {
         if (uniqueID == "" || uniqueID == null)
@@ -124,7 +103,6 @@ public class ScriptableObjectDatabase : ScriptableObject
         RefreshItemList();
         RefreshSpellList();
         RefreshSkillsList();
-        RefreshQuestsList();
         RefreshStateChecks();
         UnityEditor.EditorUtility.SetDirty(this);
         Debug.Log("Reloaded Asset Database!");
@@ -189,24 +167,6 @@ public class ScriptableObjectDatabase : ScriptableObject
         }
 
         allSkills = new List<Skill>(tempList);
-    }
-
-    private void RefreshQuestsList()
-    {
-        List<Quest> tempList = new();
-
-        tempList = FindAssetsByType<Quest>();
-
-        foreach (Quest quest in tempList)
-        {
-            if (quest.uniqueID == "" || quest.uniqueID == null)
-            {
-                quest.uniqueID = quest.name + quest.GetInstanceID().ToString();
-                UnityEditor.EditorUtility.SetDirty(quest);
-            }
-        }
-
-        allQuests = new List<Quest>(tempList);
     }
 
     private void RefreshStateChecks()

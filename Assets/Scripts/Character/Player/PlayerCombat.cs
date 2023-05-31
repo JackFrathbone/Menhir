@@ -32,6 +32,11 @@ public class PlayerCombat : MonoBehaviour
 
     public void TriggerAttack()
     {
+        if(_playerCharacterManager.staminaCurrent <= _playerCharacterManager.staminaTotal * 0.25)
+        {
+            return;
+        }
+
         if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
         {
             _weaponSpeed = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponSpeed;
@@ -99,7 +104,7 @@ public class PlayerCombat : MonoBehaviour
         {
             _weaponMeleeAnimator.SetBool("isHolding", false);
             _shieldAnimator.SetBool("isHolding", false);
-            SetHoldSpeed(_weaponSpeed / 2);
+            SetHoldSpeed(_weaponSpeed);
         }
         else if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponRangedItem))
         {
@@ -277,7 +282,7 @@ public class PlayerCombat : MonoBehaviour
                 AudioManager.instance.PlayOneShot("event:/CombatHit", hitPoint);
 
                 //Do damage to target
-                targetCharacterManager.DamageHealth(StatFormulas.Damage(hitDamage));
+                targetCharacterManager.DamageHealth(StatFormulas.Damage(hitDamage), _playerCharacterManager);
                 _playerCharacterManager.CheckSkill_DisablingShot(targetCharacterManager);
                 _playerActiveUI.UpdateTargetStatusUI(targetCharacterManager);
             }

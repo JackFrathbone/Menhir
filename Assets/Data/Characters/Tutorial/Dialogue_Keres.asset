@@ -50,37 +50,6 @@ MonoBehaviour:
   exit: 0
   sentences:
   - We shall destroy you outlander dogs!
---- !u!114 &-8216375915550323451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5372405db3582a49b0171f89c193525, type: 3}
-  m_Name: Dialogue Quit
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 1896, y: 696}
-  ports:
-    keys:
-    - entry
-    values:
-    - _fieldName: entry
-      _node: {fileID: -8216375915550323451}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: exit
-        node: {fileID: 729586170341031641}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  entry: 0
 --- !u!114 &-6960662157244453816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +420,7 @@ MonoBehaviour:
       body: 0
       hands: 0
       mind: 0
-      heart: 5
+      heart: 4
     uniqueID: Wecanworkthisout2798
   - topicTitle: You don't have a chance against us
     topicRunOnce: 1
@@ -499,6 +468,39 @@ MonoBehaviour:
       mind: 0
       heart: 0
     uniqueID: WhyhaveyoubeenstealingfromArda?9237
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &-3461675816316507406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5372405db3582a49b0171f89c193525, type: 3}
+  m_Name: Dialogue Quit
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1912, y: 696}
+  ports:
+    keys:
+    - entry
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3461675816316507406}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 729586170341031641}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,12 +520,12 @@ MonoBehaviour:
   - {fileID: -6960662157244453816}
   - {fileID: 7208940104810187722}
   - {fileID: 729586170341031641}
-  - {fileID: -8216375915550323451}
   - {fileID: -4240796069687931090}
   - {fileID: -6835609851206983620}
   - {fileID: -4094387433389029666}
   - {fileID: 3724090506748614293}
-  current: {fileID: -8216375915550323451}
+  - {fileID: -3461675816316507406}
+  current: {fileID: -4094387433389029666}
 --- !u!114 &729586170341031641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,7 +572,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: entry
-        node: {fileID: -8216375915550323451}
+        node: {fileID: -3461675816316507406}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
