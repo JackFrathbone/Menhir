@@ -17,9 +17,10 @@ MonoBehaviour:
     is well made but simple with no decorations.
   itemWeight: 0.2
   itemIcon: {fileID: 6747789527102655765, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Cloak_Yellow30090
+  uniqueID: Cloak_Yellow26048
   clearID: 0
   equipmentType: 1
   equipmentDefence: 0
+  magicResist: 0
   equipmentModel: {fileID: 21300000, guid: 50dfa8553fb11824fb08c770954fd4be, type: 3}
   equipmentColor: {r: 0.95686275, g: 0.827451, b: 0.36862746, a: 1}

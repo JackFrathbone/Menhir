@@ -48,7 +48,8 @@ MonoBehaviour:
   sentences:
   - Thank you, I hope i'm not coming off as ungrateful. Work has been busy here,
     so far from home
-  - Well lets not waste a moment then. Everyone on the boat now!
+  - Well lets not waste a moment then. Lets get down to the boat and we'll cast off
+    with some of my men
 --- !u!114 &-7585313814893279203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +152,7 @@ MonoBehaviour:
     setFaction: {fileID: 0}
     setCharacterState: 0
     setPosition: {x: 0, y: 0, z: 0}
-    setMoveTarget: {x: 149.60043, y: 9.604118, z: 144.68661}
+    setMoveTarget: {x: 149.81384, y: 10.674316, z: 142.12024}
     addItem: {fileID: 0}
 --- !u!114 &-3101003296992029666
 MonoBehaviour:
@@ -582,6 +583,7 @@ MonoBehaviour:
   - {fileID: -3101003296992029666}
   - {fileID: -534154368528968631}
   - {fileID: -2680607561691799610}
+  - {fileID: 7248386519313925933}
   current: {fileID: 1484220329998742150}
 --- !u!114 &1484220329998742150
 MonoBehaviour:
@@ -596,7 +598,7 @@ MonoBehaviour:
   m_Name: Dialogue Load Level
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1466.6473, y: 123.87846}
+  position: {x: 1720, y: 136}
   ports:
     keys:
     - entry
@@ -608,7 +610,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: exit
-        node: {fileID: 8169278272287493718}
+        node: {fileID: 7248386519313925933}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -631,6 +633,56 @@ MonoBehaviour:
     _scenePath: Assets/Scenes/Locations/Wavewatch_Island.unity
     _buildIndex: 8
   spawnPointName: default
+--- !u!114 &7248386519313925933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa10cfa6f89fee2418adf22ed352e0a9, type: 3}
+  m_Name: Dialogue Journal Entry
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1464, y: 72}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 7248386519313925933}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 8169278272287493718}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 7248386519313925933}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 1484220329998742150}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  entryToAdd:
+    journalText: Sevkestos needs me to help deal with a group of bandits who have
+      been stealing food
+    timeStamp: 0
+    isArchived: 0
 --- !u!114 &7853381331471291167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +773,7 @@ MonoBehaviour:
   sentences:
   - You must be the translator then right? %pcName was it?
   - Well for the last month we've been having trouble with pirates, we think they
-    are from Staener, using some sort of paddle boat
+    are from Staen, using some sort of paddle boat
   - They have been hitting us in the dark, taking things. Scaring people around here,
     and undermining our safety
   - A local fisherman said he knows the island they must be hiding on, some sort
@@ -768,7 +820,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: entry
-        node: {fileID: 1484220329998742150}
+        node: {fileID: 7248386519313925933}
         reroutePoints: []
       _direction: 1
       _connectionType: 0

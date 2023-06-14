@@ -97,7 +97,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5e4f63fff42ee06428272317b4e2a8fd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -352,6 +352,7 @@ MonoBehaviour:
   berzerkerDamageBonus: 0
   oneManArmyDefenceBonus: 0
   inDetectionRange: []
+  isInvisible: 0
   _disablingShotEffect:
     effectType: 0
     effectStrength: 0
@@ -370,6 +371,7 @@ MonoBehaviour:
   defence: 0
   moveSpeed: 0
   isHidden: 0
+  spriteColorOverride: {r: 0, g: 0, b: 0, a: 0}
   idleSprite: {fileID: 0}
   walk1Sprite: {fileID: 0}
   walk2Sprite: {fileID: 0}

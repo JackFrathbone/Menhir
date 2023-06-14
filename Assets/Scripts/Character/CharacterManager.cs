@@ -21,8 +21,8 @@ public class CharacterManager : MonoBehaviour
     [ReadOnly] public float staminaCurrent;
     [ReadOnly] public float healthTotal;
     [ReadOnly] public float staminaTotal;
+    [ReadOnly] public int totalDefence;
 
-    [ReadOnly] public int armourDefenceTotal;
     [ReadOnly] public int bonusDefence;
     [ReadOnly] public int bonusDamage;
     [ReadOnly] public int effectResistChance;
@@ -49,9 +49,11 @@ public class CharacterManager : MonoBehaviour
     [ReadOnly] public List<Skill> currentSkills = new();
 
     [Header("Active Effects")]
-    [ReadOnly] public List<Effect> currentEffects = new();
+    /*[ReadOnly]*/
+    public List<Effect> currentEffects = new();
     //Used to track effect that have ended and need to be removed
-    [HideInInspector] public List<Effect> endedEffects = new();
+    /*[HideInInspector]*/
+    public List<Effect> endedEffects = new();
 
     [Header("Character States")]
     [ReadOnly] public CharacterState characterState;
@@ -134,11 +136,13 @@ public class CharacterManager : MonoBehaviour
     {
     }
 
-    public virtual int GetTotalDefence(bool isRangedAttack)
+    public virtual int GetTotalDefence()
     {
-        int weaponDefence = 0;
-        int shieldDefence = 0;
+        //Get equipment total
+        int equipmentDefenceTotal = GetEquipmentDefence(); ;
 
+        //Get weapon defence
+        int weaponDefence = 0;
         if (equippedWeapon != null)
         {
             if (equippedWeapon is WeaponMeleeItem)
@@ -151,14 +155,16 @@ public class CharacterManager : MonoBehaviour
             }
         }
 
-        GetEquipmentDefence();
-
+        //Get shield defence
+        int shieldDefence = 0;
         if (equippedShield != null)
         {
             shieldDefence = equippedShield.shieldDefence;
         }
 
-        return StatFormulas.GetTotalDefence(weaponDefence, armourDefenceTotal, shieldDefence, abilities.hands, bonusDefence, isRangedAttack);
+        totalDefence = StatFormulas.GetTotalDefence(weaponDefence, equipmentDefenceTotal, shieldDefence, bonusDefence);
+
+        return totalDefence;
     }
 
     public virtual void AddHealth(float i)
@@ -182,12 +188,40 @@ public class CharacterManager : MonoBehaviour
 
             if (CheckSkill("Berzerker") && inCombat)
             {
-                berzerkerDamageBonus += i;
-                bonusDamage += i;
+                //Remove previous berzerker damage
+                bonusDamage -= berzerkerDamageBonus;
+
+                //Get the damage bonus and add to the total
+                berzerkerDamageBonus = StatFormulas.CalculateBerzerkerDamageBonus(healthTotal, healthCurrent, GetWeaponDamage());
+                bonusDamage += berzerkerDamageBonus;
+
+                //Debug.Log("Adding berzerker damage bonus: " + berzerkerDamageBonus);
             }
 
             if (healthCurrent <= 0)
             {
+                //Check the second wind skill
+                if (CheckSkill_SecondWind())
+                {
+                    //get 25% of total health back
+                    healthCurrent = healthTotal * 50 / 100;
+                    return;
+                }
+
+                //Stop combat between two chars
+                if (damageSource != null)
+                {
+                    if (inCombatWith.Contains(damageSource))
+                    {
+                        StopCombat(damageSource);
+                    }
+
+                    if (damageSource.inCombatWith.Contains(this))
+                    {
+                        damageSource.StopCombat(this);
+                    }
+                }
+
                 if (damageSource != null)
                 {
                     //Check if the character is wounded or dead
@@ -274,7 +308,7 @@ public class CharacterManager : MonoBehaviour
 
     }
 
-    public virtual void GetCurrentWeaponStats(out int damage, out int bluntDamage, out int defence, out float range, out float speed, out bool isRanged, out GameObject projectile, out List<Effect> effects, out float weaponWeight)
+    public virtual void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed, out bool isRanged, out GameObject projectile, out List<Effect> effects, out List<Effect> enchantmentsEffects, out float weaponWeight)
     {
         if (equippedWeapon != null)
         {
@@ -282,13 +316,13 @@ public class CharacterManager : MonoBehaviour
             {
 
                 damage = (equippedWeapon as WeaponMeleeItem).weaponDamage;
-                bluntDamage = (equippedWeapon as WeaponMeleeItem).weaponBlunt;
-                defence = (equippedWeapon as WeaponMeleeItem).weaponDefence;
+                bluntDamage = (equippedWeapon as WeaponMeleeItem).weapontToHitBonus;
                 range = (equippedWeapon as WeaponMeleeItem).weaponRange;
                 speed = (equippedWeapon as WeaponMeleeItem).weaponSpeed;
                 isRanged = false;
                 projectile = null;
                 effects = null;
+                enchantmentsEffects = (equippedWeapon as WeaponMeleeItem).enchantmentTargetEffects;
                 weaponWeight = equippedWeapon.itemWeight;
                 return;
             }
@@ -296,12 +330,12 @@ public class CharacterManager : MonoBehaviour
             {
                 damage = (equippedWeapon as WeaponRangedItem).weaponDamage;
                 bluntDamage = 0;
-                defence = 0;
                 range = 15;
                 speed = (equippedWeapon as WeaponRangedItem).weaponSpeed;
                 isRanged = true;
                 projectile = (equippedWeapon as WeaponRangedItem).projectilePrefab;
                 effects = null;
+                enchantmentsEffects = (equippedWeapon as WeaponRangedItem).enchantmentTargetEffects;
                 weaponWeight = equippedWeapon.itemWeight;
                 return;
             }
@@ -309,12 +343,12 @@ public class CharacterManager : MonoBehaviour
             {
                 damage = 0;
                 bluntDamage = 0;
-                defence = 0;
                 range = 15;
                 speed = (equippedWeapon as WeaponFocusItem).castingSpeed;
                 isRanged = true;
                 projectile = (equippedWeapon as WeaponFocusItem).projectilePrefab;
                 effects = (equippedWeapon as WeaponFocusItem).focusEffects;
+                enchantmentsEffects = null;
                 weaponWeight = equippedWeapon.itemWeight;
                 return;
             }
@@ -322,12 +356,12 @@ public class CharacterManager : MonoBehaviour
 
         damage = 0;
         bluntDamage = 0;
-        defence = 0;
         range = 0;
         speed = 0;
         isRanged = false;
         projectile = null;
         effects = null;
+        enchantmentsEffects = null;
         weaponWeight = 0;
     }
 
@@ -389,8 +423,11 @@ public class CharacterManager : MonoBehaviour
 
         if (CheckSkill("One Man Army"))
         {
-            oneManArmyDefenceBonus += 1;
-            bonusDefence += 1;
+            bonusDefence -= oneManArmyDefenceBonus;
+
+            oneManArmyDefenceBonus = StatFormulas.CalculateOneManArmyDefenceBonus(inCombatWith.Count);
+
+            bonusDefence += oneManArmyDefenceBonus;
         }
     }
 
@@ -398,6 +435,15 @@ public class CharacterManager : MonoBehaviour
     public virtual void StopCombat(CharacterManager combatCharacter)
     {
         inCombatWith.Remove(combatCharacter);
+
+        if (CheckSkill("One Man Army"))
+        {
+            bonusDefence -= oneManArmyDefenceBonus;
+
+            oneManArmyDefenceBonus = StatFormulas.CalculateOneManArmyDefenceBonus(inCombatWith.Count);
+
+            bonusDefence += oneManArmyDefenceBonus;
+        }
 
         CheckEndCombat();
     }
@@ -426,9 +472,25 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
-    public virtual void GetEquipmentDefence()
+    public virtual int GetWeaponDamage()
     {
-        armourDefenceTotal = 0;
+        //Get current weapon damage
+        int weaponDamage = 0;
+        if (equippedWeapon is WeaponMeleeItem)
+        {
+            weaponDamage = (equippedWeapon as WeaponMeleeItem).weaponDamage;
+        }
+        else if (equippedWeapon is WeaponRangedItem)
+        {
+            weaponDamage = (equippedWeapon as WeaponRangedItem).weaponDamage;
+        }
+
+        return weaponDamage;
+    }
+
+    public virtual int GetEquipmentDefence()
+    {
+        int armourDefenceTotal = 0;
 
         if (equippedArmour != null)
         {
@@ -462,6 +524,8 @@ public class CharacterManager : MonoBehaviour
         {
             armourDefenceTotal += equippedShirt.equipmentDefence;
         }
+
+        return armourDefenceTotal;
     }
 
     public virtual void UpdateAnimationState(string stateName, int stateInt)
@@ -481,17 +545,17 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void UsePotionItem(PotionItem potionItem)
     {
-        MessageBox.instance.Create("You drink the potion", true);
+        MessageBox.instance.Create("You use the item", true);
 
         foreach (Effect effect in potionItem.potionEffects)
         {
-            effect.AddEffect(this);
+            AddEffect(effect);
         }
 
         RemoveItem(potionItem);
     }
 
-    //Note that the effect should be added via Effect.AddEffect(CharacterManager) first
+    //For adding an effect for the first time
     public virtual void AddEffect(Effect effect)
     {
         //If the effect chance is not 100 or 0, the check if it passes
@@ -499,7 +563,8 @@ public class CharacterManager : MonoBehaviour
         {
             float effectChance = Random.Range(0f, 100f);
 
-            if (effect.effectChance >= effectChance)
+            //If the roll is greater than the chance fail it
+            if (effectChance >= effect.effectChance)
             {
                 return;
             }
@@ -513,18 +578,29 @@ public class CharacterManager : MonoBehaviour
             return;
         }
 
+        //Set timer based on if effect is permanent or not
+        if (effect.permanentEffect)
+        {
+            effect.effectSecondsPassed = 2;
+        }
+        else
+        {
+            effect.effectSecondsPassed = effect.effectSeconds;
+        }
+
+        //Add to current effects
         currentEffects.Add(effect);
     }
 
     public virtual void RemoveEffect(Effect effect)
     {
+        //End the effect, run its end effect, and remove from all lists
+        effect.EndEffect(this);
+
+        //Clear all instances of the effect
         if (currentEffects.Contains(effect))
         {
             currentEffects.Remove(effect);
-        }
-        else
-        {
-            return;
         }
     }
 
@@ -532,20 +608,26 @@ public class CharacterManager : MonoBehaviour
     {
         foreach (Effect effect in currentEffects)
         {
-            effect.EndEffect(this);
+            //Add to ended effects
+            endedEffects.Add(effect);
         }
 
+        //Clear the current effects
         currentEffects.Clear();
     }
 
     //Runs every second, applies effects, removes ones which have run out
     public virtual void RunEffects()
     {
-        endedEffects.Clear();
-
         foreach (Effect effect in currentEffects)
         {
             effect.ApplyEffect(this);
+
+            //if the effect has ended then add to ended effects list
+            if (effect.effectSecondsPassed <= 0)
+            {
+                endedEffects.Add(effect);
+            }
         }
 
         foreach (Effect effect in endedEffects)
@@ -564,7 +646,21 @@ public class CharacterManager : MonoBehaviour
         {
             foreach (Item item in newSkill.skillItems)
             {
-                AddItem(item);
+                if (!CurrentInventoryCompareByID(item))
+                {
+                    AddItem(item);
+                }
+            }
+        }
+
+        if (newSkill.skillSpells.Count != 0)
+        {
+            foreach (Spell spell in newSkill.skillSpells)
+            {
+                if (!CurrentSpellsCompareByID(spell))
+                {
+                    currentSpells.Add(spell);
+                }
             }
         }
     }
@@ -582,11 +678,11 @@ public class CharacterManager : MonoBehaviour
         return false;
     }
 
-    //Skill Checks//
-    //If player has the skill and the other conditions mets
-    public virtual bool CheckSkill_Assassinate()
+
+    public virtual bool CheckSneakAttack()
     {
-        if (CheckSkill("Assassinate") && !inCombat && CheckSkill_Sneak())
+        //If the player is sneaking and is not in combat, used to deal crit damage
+        if (!inCombat && CheckSkill_Sneak())
         {
             return true;
         }
@@ -596,6 +692,8 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+    //Skill Checks//
+    //If player has the skill and the other conditions mets
     public virtual bool CheckSkill_HonourFighter()
     {
         if (CheckSkill("Honour Fighter") && inCombatWith.Count == 1)
@@ -610,7 +708,7 @@ public class CharacterManager : MonoBehaviour
 
     public virtual bool CheckSkill_Sharpshooter()
     {
-        if (CheckSkill("Sharpshooter") && !inCombat && (equippedWeapon is WeaponRangedItem))
+        if (CheckSkill("Sharpshooter") && (equippedWeapon is WeaponRangedItem))
         {
             return true;
         }
@@ -662,12 +760,81 @@ public class CharacterManager : MonoBehaviour
     {
         if (CheckSkill("Disabling Shot") && (equippedWeapon is WeaponRangedItem))
         {
-            _disablingShotEffect.AddEffect(targetCharacter);
+            targetCharacter.AddEffect(_disablingShotEffect);
             return true;
         }
         else
         {
             return false;
         }
+    }
+
+    public virtual bool CheckSkill_Hunter(CharacterManager targetCharacter)
+    {
+        if (targetCharacter is MonsterCharacterManager && CheckSkill("Hunter"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public virtual bool CheckSkill_SecondWind()
+    {
+        if (CheckSkill("Second Wind"))
+        {
+            int roll = Random.Range(1, 101);
+
+            if (roll <= 25)
+            {
+                //Debug.Log("Second Wind Activated");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public virtual void ResetSpellCooldown() { }
+
+    public virtual void ReduceSpellCooldown(int percentage) { }
+
+
+    public bool CurrentInventoryCompareByID(Item compareItem)
+    {
+        //Find if two items share a unique ID
+
+        foreach (Item item in currentInventory)
+        {
+            if (item.GetUniqueID() == compareItem.GetUniqueID())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool CurrentSpellsCompareByID(Spell compareSpell)
+    {
+        //Find if two spells share a unique ID
+
+        foreach (Spell spell in currentSpells)
+        {
+            if (spell.GetUniqueID() == compareSpell.GetUniqueID())
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

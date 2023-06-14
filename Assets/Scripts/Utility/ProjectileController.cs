@@ -60,7 +60,7 @@ public class ProjectileController : MonoBehaviour
 
                     foreach (Effect effect in effects)
                     {
-                        effect.AddEffect(targetCharacter);
+                        targetCharacter.AddEffect(effect);
                     }
                 }
 
@@ -102,7 +102,7 @@ public class ProjectileController : MonoBehaviour
                 {
                     foreach (Effect effect in effects)
                     {
-                        effect.AddEffect(targetCharacter);
+                        targetCharacter.AddEffect(effect);
                     }
                 }
             }

@@ -16,9 +16,10 @@ MonoBehaviour:
   itemDescription: A red woolen hood. This hood is well made but simple with no decorations.
   itemWeight: 0.15
   itemIcon: {fileID: 6361351448533257067, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Hood_Red37514
+  uniqueID: Hood_Red26078
   clearID: 0
   equipmentType: 5
   equipmentDefence: 0
+  magicResist: 0
   equipmentModel: {fileID: 21300000, guid: 5cb7a52d1f9f69b4ba806efebdf52e31, type: 3}
   equipmentColor: {r: 1, g: 0.3019608, b: 0.42745098, a: 1}

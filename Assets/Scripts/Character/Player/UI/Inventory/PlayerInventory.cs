@@ -234,7 +234,7 @@ public class PlayerInventory : MonoBehaviour
 
         SceneLoader.instance.MoveObjectToScene(itemContainer.gameObject);
 
-        RefreshInventory();
+        RefreshEquippedItemsDisplay();
     }
 
     public void RefreshEquippedItemsDisplay()

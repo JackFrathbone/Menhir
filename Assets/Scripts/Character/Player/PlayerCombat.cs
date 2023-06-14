@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
@@ -18,10 +19,17 @@ public class PlayerCombat : MonoBehaviour
     private PlayerCharacterManager _playerCharacterManager;
     private PlayerActiveUI _playerActiveUI;
 
-    private float _weaponSpeed;
+    [Header("Equipped Weapon Stats")]
+    private int _weaponDamage;
+    private int _weaponHitBonus;
     private float _weaponRange;
+    private float _weaponSpeed;
+    private float _itemWeight;
+    private bool _isRanged;
 
-    private int _holdDefence;
+    private GameObject _projectilePrefab;
+    private List<Effect> _projectileEffects;
+    private List<Effect> _enchantmentEffects;
 
     private void Start()
     {
@@ -29,28 +37,21 @@ public class PlayerCombat : MonoBehaviour
 
         _playerActiveUI = GameManager.instance.PlayerUIObject.GetComponent<PlayerActiveUI>();
     }
+    private void SetWeaponStats()
+    {
+        _playerCharacterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _isRanged, out _projectilePrefab, out _projectileEffects, out _enchantmentEffects, out _itemWeight);
+    }
+
 
     public void TriggerAttack()
     {
-        if(_playerCharacterManager.staminaCurrent <= _playerCharacterManager.staminaTotal * 0.25)
+        if (_playerCharacterManager.staminaCurrent <= _playerCharacterManager.staminaTotal * 0.25)
         {
             return;
         }
 
-        if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
-        {
-            _weaponSpeed = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponSpeed;
-            _weaponRange = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponRange;
-        }
-        else if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
-        {
-            _weaponSpeed = (_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponSpeed;
-        }
-        else if (_playerCharacterManager.equippedWeapon is WeaponFocusItem)
-        {
-            _weaponSpeed = (_playerCharacterManager.equippedWeapon as WeaponFocusItem).castingSpeed;
-        }
-
+        //Set the weapon variables to be the current equipped weapon
+        SetWeaponStats();
 
         //For melee atacks
         if (!_isattacking && (_playerCharacterManager.equippedWeapon is WeaponMeleeItem))
@@ -84,16 +85,19 @@ public class PlayerCombat : MonoBehaviour
         //If its magic focus weapon
         else if (!_isattacking && (_playerCharacterManager.equippedWeapon is WeaponFocusItem))
         {
-            _weaponMeleeAnimator.SetTrigger("attackAction");
-            _weaponMeleeAnimator.SetBool("isHolding", true);
+            if ((_playerCharacterManager.equippedWeapon as WeaponFocusItem).projectilePrefab != null)
+            {
+                _weaponMeleeAnimator.SetTrigger("attackAction");
+                _weaponMeleeAnimator.SetBool("isHolding", true);
 
-            _shieldAnimator.SetTrigger("attackAction");
-            _shieldAnimator.SetBool("isHolding", true);
+                _shieldAnimator.SetTrigger("attackAction");
+                _shieldAnimator.SetBool("isHolding", true);
 
-            //Speed of hold to attack based on weapon speed, in real seconds
-            SetHoldSpeed(_weaponSpeed);
+                //Speed of hold to attack based on weapon speed, in real seconds
+                SetHoldSpeed(_weaponSpeed);
 
-            _isattacking = true;
+                _isattacking = true;
+            }
         }
     }
 
@@ -124,28 +128,18 @@ public class PlayerCombat : MonoBehaviour
 
         //If attacking and then forced to block, reset attack
         _isattacking = false;
-
-        TriggerHoldEnd();
     }
 
     public void TriggerHold()
     {
-        if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
-        {
-            _holdDefence = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponDefence;
-
-            _playerCharacterManager.SetBonusDefence(_holdDefence);
-        }
+        _weaponMeleeAnimator.SetBool("isHolding", true);
+        _shieldAnimator.SetBool("isHolding", true);
     }
 
     public void TriggerHoldEnd()
     {
-        if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
-        {
-            _playerCharacterManager.SetBonusDefence(-_holdDefence);
-
-            _holdDefence = 0;
-        }
+        _weaponMeleeAnimator.SetBool("isHolding", false);
+        _shieldAnimator.SetBool("isHolding", false);
     }
 
     private void SetHoldSpeed(float f)
@@ -165,11 +159,14 @@ public class PlayerCombat : MonoBehaviour
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             if (Physics.Raycast(ray, out RaycastHit hit, _weaponRange))
             {
-                CalculateAttack(hit.transform.gameObject, hit.point);
+                if (hit.collider.CompareTag("Character"))
+                {
+                    CalculateAttack(hit.transform.gameObject, hit.point);
+                }
             }
 
             //Decrease stamina
-            _playerCharacterManager.DamageStamina(StatFormulas.AttackStaminaCost(_playerCharacterManager.equippedWeapon.itemWeight, _weaponSpeed));
+            _playerCharacterManager.DamageStamina(StatFormulas.AttackStaminaCost(_itemWeight, _weaponSpeed));
             _isattacking = false;
 
             //Play audio
@@ -226,72 +223,47 @@ public class PlayerCombat : MonoBehaviour
     //Check the target, calculate attack and damage if valid, and if blood is needed uses the vector3 hitpoint to spawn blood
     public void CalculateAttack(GameObject target, Vector3 hitPoint)
     {
-        if (target.CompareTag("Character"))
+        //Get target and get the relevant stats
+        CharacterManager targetCharacterManager = target.GetComponentInParent<CharacterManager>();
+
+        int targetDefence = targetCharacterManager.GetTotalDefence();
+
+        int characterAbility = _playerCharacterManager.abilities.body;
+        if (_isRanged)
         {
-            //check if you hitting the right thing
-            if (target.GetComponent<CharacterManager>() == null)
+            characterAbility = _playerCharacterManager.abilities.hands;
+        }
+
+        //Check if it hits
+        if (StatFormulas.RollToHit(characterAbility, _weaponHitBonus, targetDefence, _playerCharacterManager.hasAdvantage, _playerCharacterManager.hasDisadvantage, _playerCharacterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill_HonourFighter(), _playerCharacterManager.CheckSkill_Sharpshooter(), _playerCharacterManager.CheckSkill_Hunter(targetCharacterManager)) || targetCharacterManager.characterState == CharacterState.wounded || targetCharacterManager.characterState == CharacterState.dead)
+        {
+            //Add weapon enchantment effects to the target
+            foreach (Effect effect in _enchantmentEffects)
             {
-                return;
+                //if the effect isnt already applied
+                if (!targetCharacterManager.currentEffects.Contains(effect))
+                {
+                    targetCharacterManager.AddEffect(effect);
+                }
             }
 
-            //Get the various checks
-            int weaponDamage = 0;
-            int weaponBlunt = 0;
-            int weaponAbility = 0;
-            bool isRangedAttack = false;
+            //Do damage to target
+            targetCharacterManager.DamageHealth(StatFormulas.Damage(_weaponDamage, _playerCharacterManager.CheckSneakAttack()), _playerCharacterManager);
 
-            if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
-            {
-                weaponAbility = _playerCharacterManager.abilities.body;
-                weaponDamage = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponDamage + _playerCharacterManager.bonusDamage;
-                weaponBlunt = (_playerCharacterManager.equippedWeapon as WeaponMeleeItem).weaponBlunt;
-            }
-            else if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
-            {
-                weaponAbility = _playerCharacterManager.abilities.hands;
-                weaponDamage = (_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponDamage + _playerCharacterManager.bonusDamage;
-                weaponBlunt = 0;
-                isRangedAttack = true;
-            }
+            //Juice time
+            Instantiate(_bloodSplatterPrefab, hitPoint, Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f));
+            AudioManager.instance.PlayOneShot("event:/CombatHit", hitPoint);
 
-            //Randomises the damage
-            weaponDamage = StatFormulas.RollDice(weaponDamage, 1);
+            _playerCharacterManager.CheckSkill_DisablingShot(targetCharacterManager);
 
-            //Get targets stats
-            CharacterManager targetCharacterManager = target.GetComponentInParent<CharacterManager>();
+            //Update the UI
             _playerActiveUI.UpdateTargetStatusUI(targetCharacterManager);
-            int targetDefence = targetCharacterManager.GetTotalDefence(isRangedAttack);
-            int hitDamage = StatFormulas.CalculateHit(weaponDamage, weaponBlunt, weaponAbility, targetDefence, _playerCharacterManager.hasAdvantage, targetCharacterManager.hasDisadvantage, _playerCharacterManager.CheckSkill_Assassinate(), _playerCharacterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill("Lucky Strike"), _playerCharacterManager.CheckSkill_HonourFighter(), _playerCharacterManager.CheckSkill_Sharpshooter());
-
-            //Check if the character is already wounded and if yes make all attacks hit
-            if (targetCharacterManager.characterState == CharacterState.wounded)
-            {
-                hitDamage = 1;
-            }
-
-            //If stamina is less than the amount the attack requires, make it always miss
-            if (_playerCharacterManager.staminaCurrent < StatFormulas.AttackStaminaCost(_playerCharacterManager.equippedWeapon.itemWeight, _weaponSpeed))
-            {
-                hitDamage = 0;
-            }
-
-            if (hitDamage > 0)
-            {
-                //Juice time
-                Instantiate(_bloodSplatterPrefab, hitPoint, Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f));
-                AudioManager.instance.PlayOneShot("event:/CombatHit", hitPoint);
-
-                //Do damage to target
-                targetCharacterManager.DamageHealth(StatFormulas.Damage(hitDamage), _playerCharacterManager);
-                _playerCharacterManager.CheckSkill_DisablingShot(targetCharacterManager);
-                _playerActiveUI.UpdateTargetStatusUI(targetCharacterManager);
-            }
-            else if (hitDamage <= 0)
-            {
-                //Target blocks attack
-                targetCharacterManager.TriggerBlock();
-                AudioManager.instance.PlayOneShot("event:/CombatBlock", hitPoint);
-            }
+        }
+        else
+        {
+            //Target blocks attack
+            targetCharacterManager.TriggerBlock();
+            AudioManager.instance.PlayOneShot("event:/CombatBlock", hitPoint);
         }
     }
 }

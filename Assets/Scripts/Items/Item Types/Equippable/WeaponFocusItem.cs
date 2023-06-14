@@ -17,4 +17,7 @@ public class WeaponFocusItem : Item
 
     //How long the windup to attack is, in seconds
     public float castingSpeed;
+
+    [Header("Enchantments")]
+    public List<Effect> enchantmentEffects = new();
 }

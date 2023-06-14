@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Weapons/New Ranged Weapon")]
@@ -15,4 +16,8 @@ public class WeaponRangedItem : Item
     public int weaponDamage;
     //How long the windup to attack is, in seconds
     public float weaponSpeed;
+
+    [Header("Enchantments")]
+    public List<Effect> enchantmentSelfEffects = new();
+    public List<Effect> enchantmentTargetEffects = new();
 }

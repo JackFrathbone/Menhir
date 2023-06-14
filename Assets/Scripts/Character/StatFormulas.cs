@@ -2,119 +2,154 @@ using UnityEngine;
 
 public static class StatFormulas
 {
-    public static float TotalCharacterHealth(int physique)
+    public static float TotalCharacterHealth(int body)
     {
-        return 1 + (physique * 2f);
+        return 1 + (body * 5f);
     }
 
-    public static float TotalCharacterStamina(int agility)
+    public static float TotalCharacterStamina(int hands)
     {
-        return (1 + (agility * 2f)) * 2f;
+        return (1 + (hands * 2f)) * 2f;
     }
 
-    public static float StaminaRegenRate(int agility)
+    public static float StaminaRegenRate(int hands)
     {
-        return (float)agility / 12f;
+        return (float)hands / 8f;
     }
 
-    //Returns a number which if positive is damage done to target, 0 or negative results in a block
-    public static int CalculateHit(int hitDamage, int bluntDamage, int ability, int targetDefence, bool advantage, bool targetDisadvantage, bool checkSkillAssassinate, bool checkSkillLuckyStrikeCharacter, bool checkSkillLuckyStrikeTarget, bool checkSkillHonourFighter, bool checkSkillSharpshooter)
+    public static bool RollToHit(int ability, int hitBonus, int targetDefence, bool hasAdvantage, bool hasDisadvantage, bool checkSkillLuckyStrike, bool checkSkillLuckyStrikeTarget, bool checkSkillHonourFighterTarget, bool checkSkillSharpshooter, bool checkSkillHunter)
     {
-        //Apply the blunt effect
-        targetDefence -= bluntDamage;
+        //Generate the chance to hit
+        int chanceToHit = ((ability * 10) + hitBonus) - targetDefence;
+        //Debug.Log("Chance to Hit: " + chanceToHit);
+        //Debug.Log("Target Defence: " + targetDefence);
 
-        if (checkSkillLuckyStrikeCharacter)
+        //Set advantage from skills
+        if (checkSkillLuckyStrike)
         {
-            int critChance = Random.Range(0, 101);
+            int critChance = Random.Range(1, 101);
 
             if (critChance <= 15)
             {
-                advantage = true;
+                hasAdvantage = true;
             }
         }
 
         if (checkSkillLuckyStrikeTarget)
         {
-            int critChance = Random.Range(0, 101);
+            int critChance = Random.Range(1, 101);
 
             if (critChance <= 15)
             {
-                targetDisadvantage = true;
+                hasAdvantage = true;
             }
         }
 
-        if (checkSkillHonourFighter)
+        if (checkSkillHunter)
         {
-            targetDisadvantage = true;
+            hasAdvantage = true;
+        }
+
+        if (checkSkillHonourFighterTarget)
+        {
+            hasDisadvantage = true;
         }
 
         if (checkSkillSharpshooter)
         {
-            targetDisadvantage = true;
-        }
+            //Roll against the targets defence, give advantage if passes
+            int sharpshooterRoll = Random.Range(1, 101);
 
-        if (checkSkillAssassinate)
-        {
-            advantage = true;
-        }
-
-        if (advantage && !targetDisadvantage)
-        {
-            int fullDamage = hitDamage + (ability - 3);
-
-            if ((hitDamage + (ability - 3)) - (targetDefence) > 0)
+            if (sharpshooterRoll <= targetDefence)
             {
-                return fullDamage;
+                hasAdvantage = true;
+            }
+        }
+
+
+        int roll;
+        //Roll based on advantage or disadvantage, or single
+        if (hasAdvantage && !hasDisadvantage)
+        {
+            int roll1 = Random.Range(1, 101);
+            int roll2 = Random.Range(1, 101);
+
+            if (roll1 > roll2)
+            {
+                roll = roll1;
             }
             else
             {
-                return (hitDamage + (ability - 3)) - (targetDefence);
+                roll = roll2;
             }
         }
-        else if (!advantage && targetDisadvantage)
+        else if (hasDisadvantage && !hasAdvantage)
         {
-            return (hitDamage + (ability - 3)) - (targetDefence / 2);
+            int roll1 = Random.Range(1, 101);
+            int roll2 = Random.Range(1, 101);
+
+            if (roll1 < roll2)
+            {
+                roll = roll1;
+            }
+            else
+            {
+                roll = roll2;
+            }
         }
         else
         {
-            return (hitDamage + (ability - 3)) - (targetDefence);
+            roll = Random.Range(1, 101);
+        }
+
+        //Conclude
+        if (roll <= chanceToHit)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    public static int GetTotalDefence(int weaponDefence, int equipmentDefence, int shieldDefence, int ability, int defenceBonus, bool isRangedAttack)
+    public static int Damage(int damageMax, bool criticalDamage)
     {
-        if (isRangedAttack)
+        if (criticalDamage)
         {
-            weaponDefence = 0;
-            equipmentDefence *= 2;
+            return Random.Range(1, damageMax + 1) * 2;
         }
+        else
+        {
+            return Random.Range(1, damageMax + 1);
+        }
+    }
 
-        return weaponDefence + equipmentDefence + shieldDefence + (ability - 3) + defenceBonus;
+    public static int GetTotalDefence(int weaponDefence, int equipmentDefence, int shieldDefence, int defenceBonus)
+    {
+        return weaponDefence + equipmentDefence + shieldDefence + defenceBonus;
     }
 
     public static int RollDice(int diceMax, int diceAmount)
     {
-        int diceTotal = 0;
+        int rollTotal = 0;
 
         if (diceAmount > 1)
         {
             for (int i = 0; i < diceAmount; i++)
             {
-                diceTotal += Random.Range(1, diceMax + 1);
+                rollTotal += Random.Range(1, diceMax + 1);
             }
         }
         else
         {
-            diceTotal = Random.Range(1, diceMax + 1);
+            rollTotal = Random.Range(1, diceMax + 1);
         }
 
-        return diceTotal;
+        return rollTotal;
     }
 
-    public static int Damage(int damageMax)
-    {
-        return Random.Range(1, damageMax + 1);
-    }
+
 
     public static float AttackStaminaCost(float weaponWeight, float weaponRange)
     {
@@ -124,10 +159,10 @@ public static class StatFormulas
     //True is a wound and false is a death, used heart score to add chance
     public static bool ToWound(int heartAbility)
     {
-        float output  = Random.Range(0f, 100f);
+        float output = Random.Range(0f, 100f);
         float woundingChance = ((heartAbility - 3) * 10) + 10f;
 
-        if (output >= woundingChance)
+        if (output <= woundingChance)
         {
             return true;
         }
@@ -150,5 +185,29 @@ public static class StatFormulas
     public static int RestRestoreHealth(int hoursPassed)
     {
         return 5 * hoursPassed;
+    }
+
+    public static int CalculateOneManArmyDefenceBonus(int combatCount)
+    {
+        if(combatCount == 1)
+        {
+            return 0;
+        }
+
+        int percentageAdd = -5;
+
+        //Add 5 percent for each enemy
+        for (int i = 0; i < combatCount; i++)
+        {
+            percentageAdd += 5;
+        }
+
+        return percentageAdd;
+    }
+
+    public static int CalculateBerzerkerDamageBonus(float totalHealth, float currentHealth, int currentDamage)
+    {
+        float bonusPercent = ((totalHealth - currentHealth) / totalHealth) * 100;
+        return (int)(currentDamage * bonusPercent / 100);
     }
 }

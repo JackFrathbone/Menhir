@@ -13,7 +13,7 @@ public class PlayerMagic : MonoBehaviour
     [Header("References")]
     //Text headings that the spells spawn under
     [SerializeField] GameObject _ritualsParent;
-    [SerializeField] GameObject _singleUseParent;
+    [SerializeField] GameObject _recipeParent;
 
     //The button prefab that spells are shown by
     [SerializeField] GameObject _spellButtonPrefab;
@@ -55,6 +55,7 @@ public class PlayerMagic : MonoBehaviour
 
     //The time it takes to be able to cast a spell again
     [SerializeField] float _castTimeDefault;
+    private float _castTimeBonus;
 
     private void Start()
     {
@@ -87,7 +88,17 @@ public class PlayerMagic : MonoBehaviour
         foreach (Spell spell in tempSpellList)
         {
             PlayerMagicButton button = Instantiate(_spellButtonPrefab, _ritualsParent.transform.parent).GetComponent<PlayerMagicButton>();
-            button.transform.SetSiblingIndex(_ritualsParent.transform.GetSiblingIndex() + 1);
+
+            //If not a recipe put under the rituals tab, other put in recipes tab
+            if (!spell.isRecipe)
+            {
+                button.transform.SetSiblingIndex(_ritualsParent.transform.GetSiblingIndex() + 1);
+            }
+            else
+            {
+                button.transform.SetSiblingIndex(_recipeParent.transform.GetSiblingIndex() + 1);
+            }
+
             button.SetSpell(spell, this);
 
             _buttonsToDelete.Add(button.gameObject);
@@ -222,17 +233,28 @@ public class PlayerMagic : MonoBehaviour
             }
         }
 
+        int spellSlot;
+
         if (_preparedSpell1 == null)
         {
             _preparedSpell1 = spell;
+            spellSlot = 1;
         }
         else if (_preparedSpell2 == null)
         {
             _preparedSpell2 = spell;
+            spellSlot = 2;
         }
         else
         {
             _preparedSpell1 = spell;
+            spellSlot = 1;
+        }
+
+        if (spell.isRecipe)
+        {
+            CastSpell(spellSlot);
+            return;
         }
 
         RefreshPreparedSpells();
@@ -364,7 +386,7 @@ public class PlayerMagic : MonoBehaviour
                         //If the spell ignores the caster check if target is the player and break
                         if (!spell.effectSelf)
                         {
-                            if(targetCharacter == _playerCharacterManager)
+                            if (targetCharacter == _playerCharacterManager)
                             {
                                 break;
                             }
@@ -374,7 +396,7 @@ public class PlayerMagic : MonoBehaviour
                         {
                             foreach (Effect effect in spell.spellEffects)
                             {
-                                effect.AddEffect(targetCharacter);
+                                targetCharacter.AddEffect(effect);
                             }
                         }
                     }
@@ -384,18 +406,25 @@ public class PlayerMagic : MonoBehaviour
                 {
                     foreach (Effect effect in spell.spellEffects)
                     {
-                        effect.AddEffect(_playerCharacterManager);
+                        _playerCharacterManager.AddEffect(effect);
                     }
                 }
             }
 
+            //If the spell is not a free spell or does have a casting cost then remove it after casting
             if (_preparedSpell1 == spell && _preparedSpell1 != _freeSpell1 && _preparedSpell1 != _freeSpell2)
             {
-                _preparedSpell1 = null;
+                if (_preparedSpell1.castingCostItems.Count != 0 || _preparedSpell1.isRecipe)
+                {
+                    _preparedSpell1 = null;
+                }
             }
             else if (_preparedSpell2 == spell && _preparedSpell2 != _freeSpell1 && _preparedSpell1 != _freeSpell2)
             {
-                _preparedSpell2 = null;
+                if (_preparedSpell2.castingCostItems.Count != 0 || _preparedSpell2.isRecipe)
+                {
+                    _preparedSpell2 = null;
+                }
             }
         }
         else
@@ -494,6 +523,19 @@ public class PlayerMagic : MonoBehaviour
         return _selectedSpell;
     }
 
+    public void ResetSpellCooldown()
+    {
+        StopAllCoroutines();
+
+        _canCastSlot1 = true;
+        _canCastSlot2 = true;
+    }
+
+    public void SetSpellCooldownBonus(int i)
+    {
+        _castTimeBonus += i;
+    }
+
     IEnumerator WaitToCastAgain(Spell spell, int spellSlot)
     {
         if (spellSlot == 1)
@@ -504,7 +546,7 @@ public class PlayerMagic : MonoBehaviour
         {
             _spellSlot2ActiveUI.color = new Color(_spellSlot2ActiveUI.color.r, _spellSlot2ActiveUI.color.g, _spellSlot2ActiveUI.color.b, 0.1f);
         }
-        yield return new WaitForSeconds(spell.castingTime);
+        yield return new WaitForSeconds(spell.castingTime - (spell.castingTime * _castTimeBonus/100));
         if (spellSlot == 1)
         {
             _canCastSlot1 = true;

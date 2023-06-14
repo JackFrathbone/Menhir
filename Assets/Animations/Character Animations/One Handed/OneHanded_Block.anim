@@ -64,7 +64,7 @@ AnimationClip:
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: 2473572732679850448, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
+      value: {fileID: -2147204292, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
     attribute: m_Sprite
     path: Equipment/ShirtSlot
     classID: 212
@@ -123,7 +123,7 @@ AnimationClip:
     - {fileID: 21300000, guid: 1c668a6c14cd10b4b9933f6e9e1b5078, type: 3}
     - {fileID: -2965584924739247267, guid: 50a34bf1965848e49ad8094a862593e3, type: 3}
     - {fileID: 5768380499761883135, guid: 50a34bf1965848e49ad8094a862593e3, type: 3}
-    - {fileID: 2473572732679850448, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
+    - {fileID: -2147204292, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

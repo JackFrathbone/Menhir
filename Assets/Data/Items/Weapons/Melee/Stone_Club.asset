@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6daea1aaf28341e47a9808ccc5e2fd02, type: 3}
+  m_Name: Stone_Club
+  m_EditorClassIdentifier: 
+  itemName: Stone Club
+  itemDescription: A long thick piece of wood with a heavy carved stone head jammed
+    into the top. This is a weapon for crushing bones.
+  itemWeight: 3
+  itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
+  uniqueID: Stone_Club26242
+  clearID: 0
+  weaponMeleeType: Club
+  twoHanded: 1
+  weaponDamage: 8
+  weapontToHitBonus: 15
+  weaponDefence: 5
+  weaponSpeed: 0.95
+  weaponRange: 2.5
+  weaponModel: {fileID: 21300000, guid: 6ae7aeae12487a241b2cf474bfa34f08, type: 3}

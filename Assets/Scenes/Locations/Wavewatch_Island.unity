@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_Name
-      value: Kregow Pirate
+      value: Kregow Pirate_02
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_IsActive
@@ -5241,7 +5241,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-98506
+  m_Name: pb_Mesh-231112
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6136,7 +6136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_Name
-      value: Akhetian Soldier
+      value: Akhetian Soldier_01
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_IsActive
@@ -6786,7 +6786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_Name
-      value: Akhetian Soldier
+      value: Akhetian Soldier_02
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_IsActive
@@ -9594,7 +9594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_Name
-      value: Kregow Pirate
+      value: Kregow Pirate_03
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_IsActive
@@ -16605,7 +16605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825222416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 149.60043, y: 9.604118, z: 144.68661}
+  m_LocalPosition: {x: 149.81384, y: 10.674316, z: 142.12024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30192,7 +30192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_Name
-      value: Akhetian Soldier
+      value: Akhetian Soldier_03
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_IsActive
@@ -31841,7 +31841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_Name
-      value: Kregow Pirate
+      value: Kregow Pirate_01
       objectReference: {fileID: 0}
     - target: {fileID: 9122867414205380379, guid: 4be3a7ab70340cd479d836d44b0b60c2, type: 3}
       propertyPath: m_IsActive

@@ -16,9 +16,10 @@ MonoBehaviour:
   itemDescription: A redlinen shirt with no decorations.
   itemWeight: 0.15
   itemIcon: {fileID: 4365341006538210109, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Shirt_Red30086
+  uniqueID: Shirt_Red26102
   clearID: 0
   equipmentType: 7
   equipmentDefence: 0
+  magicResist: 0
   equipmentModel: {fileID: 8412589149891289136, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
   equipmentColor: {r: 1, g: 0.3019608, b: 0.42745098, a: 1}

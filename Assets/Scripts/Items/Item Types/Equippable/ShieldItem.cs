@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Weapons/New Shield Item")]
@@ -10,4 +11,7 @@ public class ShieldItem : Item
 
     [Header("Shield Visuals")]
     public Sprite shieldModel;
+
+    [Header("Enchantments")]
+    public List<Effect> enchantmentEffects = new();
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6977927, g: 0.8028775, b: 0.8782897, a: 1}
+  m_IndirectSpecularColor: {r: 0.72907895, g: 0.82106864, b: 0.86508805, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12977,7 +12977,7 @@ GameObject:
   - component: {fileID: 1297057786}
   - component: {fileID: 1297057785}
   m_Layer: 5
-  m_Name: LabelSingleUse
+  m_Name: LabelRecipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13023,7 +13023,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Single Use
+  m_text: Recipes
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8899fba2bfbc8524e8bf1b5b9eaee9bb, type: 2}
   m_sharedMaterial: {fileID: 8639488428218644234, guid: 8899fba2bfbc8524e8bf1b5b9eaee9bb, type: 2}
@@ -23851,7 +23851,7 @@ MonoBehaviour:
   staminaCurrent: 0
   healthTotal: 0
   staminaTotal: 0
-  armourDefenceTotal: 0
+  totalDefence: 0
   bonusDefence: 0
   bonusDamage: 0
   effectResistChance: 0
@@ -28624,7 +28624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ritualsParent: {fileID: 348976335}
-  _singleUseParent: {fileID: 1297057783}
+  _recipeParent: {fileID: 1297057783}
   _spellButtonPrefab: {fileID: 2528696594735313620, guid: 9fb10b0bc5833534b8fac091cd2a99f5, type: 3}
   _spellAreaPrefab: {fileID: 3136429193910270166, guid: 275904d03a956be43a122ec913ae6859, type: 3}
   _spellSlot1: {fileID: 1424700007}

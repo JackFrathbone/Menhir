@@ -17,19 +17,12 @@ MonoBehaviour:
     handle.
   itemWeight: 1
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Wand_Shock_Basic37652
+  uniqueID: Wand_Shock_Basic26224
   clearID: 0
   focusModel: {fileID: 21300000, guid: 0e752118bb03572408848aed9e6725bc, type: 3}
-  projectilePrefab: {fileID: 3784735241220424099, guid: e324d10d3d6a1cc4391c2c28d93dceca, type: 3}
+  projectilePrefab: {fileID: 0}
   mindRequirement: 4
   effectDescription: Deals 3 damage, with a chance to paralyse for 3 seconds
-  focusEffects:
-  - effectType: 1
-    effectStrength: 3
-    effectSeconds: 1
-    effectChance: 100
-  - effectType: 17
-    effectStrength: 1
-    effectSeconds: 3
-    effectChance: 25
-  castingSpeed: 1.25
+  focusEffects: []
+  castingSpeed: 1
+  enchantmentEffects: []

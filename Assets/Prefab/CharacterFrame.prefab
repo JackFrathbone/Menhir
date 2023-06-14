@@ -1670,7 +1670,7 @@ MonoBehaviour:
   staminaCurrent: 0
   healthTotal: 0
   staminaTotal: 0
-  armourDefenceTotal: 0
+  totalDefence: 0
   bonusDefence: 0
   bonusDamage: 0
   effectResistChance: 0
@@ -1698,11 +1698,17 @@ MonoBehaviour:
   berzerkerDamageBonus: 0
   oneManArmyDefenceBonus: 0
   inDetectionRange: []
+  isInvisible: 0
   _disablingShotEffect:
     effectType: 16
     effectStrength: 1
     effectSeconds: 5
     effectChance: 100
+    effectTeleportPos: {x: 0, y: 0, z: 0}
+    effectCreateItem: {fileID: 0}
+    effectSpawnCharacter: {fileID: 0}
+    permanentEffect: 0
+    effectSecondsPassed: 0
   _baseCharacterSheet: {fileID: 0}
   characterDescription: 
   characterGreeting: 
@@ -1743,6 +1749,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bloodSplatterPrefab: {fileID: 9194005479614703796, guid: f5235c299da1df146b9d0c7553e88728, type: 3}
   _projectileSpawn: {fileID: 8561192949673368434}
+  _currentTarget: {fileID: 0}
+  _combatTargets: []
+  _inCombat: 0
 --- !u!114 &2286868594137043318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1756,5 +1765,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
-  _targets: []
-  currentAction: 0

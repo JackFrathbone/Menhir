@@ -32,13 +32,15 @@ MonoBehaviour:
   characterDialogueGraph: {fileID: 11400000, guid: 25ed78d7b2ae6764299f092c5377ca77, type: 2}
   abilities:
     body: 5
-    hands: 5
+    hands: 3
     mind: 1
     heart: 4
   skills:
   - {fileID: 11400000, guid: 775389daa9aedfe459de483a0a78c9a5, type: 2}
   startHidden: 0
   startState: 0
+  invulnerableMode: 0
+  woundedOnlyMode: 0
   randomiseVisuals: 0
   characterSkintone: {r: 0.9686275, g: 0.89019614, b: 0.8235295, a: 1}
   characterHairColor: {r: 0, g: 0, b: 0.007843138, a: 1}

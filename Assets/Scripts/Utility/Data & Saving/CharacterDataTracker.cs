@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterDataTracker
 {
     [Header("Identification")]
+    [Tooltip("This is the characters gameobject name, to clarify unique instances of the same char")]
     public string characterName;
 
     [Header("Location")]

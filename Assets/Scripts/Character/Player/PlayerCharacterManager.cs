@@ -106,7 +106,6 @@ public class PlayerCharacterManager : CharacterManager
         {
             return true;
         }
-
         return false;
     }
 
@@ -131,11 +130,39 @@ public class PlayerCharacterManager : CharacterManager
                     {
                         equippedShield = null;
                     }
+
+                    //Add enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponMeleeItem).enchantmentSelfEffects)
+                    {
+                        //Set the effect to be permanent
+                        effect.permanentEffect = true;
+                        //Add to the character
+                        AddEffect(effect);
+                    }
                 }
-                //Also set the weapon speed to 1 (default for all ranged weapons)
                 else if (equippedWeapon is WeaponRangedItem)
                 {
                     equippedShield = null;
+
+                    //Add enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponRangedItem).enchantmentSelfEffects)
+                    {
+                        //Set the effect to be permanent
+                        effect.permanentEffect = true;
+                        //Add to the character
+                        AddEffect(effect);
+                    }
+                }
+                else if (equippedWeapon is WeaponFocusItem)
+                {
+                    //Add enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponFocusItem).enchantmentEffects)
+                    {
+                        //Set the effect to be permanent
+                        effect.permanentEffect = true;
+                        //Add to the character
+                        AddEffect(effect);
+                    }
                 }
                 break;
             case "shield":
@@ -144,7 +171,16 @@ public class PlayerCharacterManager : CharacterManager
                 {
                     if (!(equippedWeapon as WeaponMeleeItem).twoHanded)
                     {
-                        equippedShield = i as ShieldItem;
+                        equippedShield = (i as ShieldItem);
+
+                        //Add enchantments
+                        foreach (Effect effect in equippedShield.enchantmentEffects)
+                        {
+                            //Set the effect to be permanent
+                            effect.permanentEffect = true;
+                            //Add to the player
+                            AddEffect(effect);
+                        }
                     }
                 }
                 else
@@ -156,6 +192,16 @@ public class PlayerCharacterManager : CharacterManager
                 //Add magic resist
                 EquipmentItem equipmentItem = (EquipmentItem)i;
                 SetEffectResist(equipmentItem.magicResist);
+
+                //Add enchantments
+                foreach (Effect effect in equipmentItem.enchantmentEffects)
+                {
+                    //Set the effect to be permanent
+                    effect.permanentEffect = true;
+                    //Add to the player
+                    AddEffect(effect);
+                }
+
                 switch (equipmentItem.equipmentType)
                 {
                     case EquipmentType.armour:
@@ -200,6 +246,52 @@ public class PlayerCharacterManager : CharacterManager
         switch (itemType)
         {
             case "weapon":
+                if (equippedWeapon is WeaponMeleeItem)
+                {
+                    //Remove enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponMeleeItem).enchantmentSelfEffects)
+                    {
+                        if (currentEffects.Contains(effect))
+                        {
+                            RemoveEffect(effect);
+                        }
+                    }
+                }
+                else if (equippedWeapon is WeaponRangedItem)
+                {
+                    //Remove enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponRangedItem).enchantmentSelfEffects)
+                    {
+                        if (currentEffects.Contains(effect))
+                        {
+                            RemoveEffect(effect);
+                        }
+                    }
+                }
+                else if (equippedWeapon is WeaponFocusItem)
+                {
+                    //Remove enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponFocusItem).enchantmentEffects)
+                    {
+                        if (currentEffects.Contains(effect))
+                        {
+                            RemoveEffect(effect);
+                        }
+                    }
+                }
+
+                if (equippedShield != null)
+                {
+                    //Remove enchantments
+                    foreach (Effect effect in equippedShield.enchantmentEffects)
+                    {
+                        if (currentEffects.Contains(effect))
+                        {
+                            RemoveEffect(effect);
+                        }
+                    }
+                }
+
                 //If taking away a weapon also remove the shield
                 equippedWeapon = null;
                 equippedShield = null;
@@ -208,8 +300,19 @@ public class PlayerCharacterManager : CharacterManager
                 equippedShield = null;
                 break;
             case "equipment":
+                //Remove the effect resist
                 EquipmentItem equipmentItem = (EquipmentItem)i;
                 SetEffectResist(-equipmentItem.magicResist);
+
+                //Remove enchantments
+                foreach (Effect effect in equipmentItem.enchantmentEffects)
+                {
+                    if (currentEffects.Contains(effect))
+                    {
+                        RemoveEffect(effect);
+                    }
+                }
+
                 switch (equipmentItem.equipmentType)
                 {
                     case EquipmentType.armour:
@@ -252,7 +355,7 @@ public class PlayerCharacterManager : CharacterManager
                 _playerWeaponMelee.sprite = (equippedWeapon as WeaponMeleeItem).weaponModel;
                 twoHanded = (equippedWeapon as WeaponMeleeItem).twoHanded;
             }
-            else if(equippedWeapon is WeaponRangedItem)
+            else if (equippedWeapon is WeaponRangedItem)
             {
                 _playerWeaponRanged.sprite = (equippedWeapon as WeaponRangedItem).weaponModelLoaded;
                 twoHanded = true;
@@ -296,13 +399,13 @@ public class PlayerCharacterManager : CharacterManager
             return;
         }
 
-        base.DamageHealth(i, null);
+        base.DamageHealth(i, damageSource);
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
         _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
 
         //If the player is dead then move them to the death screen
-        if(characterState == CharacterState.dead || characterState == CharacterState.wounded)
+        if (characterState == CharacterState.dead || characterState == CharacterState.wounded)
         {
             GameManager.instance.UnlockCursor();
             SceneLoader.instance.LoadMenuScene(_deathScene.BuildIndex);
@@ -376,5 +479,43 @@ public class PlayerCharacterManager : CharacterManager
     public PlayerMagic GetPlayerMagic()
     {
         return _playerMagic;
+    }
+
+    public override void ChangeAbilityTotal(int i, string abilityName)
+    {
+        base.ChangeAbilityTotal(i, abilityName);
+        _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
+    }
+
+    public override void ResetSpellCooldown()
+    {
+        _playerMagic.ResetSpellCooldown();
+    }
+
+    public override void ReduceSpellCooldown(int percentage)
+    {
+        _playerMagic.SetSpellCooldownBonus(percentage);
+    }
+
+    public override void RemoveItem(Item i)
+    {
+        //Remove the item if player has it equipped first
+        if (CheckItemEquipStatus(i))
+        {
+            if (i == equippedWeapon)
+            {
+                UnequipItem("weapon", i);
+            }
+            else if (i == equippedShield)
+            {
+                UnequipItem("shield", i);
+            }
+            else if (i is EquipmentItem)
+            {
+                UnequipItem("equipment", i);
+            }
+        }
+
+        base.RemoveItem(i);
     }
 }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Skill_Warlock
   m_EditorClassIdentifier: 
   skillName: Warlock
-  skillDescription: Cast spells without cost or focus, at will. Can learn two ritual
-    spells to be cast for free without any cost, at any time. One of the two set
-    spells can be forgotten and a new one learned once a day.
+  skillDescription: Cast spells without cost or focus, at will. Two spells can be
+    prepared at any time, with their normal cost, but can be cast repeatedly without
+    requiring to be prepared again.
   skillItems: []
   uniqueID: Skill_Warlock36108
+  clearID: 0

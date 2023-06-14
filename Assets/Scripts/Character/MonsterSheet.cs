@@ -14,7 +14,7 @@ public class MonsterSheet : ScriptableObject
     public int health;
 
     public int damage;
-    public int bluntDamage;
+    public int toHitBonus;
     public int range;
     public int attackSpeed;
 

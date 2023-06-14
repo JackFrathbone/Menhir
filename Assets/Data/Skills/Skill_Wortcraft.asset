@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Skill_Wortcraft
   m_EditorClassIdentifier: 
   skillName: 'Wortcraft '
-  skillDescription: Turn herbs into useful potions. Grants multiple ritual scrolls
-    which create potions out of various plant materials you can find across the world.
+  skillDescription: Turn herbs into useful potions. Grants multiple recipes which
+    create potions out of various plant materials you can find across the world.
   skillItems: []
   uniqueID: Skill_Wortcraft36110
+  clearID: 0

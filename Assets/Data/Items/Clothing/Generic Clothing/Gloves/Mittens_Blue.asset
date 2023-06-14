@@ -17,9 +17,10 @@ MonoBehaviour:
     days. They can be opened up to allow the fingers to grip things.
   itemWeight: 0.25
   itemIcon: {fileID: -5242333145168017657, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Mittens_Blue37490
+  uniqueID: Mittens_Blue26052
   clearID: 0
   equipmentType: 4
   equipmentDefence: 0
+  magicResist: 0
   equipmentModel: {fileID: 0}
   equipmentColor: {r: 0.63529414, g: 0.8235294, b: 1, a: 1}

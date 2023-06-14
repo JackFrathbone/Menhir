@@ -17,7 +17,7 @@ MonoBehaviour:
     handle.
   itemWeight: 1
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Wand_Fire_Basic 137648
+  uniqueID: Wand_Fire_Basic 126220
   clearID: 0
   focusModel: {fileID: 21300000, guid: 0e752118bb03572408848aed9e6725bc, type: 3}
   projectilePrefab: {fileID: 3784735241220424099, guid: a6b2a86a97599c94d83b70f8dd8716b1, type: 3}
@@ -28,8 +28,19 @@ MonoBehaviour:
     effectStrength: 3
     effectSeconds: 1
     effectChance: 100
+    effectTeleportPos: {x: 0, y: 0, z: 0}
+    effectCreateItem: {fileID: 0}
+    effectSpawnCharacter: {fileID: 0}
+    permanentEffect: 0
+    effectSecondsPassed: 0
   - effectType: 1
-    effectStrength: 1
+    effectStrength: 2
     effectSeconds: 3
-    effectChance: 25
-  castingSpeed: 1
+    effectChance: 10
+    effectTeleportPos: {x: 0, y: 0, z: 0}
+    effectCreateItem: {fileID: 0}
+    effectSpawnCharacter: {fileID: 0}
+    permanentEffect: 0
+    effectSecondsPassed: 0
+  castingSpeed: 0.25
+  enchantmentEffects: []

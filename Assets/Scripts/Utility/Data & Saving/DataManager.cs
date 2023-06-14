@@ -75,7 +75,6 @@ public class DataManager : Singleton<DataManager>
         }
 
         //Save current data
-        SavePlayerTracker();
         SaveSceneData(SceneLoader.instance.GetCurrentScene());
 
         //Clear the save directory if it already exists
@@ -330,7 +329,7 @@ public class DataManager : Singleton<DataManager>
                 foreach (CharacterDataTracker characterData in sceneData.characterDataTrackers)
                 {
                     //if there is already a trackedCharacter entry
-                    if (characterData.characterName == characterManager.characterName)
+                    if (characterData.characterName == characterManager.name)
                     {
                         targetTracker = characterData;
                         break;
@@ -356,7 +355,7 @@ public class DataManager : Singleton<DataManager>
         }
 
         //The different stats to save//
-        targetTracker.characterName = characterManager.characterName;
+        targetTracker.characterName = characterManager.name;
 
         targetTracker.characterPosition = characterManager.transform.position;
 
@@ -527,7 +526,7 @@ public class DataManager : Singleton<DataManager>
 
         foreach (Effect effect in this._playerData.currentEffects)
         {
-            playerCharacterManager.AddEffect(effect);
+            playerCharacterManager.currentEffects.Add(effect);
         }
 
         playerCharacterManager.journalEntries.Clear();
@@ -563,7 +562,7 @@ public class DataManager : Singleton<DataManager>
 
             foreach (CharacterDataTracker characterDataTracker in sceneData.characterDataTrackers)
             {
-                if (character.characterName == characterDataTracker.characterName)
+                if (character.name == characterDataTracker.characterName)
                 {
                     character.transform.position = characterDataTracker.characterPosition;
 

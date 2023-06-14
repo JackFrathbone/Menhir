@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Sharpshooter
   skillDescription: Concentrate and find kinks in the toughest armour with arrows
-    and stones. All ranged attacks against targets not in combat give them a disadvantage.
+    and stones. Get a chance to gain advantage on all ranged attacks equal to the
+    target's defence.
   skillItems: []
   uniqueID: Skill_Sharpshooter36104
+  clearID: 0

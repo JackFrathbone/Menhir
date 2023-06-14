@@ -15,6 +15,7 @@ MonoBehaviour:
   skillName: Sneak
   skillDescription: Hide in the shadows. When crouched, the player can remain undetected
     in the vicinity of two characters. Will become detected by all nearby characters
-    if the player is seen by another character.
+    if the player is seen by another character, or attacks.
   skillItems: []
   uniqueID: Skill_Sneak36106
+  clearID: 0

@@ -17,7 +17,7 @@ public class MonsterCharacterManager : CharacterManager
 
     [Header("Monster Combat")]
     [ReadOnly] public int damage;
-    [ReadOnly] public int bluntDamage;
+    [ReadOnly] public int toHitBonus;
     [ReadOnly] public int range;
     [ReadOnly] public int attackSpeed;
 
@@ -25,7 +25,6 @@ public class MonsterCharacterManager : CharacterManager
     [ReadOnly] public GameObject projectilePrefab;
     [ReadOnly] public List<Effect> projectileEffects = new();
 
-    [ReadOnly] public int defence;
     [ReadOnly] public float moveSpeed;
 
     [Header("States")]
@@ -48,9 +47,13 @@ public class MonsterCharacterManager : CharacterManager
 
     private void OnValidate()
     {
-        if (_baseMonsterSheet != null)
+        if (_baseMonsterSheet != null && name == "Empty Monster")
         {
-            name = _baseMonsterSheet.monsterName;
+            name = _baseMonsterSheet.monsterName + "_" + UnityEngine.Random.Range(0, 100);
+        }
+        else if (_baseMonsterSheet == null)
+        {
+            name = "Empty Monster";
         }
     }
 
@@ -84,7 +87,7 @@ public class MonsterCharacterManager : CharacterManager
         healthTotal = _monsterSheet.health;
 
         damage = _monsterSheet.damage;
-        bluntDamage = _monsterSheet.bluntDamage;
+        toHitBonus = _monsterSheet.toHitBonus;
         range = _monsterSheet.range;
         attackSpeed = _monsterSheet.attackSpeed;
 
@@ -92,7 +95,7 @@ public class MonsterCharacterManager : CharacterManager
         projectilePrefab = _monsterSheet.projectilePrefab;
         projectileEffects = _monsterSheet.projectileEffects;
 
-        defence = _monsterSheet.defence;
+        totalDefence = _monsterSheet.defence;
         moveSpeed = _monsterSheet.moveSpeed;
 
         isHidden = _monsterSheet.startHidden;
@@ -109,9 +112,14 @@ public class MonsterCharacterManager : CharacterManager
         deadSprite = _monsterSheet.deadSprite;
     }
 
+    public override int GetTotalDefence()
+    {
+        return totalDefence;
+    }
+
     public override void DamageHealth(int i, CharacterManager damageSource)
     {
-        base.DamageHealth(i, null);
+        base.DamageHealth(i, damageSource);
 
         if (healthCurrent > 0)
         {
@@ -121,11 +129,10 @@ public class MonsterCharacterManager : CharacterManager
         SetCharacterState();
     }
 
-    public override void GetCurrentWeaponStats(out int damage, out int bluntDamage, out int defence, out float range, out float speed, out bool isRanged, out GameObject projectile, out List<Effect> effects, out float weaponWeight)
+    public override void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed, out bool isRanged, out GameObject projectile, out List<Effect> effects, out List<Effect> enchantmentsEffects, out float weaponWeight)
     {
         damage = this.damage;
-        bluntDamage = this.bluntDamage;
-        defence = this.defence;
+        bluntDamage = this.toHitBonus;
         if (this.isRanged)
         {
             range = 15f;
@@ -138,6 +145,7 @@ public class MonsterCharacterManager : CharacterManager
         isRanged = this.isRanged;
         projectile = this.projectilePrefab;
         effects = this.projectileEffects;
+        enchantmentsEffects = null;
 
         weaponWeight = 0;
     }

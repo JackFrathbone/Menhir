@@ -60,7 +60,7 @@ public class PlayerInventoryDescription : MonoBehaviour
 
             _itemWeaponType.text = "Weapon Type: " + (item as WeaponMeleeItem).weaponMeleeType;
             _itemDamage.text = "Damage: " + "D" + (item as WeaponMeleeItem).weaponDamage.ToString();
-            _itemBlunt.text = "Blunt:" + (item as WeaponMeleeItem).weaponBlunt.ToString();
+            _itemBlunt.text = "Blunt:" + (item as WeaponMeleeItem).weapontToHitBonus.ToString();
             _itemDefence.text = "Defence: " + (item as WeaponMeleeItem).weaponDefence.ToString("+#;-#;0");
             _itemRange.text = "Range: " + (item as WeaponMeleeItem).weaponRange.ToString();
             _itemSpeed.text = "Speed: " + (item as WeaponMeleeItem).weaponSpeed.ToString();
@@ -93,8 +93,10 @@ public class PlayerInventoryDescription : MonoBehaviour
         }
         else if (item is ShieldItem)
         {
-            SetButtonEvents("shield", item, isSearch, itemContainer);
+            _itemDefence.gameObject.SetActive(true);
             _itemDefence.text = "Defence: " + (item as ShieldItem).shieldDefence.ToString("+#;-#;0");
+
+            SetButtonEvents("shield", item, isSearch, itemContainer);
         }
         //If equipment
         else if (item is EquipmentItem)
@@ -138,7 +140,7 @@ public class PlayerInventoryDescription : MonoBehaviour
             _buttonDrop.onClick.AddListener(CloseDescription);
         }
 
-        if (!_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)) || (item is ShieldItem))
+        if (!_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem) || (item is ShieldItem)))
         {
             //If the item is a focus, dont display equip if your mind isnt high enough
             if (item is WeaponFocusItem && _playerCharacterManager.abilities.mind < (item as WeaponFocusItem).mindRequirement)
@@ -151,7 +153,7 @@ public class PlayerInventoryDescription : MonoBehaviour
             _buttonEquip.onClick.AddListener(_playerInventory.RefreshEquippedItemsDisplay);
             _buttonEquip.onClick.AddListener(CloseDescription);
         }
-        else if (_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem)) || (item is ShieldItem))
+        else if (_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem) || (item is ShieldItem)))
         {
             _buttonUnequip.gameObject.SetActive(true);
             _buttonUnequip.onClick.AddListener(delegate { _playerCharacterManager.UnequipItem(itemType, item); });

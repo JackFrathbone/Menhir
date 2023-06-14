@@ -8,6 +8,8 @@ public class Spell : ScriptableObject
     public string spellName;
     [TextArea(0, 3)]
     public string effectDescription;
+    [Tooltip("If the spell should be placed in a seperate category in the spell list")]
+    public bool isRecipe;
     public Sprite spellIcon;
     [Tooltip("If the spell effects are applied to the user, or become a projectile")]
     public bool castTarget;

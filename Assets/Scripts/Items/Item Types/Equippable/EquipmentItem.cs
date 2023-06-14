@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum EquipmentType
@@ -24,4 +25,7 @@ public class EquipmentItem : Item
     public Sprite equipmentModel;
     //Leave as white if visual already has its own set colors
     public Color equipmentColor = Color.white;
+
+    [Header("Enchantments")]
+    public List<Effect> enchantmentEffects = new();
 }

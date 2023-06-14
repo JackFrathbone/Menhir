@@ -41,6 +41,8 @@ public class CharacterAnimationController : MonoBehaviour
     public virtual void SetEquipType(int i)
     {
         _equipType = (EquipType)i;
+
+        CheckState();
     }
 
     public virtual void SetShield(bool hasShield)
@@ -69,18 +71,17 @@ public class CharacterAnimationController : MonoBehaviour
     protected virtual void CheckState()
     {
         _characterAnimator.SetInteger("animState", (int)_animState);
+        _characterAnimator.SetInteger("equipState", (int)_equipType);
 
         if (_inCombat)
         {
-            _characterAnimator.SetInteger("equipState", (int)_equipType);
             _characterAnimator.SetBool("shieldEquip", _hasShield);
         }
         else
         {
-            _characterAnimator.SetInteger("equipState", (int)0);
+            _characterAnimator.SetBool("isHolding", false);
             _characterAnimator.SetBool("shieldEquip", false);
         }
-        
     }
 
     public virtual void StartHolding(float holdSpeed)
@@ -112,6 +113,7 @@ public class CharacterAnimationController : MonoBehaviour
     public virtual void UpdateCombatState(bool inCombat)
     {
         _inCombat = inCombat;
-        CheckState();
+
+        _characterAnimator.SetBool("inCombat", _inCombat);
     }
 }

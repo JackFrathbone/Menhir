@@ -30,14 +30,7 @@ public class CharacterMovementController : MonoBehaviour
 
     private void Update()
     {
-        if (_target == null)
-        {
-            _navMeshAgent.SetDestination(_startLocation);
-            return;
-        }
-
-        _navMeshAgent.SetDestination(_target.position);
-
+        //Update walking animation
         if (_navMeshAgent.velocity.sqrMagnitude > 0)
         {
             _characterAnimation.CharacterWalkingTrue();
@@ -46,6 +39,15 @@ public class CharacterMovementController : MonoBehaviour
         {
             _characterAnimation.CharacterWalkingFalse();
         }
+
+
+        if (_target == null)
+        {
+            _navMeshAgent.SetDestination(_startLocation);
+            return;
+        }
+
+        _navMeshAgent.SetDestination(_target.position);
 
         //Set the char to face the target, for shooting projectiles and spells, moves both the transform and the projectile spawn
         Quaternion targetRotation = Quaternion.LookRotation(_target.transform.position - _projectileSpawn.position);

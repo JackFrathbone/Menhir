@@ -28,13 +28,15 @@ MonoBehaviour:
   characterWoundedGreeting: Aghh come closer...
   characterDialogueGraph: {fileID: 11400000, guid: fff249031cc75294e9361d08c5c0b4b7, type: 2}
   abilities:
-    body: 5
-    hands: 4
+    body: 4
+    hands: 3
     mind: 1
     heart: 3
   skills: []
   startHidden: 0
   startState: 1
+  invulnerableMode: 0
+  woundedOnlyMode: 0
   randomiseVisuals: 0
   characterSkintone: {r: 0.96862745, g: 0.8901961, b: 0.8235294, a: 1}
   characterHairColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}

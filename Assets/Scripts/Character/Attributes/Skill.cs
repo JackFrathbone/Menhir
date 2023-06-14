@@ -13,6 +13,9 @@ public class Skill : ScriptableObject
     [Tooltip("Items the skill will give to the character on gaining it")]
     public List<Item> skillItems;
 
+    [Tooltip("Spells the skill will give to the character on gaining it")]
+    public List<Spell> skillSpells;
+
     [Header("Tracking")]
     [ReadOnly] public string uniqueID;
 

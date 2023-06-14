@@ -11,77 +11,173 @@ public class CharacterCombatController : MonoBehaviour
     private CharacterAnimationController _animationController;
     private CharacterMovementController _movementController;
     private CharacterManager _characterManager;
-    private CharacterAI _characterAI;
 
-    private CharacterManager _combatTarget;
-    private int _holdDefence;
+    [ReadOnly] public CharacterManager _currentTarget;
+    [ReadOnly] public List<CharacterManager> _combatTargets = new();
 
+    [Header("Data")]
+    public bool _inCombat;
+
+    [Header("Equipped Weapon Stats")]
     private int _weaponDamage;
-    private int _weaponBluntDamage;
+    private int _weaponHitBonus;
     private float _weaponRange;
     private float _weaponSpeed;
-    private int _weaponDefence;
-
     private float _itemWeight;
-
     private bool _isRanged;
+
     private GameObject _projectilePrefab;
-    private List<Effect> _projectileEffects;
+    private List<Effect> _projectileEffects = new();
+    private List<Effect> _enchantmentEffects = new();
 
     private void Awake()
     {
         _animationController = GetComponentInChildren<CharacterAnimationController>();
         _movementController = GetComponent<CharacterMovementController>();
         _characterManager = GetComponent<CharacterManager>();
-        _characterAI = GetComponent<CharacterAI>();
     }
 
-    public void StartCombat(CharacterManager target)
+    private void Start()
     {
-        _combatTarget = target;
-        //Set character manager to combat for skills purpose
-        _characterManager.StartCombat(_combatTarget);
+        SetWeaponStats();
+    }
+
+    private void Update()
+    {
+        //Dont do anything if not in combat
+        if (!_inCombat || _combatTargets.Count == 0)
+        {
+            return;
+        }
+
+        //Check if current target is invalid, get new target, if no valid then end combat
+        if (!CheckTargetValid(_combatTargets[0]))
+        {
+            //Remove the previous target from list
+            _combatTargets.Remove(_combatTargets[0]);
+
+            GetNewTarget();
+        }
+
+    }
+
+    public void AddCombatTarget(CharacterManager targetCharacter)
+    {
+        //if valid and not already in list, add character to target list
+        if (targetCharacter != null && !_combatTargets.Contains(targetCharacter))
+        {
+            _combatTargets.Add(targetCharacter);
+            CheckIfCombat();
+        }
+    }
+
+    private void CheckIfCombat()
+    {
+        //Check if the character is already in combat, to turn combat mode on or off
+        if (_combatTargets.Count != 0)
+        {
+            if (!_inCombat)
+            {
+                StartCombat();
+            }
+        }
+        else
+        {
+            StopCombat();
+        }
+    }
+
+    public void StartCombat()
+    {
+        _inCombat = true;
+
+        _movementController.SetTargetDistance(_weaponRange);
 
         //Update the visuals
         _animationController.UpdateCombatState(true);
 
-        DecideNextAction();
-
-        SetWeaponStats();
-        _movementController.SetTargetDistance(_weaponRange);
+        GetNewTarget();
     }
 
     public void StopCombat()
     {
         StopAllCoroutines();
 
+        _inCombat = false;
+
+        _combatTargets.Clear();
+        _currentTarget = null;
+
         //Update the animation state
         _animationController.UpdateCombatState(false);
 
-        //Remove combat target from the characters list
-        _characterManager.StopCombat(_combatTarget);
+        _animationController.StopHolding();
+        _movementController.ReturnToStart();
+    }
 
-        //Tell the AI that target is out of combat and should be removed
-        _characterAI.RemoveTarget(_combatTarget);
 
-        _combatTarget = null;
+    //Check if the current combat target is still valid
+    private bool CheckTargetValid(CharacterManager targetCharacter)
+    {
+        //If the target is null or is in a wounded or dead state, or if the character itself is dead or wounded
+        if (targetCharacter == null || targetCharacter.characterState != CharacterState.alive)
+        {
+            //Remove combat target from the characters list
+            _characterManager.StopCombat(_currentTarget);
+            return false;
+        }
+
+        return true;
+    }
+
+    private void GetNewTarget()
+    {
+        if (_currentTarget != null)
+        {
+            //Set character manager to stop combat for skills purpose
+            _characterManager.StopCombat(_currentTarget);
+            _currentTarget.StopCombat(_characterManager);
+        }
+
+        //Go through list and get next valid target
+        CharacterManager newTarget = null;
+        foreach (CharacterManager target in _combatTargets)
+        {
+            if (CheckTargetValid(target))
+            {
+                newTarget = target;
+                break;
+            }
+        }
+
+        if (newTarget == null)
+        {
+            StopCombat();
+            return;
+        }
+
+        //Set current target and movement target
+        _currentTarget = newTarget;
+        _movementController.SetTarget(_currentTarget.transform);
+
+        //Set character manager to combat for skills purpose
+        _characterManager.StartCombat(_currentTarget);
+        _currentTarget.StartCombat(_characterManager);
+
+        //Decide next action to take
+        DecideNextAction();
     }
 
     private void SetWeaponStats()
     {
-        _characterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponBluntDamage, out _weaponDefence, out _weaponRange, out _weaponSpeed, out _isRanged, out _projectilePrefab, out _projectileEffects, out _itemWeight);
-
+        _characterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _isRanged, out _projectilePrefab, out _projectileEffects, out _enchantmentEffects, out _itemWeight);
     }
 
     public void DecideNextAction()
     {
-        //Stop hold bonus
-        _characterManager.SetBonusDefence(-_holdDefence);
-        _holdDefence = 0;
-
         StopAllCoroutines();
 
-        if (CheckTargetValid())
+        if (!CheckTargetValid(_currentTarget))
         {
             return;
         }
@@ -95,54 +191,61 @@ public class CharacterCombatController : MonoBehaviour
 
         int randomAction = Random.Range(0, 101);
 
-        if (randomAction < 75)
+        if (randomAction < 65)
         {
-            StartCoroutine(QuickAttack());
+            StartCoroutine(WindupAttack());
         }
-        else if (randomAction >= 75 && randomAction < 90)
-        {
-            StartCoroutine(HoldAttack());
-        }
-        else if (randomAction >= 90)
+        else
         {
             StartCoroutine(BackOff());
         }
     }
 
-    private IEnumerator QuickAttack()
+    private IEnumerator WindupAttack()
     {
         _animationController.StartHolding(_weaponSpeed);
+
         yield return new WaitForSeconds(_weaponSpeed);
+
+        //Update visual and wait for hit
+        _animationController.TriggerAttack();
+
+        yield return new WaitForSeconds(0.15f);
+
+        //Start attack calc
         Attack();
     }
 
-    private IEnumerator HoldAttack()
+    private IEnumerator BackOff()
     {
-        _animationController.StartHolding(_weaponSpeed);
-
-        yield return new WaitForSeconds(_weaponSpeed);
-
-        if (!_isRanged)
+        if (!CheckTargetValid(_currentTarget))
         {
-            _holdDefence = _weaponDefence;
-
-            _characterManager.SetBonusDefence(_holdDefence);
+            yield break;
         }
 
-        float randomWaitTime = Random.Range(0.5f, 3f);
-        yield return new WaitForSeconds(randomWaitTime);
-        Attack();
+        _movementController.MoveBackwards();
+        yield return new WaitForSeconds(0.5f);
+        _movementController.SetTargetDistance(_weaponRange);
+        if (!CheckTargetValid(_currentTarget))
+        {
+            DecideNextAction();
+            yield break;
+        }
+        _movementController.SetTarget(_currentTarget.transform);
+        DecideNextAction();
     }
 
     private bool CheckTargetInRange()
     {
-        //If not target just return false
-        if (_combatTarget == null)
+        if (!CheckTargetValid(_currentTarget))
         {
             return false;
         }
 
-        float distance = Vector3.Distance(transform.position, _combatTarget.transform.position);
+        //Get the distance
+        float distance = Vector3.Distance(transform.position, _currentTarget.transform.position);
+
+        //Check if in weapon range or not
         if (distance <= _weaponRange)
         {
             return true;
@@ -161,17 +264,26 @@ public class CharacterCombatController : MonoBehaviour
 
     private void Attack()
     {
-        _animationController.TriggerAttack();
+        /*        //Skip if stamina is too low
+                if (_characterManager.staminaCurrent <= _characterManager.staminaTotal * 0.25)
+                {
+                    print("out of stamina");
+                    DecideNextAction();
+                    return;
+                }*/
 
-        if (CheckTargetValid())
+        if (!CheckTargetValid(_currentTarget))
         {
             return;
         }
 
+        //If melee
         if (!_isRanged)
         {
-            CalculateAttack(_combatTarget.gameObject);
+            //Start the to hit process
+            CalculateAttack(_currentTarget);
 
+            //Remove stamina
             _characterManager.DamageStamina(StatFormulas.AttackStaminaCost(_itemWeight, _weaponSpeed));
 
             //Play audio
@@ -179,132 +291,108 @@ public class CharacterCombatController : MonoBehaviour
         }
         else
         {
-            ProjectileController projectileController = Instantiate(_projectilePrefab, _projectileSpawn.position, _projectileSpawn.rotation).GetComponent<ProjectileController>();
-
-            //If the weapon does physical damage add a listener to calculate attack
-            if (_weaponDamage > 0 || _weaponBluntDamage > 0)
+            if (_projectilePrefab != null)
             {
-                projectileController.hitEvent.AddListener(delegate { GetProjectileHitData(projectileController); });
-            }
+                //Create the projectile
+                ProjectileController projectileController = Instantiate(_projectilePrefab, _projectileSpawn.position, _projectileSpawn.rotation).GetComponent<ProjectileController>();
 
-            //Decrease stamina
-            _characterManager.DamageStamina(StatFormulas.AttackStaminaCost(_itemWeight, _weaponSpeed));
+                //If the weapon does physical damage add a listener to calculate attack
+                if (_weaponDamage > 0)
+                {
+                    projectileController.hitEvent.AddListener(delegate { GetProjectileHitData(projectileController); });
+                }
 
-  
-            foreach (Effect effect in _projectileEffects)
-            {
-                projectileController.effects.Add(effect);
-            }
+                //Decrease stamina
+                _characterManager.DamageStamina(StatFormulas.AttackStaminaCost(_itemWeight, _weaponSpeed));
 
-            //Play audio based on if the ranged attack has effects or not
-            if (_projectileEffects == null || _projectileEffects.Count == 0)
-            {
-                AudioManager.instance.PlayOneShot("event:/CombatSwingRanged", transform.position);
-            }
-            else
-            {
-                AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
+                //Check if projectile has effects
+                if (_projectileEffects != null)
+                {
+                    //Get the effects and attack to projectile
+                    foreach (Effect effect in _projectileEffects)
+                    {
+                        projectileController.effects.Add(effect);
+                    }
+                }
+
+                //Play audio based on if the ranged attack has effects or not
+                if (_projectileEffects == null || _projectileEffects.Count == 0)
+                {
+                    AudioManager.instance.PlayOneShot("event:/CombatSwingRanged", transform.position);
+                }
+                else
+                {
+                    AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
+                }
             }
         }
 
         DecideNextAction();
     }
 
-    private IEnumerator BackOff()
-    {
-        if (CheckTargetValid())
-        {
-            yield break;
-        }
 
-        _movementController.MoveBackwards();
-        yield return new WaitForSeconds(0.5f);
-        _movementController.SetTargetDistance(_weaponRange);
-        _movementController.SetTarget(_combatTarget.transform);
-        DecideNextAction();
-    }
 
     public void GetProjectileHitData(ProjectileController projectileController)
     {
-        if (CheckTargetValid())
+        if (!CheckTargetValid(_currentTarget))
         {
             return;
         }
 
         if (projectileController.hitCollision.collider.CompareTag("Character") || projectileController.hitCollision.collider.CompareTag("Player"))
         {
-            CalculateAttack(projectileController.hitCollision.gameObject);
+            CharacterManager target = projectileController.hitCollision.collider.GetComponent<CharacterManager>();
+            CalculateAttack(target);
         }
     }
 
-    public void CalculateAttack(GameObject target)
+    public void CalculateAttack(CharacterManager target)
     {
-        if (CheckTargetValid())
+        //Get target and get the relevant stats
+        CharacterManager targetCharacterManager = target.GetComponentInParent<CharacterManager>();
+        int targetDefence = targetCharacterManager.GetTotalDefence();
+
+        int characterAbility = _characterManager.abilities.body;
+        if (_isRanged)
         {
-            return;
+            characterAbility = _characterManager.abilities.hands;
         }
 
-        if (target.CompareTag("Character") || target.CompareTag("Player"))
+        //Check if it hits
+        if (StatFormulas.RollToHit(characterAbility, _weaponHitBonus, targetDefence, _characterManager.hasAdvantage, _characterManager.hasDisadvantage, _characterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill("Lucky Strike"), _currentTarget.CheckSkill_HonourFighter(), _characterManager.CheckSkill_Sharpshooter(), _characterManager.CheckSkill_Hunter(targetCharacterManager)))
         {
-            //Randomises the damage
-            _weaponDamage = StatFormulas.RollDice(_weaponDamage, 1);
-
-            //Get targets stats
-            CharacterManager targetCharacterManager = target.GetComponentInParent<CharacterManager>();
-            int targetDefence = targetCharacterManager.GetTotalDefence(_isRanged);
-
-            int characterAbilityBonus = _characterManager.abilities.body;
-            if (_isRanged)
+            if (_enchantmentEffects != null)
             {
-                characterAbilityBonus = _characterManager.abilities.hands;
+                //Add weapon enchantment effects to the target
+                foreach (Effect effect in _enchantmentEffects)
+                {
+                    //if the effect isnt already applied
+                    if (!targetCharacterManager.currentEffects.Contains(effect))
+                    {
+                        targetCharacterManager.AddEffect(effect);
+                    }
+                }
             }
 
-            int hitDamage = StatFormulas.CalculateHit(_weaponDamage, _weaponBluntDamage, characterAbilityBonus, targetDefence, _characterManager.hasAdvantage, targetCharacterManager.hasDisadvantage, _characterManager.CheckSkill_Assassinate(), _characterManager.CheckSkill("Lucky Strike"), targetCharacterManager.CheckSkill("Lucky Strike"), _characterManager.CheckSkill_HonourFighter(), _characterManager.CheckSkill_Sharpshooter());
+            //Do damage to target
+            targetCharacterManager.DamageHealth(StatFormulas.Damage(_weaponDamage, _characterManager.CheckSneakAttack()), _characterManager);
 
-            //Check if the character is already wounded and if yes make all attacks hit
-            if (targetCharacterManager.characterState == CharacterState.wounded)
-            {
-                hitDamage = 1;
-            }
+            //Juice time
+            Instantiate(_bloodSplatterPrefab, targetCharacterManager.transform.position, Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f));
+            AudioManager.instance.PlayOneShot("event:/CombatHit", targetCharacterManager.transform.position);
 
-            //If stamina is less than the amount the attack requires, make it always miss
-            if (_characterManager.staminaCurrent < StatFormulas.AttackStaminaCost(_itemWeight, _weaponSpeed))
-            {
-                hitDamage = 0;
-            }
-
-            if (hitDamage > 0)
-            {
-                //Juice time
-                Instantiate(_bloodSplatterPrefab, targetCharacterManager.transform.position, Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f));
-                AudioManager.instance.PlayOneShot("event:/CombatHit", targetCharacterManager.transform.position);
-
-                //Do damage to target
-                targetCharacterManager.DamageHealth(StatFormulas.Damage(hitDamage), _characterManager);
-
-                _characterManager.CheckSkill_DisablingShot(targetCharacterManager);
-            }
-            else if (hitDamage <= 0)
-            {
-                //Target blocks attack
-                targetCharacterManager.TriggerBlock();
-                AudioManager.instance.PlayOneShot("event:/CombatBlock", transform.position);
-            }
+            _characterManager.CheckSkill_DisablingShot(targetCharacterManager);
+        }
+        else
+        {
+            //Target blocks attack
+            targetCharacterManager.TriggerBlock();
+            AudioManager.instance.PlayOneShot("event:/CombatBlock", transform.position);
         }
     }
 
-
-    //Check if the current combat target is still valid otherwise stop current combat
-    private bool CheckTargetValid()
+    private void OnDisable()
     {
-        //If the target is null or is in a wounded or dead state, or if the character itself is dead or wounded
-        if (_combatTarget == null || _combatTarget.characterState != CharacterState.alive || _characterManager.characterState != CharacterState.alive)
-        {
-            StopCombat();
-            return true;
-        }
-
-        return false;
+        StopCombat();
     }
-
 }

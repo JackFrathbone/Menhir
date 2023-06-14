@@ -31,7 +31,9 @@ public enum EffectType
     Remove_Effects,
     Gain_Advantage,
     Gain_Disadvantage,
-    Invisibility
+    Invisibility,
+    Reset_Magic_Cooldown,
+    Reduce_Magic_Cooldown
 }
 
 [System.Serializable]
@@ -44,37 +46,47 @@ public class Effect
     [Tooltip("Effect does x amount")]
     public int effectStrength;
     [Tooltip("for x seconds")]
-    [Range(1,60)] public int effectSeconds = 1;
+    [Range(1, 60)] public int effectSeconds = 1;
 
     [Tooltip("chance of effect applying. 0 or 100 mean it always applies")]
-    public float effectChance = 100;
+    [Range(1, 100)] public float effectChance = 100;
 
     //This is only used for specific effects
     [Header("Extra Data")]
+    public Vector3 effectTeleportPos;
+    public Item effectCreateItem;
+    public CharacterManager effectSpawnCharacter;
 
+    [Header("Checks")]
     //The hidden checks
-    private int effectSecondsPassed;
+    [ReadOnly] public bool permanentEffect;
+    [ReadOnly] public int effectSecondsPassed;
 
-    public void AddEffect(CharacterManager targetCharacter)
-    {
-        //Debug.Log(GetDescription() + " on " + targetCharacter.characterSheet.characterName);
-
-        effectSecondsPassed = effectSeconds;
-
-        targetCharacter.AddEffect(this);
-    }
+    //used to determine if effects should apply once at the start, or every second
+    private bool _runOnce;
 
     public void ApplyEffect(CharacterManager targetCharacter)
     {
         //Debug.Log(effectType.ToString() + " on " + targetCharacter.characterSheet.characterName);
 
-        if (effectSecondsPassed <= 0)
+        //If the effect is not permanent then check if time has run out and remove time
+        if (!permanentEffect)
         {
-            EndEffect(targetCharacter);
-            return;
+            //If time has run out then remove the effect
+            if (effectSecondsPassed <= 0)
+            {
+                return;
+            }
+
+            //Remove a second each time
+            effectSecondsPassed--;
         }
 
-        effectSecondsPassed--;
+        //if runonce is true then dont apply the effect again
+        if (_runOnce)
+        {
+            return;
+        }
 
         switch (effectType)
         {
@@ -85,9 +97,11 @@ public class Effect
                 targetCharacter.DamageHealth(effectStrength, null);
                 break;
             case EffectType.Fortify_Health:
+                _runOnce = true;
                 targetCharacter.AddHealth(effectStrength);
                 break;
             case EffectType.Drain_Health:
+                _runOnce = true;
                 targetCharacter.DamageHealth(effectStrength, null);
                 break;
             case EffectType.Restore_Stamina:
@@ -97,72 +111,104 @@ public class Effect
                 targetCharacter.DamageStamina(effectStrength);
                 break;
             case EffectType.Fortify_Stamina:
+                _runOnce = true;
                 targetCharacter.AddStamina(effectStrength);
                 break;
             case EffectType.Drain_Stamina:
+                _runOnce = true;
                 targetCharacter.DamageStamina(effectStrength);
                 break;
             case EffectType.Fortify_Ability_Body:
+                _runOnce = true;
                 targetCharacter.ChangeAbilityTotal(effectStrength, "body");
                 break;
             case EffectType.Fortify_Ability_Hands:
+                _runOnce = true;
                 targetCharacter.ChangeAbilityTotal(effectStrength, "hands");
                 break;
             case EffectType.Fortify_Ability_Mind:
+                _runOnce = true;
                 targetCharacter.ChangeAbilityTotal(effectStrength, "mind");
                 break;
             case EffectType.Fortify_Ability_Heart:
+                _runOnce = true;
                 targetCharacter.ChangeAbilityTotal(effectStrength, "heart");
                 break;
             case EffectType.Drain_Ability_Body:
+                _runOnce = true;
                 targetCharacter.ChangeAbilityTotal(-effectStrength, "body");
                 break;
             case EffectType.Drain_Ability_Hands:
+                _runOnce = true;
                 targetCharacter.ChangeAbilityTotal(-effectStrength, "hands");
                 break;
             case EffectType.Drain_Ability_Mind:
+                _runOnce = true;
                 targetCharacter.ChangeAbilityTotal(-effectStrength, "mind");
                 break;
             case EffectType.Drain_Ability_Heart:
+                _runOnce = true;
                 targetCharacter.ChangeAbilityTotal(-effectStrength, "body");
                 break;
             case EffectType.Slow:
+                _runOnce = true;
                 targetCharacter.SetSlowState(true);
                 break;
             case EffectType.Paralyse:
+                _runOnce = true;
                 targetCharacter.SetParalyseState(true);
                 break;
             case EffectType.Shield:
+                _runOnce = true;
                 targetCharacter.SetBonusDefence(effectStrength);
                 break;
             case EffectType.Spell_Shield:
+                _runOnce = true;
                 targetCharacter.SetEffectResist(effectStrength);
                 break;
             case EffectType.Set_Teleport:
+                _runOnce = true;
                 break;
             case EffectType.Teleport:
+                _runOnce = true;
                 break;
             case EffectType.Create_Item:
+                _runOnce = true;
+                targetCharacter.AddItem(effectCreateItem);
                 break;
             case EffectType.Spawn_Character:
+                _runOnce = true;
                 break;
             case EffectType.Fortify_Attack:
+                _runOnce = true;
                 targetCharacter.SetBonusDamage(effectStrength);
                 break;
             case EffectType.Drain_Attack:
+                _runOnce = true;
                 targetCharacter.SetBonusDamage(-effectStrength);
                 break;
             case EffectType.Remove_Effects:
                 targetCharacter.ClearEffects();
                 break;
             case EffectType.Gain_Advantage:
+                _runOnce = true;
                 targetCharacter.SetAdvantage(true);
                 break;
             case EffectType.Gain_Disadvantage:
+                _runOnce = true;
                 targetCharacter.SetDisadvantage(true);
                 break;
             case EffectType.Invisibility:
+                _runOnce = true;
                 targetCharacter.isInvisible = false;
+                break;
+            case EffectType.Reset_Magic_Cooldown:
+                _runOnce = true;
+                targetCharacter.ResetSpellCooldown();
+                break;
+            case EffectType.Reduce_Magic_Cooldown:
+                _runOnce = true;
+                targetCharacter.ReduceSpellCooldown(effectStrength);
                 break;
         }
     }
@@ -258,9 +304,12 @@ public class Effect
             case EffectType.Invisibility:
                 targetCharacter.isInvisible = false;
                 break;
+            case EffectType.Reset_Magic_Cooldown:
+                break;
+            case EffectType.Reduce_Magic_Cooldown:
+                targetCharacter.ReduceSpellCooldown(-effectStrength);
+                break;
         }
-
-        targetCharacter.endedEffects.Add(this);
         //Debug.Log(GetDescription() + " on" + targetCharacter.characterSheet.characterName + " ended");
     }
 

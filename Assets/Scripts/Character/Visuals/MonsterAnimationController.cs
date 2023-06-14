@@ -8,9 +8,9 @@ public class MonsterAnimationController : CharacterAnimationController
     [SerializeField] SpriteRenderer _baseRenderer;
     private MonsterCharacterManager _monsterCharacterManager;
 
-    private bool _walkCycle1;
-    private bool _attacking;
-    private bool _isDead;
+    public bool _walkCycle1;
+    public bool _attacking;
+    public bool _isDead;
 
     protected override void Awake()
     {
@@ -32,6 +32,7 @@ public class MonsterAnimationController : CharacterAnimationController
         }
         else
         {
+            CancelInvoke();
             _isDead = true;
             _baseRenderer.sprite = _monsterCharacterManager.deadSprite;
         }

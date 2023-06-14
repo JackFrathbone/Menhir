@@ -30,7 +30,6 @@ public class NonPlayerCharacterManager : CharacterManager
     private CharacterMovementController _characterMovementController;
     private CharacterAnimationController _animationController;
     private CharacterVisualUpdater _VisualUpdater;
-    private CharacterCombatController _characterCombatController;
 
     protected override void Awake()
     {
@@ -39,7 +38,6 @@ public class NonPlayerCharacterManager : CharacterManager
 
         _animationController = GetComponentInChildren<CharacterAnimationController>();
         _VisualUpdater = GetComponentInChildren<CharacterVisualUpdater>();
-        _characterCombatController = GetComponentInChildren<CharacterCombatController>();
         EquipItems();
     }
 
@@ -50,27 +48,26 @@ public class NonPlayerCharacterManager : CharacterManager
         characterState = _characterSheet.startState;
         SetCharacterState();
         _characterMovementController = GetComponent<CharacterMovementController>();
-    }
 
+        //Get the total defence
+        GetTotalDefence();
+    }
 
     private void OnEnable()
     {
         DataManager.instance.AddActiveCharacter(this);
     }
 
-    /*#if UNITY_STANDALONE
-        private void OnDisable()
-        {
-            DataManager.instance.RemoveActiveCharacter(this);
-        }
-
-    #endif*/
-
     private void OnValidate()
     {
-        if (_baseCharacterSheet != null)
+        //Set the name based on the character sheet
+        if (_baseCharacterSheet != null && name == "Empty Char")
         {
-            name = _baseCharacterSheet.characterName;
+            name = _baseCharacterSheet.characterName + "_" + Random.Range(0,100);
+        }
+        else if (_baseCharacterSheet == null)
+        {
+            name = "Empty Char";
         }
     }
 
@@ -179,21 +176,56 @@ public class NonPlayerCharacterManager : CharacterManager
 
                 if (weapon is WeaponMeleeItem && !(weapon as WeaponMeleeItem).twoHanded)
                 {
+                    //Add enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponMeleeItem).enchantmentSelfEffects)
+                    {
+                        //Set the effect to be permanent
+                        effect.permanentEffect = true;
+                        //Add to the character
+                        AddEffect(effect);
+                    }
+
                     _animationController.SetEquipType(1);
                 }
                 else if (weapon is WeaponMeleeItem && (weapon as WeaponMeleeItem).twoHanded)
                 {
+                    //Add enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponMeleeItem).enchantmentSelfEffects)
+                    {
+                        //Set the effect to be permanent
+                        effect.permanentEffect = true;
+                        //Add to the character
+                        AddEffect(effect);
+                    }
+
                     _animationController.SetEquipType(2);
                 }
                 else if (weapon is WeaponRangedItem)
                 {
+                    //Add enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponRangedItem).enchantmentSelfEffects)
+                    {
+                        //Set the effect to be permanent
+                        effect.permanentEffect = true;
+                        //Add to the character
+                        AddEffect(effect);
+                    }
+
                     _animationController.SetEquipType(3);
                 }
                 else if (weapon is WeaponFocusItem)
                 {
+                    //Add enchantments
+                    foreach (Effect effect in (equippedWeapon as WeaponFocusItem).enchantmentEffects)
+                    {
+                        //Set the effect to be permanent
+                        effect.permanentEffect = true;
+                        //Add to the character
+                        AddEffect(effect);
+                    }
+
                     _animationController.SetEquipType(1);
                 }
-
                 break;
             }
         }
@@ -206,8 +238,19 @@ public class NonPlayerCharacterManager : CharacterManager
                 equippedShield = shieldItem as ShieldItem;
                 break;
             }
-        }
 
+            if(equippedShield != null)
+            {
+                //Add enchantments
+                foreach (Effect effect in equippedShield.enchantmentEffects)
+                {
+                    //Set the effect to be permanent
+                    effect.permanentEffect = true;
+                    //Add to the player
+                    AddEffect(effect);
+                }
+            }
+        }
 
         if (equippedShield != null)
         {
@@ -232,6 +275,16 @@ public class NonPlayerCharacterManager : CharacterManager
                         if (equippedArmour == null)
                         {
                             SetEffectResist(equipmentItem.magicResist);
+
+                            //Add enchantments
+                            foreach (Effect effect in equipmentItem.enchantmentEffects)
+                            {
+                                //Set the effect to be permanent
+                                effect.permanentEffect = true;
+                                //Add to the player
+                                AddEffect(effect);
+                            }
+
                             equippedArmour = equipmentItem;
                         }
                         break;
@@ -239,6 +292,16 @@ public class NonPlayerCharacterManager : CharacterManager
                         if (equippedCape == null)
                         {
                             SetEffectResist(equipmentItem.magicResist);
+
+                            //Add enchantments
+                            foreach (Effect effect in equipmentItem.enchantmentEffects)
+                            {
+                                //Set the effect to be permanent
+                                effect.permanentEffect = true;
+                                //Add to the player
+                                AddEffect(effect);
+                            }
+
                             equippedCape = equipmentItem;
                         }
                         break;
@@ -246,6 +309,16 @@ public class NonPlayerCharacterManager : CharacterManager
                         if (equippedFeet == null)
                         {
                             SetEffectResist(equipmentItem.magicResist);
+
+                            //Add enchantments
+                            foreach (Effect effect in equipmentItem.enchantmentEffects)
+                            {
+                                //Set the effect to be permanent
+                                effect.permanentEffect = true;
+                                //Add to the player
+                                AddEffect(effect);
+                            }
+
                             equippedFeet = equipmentItem;
                         }
                         break;
@@ -253,6 +326,16 @@ public class NonPlayerCharacterManager : CharacterManager
                         if (equippedGreaves == null)
                         {
                             SetEffectResist(equipmentItem.magicResist);
+
+                            //Add enchantments
+                            foreach (Effect effect in equipmentItem.enchantmentEffects)
+                            {
+                                //Set the effect to be permanent
+                                effect.permanentEffect = true;
+                                //Add to the player
+                                AddEffect(effect);
+                            }
+
                             equippedGreaves = equipmentItem;
                         }
                         break;
@@ -260,6 +343,16 @@ public class NonPlayerCharacterManager : CharacterManager
                         if (equippedHands == null)
                         {
                             SetEffectResist(equipmentItem.magicResist);
+
+                            //Add enchantments
+                            foreach (Effect effect in equipmentItem.enchantmentEffects)
+                            {
+                                //Set the effect to be permanent
+                                effect.permanentEffect = true;
+                                //Add to the player
+                                AddEffect(effect);
+                            }
+
                             equippedHands = equipmentItem;
                         }
                         break;
@@ -267,6 +360,16 @@ public class NonPlayerCharacterManager : CharacterManager
                         if (equippedHelmet == null)
                         {
                             SetEffectResist(equipmentItem.magicResist);
+
+                            //Add enchantments
+                            foreach (Effect effect in equipmentItem.enchantmentEffects)
+                            {
+                                //Set the effect to be permanent
+                                effect.permanentEffect = true;
+                                //Add to the player
+                                AddEffect(effect);
+                            }
+
                             equippedHelmet = equipmentItem;
                         }
                         break;
@@ -274,6 +377,16 @@ public class NonPlayerCharacterManager : CharacterManager
                         if (equippedPants == null)
                         {
                             SetEffectResist(equipmentItem.magicResist);
+
+                            //Add enchantments
+                            foreach (Effect effect in equipmentItem.enchantmentEffects)
+                            {
+                                //Set the effect to be permanent
+                                effect.permanentEffect = true;
+                                //Add to the player
+                                AddEffect(effect);
+                            }
+
                             equippedPants = equipmentItem;
                         }
                         break;
@@ -281,6 +394,16 @@ public class NonPlayerCharacterManager : CharacterManager
                         if (equippedShirt == null)
                         {
                             SetEffectResist(equipmentItem.magicResist);
+
+                            //Add enchantments
+                            foreach (Effect effect in equipmentItem.enchantmentEffects)
+                            {
+                                //Set the effect to be permanent
+                                effect.permanentEffect = true;
+                                //Add to the player
+                                AddEffect(effect);
+                            }
+
                             equippedShirt = equipmentItem;
                         }
                         break;
@@ -291,11 +414,7 @@ public class NonPlayerCharacterManager : CharacterManager
 
     public override void TriggerBlock()
     {
-        if (_characterCombatController != null)
-        {
-            _animationController.TriggerBlock();
-            _characterCombatController.DecideNextAction();
-        }
+        _animationController.TriggerBlock();
     }
 
     public override void DamageHealth(int i, CharacterManager damageSource)

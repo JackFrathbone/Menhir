@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Skill_Healer
   m_EditorClassIdentifier: 
   skillName: Healer
-  skillDescription: Make your own bandages. Grants a ritual scroll which creates
-    bandages out of common materials.
+  skillDescription: Make your own bandages. Grants recipes that can be used to create
+    regular bandages, and more effective medicinal bandages.
   skillItems: []
+  skillSpells:
+  - {fileID: 11400000, guid: c8aca304e05fe5e408e20b1f2a4241f0, type: 2}
+  - {fileID: 11400000, guid: a706792691ed62e45898f356e404e91c, type: 2}
   uniqueID: Skill_Healer36096
+  clearID: 0

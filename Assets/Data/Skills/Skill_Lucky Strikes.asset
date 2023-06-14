@@ -15,6 +15,8 @@ MonoBehaviour:
   skillName: Lucky Strike
   skillDescription: Fight using your luck, for better or worse. Every attack has
     a 15% chance to automatically gain advantage, while every hit received has a
-    15% chance to be at a disadvantage.
+    15% chance to be at an advantage against you.
   skillItems: []
+  skillSpells: []
   uniqueID: Skill_Lucky Strikes36100
+  clearID: 0

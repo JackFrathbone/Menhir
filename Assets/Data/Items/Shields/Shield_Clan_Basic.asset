@@ -17,8 +17,8 @@ MonoBehaviour:
     with a thick bronze guard in the middle.
   itemWeight: 2.5
   itemIcon: {fileID: 5064410620401808657, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Shield_Clan_Basic37632
+  uniqueID: Shield_Clan_Basic26204
   clearID: 0
-  shieldDefence: 3
+  shieldDefence: 15
   magicResist: 15
   shieldModel: {fileID: 21300000, guid: 767b4741ca3a1c549b4139fb45554b48, type: 3}
