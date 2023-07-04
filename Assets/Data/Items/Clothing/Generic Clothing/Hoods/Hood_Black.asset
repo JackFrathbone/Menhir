@@ -17,10 +17,11 @@ MonoBehaviour:
     decorations.
   itemWeight: 0.15
   itemIcon: {fileID: 6361351448533257067, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Hood_Black26066
+  uniqueID: Hood_Black28116
   clearID: 0
   equipmentType: 5
   equipmentDefence: 0
   magicResist: 0
   equipmentModel: {fileID: 21300000, guid: 5cb7a52d1f9f69b4ba806efebdf52e31, type: 3}
   equipmentColor: {r: 0.11320752, g: 0.106265545, b: 0.106265545, a: 1}
+  enchantmentEffects: []

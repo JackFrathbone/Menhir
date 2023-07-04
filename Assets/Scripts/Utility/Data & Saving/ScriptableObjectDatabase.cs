@@ -100,8 +100,8 @@ public class ScriptableObjectDatabase : ScriptableObject
 
     private void RefreshLists()
     {
-        RefreshItemList();
         RefreshSpellList();
+        RefreshItemList();
         RefreshSkillsList();
         RefreshStateChecks();
         UnityEditor.EditorUtility.SetDirty(this);
@@ -136,16 +136,16 @@ public class ScriptableObjectDatabase : ScriptableObject
             {
                 spell.uniqueID = spell.name + spell.GetInstanceID().ToString();
                 UnityEditor.EditorUtility.SetDirty(spell);
+
+                //Create a spell item that holds this spells
+                SpellItem spellItem = ScriptableObject.CreateInstance<SpellItem>();
+                spellItem.name = "Item_" + spell.name;
+                spellItem.itemName = "Tablet of " + spell.spellName;
+                spellItem.itemDescription = "A carved stone tablet containing information about how to case the spell " + spell.spellName;
+                spellItem.itemWeight = 1;
+                spellItem.spell = spell;
+                UnityEditor.AssetDatabase.CreateAsset(spellItem, "Assets/Data/Spells/Items/" + spell.name + ".asset");
             }
-
-
-            //Create a spell item that holds this spells
-            SpellItem spellItem = ScriptableObject.CreateInstance<SpellItem>();
-            spellItem.itemName = "Tablet of " + spell.spellName;
-            spellItem.itemDescription = "A carved stone tablet containing information about how to case the spell " + spell.spellName;
-            spellItem.itemWeight = 1;
-            spellItem.spell = spell;
-            UnityEditor.AssetDatabase.CreateAsset(spellItem, "Assets/Data/Spells/Items/" + spell.name + ".asset");
         }
 
         allSpells = new List<Spell>(tempList);

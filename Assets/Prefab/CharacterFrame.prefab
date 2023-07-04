@@ -1713,7 +1713,6 @@ MonoBehaviour:
   characterDescription: 
   characterGreeting: 
   characterWoundedGreeting: 
-  characterDialogueGraph: {fileID: 0}
   isHidden: 0
   randomiseVisuals: 0
   characterSkintone: {r: 1, g: 1, b: 1, a: 1}

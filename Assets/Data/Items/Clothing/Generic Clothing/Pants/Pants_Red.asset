@@ -17,10 +17,11 @@ MonoBehaviour:
     with a belt.
   itemWeight: 0.15
   itemIcon: {fileID: -1437952437997359938, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Pants_Red26090
+  uniqueID: Pants_Red28140
   clearID: 0
   equipmentType: 6
   equipmentDefence: 0
   magicResist: 0
   equipmentModel: {fileID: 8155511697211570279, guid: 09c6df8f4a1beb4409a492b448727369, type: 3}
   equipmentColor: {r: 1, g: 0.3019608, b: 0.42745098, a: 1}
+  enchantmentEffects: []

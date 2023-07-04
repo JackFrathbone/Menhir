@@ -116,10 +116,17 @@ public class CharacterManager : MonoBehaviour
     protected virtual void SetCurrentStatus()
     {
         healthTotal = StatFormulas.TotalCharacterHealth(abilities.body);
-        healthCurrent = healthTotal;
+
+        if (healthCurrent == 0)
+        {
+            healthCurrent = healthTotal;
+        }
 
         staminaTotal = StatFormulas.TotalCharacterStamina(abilities.hands);
-        staminaCurrent = staminaTotal;
+        if (staminaCurrent == 0)
+        {
+            staminaCurrent = staminaTotal;
+        }
     }
 
     public virtual bool CheckHostility(Faction targetFaction)

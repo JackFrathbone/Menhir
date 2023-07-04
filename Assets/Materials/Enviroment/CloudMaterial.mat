@@ -101,7 +101,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _CloudAmount: 0.5
-    - _CloudPixelate: 0.45
+    - _CloudPixelate: 1
     - _CloudScale: 0.1
     - _CloudsAlpha: 1
     - _Cull: 2

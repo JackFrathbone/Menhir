@@ -14,7 +14,6 @@ public class NonPlayerCharacterManager : CharacterManager
     [ReadOnly] public string characterDescription;
     [ReadOnly] public string characterGreeting;
     [ReadOnly] public string characterWoundedGreeting;
-    [ReadOnly] public DialogueGraph characterDialogueGraph;
 
     [Header("States")]
     [ReadOnly] public bool isHidden;
@@ -39,6 +38,7 @@ public class NonPlayerCharacterManager : CharacterManager
         _animationController = GetComponentInChildren<CharacterAnimationController>();
         _VisualUpdater = GetComponentInChildren<CharacterVisualUpdater>();
         EquipItems();
+        SetupDialogueComponent();
     }
 
     protected override void Start()
@@ -71,6 +71,35 @@ public class NonPlayerCharacterManager : CharacterManager
         }
     }
 
+    //If there is a dialogue component attached then add the character sheet dialogue graph to it
+    private void SetupDialogueComponent()
+    {
+        if(_characterSheet.characterDialogueGraph != null)
+        {
+            DialogueComponent dialogueComponent = gameObject.AddComponent<DialogueComponent>();
+
+            dialogueComponent.CharacterName = characterName;
+            dialogueComponent.CharacterGreeting = GetGreetingByState();
+            dialogueComponent.CharacterDescription = characterDescription;
+            dialogueComponent.DialogueCharacterManager = this;
+            dialogueComponent.AttachedDialogueGraph = _characterSheet.characterDialogueGraph;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private void UpdateDialogueComponent()
+    {
+        DialogueComponent dialogueComponent = GetComponent<DialogueComponent>();
+
+        if(dialogueComponent != null)
+        {
+            dialogueComponent.CharacterGreeting = GetGreetingByState();
+        }
+    }
+
     private void SetDataFromCharacterSheet()
     {
         characterName = _characterSheet.characterName;
@@ -84,7 +113,6 @@ public class NonPlayerCharacterManager : CharacterManager
 
         characterGreeting = _characterSheet.characterGreeting;
         characterWoundedGreeting = _characterSheet.characterWoundedGreeting;
-        characterDialogueGraph = _characterSheet.characterDialogueGraph;
 
         abilities = _characterSheet.abilities;
 
@@ -126,6 +154,7 @@ public class NonPlayerCharacterManager : CharacterManager
                 GetComponentInChildren<CharacterCombatController>().enabled = true;
                 GetComponentInChildren<NavMeshAgent>().enabled = true;
                 GetComponentInChildren<CharacterAI>().enabled = true;
+                UpdateDialogueComponent();
                 break;
             case CharacterState.wounded:
                 _animationController.SetState(1);
@@ -133,6 +162,7 @@ public class NonPlayerCharacterManager : CharacterManager
                 GetComponentInChildren<CharacterCombatController>().enabled = false;
                 GetComponentInChildren<NavMeshAgent>().enabled = false;
                 GetComponentInChildren<CharacterAI>().enabled = false;
+                UpdateDialogueComponent();
                 break;
             //Is dead so set model and add a container for items
             case CharacterState.dead:
@@ -155,6 +185,7 @@ public class NonPlayerCharacterManager : CharacterManager
         Destroy(GetComponent<CharacterCombatController>());
         Destroy(GetComponent<CharacterAI>());
         Destroy(GetComponent<NavMeshAgent>());
+        Destroy(GetComponent<DialogueComponent>());
     }
 
     //Equips the highest value items in inventory to equipment slots
@@ -456,6 +487,18 @@ public class NonPlayerCharacterManager : CharacterManager
         else
         {
             _characterMovementController.StartMovement();
+        }
+    }
+
+    public string GetGreetingByState()
+    {
+        if(characterState == CharacterState.alive)
+        {
+            return characterGreeting;
+        }
+        else
+        {
+            return characterWoundedGreeting;
         }
     }
 }

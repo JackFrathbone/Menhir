@@ -16,6 +16,7 @@ TagManager:
   - WaitObject
   - SleepObject
   - DialogueOnlyCharacter
+  - SimpleCharacter
   layers:
   - Default
   - TransparentFX

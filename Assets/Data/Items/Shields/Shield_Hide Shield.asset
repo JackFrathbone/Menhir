@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d8b65eef889064a8e14ec5692da873, type: 3}
+  m_Name: Shield_Hide Shield
+  m_EditorClassIdentifier: 
+  itemName: Hide Shield
+  itemDescription: A simple hide shield made around a wooden framework, thick enough
+    to hold off bronze blades
+  itemWeight: 1
+  itemIcon: {fileID: 5064410620401808657, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
+  uniqueID: Shield_Hide Shield10576
+  clearID: 0
+  shieldDefence: 10
+  magicResist: 10
+  shieldModel: {fileID: 21300000, guid: ccb9d5bcf7325f74a99c5c57cde6ad5c, type: 3}
+  enchantmentEffects: []

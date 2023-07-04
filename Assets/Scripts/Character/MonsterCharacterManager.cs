@@ -45,6 +45,11 @@ public class MonsterCharacterManager : CharacterManager
     [Header("Monster References")]
     private MonsterAnimationController _monsterAnimationController;
 
+    private void OnEnable()
+    {
+        DataManager.instance.AddActiveCharacter(this);
+    }
+
     private void OnValidate()
     {
         if (_baseMonsterSheet != null && name == "Empty Monster")

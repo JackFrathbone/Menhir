@@ -11,12 +11,8 @@ public class PlayerInventoryDescription : MonoBehaviour
     [SerializeField] TextMeshProUGUI _itemDescription;
 
     [Header("Stats")]
-    [SerializeField] TextMeshProUGUI _itemWeaponType;
-    [SerializeField] TextMeshProUGUI _itemDamage;
-    [SerializeField] TextMeshProUGUI _itemBlunt;
-    [SerializeField] TextMeshProUGUI _itemDefence;
-    [SerializeField] TextMeshProUGUI _itemRange;
-    [SerializeField] TextMeshProUGUI _itemSpeed;
+    [SerializeField] Transform _attributeTextParent;
+    [SerializeField] GameObject _attributeTextBoxPrefab;
 
     [Header("Action Buttons")]
     [SerializeField] Button _buttonUse;
@@ -51,50 +47,35 @@ public class PlayerInventoryDescription : MonoBehaviour
         //If melee weapon
         if (item is WeaponMeleeItem)
         {
-            _itemWeaponType.gameObject.SetActive(true);
-            _itemDamage.gameObject.SetActive(true);
-            _itemBlunt.gameObject.SetActive(true);
-            _itemRange.gameObject.SetActive(true);
-            _itemSpeed.gameObject.SetActive(true);
-            _itemDefence.gameObject.SetActive(true);
-
-            _itemWeaponType.text = "Weapon Type: " + (item as WeaponMeleeItem).weaponMeleeType;
-            _itemDamage.text = "Damage: " + "D" + (item as WeaponMeleeItem).weaponDamage.ToString();
-            _itemBlunt.text = "Blunt:" + (item as WeaponMeleeItem).weapontToHitBonus.ToString();
-            _itemDefence.text = "Defence: " + (item as WeaponMeleeItem).weaponDefence.ToString("+#;-#;0");
-            _itemRange.text = "Range: " + (item as WeaponMeleeItem).weaponRange.ToString();
-            _itemSpeed.text = "Speed: " + (item as WeaponMeleeItem).weaponSpeed.ToString();
+            CreateDescriptionAttributeBox("Weapon Type: " + (item as WeaponMeleeItem).weaponMeleeType);
+            CreateDescriptionAttributeBox("Damage: " + "D" + (item as WeaponMeleeItem).weaponDamage.ToString());
+            CreateDescriptionAttributeBox("To Hit Bonus: " + (item as WeaponMeleeItem).weapontToHitBonus.ToString() + "%");
+            CreateDescriptionAttributeBox("Defence: " + (item as WeaponMeleeItem).weaponDefence.ToString("+#;-#;0") + "%");
+            CreateDescriptionAttributeBox("Range: " + (item as WeaponMeleeItem).weaponRange.ToString());
+            CreateDescriptionAttributeBox("Speed: " + (item as WeaponMeleeItem).weaponSpeed.ToString());
 
             SetButtonEvents("weapon", item, isSearch, itemContainer);
         }
         else if (item is WeaponRangedItem)
         {
-            _itemWeaponType.gameObject.SetActive(true);
-            _itemDamage.gameObject.SetActive(true);
-            _itemSpeed.gameObject.SetActive(true);
-
-            _itemWeaponType.text = "Weapon Type: " + (item as WeaponRangedItem).weaponRangedType;
-            _itemDamage.text = "Damage: " + "D" + (item as WeaponRangedItem).weaponDamage.ToString();
-            _itemSpeed.text = "Speed: " + (item as WeaponRangedItem).weaponSpeed.ToString();
+            CreateDescriptionAttributeBox("Weapon Type: " + (item as WeaponRangedItem).weaponRangedType);
+            CreateDescriptionAttributeBox("Damage: " + "D" + (item as WeaponRangedItem).weaponDamage.ToString());
+            CreateDescriptionAttributeBox("Speed: " + (item as WeaponRangedItem).weaponSpeed.ToString());
 
             SetButtonEvents("weapon", item, isSearch, itemContainer);
         }
         else if (item is WeaponFocusItem)
         {
-            _itemWeaponType.gameObject.SetActive(true);
-            _itemDamage.gameObject.SetActive(true);
-            _itemSpeed.gameObject.SetActive(true);
-
-            _itemWeaponType.text = "Mind Required: " + (item as WeaponFocusItem).mindRequirement;
-            _itemDamage.text = "Spell: " + (item as WeaponFocusItem).effectDescription;
-            _itemSpeed.text = "Casting Speed: " + (item as WeaponFocusItem).castingSpeed.ToString();
+            CreateDescriptionAttributeBox("Mind Required: " + (item as WeaponFocusItem).mindRequirement);
+            CreateDescriptionAttributeBox((item as WeaponFocusItem).GetEffectsDescription());
+            CreateDescriptionAttributeBox("Casting Speed: " + (item as WeaponFocusItem).castingSpeed.ToString());
 
             SetButtonEvents("weapon", item, isSearch, itemContainer);
         }
         else if (item is ShieldItem)
         {
-            _itemDefence.gameObject.SetActive(true);
-            _itemDefence.text = "Defence: " + (item as ShieldItem).shieldDefence.ToString("+#;-#;0");
+            CreateDescriptionAttributeBox("Defence: " + (item as ShieldItem).shieldDefence.ToString("+#;-#;0"));
+            CreateDescriptionAttributeBox("Magic Resist: " + (item as ShieldItem).magicResist.ToString("+#;-#;0"));
 
             SetButtonEvents("shield", item, isSearch, itemContainer);
         }
@@ -102,18 +83,20 @@ public class PlayerInventoryDescription : MonoBehaviour
         else if (item is EquipmentItem)
         {
             SetButtonEvents("equipment", item, isSearch, itemContainer);
-            _itemDefence.text = "Defence: " + (item as EquipmentItem).equipmentDefence.ToString("+#;-#;0");
+
+            CreateDescriptionAttributeBox("Defence: " + (item as EquipmentItem).equipmentDefence.ToString("+#;-#;0"));
+            CreateDescriptionAttributeBox("Magic Resist: " + (item as EquipmentItem).magicResist.ToString("+#;-#;0"));
         }
         else if (item is PotionItem)
         {
+            CreateDescriptionAttributeBox((item as PotionItem).GetEffectsDescription());
             SetButtonEvents("potion", item, isSearch, itemContainer);
         }
         else if (item is SpellItem)
         {
-            _itemWeaponType.gameObject.SetActive(true);
-            _itemWeaponType.text = "Mind Requirement: " + (item as SpellItem).spell.mindRequirement.ToString();
-
             SetButtonEvents("spell", item, isSearch, itemContainer);
+
+            CreateDescriptionAttributeBox("Mind Requirement: " + (item as SpellItem).spell.mindRequirement.ToString());
         }
         else
         {
@@ -177,12 +160,13 @@ public class PlayerInventoryDescription : MonoBehaviour
     //Hide all the gameobjects and the buttons
     private void ResetText()
     {
-        _itemWeaponType.gameObject.SetActive(false);
-        _itemDamage.gameObject.SetActive(false);
-        _itemBlunt.gameObject.SetActive(false);
-        _itemRange.gameObject.SetActive(false);
-        _itemSpeed.gameObject.SetActive(false);
-        _itemDefence.gameObject.SetActive(false);
+        //Clear all the attribute description boxes
+        int childCount = _attributeTextParent.transform.childCount;
+        for (int i = childCount - 1; i >= 0; i--)
+        {
+            Transform child = _attributeTextParent.transform.GetChild(i);
+            Destroy(child.gameObject);
+        }
 
         _buttonUse.gameObject.SetActive(false);
         _buttonEquip.gameObject.SetActive(false);
@@ -199,6 +183,11 @@ public class PlayerInventoryDescription : MonoBehaviour
         _buttonDrop.onClick.RemoveAllListeners();
         _buttonTake.onClick.RemoveAllListeners();
 
+    }
+
+    private void CreateDescriptionAttributeBox(string text)
+    {
+        Instantiate(_attributeTextBoxPrefab, _attributeTextParent).GetComponent<TextMeshProUGUI>().text = text;
     }
 
     public void CloseDescription()

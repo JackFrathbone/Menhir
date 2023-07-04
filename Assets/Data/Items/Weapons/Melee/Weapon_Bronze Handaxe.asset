@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6daea1aaf28341e47a9808ccc5e2fd02, type: 3}
+  m_Name: Weapon_Bronze Handaxe
+  m_EditorClassIdentifier: 
+  itemName: Bronze Handaxe
+  itemDescription: A shiny bronze axe with a stury handle, not just a simple brute
+    tool.
+  itemWeight: 1.8
+  itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
+  uniqueID: Weapon_Bronze Handaxe25766
+  clearID: 0
+  weaponMeleeType: Axe
+  twoHanded: 0
+  weaponDamage: 8
+  weapontToHitBonus: 10
+  weaponDefence: 0
+  weaponSpeed: 0.85
+  weaponRange: 1.85
+  weaponModel: {fileID: 21300000, guid: 8587e0d6df6267447acaca156749aa4d, type: 3}
+  enchantmentSelfEffects: []
+  enchantmentTargetEffects: []

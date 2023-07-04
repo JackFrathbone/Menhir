@@ -5,10 +5,10 @@ using UnityEngine;
 public class StateActionManager : Singleton<StateActionManager>
 {
     //Find all characters using the specific character sheet
-    public List<NonPlayerCharacterManager> GetCharactersFromSheet(CharacterSheet characterSheet)
+    public List<CharacterManager> GetCharactersFromSheet(CharacterSheet characterSheet)
     {
-        List<NonPlayerCharacterManager> characters = DataManager.instance.GetActiveCharacters();
-        List<NonPlayerCharacterManager> actionCharacters = new();
+        List<CharacterManager> characters = DataManager.instance.GetActiveCharacters();
+        List<CharacterManager> actionCharacters = new();
 
         if (characters.Count == 0)
         {

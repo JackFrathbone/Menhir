@@ -35,7 +35,7 @@ public class Action
 
     protected virtual void RunAction()
     {
-        List<NonPlayerCharacterManager> targetCharacters = StateActionManager.instance.GetCharactersFromSheet(targetChar);
+        List<CharacterManager> targetCharacters = StateActionManager.instance.GetCharactersFromSheet(targetChar);
 
         if (targetCharacters == null || targetCharacters.Count == 0)
         {

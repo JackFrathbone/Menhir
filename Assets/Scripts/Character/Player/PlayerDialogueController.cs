@@ -19,7 +19,7 @@ public class PlayerDialogueController : MonoBehaviour
 
     private TextMeshProUGUI descriptionText;
 
-    private NonPlayerCharacterManager currentCharacterManager;
+    private CharacterManager currentCharacterManager;
 
     //List of all current topic buttons to be deleted
     readonly private List<GameObject> topicButtonsToDelete = new();
@@ -33,54 +33,39 @@ public class PlayerDialogueController : MonoBehaviour
 
     private int _currentSentence;
 
+    private string _currentGreeting;
+
     private void Start()
     {
         _playerCharacterManager = GameManager.instance.playerObject.GetComponent<PlayerCharacterManager>();
         descriptionText = descriptionBox.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void StartDialogue(NonPlayerCharacterManager targetCharacter)
+    //When a character does not have a dialogue graph/component
+    public void StartDialogueSimple(string charName, string charGreeting)
+    {
+
+    }
+
+    //When a character does has a dialogue graph/component
+    public void StartDialogue(DialogueComponent dialogueComponent)
     {
         //Gets the target data needed
-        currentCharacterManager = targetCharacter;
-        characterNameText.text = currentCharacterManager.characterName;
-        _currentDialogueGraph = currentCharacterManager.characterDialogueGraph;
+        _currentDialogueGraph = dialogueComponent.AttachedDialogueGraph;
+        currentCharacterManager = dialogueComponent.DialogueCharacterManager;
+        _currentGreeting = dialogueComponent.CharacterGreeting;
 
         //Set the UI states
         descriptionBox.SetActive(false);
         dialogueUI.SetActive(true);
 
-        if (_currentDialogueGraph != null)
-        {
-            dialogueNextButton.SetActive(true);
-            dialogueLeaveButton.gameObject.SetActive(false);
+        dialogueNextButton.SetActive(true);
+        dialogueLeaveButton.gameObject.SetActive(false);
 
-            //Sets the default greeting based on target state
-            if (currentCharacterManager.characterState == CharacterState.alive)
-            {
-                dialogueText.text = ReplaceText(currentCharacterManager.characterGreeting);
-            }
-            else if (currentCharacterManager.characterState == CharacterState.wounded)
-            {
-                dialogueText.text = ReplaceText(currentCharacterManager.characterWoundedGreeting);
-            }
+        characterNameText.text = dialogueComponent.CharacterName;
+        dialogueText.text = ReplaceText(_currentGreeting);
 
-            dialogueNextButton.GetComponent<Button>().onClick.AddListener(delegate { LoadBaseTopics(); });
-        }
-        else
-        {
-            dialogueNextButton.SetActive(false);
-            dialogueLeaveButton.gameObject.SetActive(true);
-
-            if (currentCharacterManager.characterState == CharacterState.alive)
-            {
-                dialogueText.text = ReplaceText(currentCharacterManager.characterGreeting);
-            }
-            else if (currentCharacterManager.characterState == CharacterState.wounded)
-            {
-                dialogueText.text = ReplaceText(currentCharacterManager.characterWoundedGreeting);
-            }
-        }
+        dialogueNextButton.GetComponent<Button>().onClick.AddListener(delegate { LoadBaseTopics(); });
     }
 
     private void LoadBaseTopics()
@@ -105,7 +90,7 @@ public class PlayerDialogueController : MonoBehaviour
             if (_currentSentence >= _currentSentencesNode.sentences.Count - 1)
             {
                 //Move to the next node
-                NextNode();
+                LoadNextNode();
             }
             else
             {
@@ -115,7 +100,7 @@ public class PlayerDialogueController : MonoBehaviour
         }
     }
 
-    public void LoadSentences(DialogueTopicsNode.Topic topic)
+    public void LoadTopicButton(DialogueTopicsNode.Topic topic)
     {
         //Go the next sentences node
         if (!AbilityCheck(topic))
@@ -130,15 +115,8 @@ public class PlayerDialogueController : MonoBehaviour
             _playerCharacterManager.alreadyRunDialogueTopics.Add(topic.uniqueID);
         }
 
-        NextNodeViaTopic(topic);
         ClearAllTopicButtons();
-
-        _currentSentencesNode = _currentDialogueGraph.current as DialogueSentencesNode;
-        _currentSentence = 0;
-
-        dialogueNextButton.SetActive(true);
-        dialogueLeaveButton.gameObject.SetActive(false);
-        dialogueText.text = ReplaceText(_currentSentencesNode.sentences[_currentSentence]);
+        LoadNextNodeViaTopic(topic);
     }
 
     private void SpawnTopicButtons()
@@ -153,7 +131,7 @@ public class PlayerDialogueController : MonoBehaviour
             {
                 GameObject topicButton = Instantiate(dialogueTopicButton, dialogueText.transform.parent);
                 topicButton.GetComponentInChildren<TextMeshProUGUI>().text = SetTopicButtonText(topic);
-                topicButton.GetComponent<Button>().onClick.AddListener(delegate { LoadSentences(topic); });
+                topicButton.GetComponent<Button>().onClick.AddListener(delegate { LoadTopicButton(topic); });
 
                 topicButtonsToDelete.Add(topicButton);
             }
@@ -305,8 +283,12 @@ public class PlayerDialogueController : MonoBehaviour
 
     private void ShowCharacterDescription()
     {
-        descriptionText.text = currentCharacterManager.characterDescription;
-        descriptionBox.SetActive(true);
+        //If the character is a non player manager then show the description
+        if(currentCharacterManager is NonPlayerCharacterManager)
+        {
+            descriptionText.text = (currentCharacterManager as NonPlayerCharacterManager).characterDescription;
+            descriptionBox.SetActive(true);
+        }
     }
 
     private void CloseCharacterDescription()
@@ -327,8 +309,35 @@ public class PlayerDialogueController : MonoBehaviour
             }
         }
 
-        //checks if alive or wounded, then moves to the appropriate topic node
-        if (currentCharacterManager.characterState == CharacterState.alive)
+        //If there is a valid character manager then set the greeting by state
+        if(currentCharacterManager != null)
+        {
+            //checks if alive or wounded, then moves to the appropriate topic node
+            if (currentCharacterManager.characterState == CharacterState.alive)
+            {
+                foreach (NodePort port in _currentDialogueGraph.current.Ports)
+                {
+                    if (port.fieldName == "exitAlive")
+                    {
+                        _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
+                        break;
+                    }
+                }
+            }
+            else if (currentCharacterManager.characterState == CharacterState.wounded)
+            {
+                foreach (NodePort port in _currentDialogueGraph.current.Ports)
+                {
+                    if (port.fieldName == "exitWounded")
+                    {
+                        _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
+                        break;
+                    }
+                }
+            }
+        }
+        //Otherwise just proceed to the alive port
+        else
         {
             foreach (NodePort port in _currentDialogueGraph.current.Ports)
             {
@@ -339,20 +348,10 @@ public class PlayerDialogueController : MonoBehaviour
                 }
             }
         }
-        else if (currentCharacterManager.characterState == CharacterState.wounded)
-        {
-            foreach (NodePort port in _currentDialogueGraph.current.Ports)
-            {
-                if (port.fieldName == "exitWounded")
-                {
-                    _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
-                    break;
-                }
-            }
-        }
+
     }
 
-    private void NextNode()
+    private void LoadNextNode()
     {
         //Goes to next node
         foreach (NodePort port in _currentDialogueGraph.current.Ports)
@@ -371,66 +370,10 @@ public class PlayerDialogueController : MonoBehaviour
             }
         }
 
-        //Check the loaded node//
-
-        //Checks if the port is topic or not
-        if (_currentDialogueGraph.current is DialogueTopicsNode)
-        {
-            SpawnTopicButtons();
-        }
-        //If the node is a state set node
-        else if (_currentDialogueGraph.current is DialogueStateSetNode)
-        {
-            //Go through each statecheck in the node and add to the player
-            foreach (StateCheck stateCheck in (_currentDialogueGraph.current as DialogueStateSetNode).dialogueAddStateCheck)
-            {
-                _playerCharacterManager.stateChecks.Add(stateCheck);
-            }
-
-            NextNode();
-        }
-        //If it is a jorunal entry node
-        else if (_currentDialogueGraph.current is DialogueJournalEntryNode)
-        {
-            _playerCharacterManager.AddJournalEntry((_currentDialogueGraph.current as DialogueJournalEntryNode).entryToAdd);
-            NextNode();
-        }
-        //If it is a load level node
-        else if (_currentDialogueGraph.current is DialogueLoadLevelNode)
-        {
-            SceneLoader.instance.LoadPlayerScene((_currentDialogueGraph.current as DialogueLoadLevelNode).targetScene.BuildIndex, (_currentDialogueGraph.current as DialogueLoadLevelNode).spawnPointName, Vector3.zero, Vector3.zero, true, true);
-        }
-        //If it is a give object node
-        else if (_currentDialogueGraph.current is DialogueGiveItemNode)
-        {
-            _playerCharacterManager.AddItem((_currentDialogueGraph.current as DialogueGiveItemNode).itemToGive);
-            NextNode();
-        }
-        //If it is a action node
-        else if (_currentDialogueGraph.current is DialogueStateActionNode)
-        {
-            foreach (Action action in (_currentDialogueGraph.current as DialogueStateActionNode).actionToRun)
-            {
-                action.StartAction();
-            }
-            NextNode();
-        }
-        //If it is a quit node then exit dialogue completely
-        else if (_currentDialogueGraph.current is DialogueQuitNode)
-        {
-            EndDialogue();
-        }
-        //If not the above return to the entry node
-        else
-        {
-            ReturnToEntryNode();
-
-            SpawnTopicButtons();
-            dialogueLeaveButton.gameObject.SetActive(true);
-        }
+        RunNewNode();
     }
 
-    private void NextNodeViaTopic(DialogueTopicsNode.Topic topic)
+    private void LoadNextNodeViaTopic(DialogueTopicsNode.Topic topic)
     {
         int topicNum = 0;
 
@@ -448,9 +391,92 @@ public class PlayerDialogueController : MonoBehaviour
         {
             if (port.fieldName == "topics " + topicNum.ToString())
             {
-                _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
+                if(port.Connection != null)
+                {
+                    _currentDialogueGraph.current = port.Connection.node as DialogueBaseNode;
+                }
+                else
+                {
+                    _currentDialogueGraph.current = null;
+                }
                 break;
             }
+        }
+
+        RunNewNode();
+    }
+
+    private void RunNewNode()
+    {
+        //Check the loaded node//
+        //Checks if the port is topic or not
+        if (_currentDialogueGraph.current is DialogueTopicsNode)
+        {
+            SpawnTopicButtons();
+        }
+        //If the node is a sentences node
+        else if(_currentDialogueGraph.current is DialogueSentencesNode)
+        {
+            _currentSentencesNode = _currentDialogueGraph.current as DialogueSentencesNode;
+            _currentSentence = 0;
+
+            dialogueNextButton.SetActive(true);
+            dialogueLeaveButton.gameObject.SetActive(false);
+            dialogueText.text = ReplaceText(_currentSentencesNode.sentences[_currentSentence]);
+        }
+        //If the node is a state set node
+        else if (_currentDialogueGraph.current is DialogueStateSetNode)
+        {
+            //Go through each statecheck in the node and add to the player
+            foreach (StateCheck stateCheck in (_currentDialogueGraph.current as DialogueStateSetNode).dialogueAddStateCheck)
+            {
+                _playerCharacterManager.stateChecks.Add(stateCheck);
+            }
+
+            LoadNextNode();
+        }
+        //If it is a jorunal entry node
+        else if (_currentDialogueGraph.current is DialogueJournalEntryNode)
+        {
+            _playerCharacterManager.AddJournalEntry((_currentDialogueGraph.current as DialogueJournalEntryNode).entryToAdd);
+            LoadNextNode();
+        }
+        //If it is a load level node
+        else if (_currentDialogueGraph.current is DialogueLoadLevelNode)
+        {
+            SceneLoader.instance.LoadPlayerScene((_currentDialogueGraph.current as DialogueLoadLevelNode).targetScene.BuildIndex, (_currentDialogueGraph.current as DialogueLoadLevelNode).spawnPointName, Vector3.zero, Vector3.zero, true, true);
+        }
+        //If it is a give object node
+        else if (_currentDialogueGraph.current is DialogueGiveItemNode)
+        {
+            foreach (Item item in (_currentDialogueGraph.current as DialogueGiveItemNode).itemsToGive)
+            {
+                _playerCharacterManager.AddItem(item);
+            }
+            
+            LoadNextNode();
+        }
+        //If it is a action node
+        else if (_currentDialogueGraph.current is DialogueStateActionNode)
+        {
+            foreach (Action action in (_currentDialogueGraph.current as DialogueStateActionNode).actionToRun)
+            {
+                action.StartAction();
+            }
+            LoadNextNode();
+        }
+        //If it is a quit node then exit dialogue completely
+        else if (_currentDialogueGraph.current is DialogueQuitNode)
+        {
+            EndDialogue();
+        }
+        //If not the above return to the entry node
+        else
+        {
+            ReturnToEntryNode();
+
+            SpawnTopicButtons();
+            dialogueLeaveButton.gameObject.SetActive(true);
         }
     }
 

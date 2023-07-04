@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Utility Scenes/CharacterCreation.unity
     guid: 0c43d8e1bde3c1b4b9cada48ea259651
   - enabled: 1
-    path: Assets/Scenes/Locations/Tutorial.unity
+    path: Assets/Scenes/Locations/Arda.unity
     guid: 8c550f839a3eb7348a3a3a7b71f98c41
   - enabled: 1
     path: Assets/Scenes/Locations/Wavewatch_Fort.unity
@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Utility Scenes/DeathScene.unity
     guid: 8d301b316cf854f4ab366fd2673055e1
   - enabled: 1
-    path: Assets/Scenes/Locations/Tutorial_Cave.unity
+    path: Assets/Scenes/Locations/Arda_Burial Cave.unity
     guid: bbe7b52742db5f14082a0ea526ca55b2
+  - enabled: 1
+    path: Assets/Scenes/Locations/Arda_Hidden Cave.unity
+    guid: 6c8c03727c0dd5d45af05a115ab8277d
   m_configObjects: {}

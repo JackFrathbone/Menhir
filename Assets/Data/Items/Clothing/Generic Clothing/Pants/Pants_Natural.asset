@@ -24,3 +24,4 @@ MonoBehaviour:
   magicResist: 0
   equipmentModel: {fileID: 8155511697211570279, guid: 09c6df8f4a1beb4409a492b448727369, type: 3}
   equipmentColor: {r: 0.94509804, g: 0.8901961, b: 0.827451, a: 1}
+  enchantmentEffects: []

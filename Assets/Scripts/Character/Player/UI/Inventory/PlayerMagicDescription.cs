@@ -11,9 +11,8 @@ public class PlayerMagicDescription : MonoBehaviour
     [SerializeField] TextMeshProUGUI _spellDescription;
 
     [Header("Stats")]
-    [SerializeField] TextMeshProUGUI _spellType;
-    [SerializeField] TextMeshProUGUI _spellMindRequirement;
-    [SerializeField] TextMeshProUGUI _spellCastingCosts;
+    [SerializeField] Transform _attributeTextParent;
+    [SerializeField] GameObject _attributeTextBoxPrefab;
 
     [Header("Action Buttons")]
     [SerializeField] Button _buttonUse;
@@ -37,11 +36,7 @@ public class PlayerMagicDescription : MonoBehaviour
 
         //Base item
         _spellLabel.text = spell.spellName;
-        _spellDescription.text = spell.effectDescription;
-
-        _spellType.gameObject.SetActive(true);
-        _spellMindRequirement.gameObject.SetActive(true);
-        _spellCastingCosts.gameObject.SetActive(true);
+        _spellDescription.text = spell.GetEffectsDescription();
 
         string spellType = "Cast on Self";
 
@@ -61,10 +56,10 @@ public class PlayerMagicDescription : MonoBehaviour
                 castingCost += castingItem.itemName + "\n";
             }
         }
-
-        _spellType.text = "Spell Type: " + spellType;
-        _spellMindRequirement.text = "Mind Requirement: " + spell.mindRequirement.ToString();
-        _spellCastingCosts.text = castingCost;
+        CreateDescriptionAttributeBox("Spell Type: " + spellType);
+        CreateDescriptionAttributeBox("Mind Requirement: " + spell.mindRequirement.ToString());
+        CreateDescriptionAttributeBox("<b>Casting Costs</b>");
+        CreateDescriptionAttributeBox(castingCost);
 
         SetButtonEvents(spell);
     }
@@ -105,9 +100,13 @@ public class PlayerMagicDescription : MonoBehaviour
     //Hide all the gameobjects and the buttons
     private void ResetText()
     {
-        _spellType.gameObject.SetActive(false);
-        _spellMindRequirement.gameObject.SetActive(false);
-        _spellCastingCosts.gameObject.SetActive(false);
+        //Clear all the attribute description boxes
+        int childCount = _attributeTextParent.transform.childCount;
+        for (int i = childCount - 1; i >= 0; i--)
+        {
+            Transform child = _attributeTextParent.transform.GetChild(i);
+            Destroy(child.gameObject);
+        }
 
         _buttonUse.gameObject.SetActive(false);
         _buttonPrepare.gameObject.SetActive(false);
@@ -120,6 +119,11 @@ public class PlayerMagicDescription : MonoBehaviour
         _buttonPrepare.onClick.RemoveAllListeners();
         _buttonLearn.onClick.RemoveAllListeners();
         _buttonForget.onClick.RemoveAllListeners();
+    }
+
+    private void CreateDescriptionAttributeBox(string text)
+    {
+        Instantiate(_attributeTextBoxPrefab, _attributeTextParent).GetComponent<TextMeshProUGUI>().text = text;
     }
 
     public void CloseDescription()

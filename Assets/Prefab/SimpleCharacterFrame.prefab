@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1471910661928567816}
   m_Layer: 0
   m_Name: SimpleCharacterFrame
-  m_TagString: DialogueOnlyCharacter
+  m_TagString: SimpleCharacter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,3 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: 
   greeting: 
+  _attachedDialogueGraph: {fileID: 0}

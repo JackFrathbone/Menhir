@@ -1,0 +1,1975 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8418111033732944413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 488, y: 280}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: -8418111033732944413}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 2562465503708650106}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: -8418111033732944413}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: -8418111033732944413}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 6649460324427528726}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: -8418111033732944413}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: Here you go
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems:
+    - {fileID: 11400000, guid: 9c3050a4dcc991749b4a72bb55fd5656, type: 2}
+    - {fileID: 11400000, guid: 28a26a6fe65640c498ffda12c90b40df, type: 2}
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Hereyougo8317
+  - topicTitle: I don't have that right now
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Idon'thavethatrightnow528
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &-7475004151829801196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 488, y: -152}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: -7475004151829801196}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 2210570505708056238}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: -7475004151829801196}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: -7475004151829801196}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 7170392181461757616}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: -7475004151829801196}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: Here you go
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems:
+    - {fileID: 11400000, guid: 9c3050a4dcc991749b4a72bb55fd5656, type: 2}
+    - {fileID: 11400000, guid: f7dded6ce6502ef46bf173d5331f8588, type: 2}
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Hereyougo9778
+  - topicTitle: I don't have that right now
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Idon'thavethatrightnow9336
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &-6626218322801723631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 696, y: 1304}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -6626218322801723631}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: -6107555946249856907}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -6626218322801723631}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemToGive: {fileID: 11400000, guid: 6bf668e9c27de3d489708169a7c375c8, type: 2}
+--- !u!114 &-6107555946249856907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 488, y: 1304}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: -6107555946249856907}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 7731777058337695951}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: -6107555946249856907}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: -6107555946249856907}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -6626218322801723631}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: -6107555946249856907}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: Here you go
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems:
+    - {fileID: 11400000, guid: 9c3050a4dcc991749b4a72bb55fd5656, type: 2}
+    - {fileID: 11400000, guid: 03d1d3ddef976644c8f8f3f99619187a, type: 2}
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Hereyougo8961
+  - topicTitle: I don't have that right now
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Idon'thavethatrightnow728
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &-5833267891828650155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 488, y: 488}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: -5833267891828650155}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: -2258492222529895684}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: -5833267891828650155}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: -5833267891828650155}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 6479473564601246628}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: -5833267891828650155}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: Here you go
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems:
+    - {fileID: 11400000, guid: 9c3050a4dcc991749b4a72bb55fd5656, type: 2}
+    - {fileID: 11400000, guid: f7dded6ce6502ef46bf173d5331f8588, type: 2}
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Hereyougo7324
+  - topicTitle: I don't have that right now
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Idon'thavethatrightnow2254
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &-4774247174242274814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abc1c7a480638946b9e9472f0a181da, type: 3}
+  m_Name: Dialogue Entry
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -472, y: -232}
+  ports:
+    keys:
+    - exitAlive
+    - exitWounded
+    values:
+    - _fieldName: exitAlive
+      _node: {fileID: -4774247174242274814}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 6603349821057682935}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exitWounded
+      _node: {fileID: -4774247174242274814}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  exitAlive: 0
+  exitWounded: 0
+--- !u!114 &-3996790387610113925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 488, y: 888}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3996790387610113925}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: -3260203974517712979}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: -3996790387610113925}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: -3996790387610113925}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -3272368533796097920}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: -3996790387610113925}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: Here you go
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems:
+    - {fileID: 11400000, guid: 9c3050a4dcc991749b4a72bb55fd5656, type: 2}
+    - {fileID: 11400000, guid: 04f40fdf28338c840b83fe112e88b23c, type: 2}
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Hereyougo7771
+  - topicTitle: I don't have that right now
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Idon'thavethatrightnow7260
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &-3313520434416552085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: 56}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3313520434416552085}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 1
+        node: {fileID: 9204528152865295662}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3313520434416552085}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -849034050318551912}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I require oil and a fire thistle
+--- !u!114 &-3272368533796097920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 696, y: 888}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3272368533796097920}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: -3996790387610113925}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3272368533796097920}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemToGive: {fileID: 11400000, guid: 581c2f6e6c909b9439891c3a55be93af, type: 2}
+--- !u!114 &-3260203974517712979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: 888}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3260203974517712979}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 5
+        node: {fileID: 9204528152865295662}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3260203974517712979}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -3996790387610113925}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I require oil and a fire thistle
+--- !u!114 &-2379767826674640789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: 696}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -2379767826674640789}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 4
+        node: {fileID: 9204528152865295662}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -2379767826674640789}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 4571466315248663707}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I require oil and a purple daffodil
+--- !u!114 &-2258492222529895684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: 488}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -2258492222529895684}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 3
+        node: {fileID: 9204528152865295662}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -2258492222529895684}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -5833267891828650155}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I require oil and a black poppy
+--- !u!114 &-1377065640038500581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 488, y: 1096}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: -1377065640038500581}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 7308814474456835493}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: -1377065640038500581}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: -1377065640038500581}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 8799502978409795003}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: -1377065640038500581}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: Here you go
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems:
+    - {fileID: 11400000, guid: 9c3050a4dcc991749b4a72bb55fd5656, type: 2}
+    - {fileID: 11400000, guid: 28a26a6fe65640c498ffda12c90b40df, type: 2}
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Hereyougo3225
+  - topicTitle: I don't have that right now
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Idon'thavethatrightnow7086
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &-849034050318551912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 488, y: 56}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: -849034050318551912}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: -3313520434416552085}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: -849034050318551912}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: -849034050318551912}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 7503998466511386565}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: -849034050318551912}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: Here you go
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems:
+    - {fileID: 11400000, guid: 9c3050a4dcc991749b4a72bb55fd5656, type: 2}
+    - {fileID: 11400000, guid: 04f40fdf28338c840b83fe112e88b23c, type: 2}
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Hereyougo7001
+  - topicTitle: I don't have that right now
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Idon'thavethatrightnow3025
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8015555d9f4bf5499b8e39521dbed6f, type: 3}
+  m_Name: Alchemist_Basic
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -4774247174242274814}
+  - {fileID: 6603349821057682935}
+  - {fileID: 9040477647429044125}
+  - {fileID: 9204528152865295662}
+  - {fileID: 2210570505708056238}
+  - {fileID: -7475004151829801196}
+  - {fileID: 7170392181461757616}
+  - {fileID: -3313520434416552085}
+  - {fileID: -849034050318551912}
+  - {fileID: 7503998466511386565}
+  - {fileID: 2562465503708650106}
+  - {fileID: -8418111033732944413}
+  - {fileID: 6649460324427528726}
+  - {fileID: -2258492222529895684}
+  - {fileID: -5833267891828650155}
+  - {fileID: 6479473564601246628}
+  - {fileID: -2379767826674640789}
+  - {fileID: 4571466315248663707}
+  - {fileID: 5742949274220148777}
+  - {fileID: -3260203974517712979}
+  - {fileID: -3996790387610113925}
+  - {fileID: -3272368533796097920}
+  - {fileID: 7308814474456835493}
+  - {fileID: -1377065640038500581}
+  - {fileID: 8799502978409795003}
+  - {fileID: 7731777058337695951}
+  - {fileID: -6107555946249856907}
+  - {fileID: -6626218322801723631}
+  - {fileID: 4603837072766779280}
+  current: {fileID: 6603349821057682935}
+--- !u!114 &2210570505708056238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: -152}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 2210570505708056238}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: 9204528152865295662}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 2210570505708056238}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -7475004151829801196}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I require oil and a black poppy
+--- !u!114 &2562465503708650106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: 280}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 2562465503708650106}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 2
+        node: {fileID: 9204528152865295662}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 2562465503708650106}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -8418111033732944413}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I require oil and a bog lily
+--- !u!114 &4571466315248663707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 488, y: 696}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: 4571466315248663707}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: -2379767826674640789}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: 4571466315248663707}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: 4571466315248663707}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 5742949274220148777}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: 4571466315248663707}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: Here you go
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems:
+    - {fileID: 11400000, guid: 9c3050a4dcc991749b4a72bb55fd5656, type: 2}
+    - {fileID: 11400000, guid: 03d1d3ddef976644c8f8f3f99619187a, type: 2}
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Hereyougo1204
+  - topicTitle: I don't have that right now
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Idon'thavethatrightnow8477
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &4603837072766779280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -389.94144, y: 264.47174}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 4603837072766779280}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 1
+        node: {fileID: 6603349821057682935}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 4603837072766779280}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 9204528152865295662}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - ...
+--- !u!114 &5742949274220148777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 696, y: 696}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 5742949274220148777}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: 4571466315248663707}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 5742949274220148777}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemToGive: {fileID: 11400000, guid: 6fc26bc10eb240f45a9a1bdd77ed2478, type: 2}
+--- !u!114 &6479473564601246628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 696, y: 488}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 6479473564601246628}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: -5833267891828650155}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 6479473564601246628}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemToGive: {fileID: 11400000, guid: 23d403f092622b2468134fc886f3c368, type: 2}
+--- !u!114 &6603349821057682935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -168, y: -360}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: 6603349821057682935}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exitAlive
+        node: {fileID: -4774247174242274814}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: 6603349821057682935}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: 6603349821057682935}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 9040477647429044125}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: 6603349821057682935}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 4603837072766779280}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: What services do you offer?
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Whatservicesdoyouoffer?209
+  - topicTitle: I want you to make...
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Iwantyoutomake...9946
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &6649460324427528726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 696, y: 280}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 6649460324427528726}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: -8418111033732944413}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 6649460324427528726}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemToGive: {fileID: 11400000, guid: c4c7e0b7a2689144bb90878bec96063f, type: 2}
+--- !u!114 &7170392181461757616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 696, y: -152}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 7170392181461757616}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: -7475004151829801196}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 7170392181461757616}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemToGive: {fileID: 11400000, guid: 03ecbd8923e5efd48ad938f372eb82fa, type: 2}
+--- !u!114 &7308814474456835493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: 1096}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 7308814474456835493}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 6
+        node: {fileID: 9204528152865295662}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 7308814474456835493}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -1377065640038500581}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I require oil and a bog lily
+--- !u!114 &7503998466511386565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 696, y: 56}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 7503998466511386565}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: -849034050318551912}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 7503998466511386565}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemToGive: {fileID: 11400000, guid: f7a67cc0ee48fba429d8dc5acfa455cc, type: 2}
+--- !u!114 &7731777058337695951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 264, y: 1304}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 7731777058337695951}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 7
+        node: {fileID: 9204528152865295662}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 7731777058337695951}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -6107555946249856907}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I require oil and a purple daffodil
+--- !u!114 &8799502978409795003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 696, y: 1096}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 8799502978409795003}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: -1377065640038500581}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 8799502978409795003}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemToGive: {fileID: 11400000, guid: de85afc3283d48b409f99bb99c0fe3a2, type: 2}
+--- !u!114 &9040477647429044125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 104, y: -808}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 9040477647429044125}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: 6603349821057682935}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 9040477647429044125}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I can make all sorts basic magical salves out of ingredients you bring me.
+  - One of the most important is a healing poultice made with black poppy, heals
+    the wounds very fast and dulls the pain.
+  - I can also make salves for you muscles that will give you health and make your
+    arms strong.
+  - I can do a hand salve that will make you nimble and shoot bows better.
+  - How about a magical oil that grants clarity of the mind?
+  - Or a alchemic musk that will make you smell much better, and make yourself more
+    persuasive.
+  - I can also do a spellscreen salve to block magical attack, or a bronzeskin salve
+    that will make you much harder to hurt.
+  - Lastly for true warriors, a sword oil that will make you swing and block better.
+--- !u!114 &9204528152865295662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: -152}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    - topics 2
+    - topics 3
+    - topics 4
+    - topics 5
+    - topics 6
+    - topics 7
+    values:
+    - _fieldName: entry
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 4603837072766779280}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 2210570505708056238}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -3313520434416552085}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 2
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 2562465503708650106}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 3
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -2258492222529895684}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 4
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -2379767826674640789}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 5
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -3260203974517712979}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 6
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 7308814474456835493}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 7
+      _node: {fileID: 9204528152865295662}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 7731777058337695951}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: a healing poultice
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: ahealingpoultice2833
+  - topicTitle: a muscle salve
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: amusclesalve9876
+  - topicTitle: hand cream
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: handcream4943
+  - topicTitle: magic oil
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: magicoil871
+  - topicTitle: alchemic musk
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: alchemicmusk6893
+  - topicTitle: sword oil
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: swordoil8098
+  - topicTitle: spellscreen salve
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: spellscreensalve4636
+  - topicTitle: bronzeskin salve
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: bronzeskinsalve9535
+  generateIDs: 0
+  clearIDs: 0

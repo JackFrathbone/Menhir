@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 2783529865325825785}
   - component: {fileID: 2783529865325825784}
   - component: {fileID: 2783529865325825791}
+  - component: {fileID: 2661258373305370540}
   m_Layer: 0
   m_Name: Cupboard
-  m_TagString: Untagged
+  m_TagString: ItemContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12465,3 +12466,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &2661258373305370540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2783529865325825790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7ff5a5f9f1dc44db53d1bc89929d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deleteEmpty: 0
+  inventory: []

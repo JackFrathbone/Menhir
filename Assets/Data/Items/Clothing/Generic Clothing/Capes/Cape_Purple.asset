@@ -17,10 +17,11 @@ MonoBehaviour:
     well made but simple with no decorations.
   itemWeight: 0.2
   itemIcon: {fileID: 6747789527102655765, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Cape_Purple26032
+  uniqueID: Cape_Purple28082
   clearID: 0
   equipmentType: 1
   equipmentDefence: 0
   magicResist: 0
   equipmentModel: {fileID: 21300000, guid: feaa377617166a049b12f0aca6b154c6, type: 3}
   equipmentColor: {r: 0.15674211, g: 0.12006053, b: 0.3584906, a: 1}
+  enchantmentEffects: []

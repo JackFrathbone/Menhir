@@ -518,4 +518,16 @@ public class PlayerCharacterManager : CharacterManager
 
         base.RemoveItem(i);
     }
+
+    public override bool CheckSkill_SecondWind()
+    {
+        bool result = base.CheckSkill_SecondWind();
+
+        if (result)
+        {
+            MessageBox.instance.Create("You gain a second wind and restore half your health!", true);
+        }
+
+        return result;
+    }
 }

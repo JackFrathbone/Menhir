@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050cdfc0b83faf64289568d2f8e6a99c, type: 3}
+  m_Name: Spell_Create Muscle Salve
+  m_EditorClassIdentifier: 
+  spellName: Create Muscle Salve
+  isRecipe: 1
+  spellIcon: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  mindRequirement: 0
+  castTarget: 0
+  effectSelf: 1
+  spellArea: 0
+  cooldown: 0
+  spellEffects:
+  - effectType: 22
+    effectStrength: 0
+    effectSeconds: 1
+    effectChance: 1
+    effectTeleportPos: {x: 0, y: 0, z: 0}
+    effectCreateItem: {fileID: 11400000, guid: f7a67cc0ee48fba429d8dc5acfa455cc, type: 2}
+    effectSpawnCharacter: {fileID: 0}
+    permanentEffect: 0
+    effectSecondsPassed: 0
+  castingCostItems:
+  - {fileID: 11400000, guid: 9c3050a4dcc991749b4a72bb55fd5656, type: 2}
+  - {fileID: 11400000, guid: 04f40fdf28338c840b83fe112e88b23c, type: 2}
+  uniqueID: Spell_Create Muscle Salve28208
+  clearID: 0

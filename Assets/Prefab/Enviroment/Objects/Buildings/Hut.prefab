@@ -2589,7 +2589,7 @@ MonoBehaviour:
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
-  m_SelectedVertices: b5000000
+  m_SelectedVertices: 
 --- !u!23 &3697190074472328891
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -50,8 +50,8 @@ public class PlayerMagic : MonoBehaviour
     private Spell _freeSpell1;
     private Spell _freeSpell2;
 
-    private bool _canCastSlot1 = true;
-    private bool _canCastSlot2 = true;
+    [SerializeField] private bool _canCastSlot1 = true;
+    [SerializeField] private bool _canCastSlot2 = true;
 
     //The time it takes to be able to cast a spell again
     [SerializeField] float _castTimeDefault;
@@ -546,7 +546,7 @@ public class PlayerMagic : MonoBehaviour
         {
             _spellSlot2ActiveUI.color = new Color(_spellSlot2ActiveUI.color.r, _spellSlot2ActiveUI.color.g, _spellSlot2ActiveUI.color.b, 0.1f);
         }
-        yield return new WaitForSeconds(spell.castingTime - (spell.castingTime * _castTimeBonus/100));
+        yield return new WaitForSeconds(spell.cooldown - (spell.cooldown * _castTimeBonus / 100));
         if (spellSlot == 1)
         {
             _canCastSlot1 = true;

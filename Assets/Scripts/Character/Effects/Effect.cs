@@ -174,7 +174,14 @@ public class Effect
                 break;
             case EffectType.Create_Item:
                 _runOnce = true;
-                targetCharacter.AddItem(effectCreateItem);
+                if (effectCreateItem != null)
+                {
+                    targetCharacter.AddItem(effectCreateItem);
+                }
+                else
+                {
+                    Debug.Log("Invalid effect item set");
+                }
                 break;
             case EffectType.Spawn_Character:
                 _runOnce = true;

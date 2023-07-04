@@ -9,7 +9,7 @@ public class DialogueGiveItemNode : DialogueBaseNode
 	[Output] public int exit;
 
 	//For giving items to the player
-	public Item itemToGive;
+	public List<Item> itemsToGive = new();
 
 	public override string GetNodeType()
 	{

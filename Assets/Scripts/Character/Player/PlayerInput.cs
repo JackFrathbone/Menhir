@@ -77,7 +77,7 @@ public class PlayerInput : MonoBehaviour
                     _activateMode = ActivateMode.search;
                 }
             }
-            else if (hit.collider.CompareTag("DialogueOnlyCharacter"))
+            else if (hit.collider.CompareTag("SimpleCharacter"))
             {
                 _playerActiveUI.EnableCrosshairText("Talk to");
                 _activateMode = ActivateMode.talk;
@@ -241,17 +241,34 @@ public class PlayerInput : MonoBehaviour
                         }
                         break;
                     case ActivateMode.talk:
-                        if (_target.CompareTag("DialogueOnlyCharacter"))
+                        if ((_target.CompareTag("Character") || _target.CompareTag("SimpleCharacter")) && GameManager.instance.CheckCanPause("dialogueMenu"))
                         {
-                            SimpleCharacterManager simpleCharacter = _target.GetComponentInParent<SimpleCharacterManager>();
-                            MessageBox.instance.Create(simpleCharacter.greeting, true);
-                            return;
-                        }
+                            //Check if there is a dialogue component
+                            DialogueComponent dialogueComponent = _target.GetComponent<DialogueComponent>();
 
-                        if (_target.CompareTag("Character") && GameManager.instance.CheckCanPause("dialogueMenu"))
-                        {
-                            GameManager.instance.PauseGame(true, "dialogueMenu");
-                            _playerDialogueController.StartDialogue(_target.GetComponentInParent<NonPlayerCharacterManager>());
+                            if(dialogueComponent != null)
+                            {
+                                GameManager.instance.PauseGame(true, "dialogueMenu");
+                                _playerDialogueController.StartDialogue(dialogueComponent);
+                            }
+                            else
+                            {
+                                //Otherwise just play the appropriate greeting in a text box
+                                if (_target.CompareTag("Character"))
+                                {
+                                    NonPlayerCharacterManager nonPlayerCharacterManager = _target.GetComponent<NonPlayerCharacterManager>();
+
+                                    if(nonPlayerCharacterManager != null)
+                                    {
+                                        MessageBox.instance.Create(nonPlayerCharacterManager.GetGreetingByState(), true);
+                                    }
+                                }
+                                else if (_target.CompareTag("SimpleCharacter"))
+                                {
+                                    SimpleCharacterManager simpleCharacter = _target.GetComponentInParent<SimpleCharacterManager>();
+                                    MessageBox.instance.Create(simpleCharacter.greeting, true);
+                                }
+                            }
                         }
                         else
                         {

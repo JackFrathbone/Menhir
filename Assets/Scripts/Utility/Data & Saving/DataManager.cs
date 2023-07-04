@@ -18,18 +18,19 @@ public class DataManager : Singleton<DataManager>
 
     private PlayerDataTracker _playerData;
 
-    [ReadOnly] [SerializeField] List<NonPlayerCharacterManager> _activeNPCharacters = new();
+    //All NPCs and Monsters active in the scene
+    [ReadOnly] [SerializeField] List<CharacterManager> _activeCharacters = new();
 
     private void Start()
     {
         keepAlive = true;
     }
 
-    public void AddActiveCharacter(NonPlayerCharacterManager character)
+    public void AddActiveCharacter(CharacterManager character)
     {
-        if (!_activeNPCharacters.Contains(character))
+        if (!_activeCharacters.Contains(character))
         {
-            _activeNPCharacters.Add(character);
+            _activeCharacters.Add(character);
         }
         else
         {
@@ -38,11 +39,11 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
-    public void RemoveActiveCharacter(NonPlayerCharacterManager character)
+    public void RemoveActiveCharacter(CharacterManager character)
     {
-        if (_activeNPCharacters.Contains(character))
+        if (_activeCharacters.Contains(character))
         {
-            _activeNPCharacters.Remove(character);
+            _activeCharacters.Remove(character);
         }
         else
         {
@@ -54,12 +55,12 @@ public class DataManager : Singleton<DataManager>
     //Empty list of chars in scene when loading a new one
     public void ClearActiveCharacters()
     {
-        _activeNPCharacters.Clear();
+        _activeCharacters.Clear();
     }
 
-    public List<NonPlayerCharacterManager> GetActiveCharacters()
+    public List<CharacterManager> GetActiveCharacters()
     {
-        return _activeNPCharacters;
+        return _activeCharacters;
     }
 
     public void SetPlayerTracker(PlayerDataTracker dataTracker)
@@ -551,9 +552,9 @@ public class DataManager : Singleton<DataManager>
 
     private void LoadSceneDataCharacters(string trackedSceneName, SceneData sceneData)
     {
-        List<NonPlayerCharacterManager> sceneCharacters = _activeNPCharacters;
+        List<CharacterManager> sceneCharacters = _activeCharacters;
 
-        foreach (NonPlayerCharacterManager character in sceneCharacters)
+        foreach (CharacterManager character in sceneCharacters)
         {
             if (character.gameObject.scene.name != trackedSceneName)
             {

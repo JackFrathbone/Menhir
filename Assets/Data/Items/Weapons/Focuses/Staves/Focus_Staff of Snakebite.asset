@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8972c5d35db37d4f82a5d32cc1ec607, type: 3}
+  m_Name: Focus_Staff of Snakebite
+  m_EditorClassIdentifier: 
+  itemName: Staff of Snakebite
+  itemDescription: A staff that has a curved snake carved along it's length. It casts
+    a spell that can freeze any enemy in places for a short time.
+  itemWeight: 1
+  itemIcon: {fileID: 0}
+  uniqueID: Focus_Staff of Snakebite25746
+  clearID: 0
+  focusModel: {fileID: 21300000, guid: 59768ade6c031784ba5b08cf9884d2f8, type: 3}
+  projectilePrefab: {fileID: 3784735241220424099, guid: e2b895085913cc54c95260aba652cbf9, type: 3}
+  mindRequirement: 6
+  castingSpeed: 3
+  focusEffects:
+  - effectType: 17
+    effectStrength: 0
+    effectSeconds: 5
+    effectChance: 100
+    effectTeleportPos: {x: 0, y: 0, z: 0}
+    effectCreateItem: {fileID: 0}
+    effectSpawnCharacter: {fileID: 0}
+    permanentEffect: 0
+    effectSecondsPassed: 0
+  enchantmentEffects:
+  - effectType: 31
+    effectStrength: 35
+    effectSeconds: 0
+    effectChance: 0
+    effectTeleportPos: {x: 0, y: 0, z: 0}
+    effectCreateItem: {fileID: 0}
+    effectSpawnCharacter: {fileID: 0}
+    permanentEffect: 0
+    effectSecondsPassed: 0
