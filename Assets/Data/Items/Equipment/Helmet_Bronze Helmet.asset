@@ -17,7 +17,7 @@ MonoBehaviour:
     the cheeks.
   itemWeight: 1.5
   itemIcon: {fileID: 6361351448533257067, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Helmet_Bronze Helmet28164
+  uniqueID: Helmet_Bronze Helmet32740
   clearID: 0
   equipmentType: 5
   equipmentDefence: 6

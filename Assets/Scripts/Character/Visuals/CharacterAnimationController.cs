@@ -115,5 +115,7 @@ public class CharacterAnimationController : MonoBehaviour
         _inCombat = inCombat;
 
         _characterAnimator.SetBool("inCombat", _inCombat);
+
+        CheckState();
     }
 }

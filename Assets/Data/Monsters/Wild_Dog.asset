@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Wild Dog
   monsterInventory: []
-  health: 15
-  damage: 6
+  health: 6
+  damage: 3
   toHitBonus: 0
   range: 2
-  attackSpeed: 2
+  attackSpeed: 1
   isRanged: 0
   projectilePrefab: {fileID: 0}
   projectileEffects: []

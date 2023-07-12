@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Acid Hex
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Acid Hex25782
+  uniqueID: Spell_Acid Hex32810
   clearID: 0
   spell: {fileID: 11400000, guid: 62369dcaa05e9534f8e9c746954fe87f, type: 2}

@@ -115,10 +115,15 @@ public class CharacterVisualUpdater : MonoBehaviour
         //Below are the items which dont have visuals but instead use built in animated and recolorable skins//
         if (charManager.equippedShirt != null)
         {
+            _shirtRenderer.sprite = charManager.equippedShirt.equipmentModel;
             _shirtRenderer.color = charManager.equippedShirt.equipmentColor;
+
+            ///Set the arm color to match shirt
+            _armRenderer.color = charManager.equippedShirt.equipmentColor;
         }
         else
         {
+            _shirtRenderer.sprite = null;
             _shirtRenderer.color = Color.clear;
         }
 

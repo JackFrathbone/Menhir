@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Dana's Bloodstop
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Dana's Bloodstop28046
+  uniqueID: Spell_Dana's Bloodstop32856
   clearID: 0
   spell: {fileID: 11400000, guid: 60e491bc5648b614a9c5c3bc4823d9db, type: 2}

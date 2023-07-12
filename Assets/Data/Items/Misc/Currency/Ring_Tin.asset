@@ -16,5 +16,5 @@ MonoBehaviour:
   itemDescription: A small dull ring made of tin, to be worn on fingers and toes.
   itemWeight: 0.1
   itemIcon: {fileID: 21300000, guid: a42637921e8ed2148a7634f7c2e449a0, type: 3}
-  uniqueID: Ring_Tin25788
+  uniqueID: Ring_Tin10648
   clearID: 0

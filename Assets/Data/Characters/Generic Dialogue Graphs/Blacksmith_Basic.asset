@@ -1419,7 +1419,8 @@ MonoBehaviour:
     topicRunOnce: 0
     topicStateChecks: []
     topicStateChecksInactive: []
-    topicRequiredItems: []
+    topicRequiredItems:
+    - {fileID: 0}
     topicAbilityChecks:
       body: 0
       hands: 0

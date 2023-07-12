@@ -21,11 +21,11 @@ MonoBehaviour:
   characterAggression: 1
   characterInventory:
   - {fileID: 11400000, guid: e5bdfe0c510aa964dbeeaf24799fc090, type: 2}
-  - {fileID: 11400000, guid: 5bcbf4a34402e5b4b8ce4cb537a1fc03, type: 2}
+  - {fileID: 11400000, guid: 34e7774349da20a4c9830284eb3d921e, type: 2}
   characterSpells: []
   characterGreeting: Welcome to my village outsider
   characterWoundedGreeting: 
-  characterDialogueGraph: {fileID: 0}
+  characterDialogueGraph: {fileID: 11400000, guid: b6336532f9669e5428af1d8aea00cc87, type: 2}
   abilities:
     body: 3
     hands: 3

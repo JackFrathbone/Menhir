@@ -38,15 +38,6 @@ AnimationClip:
     script: {fileID: 0}
   - curve:
     - time: 0
-      value: {fileID: -2032418120, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
-    - time: 1
-      value: {fileID: 1343655266230281646, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
-    attribute: m_Sprite
-    path: Equipment/ShirtSlot
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
       value: {fileID: 68351926, guid: 9dcea43c4543eca4899aacf6765291b2, type: 3}
     - time: 1
       value: {fileID: -550227554, guid: 9dcea43c4543eca4899aacf6765291b2, type: 3}
@@ -85,13 +76,6 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     - serializedVersion: 2
-      path: 3586577488
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
       path: 1636995938
       attribute: 0
       script: {fileID: 0}
@@ -110,8 +94,6 @@ AnimationClip:
     - {fileID: 1677374127, guid: 9dcea43c4543eca4899aacf6765291b2, type: 3}
     - {fileID: 21300000, guid: 1c668a6c14cd10b4b9933f6e9e1b5078, type: 3}
     - {fileID: 21300000, guid: 1c668a6c14cd10b4b9933f6e9e1b5078, type: 3}
-    - {fileID: -2032418120, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
-    - {fileID: 1343655266230281646, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
     - {fileID: 68351926, guid: 9dcea43c4543eca4899aacf6765291b2, type: 3}
     - {fileID: -550227554, guid: 9dcea43c4543eca4899aacf6765291b2, type: 3}
     - {fileID: -618542898, guid: 9dcea43c4543eca4899aacf6765291b2, type: 3}

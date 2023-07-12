@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Charm of Health
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Charm of Health28042
+  uniqueID: Spell_Charm of Health32818
   clearID: 0
   spell: {fileID: 11400000, guid: 3b10c4bc943eb58439c8926583ef027c, type: 2}

@@ -17,7 +17,7 @@ MonoBehaviour:
     sole. Good for kicking down doors and trampling enemies underfoot.
   itemWeight: 1.25
   itemIcon: {fileID: 8354394645767491671, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Feet_Heavy Boots10674
+  uniqueID: Feet_Heavy Boots10848
   clearID: 0
   equipmentType: 2
   equipmentDefence: 5

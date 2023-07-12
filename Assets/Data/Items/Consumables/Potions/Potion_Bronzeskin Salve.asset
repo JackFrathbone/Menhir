@@ -17,7 +17,7 @@ MonoBehaviour:
     when fighting, it makes the sking extremely tough for a short period.
   itemWeight: 0.5
   itemIcon: {fileID: 21300000, guid: 7776d2842ca175a408c6277c01c5cc6f, type: 3}
-  uniqueID: Potion_Bronzeskin Salve10664
+  uniqueID: Potion_Bronzeskin Salve32700
   clearID: 0
   potionEffects:
   - effectType: 18

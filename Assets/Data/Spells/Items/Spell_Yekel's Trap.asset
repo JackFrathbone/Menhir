@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Yekel's Trap
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Yekel's Trap28070
+  uniqueID: Spell_Yekel's Trap32880
   clearID: 0
   spell: {fileID: 11400000, guid: f6b218e149f4fff4c915ed8aa06d255a, type: 2}

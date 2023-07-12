@@ -17,7 +17,7 @@ MonoBehaviour:
     rapidly.
   itemWeight: 0.5
   itemIcon: {fileID: 21300000, guid: 7776d2842ca175a408c6277c01c5cc6f, type: 3}
-  uniqueID: Potion_Stamina Potion27976
+  uniqueID: Potion_Stamina Potion32722
   clearID: 0
   potionEffects:
   - effectType: 4

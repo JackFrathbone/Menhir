@@ -54,6 +54,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] Image _pantsDisplay;
     [SerializeField] Image _handsDisplay;
     [SerializeField] Image _shirtDisplay;
+    [SerializeField] Image _armDisplay;
     [SerializeField] Image _armourDisplay;
     [SerializeField] Image _capeFrontDisplay;
     [SerializeField] Image _greavesDisplay;
@@ -399,11 +400,19 @@ public class PlayerInventory : MonoBehaviour
 
             _shirtDisplay.sprite = _playerCharacterManager.equippedShirt.equipmentModel;
             _shirtDisplay.color = _playerCharacterManager.equippedShirt.equipmentColor;
+
+            //Set the shirt arms
+            _armDisplay.gameObject.SetActive(true);
+            _armDisplay.color = _playerCharacterManager.equippedShirt.equipmentColor;
         }
         else
         {
             _shirtButton.gameObject.SetActive(false);
             _shirtDisplay.color = Color.clear;
+
+            //Set the shirt arms
+            _armDisplay.gameObject.SetActive(false);
+            _armDisplay.color = Color.clear;
         }
     }
 }

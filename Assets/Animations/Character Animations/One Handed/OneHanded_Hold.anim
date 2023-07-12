@@ -54,15 +54,6 @@ AnimationClip:
     path: Equipment/WeaponSlot
     classID: 212
     script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: -3362390383163478696, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
-    - time: 1
-      value: {fileID: 1343655266230281646, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
-    attribute: m_Sprite
-    path: Equipment/ShirtSlot
-    classID: 212
-    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -98,13 +89,6 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 3586577488
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: -5732713700502141569, guid: 50a34bf1965848e49ad8094a862593e3, type: 3}
     - {fileID: 52807937415885650, guid: 50a34bf1965848e49ad8094a862593e3, type: 3}
@@ -114,8 +98,6 @@ AnimationClip:
     - {fileID: 4210758083017592517, guid: 50a34bf1965848e49ad8094a862593e3, type: 3}
     - {fileID: -2145621534174684449, guid: 50a34bf1965848e49ad8094a862593e3, type: 3}
     - {fileID: -3550943367819167078, guid: 50a34bf1965848e49ad8094a862593e3, type: 3}
-    - {fileID: -3362390383163478696, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
-    - {fileID: 1343655266230281646, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

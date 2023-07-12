@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: A hearty stew of meat and vegetables
   itemWeight: 1
   itemIcon: {fileID: 21300000, guid: 7776d2842ca175a408c6277c01c5cc6f, type: 3}
-  uniqueID: Consumable_Stew27804
+  uniqueID: Consumable_Stew32692
   clearID: 0
   potionEffects:
   - effectType: 0

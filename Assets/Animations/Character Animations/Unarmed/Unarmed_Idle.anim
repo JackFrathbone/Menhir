@@ -32,13 +32,6 @@ AnimationClip:
     path: Body
     classID: 212
     script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: 8412589149891289136, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
-    attribute: m_Sprite
-    path: Equipment/ShirtSlot
-    classID: 212
-    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -60,17 +53,9 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 3586577488
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 7495744904551805249, guid: 58ef1cf0addbde24eababf508cd4955e, type: 3}
     - {fileID: 21300000, guid: 1c668a6c14cd10b4b9933f6e9e1b5078, type: 3}
-    - {fileID: 8412589149891289136, guid: d006390e6b2fef04da19acadd2ca8278, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

@@ -266,8 +266,11 @@ public class NonPlayerCharacterManager : CharacterManager
         {
             foreach (Item shieldItem in currentInventory)
             {
-                equippedShield = shieldItem as ShieldItem;
-                break;
+                if(shieldItem is ShieldItem)
+                {
+                    equippedShield = shieldItem as ShieldItem;
+                    break;
+                }
             }
 
             if(equippedShield != null)

@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Magic Oil
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Magic Oil-91728
+  uniqueID: Spell_Create Magic Oil32838
   clearID: 0
   spell: {fileID: 11400000, guid: 8be512f11be7e194d8280fbe6ca6faad, type: 2}

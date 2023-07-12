@@ -17,7 +17,7 @@ MonoBehaviour:
     into the top. This is a weapon for crushing bones.
   itemWeight: 3
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon_Stone Club25780
+  uniqueID: Weapon_Stone Club32796
   clearID: 0
   weaponMeleeType: Club
   twoHanded: 1

@@ -7,6 +7,7 @@ public class TriggerController : MonoBehaviour
     [Header("Things To Run")]
     [SerializeField, TextArea(1, 6)] string _messageBoxText;
     [SerializeField] List<StateCheck> _stateChecksToAdd = new();
+    [SerializeField] JournalEntry _journalEntryToAdd;
 
     [Header("Tracking")]
     [ReadOnly] public string uniqueID;
@@ -65,6 +66,13 @@ public class TriggerController : MonoBehaviour
                 {
                     player.stateChecks.Add(stateCheck);
                 }
+            }
+
+            if(_journalEntryToAdd.journalText != "")
+            {
+                PlayerCharacterManager player = other.GetComponent<PlayerCharacterManager>();
+
+                player.AddJournalEntry(_journalEntryToAdd);
             }
 
             triggered = true;

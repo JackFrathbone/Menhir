@@ -19,10 +19,11 @@ MonoBehaviour:
   characterAggression: 2
   characterInventory:
   - {fileID: 11400000, guid: 6c3f558bca06c7f4baf5454fcc3fa726, type: 2}
+  - {fileID: 11400000, guid: f7076464570a41b4580c1655e748bac6, type: 2}
   - {fileID: 11400000, guid: 063b577814dc9f945b758717a94ca71f, type: 2}
-  - {fileID: 11400000, guid: 8723b62de0a99dd4191c7c302c4e1ef0, type: 2}
+  - {fileID: 11400000, guid: 724d030d9fde31743a295afc5fb04a3b, type: 2}
   - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
-  - {fileID: 11400000, guid: 42ac219787fa7e84593c60a5c383a148, type: 2}
+  - {fileID: 11400000, guid: 167df058ba2948b4880326f8232fbff6, type: 2}
   characterSpells: []
   characterGreeting: Uwu hewwo
   characterWoundedGreeting: Oof ouch my bones
@@ -38,7 +39,7 @@ MonoBehaviour:
   invulnerableMode: 0
   woundedOnlyMode: 0
   randomiseVisuals: 0
-  characterSkintone: {r: 1, g: 0.85882354, b: 0.6745098, a: 1}
-  characterHairColor: {r: 1, g: 0, b: 0, a: 1}
+  characterSkintone: {r: 0.9490197, g: 0.81568635, b: 0.72156864, a: 1}
+  characterHairColor: {r: 0.5058824, g: 0.1764706, b: 0.07450981, a: 1}
   characterHair: {fileID: 7453196644828883793, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
   characterBeard: {fileID: 0}

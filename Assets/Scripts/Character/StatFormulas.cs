@@ -9,7 +9,7 @@ public static class StatFormulas
 
     public static float TotalCharacterStamina(int hands)
     {
-        return (1 + (hands * 2f)) * 2f;
+        return (1 + (hands * 2f)) * 6f;
     }
 
     public static float StaminaRegenRate(int hands)

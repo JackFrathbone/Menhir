@@ -16,5 +16,5 @@ MonoBehaviour:
   itemDescription: A polished gold ring, with small details across its shiny surface.
   itemWeight: 0.5
   itemIcon: {fileID: 21300000, guid: ae81cf1de2cc166418f98874c83c7e85, type: 3}
-  uniqueID: Ring_Gold28174
+  uniqueID: Ring_Gold32746
   clearID: 0

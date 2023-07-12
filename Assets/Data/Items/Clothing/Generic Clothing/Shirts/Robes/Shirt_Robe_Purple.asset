@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b21fdad12a1b040a5a3357d9c08265, type: 3}
+  m_Name: Shirt_Robe_Purple
+  m_EditorClassIdentifier: 
+  itemName: Purple Linen Shirt
+  itemDescription: A purple linen shirt with no decorations.
+  itemWeight: 0.15
+  itemIcon: {fileID: 4365341006538210109, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
+  uniqueID: Shirt_Robe_Purple32652
+  clearID: 0
+  equipmentType: 7
+  equipmentDefence: 0
+  magicResist: 0
+  equipmentModel: {fileID: 21300000, guid: 4ce3d2f7c407ed2489a7896d9caafba5, type: 3}
+  equipmentColor: {r: 0.15674211, g: 0.12006053, b: 0.3584906, a: 1}
+  enchantmentEffects: []

@@ -17,7 +17,7 @@ MonoBehaviour:
     drinkers magical power.
   itemWeight: 0.5
   itemIcon: {fileID: 21300000, guid: 7776d2842ca175a408c6277c01c5cc6f, type: 3}
-  uniqueID: Potion_Magesight Tincture27954
+  uniqueID: Potion_Magesight Tincture32710
   clearID: 0
   potionEffects:
   - effectType: 10
