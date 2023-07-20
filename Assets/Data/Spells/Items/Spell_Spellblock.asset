@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Spellblock
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Spellblock32876
+  uniqueID: Spell_Spellblock31784
   clearID: 0
   spell: {fileID: 11400000, guid: 7be63c135ec5df04d9f0f339b573407e, type: 2}

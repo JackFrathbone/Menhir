@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: A breastplate made of many small leather pieces sown together.
   itemWeight: 1.5
   itemIcon: {fileID: 1995977949585069193, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Armour_Hide lamellar Breastplate32732
+  uniqueID: Armour_Hide lamellar Breastplate31654
   clearID: 0
   equipmentType: 0
   equipmentDefence: 5

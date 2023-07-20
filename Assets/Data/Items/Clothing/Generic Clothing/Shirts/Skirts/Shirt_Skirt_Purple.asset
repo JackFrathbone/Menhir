@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b21fdad12a1b040a5a3357d9c08265, type: 3}
   m_Name: Shirt_Skirt_Purple
   m_EditorClassIdentifier: 
-  itemName: Purple Linen Shirt
+  itemName: Purple Linen Tunic
   itemDescription: A purple linen shirt with no decorations.
   itemWeight: 0.15
   itemIcon: {fileID: 4365341006538210109, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Shirt_Skirt_Purple32676
+  uniqueID: Shirt_Skirt_Purple31604
   clearID: 0
   equipmentType: 7
   equipmentDefence: 0

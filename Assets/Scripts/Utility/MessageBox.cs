@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class MessageBox : Singleton<MessageBox>
 {
@@ -28,6 +29,7 @@ public class MessageBox : Singleton<MessageBox>
         {
             GameManager.instance.UnPauseGame(playerPresent);
         }
+
         Destroy(this.gameObject);
     }
 }

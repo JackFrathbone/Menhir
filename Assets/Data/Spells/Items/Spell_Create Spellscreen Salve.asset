@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Spellscreen Salve
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Spellscreen Salve32844
+  uniqueID: Spell_Create Spellscreen Salve31756
   clearID: 0
   spell: {fileID: 11400000, guid: 890f94fc12447354dbc0c3578224b697, type: 2}

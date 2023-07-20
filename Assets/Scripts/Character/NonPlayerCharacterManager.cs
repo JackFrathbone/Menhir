@@ -37,7 +37,7 @@ public class NonPlayerCharacterManager : CharacterManager
 
         _animationController = GetComponentInChildren<CharacterAnimationController>();
         _VisualUpdater = GetComponentInChildren<CharacterVisualUpdater>();
-        EquipItems();
+
         SetupDialogueComponent();
     }
 
@@ -109,6 +109,13 @@ public class NonPlayerCharacterManager : CharacterManager
         characterAggression = _characterSheet.characterAggression;
 
         currentInventory = new List<Item>(_characterSheet.characterInventory);
+
+        //Add the random items
+        foreach(RandomItem i in _characterSheet.randomItems)
+        {
+            AddItem(i.GetItem());
+        }
+
         currentSpells = new List<Spell>(_characterSheet.characterSpells);
 
         characterGreeting = _characterSheet.characterGreeting;
@@ -138,6 +145,9 @@ public class NonPlayerCharacterManager : CharacterManager
             gameObject.SetActive(false);
             return;
         }
+
+        //Set the equip state
+        EquipItems();
 
         //if wounded only mode then set dead state to wounded
         if (_characterSheet.woundedOnlyMode && characterState == CharacterState.dead)

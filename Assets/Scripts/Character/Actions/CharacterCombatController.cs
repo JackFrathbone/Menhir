@@ -37,11 +37,6 @@ public class CharacterCombatController : MonoBehaviour
         _characterManager = GetComponent<CharacterManager>();
     }
 
-    private void Start()
-    {
-        SetWeaponStats();
-    }
-
     private void Update()
     {
         //Dont do anything if not in combat
@@ -89,6 +84,8 @@ public class CharacterCombatController : MonoBehaviour
 
     public void StartCombat()
     {
+        SetWeaponStats();
+
         _inCombat = true;
 
         _movementController.SetTargetDistance(_weaponRange);

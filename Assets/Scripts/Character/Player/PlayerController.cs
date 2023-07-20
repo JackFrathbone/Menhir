@@ -115,6 +115,16 @@ public class PlayerController : MonoBehaviour
         {
             isRunning = false;
             _characterController.height = 1f;
+
+            if (_inWater)
+            {
+                _playerCharacterManager.DamageStamina(5f * Time.deltaTime);
+
+                if(_playerCharacterManager.staminaCurrent <= 0)
+                {
+                    _playerCharacterManager.DamageHealth(1, null);
+                }
+            }
         }
         else
         {

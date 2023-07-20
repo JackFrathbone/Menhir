@@ -17,7 +17,7 @@ MonoBehaviour:
     drinkers personality and enchances their singing voice.
   itemWeight: 0.5
   itemIcon: {fileID: 21300000, guid: 7776d2842ca175a408c6277c01c5cc6f, type: 3}
-  uniqueID: Potion_Bards Throat Philter32698
+  uniqueID: Potion_Bards Throat Philter31620
   clearID: 0
   potionEffects:
   - effectType: 11

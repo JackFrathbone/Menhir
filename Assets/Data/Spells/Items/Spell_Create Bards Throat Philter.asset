@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Bards Throat Philter
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Bards Throat Philter32824
+  uniqueID: Spell_Create Bards Throat Philter31736
   clearID: 0
   spell: {fileID: 11400000, guid: bd1bf57eac60a4546854c16e69401314, type: 2}

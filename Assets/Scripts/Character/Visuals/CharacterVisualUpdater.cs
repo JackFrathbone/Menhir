@@ -16,6 +16,8 @@ public class CharacterVisualUpdater : MonoBehaviour
     [SerializeField] SpriteRenderer _beardRenderer;
 
     [Header("Equipment Renderers")]
+    [SerializeField] SpriteRenderer _weaponRenderer;
+    [SerializeField] SpriteRenderer _shieldRenderer;
     [SerializeField] SpriteRenderer _armourRenderer;
     [SerializeField] SpriteRenderer _capeRenderer;
     [SerializeField] SpriteRenderer _capefrontRenderer;
@@ -60,6 +62,36 @@ public class CharacterVisualUpdater : MonoBehaviour
 
     private void SetEquipmentVisuals(NonPlayerCharacterManager charManager)
     {
+        //Set weapon and shield sprites
+        if (charManager.equippedWeapon != null)
+        {
+            if (charManager.equippedWeapon is WeaponMeleeItem)
+            {
+                _weaponRenderer.sprite = (charManager.equippedWeapon as WeaponMeleeItem).weaponModel;
+            }
+            else if (charManager.equippedWeapon is WeaponFocusItem)
+            {
+                _weaponRenderer.sprite = (charManager.equippedWeapon as WeaponFocusItem).focusModel;
+            }
+            else if(charManager.equippedWeapon is WeaponRangedItem)
+            {
+                _weaponRenderer.sprite = (charManager.equippedWeapon as WeaponRangedItem).weaponModelDrawing;
+            }
+        }
+        else
+        {
+            _weaponRenderer.sprite = null;
+        }
+
+        if (charManager.equippedShield != null)
+        {
+            _shieldRenderer.sprite = charManager.equippedShield.shieldModel;
+        }
+        else
+        {
+            _shieldRenderer.sprite = null;
+        }
+
         //Equipment with visual models
         if (charManager.equippedArmour != null)
         {

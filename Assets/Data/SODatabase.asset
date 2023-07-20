@@ -251,9 +251,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c92b9eeec8c4354dba969aea6a882c7, type: 2}
   - {fileID: 11400000, guid: a9f1f96b243bf7e4084dae09f3d02fc4, type: 2}
   allStateChecks:
-  - {fileID: 11400000, guid: cf675dd2b7101214c8197987b1d676d9, type: 2}
-  - {fileID: 11400000, guid: 2ba9ffa39d051ec4785e32bcd04010ed, type: 2}
-  - {fileID: 11400000, guid: 1ce5948bd0b1864409ffe95b627997dc, type: 2}
   - {fileID: 11400000, guid: 884c2575804701f4bb1bb35cbebe8dc5, type: 2}
-  - {fileID: 11400000, guid: 7c75172306e25094c9dd1be429a04f3c, type: 2}
+  - {fileID: 11400000, guid: e2dd3d46241b3094d81c892b93bec28d, type: 2}
+  - {fileID: 11400000, guid: ee3cefdd78db47d4fa524c6edda4fdfe, type: 2}
+  - {fileID: 11400000, guid: 8aba20edceffa8444999355e337c79e8, type: 2}
   refreshLists: 0

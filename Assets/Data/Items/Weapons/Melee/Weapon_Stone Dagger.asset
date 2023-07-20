@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: A rough flint dagger with a razor sharp edge.
   itemWeight: 1.25
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon_Stone Dagger10900
+  uniqueID: Weapon_Stone Dagger30044
   clearID: 0
   weaponMeleeType: Dagger
   twoHanded: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   weapontToHitBonus: 0
   weaponDefence: -10
   weaponSpeed: 0.5
-  weaponRange: 1
-  weaponModel: {fileID: 21300000, guid: 85e6a2d3c7d4e95499cf4cb9b6a90787, type: 3}
+  weaponRange: 1.25
+  weaponModel: {fileID: 21300000, guid: 986d572d23d8b4243b3d1377109c32f5, type: 3}
   enchantmentSelfEffects: []
   enchantmentTargetEffects: []

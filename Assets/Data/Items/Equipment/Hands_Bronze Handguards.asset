@@ -17,7 +17,7 @@ MonoBehaviour:
     the back of the hand. Favoured by sword fighters.
   itemWeight: 1
   itemIcon: {fileID: -5242333145168017657, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Hands_Bronze Handguards32738
+  uniqueID: Hands_Bronze Handguards31660
   clearID: 0
   equipmentType: 4
   equipmentDefence: 5

@@ -15,6 +15,7 @@ public class CharacterSheet : ScriptableObject
 
     [Header("Inventory & Spells")]
     public List<Item> characterInventory = new();
+    public List<RandomItem> randomItems = new();
     public List<Spell> characterSpells = new();
 
     [Header("Dialogue")]

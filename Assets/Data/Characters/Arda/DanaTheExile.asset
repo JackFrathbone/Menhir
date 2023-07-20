@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
+  m_Name: DanaTheExile
+  m_EditorClassIdentifier: 
+  characterName: Dana The Exile
+  characterDescription: An older woman with red hair, she has black geometric tattoos
+    on her hands. She has a faded smile and tired eyes, but stand proudly.
+  characterPronouns: 1
+  characterFaction: {fileID: 11400000, guid: b47eab732734e23459e950da2d0bacd7, type: 2}
+  characterAggression: 1
+  characterInventory:
+  - {fileID: 11400000, guid: f1b95e84fa9fefa4bbe2141aaf189c05, type: 2}
+  - {fileID: 11400000, guid: 50fca25090f2daf4a9ea9ab2d57f5c6d, type: 2}
+  - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
+  - {fileID: 11400000, guid: 879e58ab6b71cf948861b764dac93a4d, type: 2}
+  - {fileID: 11400000, guid: 30550062b343ec24cb9d916e08b25964, type: 2}
+  characterSpells: []
+  characterGreeting: What brings you to my tower?
+  characterWoundedGreeting: Finish me, end this finally...
+  characterDialogueGraph: {fileID: 11400000, guid: fb068590a08d87d448d0d0b7ac0c498a, type: 2}
+  abilities:
+    body: 3
+    hands: 4
+    mind: 6
+    heart: 3
+  skills:
+  - {fileID: 11400000, guid: 8c92b9eeec8c4354dba969aea6a882c7, type: 2}
+  startHidden: 0
+  startState: 0
+  invulnerableMode: 0
+  woundedOnlyMode: 0
+  randomiseVisuals: 0
+  characterSkintone: {r: 0.9490197, g: 0.81568635, b: 0.72156864, a: 1}
+  characterHairColor: {r: 0.38823533, g: 0.08235294, b: 0.050980397, a: 1}
+  characterHair: {fileID: 633597387063541697, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  characterBeard: {fileID: 0}

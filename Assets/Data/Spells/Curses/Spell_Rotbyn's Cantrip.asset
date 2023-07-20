@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spellName: Rotbyn's Cantrip
   isRecipe: 0
-  spellIcon: {fileID: 0}
+  spellIcon: {fileID: 21300000, guid: bebaf46e96be25440905dee1e13c0b49, type: 3}
   projectilePrefab: {fileID: 3784735241220424099, guid: a6b2a86a97599c94d83b70f8dd8716b1, type: 3}
   mindRequirement: 3
   castTarget: 1

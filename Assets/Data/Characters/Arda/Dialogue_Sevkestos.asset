@@ -1,0 +1,480 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5835943127669149428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 424, y: 88}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -5835943127669149428}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: -4002488017470447981}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -5835943127669149428}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 5382721983524754327}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - Yes, you are %pcName right? I got word months back that they were sending some
+    more people to the station on Staen
+  - You speak their tongue right? I mean you must to be given such a key post despite
+    your... experience...
+  - But anyway, if you speak their language then you can help sort out a situation
+    here. I would be grateful and could be good practice before you land there
+  - A group of armed Staenish sailors showed up here a few moons ago, yammering in
+    their tongue and looking agitated
+  - They left but I know they are camping nearby and the watchmen have seen them
+    skulking around. I need you to find out what they want and clear them off
+  - I want to avoid fighting them, we aren't a big garrison and drawing uneeded attention
+    will be bad for all of us. I have heard they are a vengeful people
+  - What do you say?
+--- !u!114 &-4002488017470447981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 184, y: 88}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    values:
+    - _fieldName: entry
+      _node: {fileID: -4002488017470447981}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exitAlive
+        node: {fileID: 7853381331471291167}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: -4002488017470447981}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: -4002488017470447981}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -5835943127669149428}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: I was told you wanted to talk to me?
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive:
+    - {fileID: 11400000, guid: ee3cefdd78db47d4fa524c6edda4fdfe, type: 2}
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Iwastoldyouwantedtotalktome?8955
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &-3596669731884147767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 924.9813, y: 460.62042}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3596669731884147767}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 1
+        node: {fileID: 5382721983524754327}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3596669731884147767}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - If you are so busy then fine, but I will reward you for the help, so think on
+    it
+--- !u!114 &-2802147877665441175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 920, y: 104}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -2802147877665441175}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: 5382721983524754327}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -2802147877665441175}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 4574631810549475367}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - Great thank you, I'm worried if they don't clear off soon they'll come to take
+    our food by force
+  - Ask our watchman if he has any idea where they are hiding out, he is on the cliff
+    above the port
+  - Once you have cleared them off let me know, i'll make sure you are rewarded
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8015555d9f4bf5499b8e39521dbed6f, type: 3}
+  m_Name: Dialogue_Sevkestos
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 7853381331471291167}
+  - {fileID: -4002488017470447981}
+  - {fileID: -5835943127669149428}
+  - {fileID: 5382721983524754327}
+  - {fileID: -3596669731884147767}
+  - {fileID: -2802147877665441175}
+  - {fileID: 4574631810549475367}
+  - {fileID: 3668086715475290733}
+  current: {fileID: -4002488017470447981}
+--- !u!114 &3668086715475290733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa10cfa6f89fee2418adf22ed352e0a9, type: 3}
+  m_Name: Dialogue Journal Entry
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1416, y: 120}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 3668086715475290733}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 4574631810549475367}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 3668086715475290733}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  entryToAdd:
+    journalText: Sevkestos, the commander of the Arda Station, has asked me to help
+      deal with a group of Staenish sailors who have been seen around town and were
+      demanding something. I was told to ask the watchman, up on the cliffs above
+      the docks, about how to find them
+    timeStamp: 0
+    isArchived: 0
+--- !u!114 &4574631810549475367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7dd2b1c30d7f334aab1871e6e0e937a, type: 3}
+  m_Name: Dialogue State Set
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1160, y: 120}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 4574631810549475367}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: -2802147877665441175}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 4574631810549475367}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 3668086715475290733}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  dialogueAddStateCheck:
+  - {fileID: 11400000, guid: ee3cefdd78db47d4fa524c6edda4fdfe, type: 2}
+--- !u!114 &5382721983524754327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 680, y: 104}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    values:
+    - _fieldName: entry
+      _node: {fileID: 5382721983524754327}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: -5835943127669149428}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: 5382721983524754327}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: 5382721983524754327}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -2802147877665441175}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: 5382721983524754327}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -3596669731884147767}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: I'll help
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: 
+  - topicTitle: Let me think about it
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: 
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &7853381331471291167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abc1c7a480638946b9e9472f0a181da, type: 3}
+  m_Name: Dialogue Entry
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -56, y: 104}
+  ports:
+    keys:
+    - exitAlive
+    - exitWounded
+    values:
+    - _fieldName: exitAlive
+      _node: {fileID: 7853381331471291167}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -4002488017470447981}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exitWounded
+      _node: {fileID: 7853381331471291167}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  exitAlive: 0
+  exitWounded: 0

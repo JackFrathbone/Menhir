@@ -1,0 +1,386 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3458690716201282621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 296, y: -72}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3458690716201282621}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: -1326232397800798576}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3458690716201282621}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - I am the watchman, my job is to keep an eye on the horizon for strange ships
+  - See this pile of logs? I light this to scare off enemies or warn friends of danger
+  - But its boring work, no one bothers us here in Arda, at least when you can see
+    anything
+  - The locals create enough trouble, they came here when we built the fort, and
+    act as if we are supposed to help them
+  - But they feed us, much better than sea rations, but they should complain less
+--- !u!114 &-1326232397800798576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 24, y: -136}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    - topics 2
+    values:
+    - _fieldName: entry
+      _node: {fileID: -1326232397800798576}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exitAlive
+        node: {fileID: -1288295075630949101}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: -1326232397800798576}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: -1326232397800798576}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -3458690716201282621}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: -1326232397800798576}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 1750908460596613927}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 2
+      _node: {fileID: -1326232397800798576}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 4404447002937365685}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: What are you doing here?
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Whatareyoudoinghere?5119
+  - topicTitle: Seen anything?
+    topicRunOnce: 0
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Seenanything?8518
+  - topicTitle: Have you seen the Staenish sailors?
+    topicRunOnce: 1
+    topicStateChecks:
+    - {fileID: 11400000, guid: ee3cefdd78db47d4fa524c6edda4fdfe, type: 2}
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: HaveyouseentheStaenishsailors?3312
+  generateIDs: 0
+  clearIDs: 0
+--- !u!114 &-1288295075630949101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abc1c7a480638946b9e9472f0a181da, type: 3}
+  m_Name: Dialogue Entry
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -280, y: -72}
+  ports:
+    keys:
+    - exitAlive
+    - exitWounded
+    values:
+    - _fieldName: exitAlive
+      _node: {fileID: -1288295075630949101}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -1326232397800798576}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exitWounded
+      _node: {fileID: -1288295075630949101}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  exitAlive: 0
+  exitWounded: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8015555d9f4bf5499b8e39521dbed6f, type: 3}
+  m_Name: Dialogue_Terkesas
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -1288295075630949101}
+  - {fileID: -1326232397800798576}
+  - {fileID: -3458690716201282621}
+  - {fileID: 1750908460596613927}
+  - {fileID: 4404447002937365685}
+  - {fileID: 4643487613404806245}
+  current: {fileID: 0}
+--- !u!114 &1750908460596613927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 296, y: 376}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 1750908460596613927}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 1
+        node: {fileID: -1326232397800798576}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 1750908460596613927}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - Nothing at all, though plenty of blue sky and bluer sea. Can't complain though
+  - I mean do you want to see pirates coming your way?
+  - Otherwise there have been these Staenish sailors skulking around, but ask master
+    Sevkestos about that
+  - They haven't caused any trouble yet
+  - The locals haven't been going up the cliffs anymore, their tomb cave up there
+    is haunted and no one has cleared it
+  - It's oddly peaceful here in Arda, at my last post we were constantly under attack
+    by men from the hills
+  - But out here we are far from everything, only Staen is close and that haunted
+    land must keep away the raiders
+--- !u!114 &4404447002937365685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 296, y: 872}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 4404447002937365685}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 2
+        node: {fileID: -1326232397800798576}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 4404447002937365685}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 4643487613404806245}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - Ah has Master Sevkestos got you on the case? You speak their barbarian tongue?
+  - I have seen them skulking around the cliffs above me, there is a path up there
+  - If you follow it you will find a hidden beach accessible from a path down a cliff
+  - They might be there, I believe there is a cave but I haven't been there myself
+  - From what i've seen there must be at least four of them, but i'm sure there are
+    more if they came in a paddle boat
+  - Good luck finding them!
+--- !u!114 &4643487613404806245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa10cfa6f89fee2418adf22ed352e0a9, type: 3}
+  m_Name: Dialogue Journal Entry
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 536, y: 888}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 4643487613404806245}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 4404447002937365685}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 4643487613404806245}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  entryToAdd:
+    journalText: The Arda watchman says that the Staenish sailors are likely camping
+      on a hidden beach that is accessible from the higher cliffs
+    timeStamp: 0
+    isArchived: 0

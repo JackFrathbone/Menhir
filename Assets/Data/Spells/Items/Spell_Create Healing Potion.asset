@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Healing Potion
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Healing Potion32834
+  uniqueID: Spell_Create Healing Potion31746
   clearID: 0
   spell: {fileID: 11400000, guid: 568be4e7ee7146b4fa2482906b71bca0, type: 2}

@@ -17,7 +17,7 @@ MonoBehaviour:
     is designed to easily slash and stab with a shield.
   itemWeight: 2
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon_Bronze Shortspear29724
+  uniqueID: Weapon_Bronze Shortspear30008
   clearID: 0
   weaponMeleeType: Shortspear
   twoHanded: 0

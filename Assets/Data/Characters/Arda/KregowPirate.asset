@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
+  m_Name: KregowPirate
+  m_EditorClassIdentifier: 
+  characterName: Kregow Pirate
+  characterDescription: A warrior of the Kregow kingdom, seems somewhat malnourish.
+  characterPronouns: 0
+  characterFaction: {fileID: 11400000, guid: 6784404474e1d604dbc1f0e365afe15c, type: 2}
+  characterAggression: 1
+  characterInventory:
+  - {fileID: 11400000, guid: 14118cc530b86124ca8d52aefad4fb3b, type: 2}
+  - {fileID: 11400000, guid: 4f615b001e6ed4f49bc4691bc611eb70, type: 2}
+  - {fileID: 11400000, guid: f1b95e84fa9fefa4bbe2141aaf189c05, type: 2}
+  - {fileID: 11400000, guid: 063b577814dc9f945b758717a94ca71f, type: 2}
+  - {fileID: 11400000, guid: fa697dccec3744d40b8aa66131fa6bf4, type: 2}
+  - {fileID: 11400000, guid: a53a05eb5cee36649992c0153cc88723, type: 2}
+  characterSpells: []
+  characterGreeting: Talk to Keres!
+  characterWoundedGreeting: Higgah...
+  characterDialogueGraph: {fileID: 0}
+  abilities:
+    body: 5
+    hands: 4
+    mind: 1
+    heart: 3
+  skills: []
+  startHidden: 0
+  startState: 0
+  randomiseVisuals: 1
+  characterSkintone: {r: 0.96862745, g: 0.8901961, b: 0.8235294, a: 1}
+  characterHairColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
+  characterHair: {fileID: 0}
+  characterBeard: {fileID: 0}

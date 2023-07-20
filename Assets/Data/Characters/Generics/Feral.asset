@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
+  m_Name: Feral
+  m_EditorClassIdentifier: 
+  characterName: Feral man
+  characterDescription: A feral person
+  characterPronouns: 0
+  characterFaction: {fileID: 11400000, guid: ae6c466062fc2074181de824b079077f, type: 2}
+  characterAggression: 1
+  characterInventory:
+  - {fileID: 11400000, guid: e5bdfe0c510aa964dbeeaf24799fc090, type: 2}
+  randomItems:
+  - {fileID: 11400000, guid: b08c00abfad91e1419744645b1185f46, type: 2}
+  characterSpells: []
+  characterGreeting: Huh?
+  characterWoundedGreeting: Eeurggh
+  characterDialogueGraph: {fileID: 0}
+  abilities:
+    body: 3
+    hands: 4
+    mind: 3
+    heart: 3
+  skills: []
+  startHidden: 0
+  startState: 0
+  invulnerableMode: 0
+  woundedOnlyMode: 0
+  randomiseVisuals: 1
+  characterSkintone: {r: 0.627451, g: 0.4901961, b: 0.4039216, a: 1}
+  characterHairColor: {r: 0.32941177, g: 0.20392159, b: 0.06666667, a: 1}
+  characterHair: {fileID: 0}
+  characterBeard: {fileID: 0}

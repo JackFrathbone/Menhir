@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Ethereal Net
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Ethereal Net32862
+  uniqueID: Spell_Ethereal Net31772
   clearID: 0
   spell: {fileID: 11400000, guid: ec85f1da11616a94a993153055958f34, type: 2}

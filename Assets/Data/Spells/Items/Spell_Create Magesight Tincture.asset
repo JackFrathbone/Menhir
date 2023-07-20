@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Magesight Tincture
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Magesight Tincture32836
+  uniqueID: Spell_Create Magesight Tincture31748
   clearID: 0
   spell: {fileID: 11400000, guid: 81c6d09bc56bb054b8e4f6299beea7f1, type: 2}

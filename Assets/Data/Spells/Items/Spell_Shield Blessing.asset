@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Shield Blessing
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Shield Blessing32870
+  uniqueID: Spell_Shield Blessing31778
   clearID: 0
   spell: {fileID: 11400000, guid: f6d8eef130d2fe34ca2c4cf3a303f441, type: 2}

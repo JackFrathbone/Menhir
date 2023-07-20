@@ -7,6 +7,7 @@ using XNode;
 public class PlayerDialogueController : MonoBehaviour
 {
     [Header("UI References")]
+    [SerializeField] GameObject _activeUi;
     [SerializeField] GameObject dialogueUI;
     [SerializeField] TextMeshProUGUI characterNameText;
     [SerializeField] TextMeshProUGUI dialogueText;
@@ -41,15 +42,12 @@ public class PlayerDialogueController : MonoBehaviour
         descriptionText = descriptionBox.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    //When a character does not have a dialogue graph/component
-    public void StartDialogueSimple(string charName, string charGreeting)
-    {
-
-    }
-
     //When a character does has a dialogue graph/component
     public void StartDialogue(DialogueComponent dialogueComponent)
     {
+        //Disable the active UI
+        _activeUi.SetActive(false);
+
         //Gets the target data needed
         _currentDialogueGraph = dialogueComponent.AttachedDialogueGraph;
         currentCharacterManager = dialogueComponent.DialogueCharacterManager;
@@ -267,6 +265,9 @@ public class PlayerDialogueController : MonoBehaviour
         _currentSentence = 0;
         GameManager.instance.UnPauseGame(true);
         dialogueUI.SetActive(false);
+
+        //Enable the active UI
+        _activeUi.SetActive(true);
     }
 
     public void ToggleDescription()

@@ -393,6 +393,12 @@ public class PlayerCharacterManager : CharacterManager
 
     public override void DamageHealth(int i, CharacterManager damageSource)
     {
+        //Do nothing if paused
+        if (GameManager.instance.isPaused)
+        {
+            return;
+        }
+
         //if godmode then just dont take damage
         if (_godMode)
         {
