@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6018135756647437113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36e266632ad0dc49aa15a11400e60b5, type: 3}
+  m_Name: Dialogue Give Item
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 664, y: 872}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -6018135756647437113}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 4080326062570368666}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -6018135756647437113}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  itemsToGive:
+  - {fileID: 11400000, guid: 6b3c7ff206d1a31418bd65f7a962aa84, type: 2}
+  - {fileID: 11400000, guid: 3b58c2d1e62e60c499a9a7bf7a26ab93, type: 2}
 --- !u!114 &-5835943127669149428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +123,7 @@ MonoBehaviour:
     - entry
     - topics
     - topics 0
+    - topics 1
     values:
     - _fieldName: entry
       _node: {fileID: -4002488017470447981}
@@ -113,6 +159,18 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: -4002488017470447981}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: 4080326062570368666}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
   entry: 0
   topics:
   - topicTitle: I was told you wanted to talk to me?
@@ -127,6 +185,18 @@ MonoBehaviour:
       mind: 0
       heart: 0
     uniqueID: Iwastoldyouwantedtotalktome?8955
+  - topicTitle: I have sorted out the Staenish problem
+    topicRunOnce: 0
+    topicStateChecks:
+    - {fileID: 11400000, guid: 1979935be90f80a4bad4249639fdcf48, type: 2}
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: IhavesortedouttheStaenishproblem7028
   generateIDs: 0
   clearIDs: 0
 --- !u!114 &-3596669731884147767
@@ -246,6 +316,8 @@ MonoBehaviour:
   - {fileID: -2802147877665441175}
   - {fileID: 4574631810549475367}
   - {fileID: 3668086715475290733}
+  - {fileID: 4080326062570368666}
+  - {fileID: -6018135756647437113}
   current: {fileID: -4002488017470447981}
 --- !u!114 &3668086715475290733
 MonoBehaviour:
@@ -296,6 +368,60 @@ MonoBehaviour:
       the docks, about how to find them
     timeStamp: 0
     isArchived: 0
+--- !u!114 &4080326062570368666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 376, y: 840}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: 4080326062570368666}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 1
+        node: {fileID: -4002488017470447981}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: 4080326062570368666}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: -6018135756647437113}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - Excellent, you've done really well %pcname!
+  - It's equal parts boring and frightful out here, last thing we need to Staenish
+    warriors threatening our fort
+  - But i'm sure you are more interested in a reward than my yammering?
+  - We are all Aketian here, I know what what we value above all else
+  - So here are some things from our own armoury
+  - Thank you again, and good luck in Staen, hope you learnt something about what
+    to expect
 --- !u!114 &4574631810549475367
 MonoBehaviour:
   m_ObjectHideFlags: 0

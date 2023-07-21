@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: A roll of cloth that has been infused with a painkilling medication.
   itemWeight: 0.5
   itemIcon: {fileID: 21300000, guid: 7776d2842ca175a408c6277c01c5cc6f, type: 3}
-  uniqueID: Consumable_Medicinal Bandage31614
+  uniqueID: Consumable_Medicinal Bandage42932
   clearID: 0
   potionEffects:
   - effectType: 0

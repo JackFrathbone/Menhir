@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Cragjumpers Blessing
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Cragjumpers Blessing31732
+  uniqueID: Spell_Cragjumpers Blessing43040
   clearID: 0
   spell: {fileID: 11400000, guid: e21983dd05e1d554189c879bc60fc645, type: 2}

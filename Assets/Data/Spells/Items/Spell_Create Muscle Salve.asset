@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Muscle Salve
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Muscle Salve31752
+  uniqueID: Spell_Create Muscle Salve43060
   clearID: 0
   spell: {fileID: 11400000, guid: a06ce26cb3426404d9a5cf215700c74f, type: 2}

@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: A pole topped with a heavy bronze hammerhead.
   itemWeight: 3.5
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon_Bronze Hammer31712
+  uniqueID: Weapon_Bronze Hammer31432
   clearID: 0
   weaponMeleeType: Hammer
   twoHanded: 1

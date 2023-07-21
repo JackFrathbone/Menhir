@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Swifthand Draft
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Swifthand Draft31764
+  uniqueID: Spell_Create Swifthand Draft43072
   clearID: 0
   spell: {fileID: 11400000, guid: dbc8a91c49fc7b849ac5b142a3cb7379, type: 2}

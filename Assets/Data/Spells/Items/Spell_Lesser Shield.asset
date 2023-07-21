@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Lesser Shield
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Lesser Shield31776
+  uniqueID: Spell_Lesser Shield43084
   clearID: 0
   spell: {fileID: 11400000, guid: afeefee2e1dc9024b891d82c3fc3d688, type: 2}

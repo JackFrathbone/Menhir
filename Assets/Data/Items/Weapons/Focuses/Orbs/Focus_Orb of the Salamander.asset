@@ -18,7 +18,7 @@ MonoBehaviour:
     them extra magica protection.
   itemWeight: 0.5
   itemIcon: {fileID: -4325431805895911581, guid: 5e9f1aadf8585f74cb1dade7b64e00af, type: 3}
-  uniqueID: Focus_Orb of the Salamander31686
+  uniqueID: Focus_Orb of the Salamander43004
   clearID: 0
   focusModel: {fileID: 21300000, guid: f8512653e473eff41b3936198a9bbf42, type: 3}
   projectilePrefab: {fileID: 3784735241220424099, guid: a6b2a86a97599c94d83b70f8dd8716b1, type: 3}

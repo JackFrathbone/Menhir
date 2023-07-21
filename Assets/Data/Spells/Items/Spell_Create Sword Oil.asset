@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Sword Oil
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Sword Oil31766
+  uniqueID: Spell_Create Sword Oil43074
   clearID: 0
   spell: {fileID: 11400000, guid: 2dfaabacecda83f46973184fc1cee006, type: 2}

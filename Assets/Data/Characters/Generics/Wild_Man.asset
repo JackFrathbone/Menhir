@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
-  m_Name: Feral
+  m_Name: Wild_Man
   m_EditorClassIdentifier: 
-  characterName: Feral man
+  characterName: Wild Man
   characterDescription: A feral person
   characterPronouns: 0
   characterFaction: {fileID: 11400000, guid: ae6c466062fc2074181de824b079077f, type: 2}

@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Champion Brew
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Champion Brew31742
+  uniqueID: Spell_Create Champion Brew43050
   clearID: 0
   spell: {fileID: 11400000, guid: c1c441b6ec266004eb395f0dd2c683fa, type: 2}

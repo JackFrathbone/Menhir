@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Darkfinger of Oberwyn
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Darkfinger of Oberwyn31768
+  uniqueID: Spell_Darkfinger of Oberwyn43076
   clearID: 0
   spell: {fileID: 11400000, guid: 070f519bb49ef554ca690fe84098fd72, type: 2}

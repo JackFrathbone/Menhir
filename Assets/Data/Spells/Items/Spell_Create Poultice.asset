@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Poultice
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Poultice31754
+  uniqueID: Spell_Create Poultice43062
   clearID: 0
   spell: {fileID: 11400000, guid: 6b92a878a0488654c88fe41d8e4225d8, type: 2}

@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Strength Potion
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Strength Potion31762
+  uniqueID: Spell_Create Strength Potion43070
   clearID: 0
   spell: {fileID: 11400000, guid: 185fcf46ac2aeb346ba50b4e1ed6e6b8, type: 2}

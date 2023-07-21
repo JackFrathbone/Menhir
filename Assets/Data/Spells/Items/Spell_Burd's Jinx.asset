@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Burd's Jinx
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Burd's Jinx31730
+  uniqueID: Spell_Burd's Jinx43038
   clearID: 0
   spell: {fileID: 11400000, guid: 094bb37e9acc61e4199f74b0d230d737, type: 2}

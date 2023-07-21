@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Bronzeskin Tonic
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Bronzeskin Tonic31740
+  uniqueID: Spell_Create Bronzeskin Tonic43048
   clearID: 0
   spell: {fileID: 11400000, guid: 1eb12af173c3a1549b15d0c7d1891618, type: 2}

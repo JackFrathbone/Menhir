@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Alchemic Musk
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Alchemic Musk31734
+  uniqueID: Spell_Create Alchemic Musk43042
   clearID: 0
   spell: {fileID: 11400000, guid: f32fdee4da1487346a1d9b427a7189a3, type: 2}
