@@ -8,8 +8,10 @@ public class SceneLoader : Singleton<SceneLoader>
 {
     [Header("Settings")]
     //The scene to load the player into when starting from the Player Scene for testing purposes
-    [SerializeField] SceneField _defaultScene;
+    private int _defaultScene;
 
+    //The loading scene to show between scenes
+    [SerializeField] SceneField _loadingScene;
 
     [Header("Data")]
     private int _playerScene = 1;
@@ -32,6 +34,9 @@ public class SceneLoader : Singleton<SceneLoader>
 
     private void Start()
     {
+        //Set the default scene for debugging
+        _defaultScene = 4;
+
         LaunchDefaultScene();
         keepAlive = true;
     }
@@ -44,7 +49,7 @@ public class SceneLoader : Singleton<SceneLoader>
 
         if (currentScene == _playerScene)
         {
-            LoadPlayerScene(_defaultScene.BuildIndex, "default", Vector3.zero, Vector3.zero, false, true);
+            LoadPlayerScene(_defaultScene, "default", Vector3.zero, Vector3.zero, false, true);
         }
         else
         {
@@ -140,6 +145,16 @@ public class SceneLoader : Singleton<SceneLoader>
 
         AsyncOperation asyncLoad;
 
+        //If in scene debug there will be no loading screen to load so skip
+        if(_loadingScene != null)
+        {
+        //Enable the loading screen and unload current content
+        asyncLoad = SceneManager.LoadSceneAsync(_loadingScene.BuildIndex, LoadSceneMode.Single);
+        // Wait until the asynchronous scene fully loads
+        yield return new WaitUntil(() => asyncLoad.isDone);
+        }
+
+
         Scene currentScene = SceneManager.GetSceneByBuildIndex(_currentScene);
 
         //Check if current scene is loaded, and if not then load it in
@@ -149,7 +164,7 @@ public class SceneLoader : Singleton<SceneLoader>
             DataManager.instance.ClearActiveCharacters();
 
             //Loads the target scene
-            asyncLoad = SceneManager.LoadSceneAsync(_currentScene, LoadSceneMode.Single);
+            asyncLoad = SceneManager.LoadSceneAsync(_currentScene, LoadSceneMode.Additive);
 
             // Wait until the asynchronous scene fully loads
             yield return new WaitUntil(() => asyncLoad.isDone);
@@ -221,6 +236,16 @@ public class SceneLoader : Singleton<SceneLoader>
         else
         {
             Debug.Log("Invalid spawn or player position");
+        }
+        
+        //If debug in a scene no loading screen will be set so skip this
+        if(_loadingScene != null)
+        {
+        //Waits at least two seconds for the scene to finish loading up
+        yield return new WaitForSeconds(2f);
+
+        //Finishes loading and remove the loading screen
+        SceneManager.UnloadSceneAsync(_loadingScene.BuildIndex);
         }
     }
 }

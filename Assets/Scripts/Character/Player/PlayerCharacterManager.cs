@@ -405,7 +405,23 @@ public class PlayerCharacterManager : CharacterManager
             return;
         }
 
+        //Instant kill blocker bool
+        bool oneHealthLeft = false;
+
+        //If the player has one health left they can be killed
+        if(healthCurrent == 1)
+        {
+            oneHealthLeft = true;
+        }
+
         base.DamageHealth(i, damageSource);
+
+        //If the player loses all their health but had more than one health left, give them one health back so they don't die
+        if(healthCurrent <= 0 && oneHealthLeft != true)
+        {
+            healthCurrent = 1;
+            characterState = CharacterState.alive;
+        }
 
         _playerActiveUI.UpdateStatusUI(healthCurrent, healthTotal, staminaCurrent, staminaTotal);
         _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);

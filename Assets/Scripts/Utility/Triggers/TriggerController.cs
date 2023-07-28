@@ -51,6 +51,11 @@ public class TriggerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
+
         if (!triggered)
         {
             if (_messageBoxText != null && _messageBoxText != "")

@@ -27,11 +27,16 @@ MonoBehaviour:
     effectStrength: 2
     effectSeconds: 1
     effectChance: 100
+    effectTeleportPos: {x: 0, y: 0, z: 0}
+    effectCreateItem: {fileID: 0}
+    effectSpawnCharacter: {fileID: 0}
+    permanentEffect: 0
+    effectSecondsPassed: 0
   defence: 10
   moveSpeed: 1.5
   startHidden: 0
   startState: 0
-  spriteColorOverride: {r: 1, g: 1, b: 1, a: 0.5882353}
+  spriteColorOverride: {r: 1, g: 1, b: 1, a: 0.78431374}
   idleSprite: {fileID: -2131393278, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
   walk1Sprite: {fileID: 325990932, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}
   walk2Sprite: {fileID: -2049269112, guid: ca84e7504e79d284cb3d8fd6c90c2189, type: 3}

@@ -202,4 +202,9 @@ public class MonsterCharacterManager : CharacterManager
         staminaTotal = 1;
         staminaCurrent = staminaTotal;
     }
+
+    public override void TriggerBlock()
+    {
+        _monsterAnimationController.TriggerBlock();
+    }
 }

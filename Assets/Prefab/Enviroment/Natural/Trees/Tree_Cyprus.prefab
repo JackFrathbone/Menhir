@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1456487714646577480, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}
@@ -15,9 +16,17 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 181fb04902b8a604089ade64bc63566f, type: 3}
+    - target: {fileID: 2254443371137489676, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 3641314797447014867, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}
       propertyPath: m_Name
-      value: Tree_1
+      value: Tree_Cyprus
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641314797447014867, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 3641314797447014870, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}
       propertyPath: m_RootOrder
@@ -67,6 +76,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 6453152293479136033, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 6919119079652047759, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -80,4 +93,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: bc43371084a8a324db90e2074ca4ee89, type: 3}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad8215549e2698e45a82209b2c77d22c, type: 3}

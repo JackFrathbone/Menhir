@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using FMOD.Studio;
@@ -17,6 +16,8 @@ public class WeatherController : MonoBehaviour
     [SerializeField] LightCycleSettingsPreset _settingsPreset;
 
     //For the clouds
+    [Tooltip("If the lower atmosphere should be fog coloured or not")]
+    private bool _setCloudySky;
     [SerializeField] MeshRenderer _cloudLayerRender;
     private Material _cloudLayerMat;
 
@@ -25,7 +26,7 @@ public class WeatherController : MonoBehaviour
     [SerializeField] GameObject _rainLightPrefab;
     [SerializeField] GameObject _rainHeavyPrefab;
 
-    private GameObject _currentRain;
+    private GameObject _currentRain = null;
 
     //For audio
     private EventInstance _outdoorAmbience;
@@ -108,8 +109,16 @@ public class WeatherController : MonoBehaviour
 
         //For the skybox
         RenderSettings.skybox.SetColor("_SkyboxUpperColour", _settingsPreset.skyboxUpperColour.Evaluate(timePercent));
-        RenderSettings.skybox.SetColor("_SkyboxLowerColour", _settingsPreset.fogColour.Evaluate(timePercent));
 
+        //If the sky cloudy state is true then sets the lower atmosphere colour to the fog colour
+        if (_setCloudySky)
+        {
+            RenderSettings.skybox.SetColor("_SkyboxLowerColour", _settingsPreset.fogColour.Evaluate(timePercent));
+        }
+        else
+        {
+            RenderSettings.skybox.SetColor("_SkyboxLowerColour", _settingsPreset.skyboxLowerColour.Evaluate(timePercent));
+        }
 
         //For enabling the stars
         if (TimeController.GetHours() >= 18 || TimeController.GetHours() <= 5)
@@ -130,9 +139,17 @@ public class WeatherController : MonoBehaviour
             _currentRain = null;
         }
 
-        int randomWeather = UnityEngine.Random.Range(0, 5);
+        //For some reason random.range kept repeating 4 when loading a map so just creates a new random seed each time to fix this
+        Random.InitState((int)System.DateTime.Now.Ticks);
+        int randomWeather = Random.Range(0, 5);
 
         //requires weather to already be cloudy in order to rain
+        if((randomWeather == 3 || randomWeather == 4) && currentWeather == "clear")
+        {
+            randomWeather = 2;
+        }
+
+        //Selects the weather based on chosen number
         switch (randomWeather)
         {
             case 0:
@@ -160,7 +177,10 @@ public class WeatherController : MonoBehaviour
         currentWeather = "clear";
         ClearRainParticles();
 
-        StartCoroutine(CloudTransition(0.75f));
+        //Set the cloudy sky state
+        _setCloudySky = false;
+
+        StartCoroutine(CloudTransition(0.75f, 10f));
     }
 
     private void SetWeatherCloudyLight()
@@ -168,7 +188,10 @@ public class WeatherController : MonoBehaviour
         currentWeather = "cloudyLight";
         ClearRainParticles();
 
-        StartCoroutine(CloudTransition(1f));
+        //Set the cloudy sky state
+        _setCloudySky = true;
+
+        StartCoroutine(CloudTransition(1f, 5f));
     }
 
     private void SetWeatherCloudy()
@@ -176,7 +199,10 @@ public class WeatherController : MonoBehaviour
         currentWeather = "cloudy";
         ClearRainParticles();
 
-        StartCoroutine(CloudTransition(1.5f));
+        //Set the cloudy sky state
+        _setCloudySky = true;
+
+        StartCoroutine(CloudTransition(1.5f, 1f));
     }
 
     private void SetWeatherRainLight()
@@ -184,8 +210,11 @@ public class WeatherController : MonoBehaviour
         currentWeather = "rainLight";
         ClearRainParticles();
 
+        //Set the cloudy sky state
+        _setCloudySky = true;
+
         SetRainParticles();
-        StartCoroutine(CloudTransition(3f));
+        StartCoroutine(CloudTransition(3f, 1f));
     }
 
     private void SetWeatherRainHeavy()
@@ -193,8 +222,11 @@ public class WeatherController : MonoBehaviour
         currentWeather = "rainHeavy";
         ClearRainParticles();
 
+        //Set the cloudy sky state
+        _setCloudySky = true;
+
         SetRainParticles();
-        StartCoroutine(CloudTransition(4f));
+        StartCoroutine(CloudTransition(4f, -1f));
     }
 
     private void SetRainParticles()
@@ -245,7 +277,7 @@ public class WeatherController : MonoBehaviour
         }
     }
 
-    private IEnumerator CloudTransition(float targetCloudAlpha)
+    private IEnumerator CloudTransition(float targetCloudAlpha, float fogHeight)
     {
         float currentCloudAlpha = _cloudLayerMat.GetFloat("_CloudsAlpha");
 
@@ -268,6 +300,8 @@ public class WeatherController : MonoBehaviour
             }
         }
 
+        //Set the fog height in Skybox
+        RenderSettings.skybox.SetFloat("FogHeight", fogHeight);
     }
 
     private void UpdateOutdoorAmbience()

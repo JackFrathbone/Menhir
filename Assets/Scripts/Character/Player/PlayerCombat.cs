@@ -14,8 +14,6 @@ public class PlayerCombat : MonoBehaviour
     [Header("Projectil References")]
     [SerializeField] Transform _playerProjectileSpawnPoint;
 
-    private bool _isattacking;
-
     private PlayerCharacterManager _playerCharacterManager;
     private PlayerActiveUI _playerActiveUI;
 
@@ -54,21 +52,16 @@ public class PlayerCombat : MonoBehaviour
         SetWeaponStats();
 
         //For melee atacks
-        if (!_isattacking && (_playerCharacterManager.equippedWeapon is WeaponMeleeItem))
+        if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
         {
             _weaponMeleeAnimator.SetTrigger("attackAction");
             _weaponMeleeAnimator.SetBool("isHolding", true);
 
-            _shieldAnimator.SetTrigger("attackAction");
-            _shieldAnimator.SetBool("isHolding", true);
-
             //Speed of hold to attack based on weapon speed, in real seconds
             SetHoldSpeed(_weaponSpeed);
-
-            _isattacking = true;
         }
         //If its ranged
-        else if (!_isattacking && (_playerCharacterManager.equippedWeapon is WeaponRangedItem))
+        else if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
         {
             _playerCharacterManager.SetRangedSprite((_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponModelDrawing);
 
@@ -77,26 +70,20 @@ public class PlayerCombat : MonoBehaviour
 
             SetHoldSpeed(_weaponSpeed);
 
-            _isattacking = true;
-
             //Play draw audio
             AudioManager.instance.PlayOneShot("event:/CombatDrawRanged", transform.position);
         }
         //If its magic focus weapon
-        else if (!_isattacking && (_playerCharacterManager.equippedWeapon is WeaponFocusItem))
+        else if (_playerCharacterManager.equippedWeapon is WeaponFocusItem)
         {
             if ((_playerCharacterManager.equippedWeapon as WeaponFocusItem).projectilePrefab != null)
             {
                 _weaponMeleeAnimator.SetTrigger("attackAction");
                 _weaponMeleeAnimator.SetBool("isHolding", true);
 
-                _shieldAnimator.SetTrigger("attackAction");
-                _shieldAnimator.SetBool("isHolding", true);
-
                 //Speed of hold to attack based on weapon speed, in real seconds
                 SetHoldSpeed(_weaponSpeed);
 
-                _isattacking = true;
             }
         }
     }
@@ -104,20 +91,18 @@ public class PlayerCombat : MonoBehaviour
     //Used differentiate between a quick or held attack
     public void TriggerAttackEnd()
     {
-        if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponMeleeItem))
+        if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
         {
             _weaponMeleeAnimator.SetBool("isHolding", false);
-            _shieldAnimator.SetBool("isHolding", false);
             SetHoldSpeed(_weaponSpeed);
         }
-        else if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponRangedItem))
+        else if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
         {
             _weaponRangedAnimator.SetBool("isHolding", false);
         }
-        else if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponFocusItem))
+        else if (_playerCharacterManager.equippedWeapon is WeaponFocusItem)
         {
             _weaponMeleeAnimator.SetBool("isHolding", false);
-            _shieldAnimator.SetBool("isHolding", false);
         }
     }
 
@@ -125,28 +110,22 @@ public class PlayerCombat : MonoBehaviour
     {
         _weaponMeleeAnimator.SetTrigger("blockAction");
         _shieldAnimator.SetTrigger("blockAction");
-
-        //If attacking and then forced to block, reset attack
-        _isattacking = false;
     }
 
     public void TriggerHold()
     {
         _weaponMeleeAnimator.SetBool("isHolding", true);
-        _shieldAnimator.SetBool("isHolding", true);
     }
 
     public void TriggerHoldEnd()
     {
         _weaponMeleeAnimator.SetBool("isHolding", false);
-        _shieldAnimator.SetBool("isHolding", false);
     }
 
     private void SetHoldSpeed(float f)
     {
         _weaponMeleeAnimator.SetFloat("holdSpeed", 1 / f);
         _weaponRangedAnimator.SetFloat("holdSpeed", 1 / f);
-        _shieldAnimator.SetFloat("holdSpeed", 1 / f);
     }
 
     public void MeleeAttack()
@@ -154,7 +133,7 @@ public class PlayerCombat : MonoBehaviour
         TriggerHoldEnd();
 
         //If weapon is melee check the attack here, otherwise the ranged projectile deal with damage on its own
-        if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponMeleeItem))
+        if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
         {
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             if (Physics.Raycast(ray, out RaycastHit hit, _weaponRange))
@@ -167,7 +146,6 @@ public class PlayerCombat : MonoBehaviour
 
             //Decrease stamina
             _playerCharacterManager.DamageStamina(StatFormulas.AttackStaminaCost(_itemWeight, _weaponSpeed));
-            _isattacking = false;
 
             //Play audio
             AudioManager.instance.PlayOneShot("event:/CombatSwingMelee", transform.position);
@@ -176,7 +154,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void RangedAttack()
     {
-        if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponRangedItem))
+        if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
         {
             _playerCharacterManager.SetRangedSprite((_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponModelFired);
 
@@ -186,7 +164,6 @@ public class PlayerCombat : MonoBehaviour
 
             //Decrease stamina
             _playerCharacterManager.DamageStamina(StatFormulas.AttackStaminaCost(_playerCharacterManager.equippedWeapon.itemWeight, _weaponSpeed));
-            _isattacking = false;
 
             //Play audio
             AudioManager.instance.PlayOneShot("event:/CombatSwingRanged", transform.position);
@@ -195,7 +172,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void FocusCastAttack()
     {
-        if (_isattacking && (_playerCharacterManager.equippedWeapon is WeaponFocusItem))
+        if (_playerCharacterManager.equippedWeapon is WeaponFocusItem)
         {
             ProjectileController projectileController = Instantiate((_playerCharacterManager.equippedWeapon as WeaponFocusItem).projectilePrefab, _playerProjectileSpawnPoint.position, _playerProjectileSpawnPoint.rotation).GetComponent<ProjectileController>();
 
@@ -203,8 +180,6 @@ public class PlayerCombat : MonoBehaviour
             {
                 projectileController.effects.Add(effect);
             }
-
-            _isattacking = false;
 
             //Play audio
             AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
