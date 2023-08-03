@@ -17,7 +17,7 @@ MonoBehaviour:
     Boosts the health of user while focusing casting.
   itemWeight: 0.25
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Focus_Warmage's Wand43024
+  uniqueID: Focus_Warmage's Wand26448
   clearID: 0
   focusModel: {fileID: 21300000, guid: 0e752118bb03572408848aed9e6725bc, type: 3}
   projectilePrefab: {fileID: 0}

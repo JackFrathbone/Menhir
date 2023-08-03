@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Hand Cream
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Hand Cream43052
+  uniqueID: Spell_Create Hand Cream26724
   clearID: 0
   spell: {fileID: 11400000, guid: 6698e92c2f56eab48a68096dbc80d600, type: 2}

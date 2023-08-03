@@ -25,13 +25,7 @@ public class CharacterVisualUpdater : MonoBehaviour
     [SerializeField] SpriteRenderer _helmetRenderer;
     [SerializeField] SpriteRenderer _shirtRenderer;
 
-    public void SetVisuals(NonPlayerCharacterManager charManager)
-    {
-        SetBaseVisuals(charManager);
-        SetEquipmentVisuals(charManager);
-    }
-
-    private void SetBaseVisuals(NonPlayerCharacterManager charManager)
+    public void SetBaseVisuals(NonPlayerCharacterManager charManager)
     {
         //For the skintone
         _baseRenderer.color = charManager.characterSkintone;
@@ -60,7 +54,7 @@ public class CharacterVisualUpdater : MonoBehaviour
 
     }
 
-    private void SetEquipmentVisuals(NonPlayerCharacterManager charManager)
+    public  void SetEquipmentVisuals(NonPlayerCharacterManager charManager)
     {
         //Set weapon and shield sprites
         if (charManager.equippedWeapon != null)

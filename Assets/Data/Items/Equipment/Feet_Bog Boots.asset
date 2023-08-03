@@ -17,7 +17,7 @@ MonoBehaviour:
     to be waterproof.
   itemWeight: 1
   itemIcon: {fileID: 8354394645767491671, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Feet_Bog Boots42974
+  uniqueID: Feet_Bog Boots26538
   clearID: 0
   equipmentType: 2
   equipmentDefence: 3

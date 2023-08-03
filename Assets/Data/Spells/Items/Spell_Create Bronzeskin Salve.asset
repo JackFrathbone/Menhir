@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Bronzeskin Salve
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Bronzeskin Salve43046
+  uniqueID: Spell_Create Bronzeskin Salve26326
   clearID: 0
   spell: {fileID: 11400000, guid: c738875428a5e294993300a85014da52, type: 2}

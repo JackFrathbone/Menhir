@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Glyph of War
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Glyph of War43082
+  uniqueID: Spell_Glyph of War27034
   clearID: 0
   spell: {fileID: 11400000, guid: 74a3bcd728336aa47aea8237070201b6, type: 2}

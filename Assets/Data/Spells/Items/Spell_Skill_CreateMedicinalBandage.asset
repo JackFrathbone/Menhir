@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Medicinal Bandage
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Skill_CreateMedicinalBandage43090
+  uniqueID: Spell_Skill_CreateMedicinalBandage26594
   clearID: 0
   spell: {fileID: 11400000, guid: a706792691ed62e45898f356e404e91c, type: 2}

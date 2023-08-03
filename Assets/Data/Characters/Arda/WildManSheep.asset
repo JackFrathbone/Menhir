@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
   m_Name: WildManSheep
   m_EditorClassIdentifier: 
-  characterName: Wild Man
+  characterName: Strange Wild Man
   characterDescription: A disheveled man with twigs in his long dirty hair. He only
     wears ragged pants with many small odd bits hanging off his rope belt.
   characterPronouns: 0

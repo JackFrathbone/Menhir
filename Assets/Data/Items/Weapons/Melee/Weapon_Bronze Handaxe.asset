@@ -17,7 +17,7 @@ MonoBehaviour:
     tool.
   itemWeight: 1.8
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon_Bronze Handaxe10884
+  uniqueID: Weapon_Bronze Handaxe11028
   clearID: 0
   weaponMeleeType: Axe
   twoHanded: 0

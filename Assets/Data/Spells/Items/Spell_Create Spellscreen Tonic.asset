@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Create Spellscreen Tonic
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Create Spellscreen Tonic43066
+  uniqueID: Spell_Create Spellscreen Tonic26318
   clearID: 0
   spell: {fileID: 11400000, guid: 89947375ee45d384283501de9a240607, type: 2}

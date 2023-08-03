@@ -45,8 +45,12 @@ public class NonPlayerCharacterManager : CharacterManager
     {
         base.Start();
 
+        //Set the character visuals
+        _VisualUpdater.SetBaseVisuals(this);
+
         characterState = _characterSheet.startState;
         SetCharacterState();
+
         _characterMovementController = GetComponent<CharacterMovementController>();
 
         //Get the total defence
@@ -203,7 +207,7 @@ public class NonPlayerCharacterManager : CharacterManager
     {
         EquipWeapon();
         EquipEquipment();
-        _VisualUpdater.SetVisuals(this);
+        _VisualUpdater.SetEquipmentVisuals(this);
     }
 
     //Equips the most appropriate weapon and shield if needed

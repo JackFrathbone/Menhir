@@ -276,6 +276,7 @@ MonoBehaviour:
   - {fileID: -3110999692886631726}
   - {fileID: 958015804678454522}
   - {fileID: -4875274168653566080}
+  - {fileID: 1745535619671236583}
   current: {fileID: 406962100363745067}
 --- !u!114 &406962100363745067
 MonoBehaviour:
@@ -381,7 +382,10 @@ MonoBehaviour:
       _node: {fileID: 958015804678454522}
       _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: entry
+        node: {fileID: 1745535619671236583}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -391,7 +395,7 @@ MonoBehaviour:
   entryToAdd:
     journalText: I got back the missing sheep in Arda from a wild man who had taken
       it
-    timeStamp: 0
+    timeStamp: 52
     isArchived: 0
 --- !u!114 &1492417679628324490
 MonoBehaviour:
@@ -440,6 +444,37 @@ MonoBehaviour:
   exit: 0
   sentences:
   - '*The man looks scared and backs off, pushing the sheep back towards you*'
+--- !u!114 &1745535619671236583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5372405db3582a49b0171f89c193525, type: 3}
+  m_Name: Dialogue Quit
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1544, y: -24}
+  ports:
+    keys:
+    - entry
+    values:
+    - _fieldName: entry
+      _node: {fileID: 1745535619671236583}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exit
+        node: {fileID: 958015804678454522}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
 --- !u!114 &5770498105941156053
 MonoBehaviour:
   m_ObjectHideFlags: 0

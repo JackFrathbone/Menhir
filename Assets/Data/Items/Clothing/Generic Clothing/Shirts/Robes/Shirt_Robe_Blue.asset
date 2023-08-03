@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: A blue linen robe with no decorations.
   itemWeight: 0.15
   itemIcon: {fileID: 4365341006538210109, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Shirt_Robe_Blue42894
+  uniqueID: Shirt_Robe_Blue26836
   clearID: 0
   equipmentType: 7
   equipmentDefence: 0

@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Distract
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Distract43078
+  uniqueID: Spell_Distract26294
   clearID: 0
   spell: {fileID: 11400000, guid: 5cdca2dca79cb9e4ebbadf241306b4c0, type: 2}

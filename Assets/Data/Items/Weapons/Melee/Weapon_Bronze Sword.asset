@@ -17,7 +17,7 @@ MonoBehaviour:
     or marks. A wholly practical weapon.
   itemWeight: 1.5
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon_Bronze Sword30062
+  uniqueID: Weapon_Bronze Sword26786
   clearID: 0
   weaponMeleeType: Short Sword
   twoHanded: 0

@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Truestrike
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Truestrike43094
+  uniqueID: Spell_Truestrike26824
   clearID: 0
   spell: {fileID: 11400000, guid: 58f24bbe7dc801a4ca870f91d6826893, type: 2}

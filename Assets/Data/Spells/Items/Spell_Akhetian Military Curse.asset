@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Akhetian Military Curse
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Akhetian Military Curse43034
+  uniqueID: Spell_Akhetian Military Curse10764
   clearID: 0
   spell: {fileID: 11400000, guid: 33e51b8ffdc3ed54a95afda6c803c053, type: 2}

@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Arur's Gamble
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Arur's Gamble43036
+  uniqueID: Spell_Arur's Gamble26350
   clearID: 0
   spell: {fileID: 11400000, guid: 6b8da0ecc3698144d91e2bf20d7d5cf3, type: 2}

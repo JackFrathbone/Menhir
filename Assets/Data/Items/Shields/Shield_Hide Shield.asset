@@ -17,7 +17,7 @@ MonoBehaviour:
     to hold off bronze blades
   itemWeight: 1
   itemIcon: {fileID: 5064410620401808657, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Shield_Hide Shield30010
+  uniqueID: Shield_Hide Shield26634
   clearID: 0
   shieldDefence: 10
   magicResist: 10

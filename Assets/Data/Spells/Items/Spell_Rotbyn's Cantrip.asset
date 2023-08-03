@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Rotbyn's Cantrip
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Rotbyn's Cantrip10534
+  uniqueID: Spell_Rotbyn's Cantrip10466
   clearID: 0
   spell: {fileID: 11400000, guid: c70171aab29320a4f8bd7e53033103dd, type: 2}

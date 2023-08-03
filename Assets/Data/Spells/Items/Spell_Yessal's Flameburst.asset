@@ -17,6 +17,6 @@ MonoBehaviour:
     the spell Yessal's Flameburst
   itemWeight: 1
   itemIcon: {fileID: 0}
-  uniqueID: Spell_Yessal's Flameburst43098
+  uniqueID: Spell_Yessal's Flameburst26782
   clearID: 0
   spell: {fileID: 11400000, guid: b8e529ae12056a94ca89fa047522b471, type: 2}
