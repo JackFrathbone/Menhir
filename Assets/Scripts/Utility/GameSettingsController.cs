@@ -5,6 +5,11 @@ using UnityEngine.UI;
 public class GameSettingsController : MonoBehaviour
 {
     [Header("Audio")]
+    [SerializeField, Range(0, 100)] float _defaultMasterVolume;
+    [SerializeField, Range(0, 100)] float _defaultMusicVolume;
+    [SerializeField, Range(0, 100)] float _defaultEffectsVolume;
+    [SerializeField, Range(0, 100)] float _defaultAmbianceVolume;
+
     [SerializeField] Slider _masterSlider;
     [SerializeField] Slider _musicSlider;
     [SerializeField] Slider _effectsSlider;
@@ -13,10 +18,10 @@ public class GameSettingsController : MonoBehaviour
     private void Start()
     {
         //Set the audio sliders
-        _masterSlider.value = PlayerPrefs.GetFloat("masterVolume");
-        _musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        _effectsSlider.value = PlayerPrefs.GetFloat("effectsVolume");
-        _ambienceSlider.value = PlayerPrefs.GetFloat("ambienceVolume");
+        _masterSlider.value = PlayerPrefs.GetFloat("masterVolume", _defaultMasterVolume);
+        _musicSlider.value = PlayerPrefs.GetFloat("musicVolume", _defaultMusicVolume);
+        _effectsSlider.value = PlayerPrefs.GetFloat("effectsVolume", _defaultEffectsVolume);
+        _ambienceSlider.value = PlayerPrefs.GetFloat("ambienceVolume", _defaultAmbianceVolume);
 
     }
 
