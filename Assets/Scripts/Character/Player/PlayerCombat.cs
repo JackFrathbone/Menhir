@@ -54,6 +54,7 @@ public class PlayerCombat : MonoBehaviour
         //For melee atacks
         if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
         {
+            _weaponMeleeAnimator.SetInteger("attackRandom", Random.Range(1,3));
             _weaponMeleeAnimator.SetTrigger("attackAction");
             _weaponMeleeAnimator.SetBool("isHolding", true);
 
@@ -223,7 +224,7 @@ public class PlayerCombat : MonoBehaviour
             }
 
             //Do damage to target
-            targetCharacterManager.DamageHealth(StatFormulas.Damage(_weaponDamage, _playerCharacterManager.CheckSneakAttack()), _playerCharacterManager);
+            targetCharacterManager.DamageHealth(StatFormulas.Damage(_weaponDamage, 0f, _playerCharacterManager.CheckSneakAttack()), _playerCharacterManager);
 
             //Juice time
             Instantiate(_bloodSplatterPrefab, hitPoint, Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f));

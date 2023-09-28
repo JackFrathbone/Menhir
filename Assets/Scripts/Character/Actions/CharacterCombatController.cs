@@ -243,7 +243,8 @@ public class CharacterCombatController : MonoBehaviour
         float distance = Vector3.Distance(transform.position, _currentTarget.transform.position);
 
         //Check if in weapon range or not
-        if (distance <= _weaponRange)
+        //Includes the size of the character collider
+        if (distance <= (_weaponRange + 0.25f))
         {
             return true;
         }
@@ -372,7 +373,7 @@ public class CharacterCombatController : MonoBehaviour
             }
 
             //Do damage to target
-            targetCharacterManager.DamageHealth(StatFormulas.Damage(_weaponDamage, _characterManager.CheckSneakAttack()), _characterManager);
+            targetCharacterManager.DamageHealth(StatFormulas.Damage(_weaponDamage, 0f,_characterManager.CheckSneakAttack()), _characterManager);
 
             //Juice time
             Instantiate(_bloodSplatterPrefab, targetCharacterManager.transform.position, Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f));

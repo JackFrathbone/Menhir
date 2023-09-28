@@ -113,15 +113,27 @@ public static class StatFormulas
         }
     }
 
-    public static int Damage(int damageMax, bool criticalDamage)
+    public static int Damage(int damage, float criticalDamageChance, bool criticalDamage)
     {
+        if(criticalDamageChance != 0)
+        {
+            int roll = Random.Range(1, 101);
+
+
+            if(roll <= criticalDamageChance)
+            {
+                criticalDamage = true;
+            }
+        }
+
+
         if (criticalDamage)
         {
-            return Random.Range(1, damageMax + 1) * 2;
+            return damage * 2;
         }
         else
         {
-            return Random.Range(1, damageMax + 1);
+            return damage;
         }
     }
 

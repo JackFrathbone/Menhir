@@ -18,18 +18,18 @@ MonoBehaviour:
   characterFaction: {fileID: 11400000, guid: 4f7d5ce489bf4e440972fc5f5cfa5fb9, type: 2}
   characterAggression: 2
   characterInventory:
-  - {fileID: 11400000, guid: 6c3f558bca06c7f4baf5454fcc3fa726, type: 2}
-  - {fileID: 11400000, guid: f7076464570a41b4580c1655e748bac6, type: 2}
+  - {fileID: 11400000, guid: 30550062b343ec24cb9d916e08b25964, type: 2}
   - {fileID: 11400000, guid: 063b577814dc9f945b758717a94ca71f, type: 2}
   - {fileID: 11400000, guid: 724d030d9fde31743a295afc5fb04a3b, type: 2}
   - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
   - {fileID: 11400000, guid: 167df058ba2948b4880326f8232fbff6, type: 2}
+  randomItems: []
   characterSpells: []
   characterGreeting: Uwu hewwo
   characterWoundedGreeting: Oof ouch my bones
   characterDialogueGraph: {fileID: 0}
   abilities:
-    body: 4
+    body: 3
     hands: 3
     mind: 3
     heart: 3
