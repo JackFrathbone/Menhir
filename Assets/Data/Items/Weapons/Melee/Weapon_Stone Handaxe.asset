@@ -17,7 +17,7 @@ MonoBehaviour:
     handaxe looks rough but has a sharp edge.
   itemWeight: 1.8
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon_Stone Handaxe10666
+  uniqueID: Weapon_Stone Handaxe10876
   clearID: 0
   weaponMeleeType: Axe
   twoHanded: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
   weaponDefence: -5
   weaponSpeed: 0.85
   weaponRange: 1.85
+  knockback: 0
   weaponModel: {fileID: 21300000, guid: b246cfa386f41664b91dd6da616b9cf5, type: 3}
   enchantmentSelfEffects: []
   enchantmentTargetEffects: []

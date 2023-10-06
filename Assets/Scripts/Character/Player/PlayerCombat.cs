@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [Header("Settings")]
+    [Tooltip("If the player can start an attack")]
+    private bool _canAttack = true;
+
     [Header("Animator References")]
     [SerializeField] Animator _weaponMeleeAnimator;
     [SerializeField] Animator _weaponRangedAnimator;
@@ -26,7 +30,6 @@ public class PlayerCombat : MonoBehaviour
     private bool _isRanged;
 
     private GameObject _projectilePrefab;
-    private List<Effect> _projectileEffects;
     private List<Effect> _enchantmentEffects;
 
     private void Start()
@@ -37,13 +40,18 @@ public class PlayerCombat : MonoBehaviour
     }
     private void SetWeaponStats()
     {
-        _playerCharacterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _isRanged, out _projectilePrefab, out _projectileEffects, out _enchantmentEffects, out _itemWeight);
+        _playerCharacterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _isRanged, out _projectilePrefab, out _enchantmentEffects, out _itemWeight);
     }
 
+    public void SetCanAttack(bool canAttack)
+    {
+        _canAttack = canAttack;
+    }
 
     public void TriggerAttack()
     {
-        if (_playerCharacterManager.staminaCurrent <= _playerCharacterManager.staminaTotal * 0.25)
+        //If the player doesnt have enough stamina or can't attack
+        if ((_playerCharacterManager.staminaCurrent <= _playerCharacterManager.staminaTotal * 0.25) || !_canAttack)
         {
             return;
         }
@@ -74,19 +82,6 @@ public class PlayerCombat : MonoBehaviour
             //Play draw audio
             AudioManager.instance.PlayOneShot("event:/CombatDrawRanged", transform.position);
         }
-        //If its magic focus weapon
-        else if (_playerCharacterManager.equippedWeapon is WeaponFocusItem)
-        {
-            if ((_playerCharacterManager.equippedWeapon as WeaponFocusItem).projectilePrefab != null)
-            {
-                _weaponMeleeAnimator.SetTrigger("attackAction");
-                _weaponMeleeAnimator.SetBool("isHolding", true);
-
-                //Speed of hold to attack based on weapon speed, in real seconds
-                SetHoldSpeed(_weaponSpeed);
-
-            }
-        }
     }
 
     //Used differentiate between a quick or held attack
@@ -100,10 +95,6 @@ public class PlayerCombat : MonoBehaviour
         else if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
         {
             _weaponRangedAnimator.SetBool("isHolding", false);
-        }
-        else if (_playerCharacterManager.equippedWeapon is WeaponFocusItem)
-        {
-            _weaponMeleeAnimator.SetBool("isHolding", false);
         }
     }
 
@@ -159,7 +150,7 @@ public class PlayerCombat : MonoBehaviour
         {
             _playerCharacterManager.SetRangedSprite((_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponModelFired);
 
-            ProjectileController projectileController = Instantiate((_playerCharacterManager.equippedWeapon as WeaponRangedItem).projectilePrefab, _playerProjectileSpawnPoint.position, _playerProjectileSpawnPoint.rotation).GetComponent<ProjectileController>();
+            ProjectileController projectileController = Instantiate(_projectilePrefab, _playerProjectileSpawnPoint.position, _playerProjectileSpawnPoint.rotation).GetComponent<ProjectileController>();
 
             projectileController.hitEvent.AddListener(delegate { GetProjectileHitData(projectileController); });
 
@@ -169,23 +160,6 @@ public class PlayerCombat : MonoBehaviour
             //Play audio
             AudioManager.instance.PlayOneShot("event:/CombatSwingRanged", transform.position);
         }
-    }
-
-    public void FocusCastAttack()
-    {
-        if (_playerCharacterManager.equippedWeapon is WeaponFocusItem)
-        {
-            ProjectileController projectileController = Instantiate((_playerCharacterManager.equippedWeapon as WeaponFocusItem).projectilePrefab, _playerProjectileSpawnPoint.position, _playerProjectileSpawnPoint.rotation).GetComponent<ProjectileController>();
-
-            foreach (Effect effect in (_playerCharacterManager.equippedWeapon as WeaponFocusItem).focusEffects)
-            {
-                projectileController.effects.Add(effect);
-            }
-
-            //Play audio
-            AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
-        }
-
     }
 
     public void GetProjectileHitData(ProjectileController projectileController)

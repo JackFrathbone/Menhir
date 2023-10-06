@@ -96,9 +96,8 @@ public class NonPlayerCharacterManager : CharacterManager
 
     private void UpdateDialogueComponent()
     {
-        DialogueComponent dialogueComponent = GetComponent<DialogueComponent>();
-
-        if(dialogueComponent != null)
+        //Tries to get dialogue component and sets the greeting based on the current state
+        if(TryGetComponent<DialogueComponent>(out var dialogueComponent))
         {
             dialogueComponent.CharacterGreeting = GetGreetingByState();
         }
@@ -215,7 +214,7 @@ public class NonPlayerCharacterManager : CharacterManager
     {
         foreach (Item weapon in currentInventory)
         {
-            if (weapon is WeaponMeleeItem || weapon is WeaponRangedItem || weapon is WeaponFocusItem)
+            if (weapon is WeaponMeleeItem || weapon is WeaponRangedItem)
             {
                 equippedWeapon = weapon;
 
@@ -257,19 +256,6 @@ public class NonPlayerCharacterManager : CharacterManager
                     }
 
                     _animationController.SetEquipType(3);
-                }
-                else if (weapon is WeaponFocusItem)
-                {
-                    //Add enchantments
-                    foreach (Effect effect in (equippedWeapon as WeaponFocusItem).enchantmentEffects)
-                    {
-                        //Set the effect to be permanent
-                        effect.permanentEffect = true;
-                        //Add to the character
-                        AddEffect(effect);
-                    }
-
-                    _animationController.SetEquipType(1);
                 }
                 break;
             }

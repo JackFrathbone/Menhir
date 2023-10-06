@@ -27,7 +27,6 @@ public class CharacterCombatController : MonoBehaviour
     private bool _isRanged;
 
     private GameObject _projectilePrefab;
-    private List<Effect> _projectileEffects = new();
     private List<Effect> _enchantmentEffects = new();
 
     private void Awake()
@@ -167,7 +166,7 @@ public class CharacterCombatController : MonoBehaviour
 
     private void SetWeaponStats()
     {
-        _characterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _isRanged, out _projectilePrefab, out _projectileEffects, out _enchantmentEffects, out _itemWeight);
+        _characterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _isRanged, out _projectilePrefab, out _enchantmentEffects, out _itemWeight);
     }
 
     public void DecideNextAction()
@@ -244,7 +243,7 @@ public class CharacterCombatController : MonoBehaviour
 
         //Check if in weapon range or not
         //Includes the size of the character collider
-        if (distance <= (_weaponRange + 0.25f))
+        if (distance <= (_weaponRange + 0.5f))
         {
             return true;
         }
@@ -304,24 +303,17 @@ public class CharacterCombatController : MonoBehaviour
                 _characterManager.DamageStamina(StatFormulas.AttackStaminaCost(_itemWeight, _weaponSpeed));
 
                 //Check if projectile has effects
-                if (_projectileEffects != null)
+                if (_enchantmentEffects != null)
                 {
                     //Get the effects and attack to projectile
-                    foreach (Effect effect in _projectileEffects)
+                    foreach (Effect effect in _enchantmentEffects)
                     {
                         projectileController.effects.Add(effect);
                     }
                 }
 
-                //Play audio based on if the ranged attack has effects or not
-                if (_projectileEffects == null || _projectileEffects.Count == 0)
-                {
-                    AudioManager.instance.PlayOneShot("event:/CombatSwingRanged", transform.position);
-                }
-                else
-                {
-                    AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
-                }
+
+                AudioManager.instance.PlayOneShot("event:/CombatSwingRanged", transform.position);
             }
         }
 
@@ -373,7 +365,7 @@ public class CharacterCombatController : MonoBehaviour
             }
 
             //Do damage to target
-            targetCharacterManager.DamageHealth(StatFormulas.Damage(_weaponDamage, 0f,_characterManager.CheckSneakAttack()), _characterManager);
+            targetCharacterManager.DamageHealth(StatFormulas.Damage(_weaponDamage, 0f, _characterManager.CheckSneakAttack()), _characterManager);
 
             //Juice time
             Instantiate(_bloodSplatterPrefab, targetCharacterManager.transform.position, Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f));

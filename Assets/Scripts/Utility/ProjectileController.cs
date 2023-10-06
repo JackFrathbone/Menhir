@@ -96,9 +96,7 @@ public class ProjectileController : MonoBehaviour
 
             foreach (RaycastHit hit in hits)
             {
-                CharacterManager targetCharacter = hit.collider.gameObject.GetComponent<CharacterManager>();
-
-                if (targetCharacter != null)
+                if (hit.collider.gameObject.TryGetComponent<CharacterManager>(out var targetCharacter))
                 {
                     foreach (Effect effect in effects)
                     {

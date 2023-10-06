@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerMagic : MonoBehaviour
 {
-    [Header("Settings")]
-    //For spell slot 1 or 2
-    private int _selectedSpell;
-
     [Header("References")]
     //Text headings that the spells spawn under
     [SerializeField] GameObject _ritualsParent;
@@ -21,60 +18,27 @@ public class PlayerMagic : MonoBehaviour
     //Prefab for the area effect
     [SerializeField] GameObject _spellAreaPrefab;
 
-    //The buttons that show prepared and free spells
-    [SerializeField] Button _spellSlot1;
-    [SerializeField] Button _spellSlot2;
-
-    //Used to disable the warlock buttons if the player doesnt have the ability
-    [SerializeField] GameObject _warlockParent;
-
-    [SerializeField] Button _freeSpellSlot1;
-    [SerializeField] Button _freeSpellSlot2;
-
     //The activeUI spellslots Icons
-    [SerializeField] Image _spellSlot1ActiveUI;
-    [SerializeField] Image _spellSlot2ActiveUI;
+    [SerializeField] Image _spellSlotActiveUI;
     [SerializeField] Sprite _emptySlotActiveUISprite;
 
     private readonly List<GameObject> _buttonsToDelete = new();
 
-    private PlayerMagicDescription _playerMagicDescription;
     private PlayerCharacterManager _playerCharacterManager;
 
     //For casting target spells
     [SerializeField] Transform _playerProjectileSpawnPoint;
 
     [Header("Data")]
-    private Spell _preparedSpell1;
-    private Spell _preparedSpell2;
-    private Spell _freeSpell1;
-    private Spell _freeSpell2;
-
-    [SerializeField] private bool _canCastSlot1 = true;
-    [SerializeField] private bool _canCastSlot2 = true;
-
-    //The time it takes to be able to cast a spell again
-    [SerializeField] float _castTimeDefault;
-    private float _castTimeBonus;
+    private Spell _currentSpell;
 
     private void Start()
     {
-        _playerMagicDescription = GetComponent<PlayerMagicDescription>();
-
         _playerCharacterManager = GameManager.instance.playerObject.GetComponent<PlayerCharacterManager>();
-
-        SetSelectedSpell(1);
-
-        _warlockParent.SetActive(false);
     }
 
     public void RefreshSpells()
     {
-        if (_playerCharacterManager.CheckSkill("Warlock"))
-        {
-            _warlockParent.SetActive(true);
-        }
-
         //Delete all the buttons
         for (int i = _buttonsToDelete.Count - 1; i >= 0; i--)
         {
@@ -105,185 +69,35 @@ public class PlayerMagic : MonoBehaviour
         }
     }
 
-    public void RefreshPreparedSpells()
+    public Spell GetCurrentSpell()
     {
-        RefreshSpells();
+        return _currentSpell;
+    }
 
-        if (_preparedSpell1 != null)
+    public void SetCurrentSpell(Spell spell)
+    {
+        _currentSpell = spell;
+
+        if (_currentSpell != null)
         {
-            _spellSlot1.gameObject.SetActive(true);
-
-            _spellSlot1.onClick.RemoveAllListeners();
-
-            _spellSlot1.image.sprite = _preparedSpell1.spellIcon;
-            _spellSlot1.onClick.AddListener(delegate { _playerMagicDescription.SetDescription(_preparedSpell1); });
-
-            _spellSlot1ActiveUI.sprite = _preparedSpell1.spellIcon;
+            _spellSlotActiveUI.sprite = _currentSpell.spellIcon;
         }
         else
         {
-            _spellSlot1.gameObject.SetActive(false);
-            _spellSlot1ActiveUI.sprite = _emptySlotActiveUISprite;
-        }
-
-        if (_preparedSpell2 != null)
-        {
-            _spellSlot2.gameObject.SetActive(true);
-
-            _spellSlot2.onClick.RemoveAllListeners();
-
-            _spellSlot2.image.sprite = _preparedSpell2.spellIcon;
-            _spellSlot2.onClick.AddListener(delegate { _playerMagicDescription.SetDescription(_preparedSpell2); });
-
-            _spellSlot2ActiveUI.sprite = _preparedSpell2.spellIcon;
-        }
-        else
-        {
-            _spellSlot2.gameObject.SetActive(false);
-            _spellSlot2ActiveUI.sprite = _emptySlotActiveUISprite;
+            _spellSlotActiveUI.sprite = _emptySlotActiveUISprite;
         }
     }
 
-    public void RefreshLearnedSpells()
+    private bool CheckCastSpell(Spell spell)
     {
-        RefreshSpells();
-
-        if (_freeSpell1 != null)
-        {
-            _freeSpellSlot1.gameObject.SetActive(true);
-
-            _freeSpellSlot1.onClick.RemoveAllListeners();
-
-            _freeSpellSlot1.image.sprite = _freeSpell1.spellIcon;
-            _freeSpellSlot1.onClick.AddListener(delegate { _playerMagicDescription.SetDescription(_freeSpell1); });
-        }
-        else
-        {
-            _freeSpellSlot1.gameObject.SetActive(false);
-        }
-
-        if (_freeSpell2 != null)
-        {
-            _freeSpellSlot2.gameObject.SetActive(true);
-
-            _freeSpellSlot2.onClick.RemoveAllListeners();
-
-            _freeSpellSlot2.image.sprite = _freeSpell2.spellIcon;
-            _freeSpellSlot2.onClick.AddListener(delegate { _playerMagicDescription.SetDescription(_freeSpell2); });
-        }
-        else
-        {
-            _freeSpellSlot2.gameObject.SetActive(false);
-        }
-    }
-
-    public bool CheckSpellPrepared(Spell spell)
-    {
-        if (spell == _preparedSpell1 || spell == _preparedSpell2)
-        {
-            return true;
-        }
-        else
+        //Check if the spell exists
+        if (spell == null)
         {
             return false;
         }
-    }
 
-    public bool CheckSpellLearned(Spell spell)
-    {
-        if (spell == _freeSpell1 || spell == _freeSpell2)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public void PrepareSpell(Spell spell)
-    {
-        if (spell == null)
-        {
-            return;
-        }
-
-        //Sort out the casting cost if the spell hasnt been learned
-        if (!CheckSpellLearned(spell))
-        {
-            bool costPass = true;
-
-            foreach (Item item in spell.castingCostItems)
-            {
-                if (!_playerCharacterManager.currentInventory.Contains(item))
-                {
-                    costPass = false;
-                }
-            }
-
-            if (!costPass)
-            {
-                MessageBox.instance.Create("You don't have the right items to prepare this spell!", true);
-                return;
-            }
-
-            foreach (Item item in spell.castingCostItems)
-            {
-                _playerCharacterManager.RemoveItem(item);
-            }
-        }
-
-        int spellSlot;
-
-        if (_preparedSpell1 == null)
-        {
-            _preparedSpell1 = spell;
-            spellSlot = 1;
-        }
-        else if (_preparedSpell2 == null)
-        {
-            _preparedSpell2 = spell;
-            spellSlot = 2;
-        }
-        else
-        {
-            _preparedSpell1 = spell;
-            spellSlot = 1;
-        }
-
-        if (spell.isRecipe)
-        {
-            CastSpell(spellSlot);
-            return;
-        }
-
-        RefreshPreparedSpells();
-    }
-
-    public void UnPrepareSpell(Spell spell)
-    {
-        if (_preparedSpell1 == spell)
-        {
-            _preparedSpell1 = null;
-        }
-        else if (_preparedSpell2 == spell)
-        {
-            _preparedSpell2 = null;
-        }
-
-        RefreshPreparedSpells();
-    }
-
-    public void LearnSpell(Spell spell)
-    {
-        if (spell == null)
-        {
-            return;
-        }
-
+        //Go through all the required items and check if the player has them
         bool costPass = true;
-
-        //Check if player has the items needed
         foreach (Item item in spell.castingCostItems)
         {
             if (!_playerCharacterManager.currentInventory.Contains(item))
@@ -292,270 +106,142 @@ public class PlayerMagic : MonoBehaviour
             }
         }
 
+        //if not all item requirements are met the return
         if (!costPass)
         {
             MessageBox.instance.Create("You don't have the right items to prepare this spell!", true);
-            return;
+            return false;
         }
 
-        //Remove the items for the spell
+        //Remove all the casting itmems
         foreach (Item item in spell.castingCostItems)
         {
             _playerCharacterManager.RemoveItem(item);
         }
 
-        //Assign the spell to a learned spell slot
-        if (_freeSpell1 == null)
+        //Remove players health
+        if(spell.castingHealthCost > 0)
         {
-            _freeSpell1 = spell;
-        }
-        else if (_freeSpell2 == null)
-        {
-            _freeSpell2 = spell;
+            _playerCharacterManager.DamageHealth(spell.castingHealthCost, _playerCharacterManager);
         }
 
-        RefreshLearnedSpells();
+        //Remove player stamina
+        if(spell.castingStaminaCost > 0)
+        {
+            _playerCharacterManager.DamageStamina(spell.castingHealthCost);
+        }
+
+        return true;
     }
 
-    public void UnLearnSpell(Spell spell)
+    public void CastSpell()
     {
-        if (_freeSpell1 == spell)
-        {
-            _freeSpell1 = null;
-        }
-        else if (_freeSpell2 == spell)
-        {
-            _freeSpell2 = null;
-        }
+        Spell spell = _currentSpell;
 
-        RefreshLearnedSpells();
-    }
-
-    //Spell slot 1 or 2
-    public void CastSpell(int spellSlot)
-    {
-        if ((spellSlot == 1 && !_canCastSlot1) || (spellSlot == 2 && !_canCastSlot2))
+        if (spell == null || !CheckCastSpell(spell))
         {
             return;
         }
 
-        Spell spell = null;
+        StartCoroutine(WaitToCast(spell));
+    }
 
-        if (spellSlot == 1)
+    private void FinishCastingSpell(Spell spell)
+    {
+        if (spell.castTarget)
         {
-            spell = _preparedSpell1;
-        }
-        else if (spellSlot == 2)
-        {
-            spell = _preparedSpell2;
-        }
+            ProjectileController projectileController = Instantiate(spell.projectilePrefab, _playerProjectileSpawnPoint.position, _playerProjectileSpawnPoint.rotation).GetComponent<ProjectileController>();
 
-        if (spell == null)
-        {
-            return;
-        }
+            projectileController.spellAreaScale = spell.spellArea;
 
-        if (CheckSpellPrepared(spell))
-        {
-            if (spell.castTarget)
+            foreach (Effect effect in spell.spellEffects)
             {
-                ProjectileController projectileController = Instantiate(spell.projectilePrefab, _playerProjectileSpawnPoint.position, _playerProjectileSpawnPoint.rotation).GetComponent<ProjectileController>();
-
-                projectileController.spellAreaScale = spell.spellArea;
-
-                foreach (Effect effect in spell.spellEffects)
-                {
-                    projectileController.effects.Add(effect);
-                }
-            }
-            else
-            {
-                //If the self cast spell has an area spawn the visuals and do a sphere cast
-                if (spell.spellArea != 0)
-                {
-                    GameObject areaEffect = Instantiate(_spellAreaPrefab, _playerCharacterManager.transform.position, Quaternion.identity);
-                    areaEffect.transform.localScale = new Vector3(spell.spellArea, spell.spellArea, spell.spellArea);
-                    Destroy(areaEffect, 1f);
-
-                    RaycastHit[] hits = Physics.SphereCastAll(_playerCharacterManager.transform.position, spell.spellArea, transform.forward);
-
-                    foreach (RaycastHit hit in hits)
-                    {
-                        CharacterManager targetCharacter = hit.collider.gameObject.GetComponent<CharacterManager>();
-
-                        //If the spell ignores the caster check if target is the player and break
-                        if (!spell.effectSelf)
-                        {
-                            if (targetCharacter == _playerCharacterManager)
-                            {
-                                break;
-                            }
-                        }
-
-                        if (targetCharacter != null)
-                        {
-                            foreach (Effect effect in spell.spellEffects)
-                            {
-                                targetCharacter.AddEffect(effect);
-                            }
-                        }
-                    }
-                }
-                //Else just apply to self
-                else
-                {
-                    foreach (Effect effect in spell.spellEffects)
-                    {
-                        _playerCharacterManager.AddEffect(effect);
-                    }
-                }
-            }
-
-            //If the spell is not a free spell or does have a casting cost then remove it after casting
-            if (_preparedSpell1 == spell && _preparedSpell1 != _freeSpell1 && _preparedSpell1 != _freeSpell2)
-            {
-                if (_preparedSpell1.castingCostItems.Count != 0 || _preparedSpell1.isRecipe)
-                {
-                    _preparedSpell1 = null;
-                }
-            }
-            else if (_preparedSpell2 == spell && _preparedSpell2 != _freeSpell1 && _preparedSpell1 != _freeSpell2)
-            {
-                if (_preparedSpell2.castingCostItems.Count != 0 || _preparedSpell2.isRecipe)
-                {
-                    _preparedSpell2 = null;
-                }
+                projectileController.effects.Add(effect);
             }
         }
         else
         {
-            return;
-        }
+            //If the self cast spell has an area spawn the visuals and do a sphere cast
+            if (spell.spellArea != 0)
+            {
+                GameObject areaEffect = Instantiate(_spellAreaPrefab, _playerCharacterManager.transform.position, Quaternion.identity);
+                areaEffect.transform.localScale = new Vector3(spell.spellArea, spell.spellArea, spell.spellArea);
+                Destroy(areaEffect, 1f);
+                RaycastHit[] hits = Physics.SphereCastAll(_playerCharacterManager.transform.position, spell.spellArea, transform.forward);
 
-        RefreshPreparedSpells();
+                foreach (RaycastHit hit in hits)
+                {
+                    CharacterManager targetCharacter = hit.collider.gameObject.GetComponent<CharacterManager>();
+
+                    //If the spell ignores the caster check if target is the player and break
+                    if (!spell.effectSelf)
+                    {
+                        if (targetCharacter == _playerCharacterManager)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (targetCharacter != null)
+                    {
+                        foreach (Effect effect in spell.spellEffects)
+                        {
+                            targetCharacter.AddEffect(effect);
+                        }
+                    }
+                }
+            }
+            //Else just apply to self
+            else
+            {
+                foreach (Effect effect in spell.spellEffects)
+                {
+                    _playerCharacterManager.AddEffect(effect);
+                }
+            }
+        }
 
         //Audio for spell cast
         AudioManager.instance.PlayOneShot("event:/CombatSpellCast", transform.position);
-
-        //Set the spell slot to be disabled
-        if (spellSlot == 1)
-        {
-            _canCastSlot1 = false;
-        }
-        else
-        {
-            _canCastSlot2 = false;
-        }
-
-        StartCoroutine(WaitToCastAgain(spell, spellSlot));
-
     }
 
-    public bool CheckWarlockSkill()
+    public void CraftRecipe(Spell spell)
     {
-        if (_playerCharacterManager.CheckSkill("Warlock"))
+        //If the spell is a recipe just run the effects
+
+        if (!spell.isRecipe)
         {
-            return true;
+            return;
         }
-        else
+
+        //Check if the recipe meets the requirements
+        if (!CheckCastSpell(spell))
         {
-            return false;
+            return;
+        }
+
+        //Add the effects to the player
+        foreach (Effect effect in spell.spellEffects)
+        {
+            _playerCharacterManager.AddEffect(effect);
         }
     }
 
-    public void SetSelectedSpell(int i)
+    IEnumerator WaitToCast(Spell spell)
     {
-        _selectedSpell = i;
-
-        if (i == 1 && _preparedSpell1 != null)
+        _spellSlotActiveUI.color = new Color(_spellSlotActiveUI.color.r, _spellSlotActiveUI.color.g, _spellSlotActiveUI.color.b, 0.1f);
+        if (!_playerCharacterManager.CheckSkill("Warlock"))
         {
-            _spellSlot1ActiveUI.color = Color.green;
-            _spellSlot2ActiveUI.color = Color.white;
+            _playerCharacterManager.SetSlowState(true);
+            _playerCharacterManager.SetCanAttack(false);
         }
-        else if (i == 2 && _preparedSpell2 != null)
+        yield return new WaitForSeconds(spell.castingTime - (spell.castingTime * _playerCharacterManager.castingBonus / 100));
+        _spellSlotActiveUI.color = new Color(_spellSlotActiveUI.color.r, _spellSlotActiveUI.color.g, _spellSlotActiveUI.color.b, 1f);
+        if (!_playerCharacterManager.CheckSkill("Warlock"))
         {
-            _spellSlot1ActiveUI.color = Color.white;
-            _spellSlot2ActiveUI.color = Color.green;
+            _playerCharacterManager.SetSlowState(false);
+            _playerCharacterManager.SetCanAttack(true);
         }
-        else
-        {
-            _spellSlot1ActiveUI.color = Color.white;
-            _spellSlot2ActiveUI.color = Color.white;
-        }
-    }
-
-    public Spell GetEquippedSpell(int slot)
-    {
-        if (slot == 1)
-        {
-            return _preparedSpell1;
-        }
-        else if (slot == 2)
-        {
-            return _preparedSpell2;
-        }
-        else
-        {
-            Debug.Log("Invalid spell slot");
-            return null;
-        }
-    }
-
-    public Spell GetLearnedSpell(int slot)
-    {
-        if (slot == 1)
-        {
-            return _freeSpell1;
-        }
-        else if (slot == 2)
-        {
-            return _freeSpell2;
-        }
-        else
-        {
-            Debug.Log("Invalid spell slot");
-            return null;
-        }
-    }
-
-    public int GetSelectedSpell()
-    {
-        return _selectedSpell;
-    }
-
-    public void ResetSpellCooldown()
-    {
-        StopAllCoroutines();
-
-        _canCastSlot1 = true;
-        _canCastSlot2 = true;
-    }
-
-    public void SetSpellCooldownBonus(int i)
-    {
-        _castTimeBonus += i;
-    }
-
-    IEnumerator WaitToCastAgain(Spell spell, int spellSlot)
-    {
-        if (spellSlot == 1)
-        {
-            _spellSlot1ActiveUI.color = new Color(_spellSlot1ActiveUI.color.r, _spellSlot1ActiveUI.color.g, _spellSlot1ActiveUI.color.b, 0.1f);
-        }
-        else
-        {
-            _spellSlot2ActiveUI.color = new Color(_spellSlot2ActiveUI.color.r, _spellSlot2ActiveUI.color.g, _spellSlot2ActiveUI.color.b, 0.1f);
-        }
-        yield return new WaitForSeconds(spell.cooldown - (spell.cooldown * _castTimeBonus / 100));
-        if (spellSlot == 1)
-        {
-            _canCastSlot1 = true;
-            _spellSlot1ActiveUI.color = new Color(_spellSlot1ActiveUI.color.r, _spellSlot1ActiveUI.color.g, _spellSlot1ActiveUI.color.b, 1f);
-        }
-        else
-        {
-            _canCastSlot2 = true;
-            _spellSlot2ActiveUI.color = new Color(_spellSlot2ActiveUI.color.r, _spellSlot2ActiveUI.color.g, _spellSlot2ActiveUI.color.b, 1f);
-        }
+        FinishCastingSpell(spell);
     }
 }

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Hunter
   skillDescription: Kill monsters with ease. Always have advantage when attacking
-    monsters.
+    monsters
   skillItems: []
+  skillSpells: []
   uniqueID: Skill_Hunter37700
   clearID: 0

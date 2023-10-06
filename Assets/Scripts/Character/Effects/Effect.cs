@@ -32,8 +32,7 @@ public enum EffectType
     Gain_Advantage,
     Gain_Disadvantage,
     Invisibility,
-    Reset_Magic_Cooldown,
-    Reduce_Magic_Cooldown
+    Spell_Casting_Speed
 }
 
 [System.Serializable]
@@ -209,13 +208,9 @@ public class Effect
                 _runOnce = true;
                 targetCharacter.isInvisible = false;
                 break;
-            case EffectType.Reset_Magic_Cooldown:
+            case EffectType.Spell_Casting_Speed:
                 _runOnce = true;
-                targetCharacter.ResetSpellCooldown();
-                break;
-            case EffectType.Reduce_Magic_Cooldown:
-                _runOnce = true;
-                targetCharacter.ReduceSpellCooldown(effectStrength);
+                targetCharacter.SetSpellCastingBonus(effectStrength);
                 break;
         }
     }
@@ -311,10 +306,9 @@ public class Effect
             case EffectType.Invisibility:
                 targetCharacter.isInvisible = false;
                 break;
-            case EffectType.Reset_Magic_Cooldown:
-                break;
-            case EffectType.Reduce_Magic_Cooldown:
-                targetCharacter.ReduceSpellCooldown(-effectStrength);
+            case EffectType.Spell_Casting_Speed:
+                _runOnce = true;
+                targetCharacter.SetSpellCastingBonus(-effectStrength);
                 break;
         }
         //Debug.Log(GetDescription() + " on" + targetCharacter.characterSheet.characterName + " ended");

@@ -518,7 +518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &154433801
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1262,12 +1262,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7698060014161111471, guid: da9762081ee22dd4caf17976759c23bb, type: 3}
       propertyPath: inventory.Array.size
-      value: 40
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7698060014161111471, guid: da9762081ee22dd4caf17976759c23bb, type: 3}
       propertyPath: inventory.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 9f73f1cb7f4ab8e4c9d8915cd9082069, type: 2}
+      objectReference: {fileID: 11400000, guid: b1adc76e0f6524241b38def6db9fa968, type: 2}
     - target: {fileID: 7698060014161111471, guid: da9762081ee22dd4caf17976759c23bb, type: 3}
       propertyPath: inventory.Array.data[1]
       value: 

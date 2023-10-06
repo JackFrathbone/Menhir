@@ -10,7 +10,7 @@ public class Spell : ScriptableObject
     public bool isRecipe;
     public Sprite spellIcon;
 
-    [Tooltip("Only works if castTarget is true")]
+    [Tooltip("Only used in ranged and touch spells")]
     public GameObject projectilePrefab;
 
     [Header("Spell Settings")]
@@ -25,12 +25,16 @@ public class Spell : ScriptableObject
     [Tooltip("The radius the spell effects when cast")]
     [Range(0, 10)] public int spellArea = 0;
 
-    [Tooltip("How long a slot takes to refill after being cast in seconds")]
-    public float cooldown;
+    [Tooltip("How long it takes to cast a spell in seconds")]
+    public float castingTime;
 
     [Header("Spell Effects")]
     [Tooltip("Spell effects")]
     public List<Effect> spellEffects = new();
+
+    [Header("Spell Costs")]
+    public int castingHealthCost = 0;
+    public int castingStaminaCost = 0;
     [Tooltip("Items that are required to prepare the spell")]
     public List<Item> castingCostItems = new();
 

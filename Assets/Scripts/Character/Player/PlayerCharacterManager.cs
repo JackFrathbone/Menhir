@@ -153,17 +153,6 @@ public class PlayerCharacterManager : CharacterManager
                         AddEffect(effect);
                     }
                 }
-                else if (equippedWeapon is WeaponFocusItem)
-                {
-                    //Add enchantments
-                    foreach (Effect effect in (equippedWeapon as WeaponFocusItem).enchantmentEffects)
-                    {
-                        //Set the effect to be permanent
-                        effect.permanentEffect = true;
-                        //Add to the character
-                        AddEffect(effect);
-                    }
-                }
                 break;
             case "shield":
                 //Check if appropriate weapon is equipped and then lets the shield be added
@@ -268,17 +257,6 @@ public class PlayerCharacterManager : CharacterManager
                         }
                     }
                 }
-                else if (equippedWeapon is WeaponFocusItem)
-                {
-                    //Remove enchantments
-                    foreach (Effect effect in (equippedWeapon as WeaponFocusItem).enchantmentEffects)
-                    {
-                        if (currentEffects.Contains(effect))
-                        {
-                            RemoveEffect(effect);
-                        }
-                    }
-                }
 
                 if (equippedShield != null)
                 {
@@ -358,11 +336,6 @@ public class PlayerCharacterManager : CharacterManager
             else if (equippedWeapon is WeaponRangedItem)
             {
                 _playerWeaponRanged.sprite = (equippedWeapon as WeaponRangedItem).weaponModelLoaded;
-                twoHanded = true;
-            }
-            else if (equippedWeapon is WeaponFocusItem)
-            {
-                _playerWeaponMelee.sprite = (equippedWeapon as WeaponFocusItem).focusModel;
                 twoHanded = true;
             }
 
@@ -474,6 +447,11 @@ public class PlayerCharacterManager : CharacterManager
         }
     }
 
+    public override void SetCanAttack(bool canAttack)
+    {
+        _PlayerCombat.SetCanAttack(canAttack);
+    }
+
     public override void TriggerBlock()
     {
         _PlayerCombat.TriggerBlock();
@@ -507,16 +485,6 @@ public class PlayerCharacterManager : CharacterManager
     {
         base.ChangeAbilityTotal(i, abilityName);
         _PlayerCharacterStatsDisplay.UpdateStatDisplay(this);
-    }
-
-    public override void ResetSpellCooldown()
-    {
-        _playerMagic.ResetSpellCooldown();
-    }
-
-    public override void ReduceSpellCooldown(int percentage)
-    {
-        _playerMagic.SetSpellCooldownBonus(percentage);
     }
 
     public override void RemoveItem(Item i)

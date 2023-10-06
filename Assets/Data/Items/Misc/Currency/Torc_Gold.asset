@@ -17,5 +17,5 @@ MonoBehaviour:
     stand out on its shiny surface.
   itemWeight: 1.5
   itemIcon: {fileID: 21300000, guid: fd6216861285b9341b2256ead4f77c31, type: 3}
-  uniqueID: Torc_Gold26774
+  uniqueID: Torc_Gold26988
   clearID: 0

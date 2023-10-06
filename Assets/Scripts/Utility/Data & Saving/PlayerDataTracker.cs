@@ -48,11 +48,7 @@ public class PlayerDataTracker
     [ReadOnly] public string equippedPants;
     [ReadOnly] public string equippedShirt;
 
-    [ReadOnly] public string equippedSpell1;
-    [ReadOnly] public string equippedSpell2;
-
-    [ReadOnly] public string learnedSpell1;
-    [ReadOnly] public string learnedSpell2;
+    [ReadOnly] public string currentSpell;
 
     [Header("Active Effects")]
     [ReadOnly] public List<Effect> currentEffects = new();

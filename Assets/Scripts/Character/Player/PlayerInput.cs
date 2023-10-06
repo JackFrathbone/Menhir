@@ -198,19 +198,9 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Spell1"))
-        {
-            _playerMagic.SetSelectedSpell(1);
-        }
-
-        if (Input.GetButtonDown("Spell2"))
-        {
-            _playerMagic.SetSelectedSpell(2);
-        }
-
         if (Input.GetButtonDown("CastSpell"))
         {
-            _playerMagic.CastSpell(_playerMagic.GetSelectedSpell());
+            _playerMagic.CastSpell();
         }
 
         //Activate objects that are currently looked at
@@ -244,9 +234,8 @@ public class PlayerInput : MonoBehaviour
                         if ((_target.CompareTag("Character") || _target.CompareTag("SimpleCharacter")) && GameManager.instance.CheckCanPause("dialogueMenu"))
                         {
                             //Check if there is a dialogue component
-                            DialogueComponent dialogueComponent = _target.GetComponent<DialogueComponent>();
-
-                            if(dialogueComponent != null)
+                            
+                            if(_target.TryGetComponent<DialogueComponent>(out var dialogueComponent))
                             {
                                 GameManager.instance.PauseGame(true, "dialogueMenu");
                                 _playerDialogueController.StartDialogue(dialogueComponent);
@@ -256,9 +245,8 @@ public class PlayerInput : MonoBehaviour
                                 //Otherwise just play the appropriate greeting in a text box
                                 if (_target.CompareTag("Character"))
                                 {
-                                    NonPlayerCharacterManager nonPlayerCharacterManager = _target.GetComponent<NonPlayerCharacterManager>();
-
-                                    if(nonPlayerCharacterManager != null)
+                                    
+                                    if(_target.TryGetComponent<NonPlayerCharacterManager>(out var nonPlayerCharacterManager))
                                     {
                                         MessageBox.instance.Create(nonPlayerCharacterManager.GetGreetingByState(), true);
                                     }

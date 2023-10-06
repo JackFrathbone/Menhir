@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: One Man Army
   skillDescription: You have learned to defend against multiple angles of attack.
-    For each enemy that is attacking, the player gains a +5% bonus to their defence.
+    For each enemy that is attacking, the player gains a +5% bonus to their defence
   skillItems: []
+  skillSpells: []
   uniqueID: Skill_One Man Army36102
   clearID: 0

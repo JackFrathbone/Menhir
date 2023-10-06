@@ -19,7 +19,7 @@ public class DataManager : Singleton<DataManager>
     private PlayerDataTracker _playerData;
 
     //All NPCs and Monsters active in the scene
-    [ReadOnly] [SerializeField] List<CharacterManager> _activeCharacters = new();
+    [ReadOnly][SerializeField] List<CharacterManager> _activeCharacters = new();
 
     private void Start()
     {
@@ -70,10 +70,7 @@ public class DataManager : Singleton<DataManager>
 
     public void SaveSaveSlot(int i)
     {
-        if (_playerData == null)
-        {
-            _playerData = new();
-        }
+        _playerData ??= new();
 
         //Save current data
         SaveSceneData(SceneLoader.instance.GetCurrentScene());
@@ -210,9 +207,8 @@ public class DataManager : Singleton<DataManager>
             return;
         }
 
-        PlayerCharacterManager playerCharacterManager = playerObject.GetComponent<PlayerCharacterManager>();
 
-        if (playerCharacterManager == null)
+        if (!playerObject.TryGetComponent<PlayerCharacterManager>(out var playerCharacterManager))
         {
             Debug.Log("trying to save player data with no active player");
             return;
@@ -289,11 +285,7 @@ public class DataManager : Singleton<DataManager>
 
         PlayerMagic playerMagic = playerCharacterManager.GetPlayerMagic();
 
-        if (playerMagic.GetEquippedSpell(1) != null) { _playerData.equippedSpell1 = playerCharacterManager.GetPlayerMagic().GetEquippedSpell(1).uniqueID; } else { _playerData.equippedSpell1 = ""; };
-        if (playerMagic.GetEquippedSpell(2) != null) { _playerData.equippedSpell2 = playerCharacterManager.GetPlayerMagic().GetEquippedSpell(2).uniqueID; } else { _playerData.equippedSpell2 = ""; };
-
-        if (playerMagic.GetLearnedSpell(1) != null) { _playerData.learnedSpell1 = playerCharacterManager.GetPlayerMagic().GetLearnedSpell(1).uniqueID; } else { _playerData.learnedSpell1 = ""; };
-        if (playerMagic.GetLearnedSpell(2) != null) { _playerData.learnedSpell2 = playerCharacterManager.GetPlayerMagic().GetLearnedSpell(2).uniqueID; } else { _playerData.learnedSpell2 = ""; };
+        if (playerMagic.GetCurrentSpell() != null) { _playerData.currentSpell = playerCharacterManager.GetPlayerMagic().GetCurrentSpell().uniqueID; } else { _playerData.currentSpell = ""; };
 
         _playerData.currentEffects = playerCharacterManager.currentEffects;
 
@@ -450,9 +442,7 @@ public class DataManager : Singleton<DataManager>
 
     private void LoadPlayerData()
     {
-        PlayerCharacterManager playerCharacterManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacterManager>();
-
-        if (playerCharacterManager == null)
+        if (!GameObject.FindGameObjectWithTag("Player").TryGetComponent<PlayerCharacterManager>(out var playerCharacterManager))
         {
             Debug.Log("trying to save player data with no active player");
             return;
@@ -511,11 +501,7 @@ public class DataManager : Singleton<DataManager>
             Spell spell = Instantiate(scriptableObjectDatabase.GetSpellFromID(uniqueID));
             playerCharacterManager.currentSpells.Add(spell);
 
-            if (spell.uniqueID == this._playerData.learnedSpell1) { playerCharacterManager.GetPlayerMagic().LearnSpell(spell); };
-            if (spell.uniqueID == this._playerData.learnedSpell2) { playerCharacterManager.GetPlayerMagic().LearnSpell(spell); };
-
-            if (spell.uniqueID == this._playerData.equippedSpell1) { playerCharacterManager.GetPlayerMagic().PrepareSpell(spell); };
-            if (spell.uniqueID == this._playerData.equippedSpell2) { playerCharacterManager.GetPlayerMagic().PrepareSpell(spell); };
+            if (spell.uniqueID == this._playerData.currentSpell) { playerCharacterManager.GetPlayerMagic().SetCurrentSpell(spell); };
         }
 
         playerCharacterManager.currentSkills.Clear();

@@ -17,7 +17,7 @@ MonoBehaviour:
     and cheap weapon.
   itemWeight: 2
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon_Stone Shortspear26742
+  uniqueID: Weapon_Stone Shortspear26958
   clearID: 0
   weaponMeleeType: Shortspear
   twoHanded: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
   weaponDefence: 5
   weaponSpeed: 0.85
   weaponRange: 2.5
+  knockback: 0
   weaponModel: {fileID: 21300000, guid: f55f1348715b87444ab5825ae83ee1c9, type: 3}
   enchantmentSelfEffects: []
   enchantmentTargetEffects: []

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Skill_Warlock
   m_EditorClassIdentifier: 
   skillName: Warlock
-  skillDescription: Cast spells without cost or focus, at will. Two spells can be
-    prepared at any time, with their normal cost, but can be cast repeatedly without
-    requiring to be prepared again.
+  skillDescription: Fight with weapons and magic at the same time. The player is
+    not slowed when casting spells and can attack while casting
   skillItems: []
+  skillSpells: []
   uniqueID: Skill_Warlock36108
   clearID: 0

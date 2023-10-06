@@ -72,8 +72,7 @@ public class PlayerInventory : MonoBehaviour
     {
         foreach (Transform child in _baseDisplayParent)
         {
-            Image image = child.GetComponent<Image>();
-            if (image != null)
+            if (child.TryGetComponent<Image>(out var image))
             {
                 image.color = _playerCharacterManager.characterSkintone;
             }
@@ -120,17 +119,6 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
             else if (item is WeaponRangedItem)
-            {
-                if (item != _playerCharacterManager.equippedWeapon)
-                {
-                    button = Instantiate(_InventoryButtonPrefab, _weaponParent.transform.parent).GetComponent<PlayerInventoryButton>();
-                    button.transform.SetSiblingIndex(_weaponParent.transform.GetSiblingIndex() + 1);
-                    button.SetItem(item, this, false, null);
-
-                    _buttonsToDelete.Add(button.gameObject);
-                }
-            }
-            else if (item is WeaponFocusItem)
             {
                 if (item != _playerCharacterManager.equippedWeapon)
                 {

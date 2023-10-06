@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Disabling Shot
   skillDescription: Slow down enemies with your ranged attacks. All successful hits
-    against characters with a ranged weapon makes them slower for a period of time.
+    against characters with a ranged weapon makes them slower for a period of time
   skillItems: []
+  skillSpells: []
   uniqueID: Skill_Disabling Shot36094
+  clearID: 0

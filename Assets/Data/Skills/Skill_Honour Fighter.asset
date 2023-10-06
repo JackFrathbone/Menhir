@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Honour Fighter
   skillDescription: You excel at one-on-one combat. When in combat with only a single
-    enemy, they gain a disadvantage when attacking.
+    enemy, they gain a disadvantage when attacking
   skillItems: []
+  skillSpells: []
   uniqueID: Skill_Honour Fighter36098
   clearID: 0

@@ -26,6 +26,7 @@ public class CharacterManager : MonoBehaviour
     [ReadOnly] public int bonusDefence;
     [ReadOnly] public int bonusDamage;
     [ReadOnly] public int effectResistChance;
+    [ReadOnly] public float castingBonus;
 
     [Header("Equipped Items")]
     [ReadOnly] public Item equippedWeapon;
@@ -315,11 +316,11 @@ public class CharacterManager : MonoBehaviour
 
     }
 
-    public virtual void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed, out bool isRanged, out GameObject projectile, out List<Effect> effects, out List<Effect> enchantmentsEffects, out float weaponWeight)
+    public virtual void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed, out bool isRanged, out GameObject projectile, out List<Effect> enchantmentsEffects, out float weaponWeight)
     {
         if (equippedWeapon != null)
         {
-            if (equippedWeapon is WeaponMeleeItem meleeItem)
+            if (equippedWeapon is WeaponMeleeItem)
             {
 
                 damage = (equippedWeapon as WeaponMeleeItem).weaponDamage;
@@ -328,12 +329,11 @@ public class CharacterManager : MonoBehaviour
                 speed = (equippedWeapon as WeaponMeleeItem).weaponSpeed;
                 isRanged = false;
                 projectile = null;
-                effects = null;
                 enchantmentsEffects = (equippedWeapon as WeaponMeleeItem).enchantmentTargetEffects;
                 weaponWeight = equippedWeapon.itemWeight;
                 return;
             }
-            else if (equippedWeapon is WeaponRangedItem rangedItem)
+            else if (equippedWeapon is WeaponRangedItem)
             {
                 damage = (equippedWeapon as WeaponRangedItem).weaponDamage;
                 bluntDamage = 0;
@@ -341,21 +341,7 @@ public class CharacterManager : MonoBehaviour
                 speed = (equippedWeapon as WeaponRangedItem).weaponSpeed;
                 isRanged = true;
                 projectile = (equippedWeapon as WeaponRangedItem).projectilePrefab;
-                effects = null;
                 enchantmentsEffects = (equippedWeapon as WeaponRangedItem).enchantmentTargetEffects;
-                weaponWeight = equippedWeapon.itemWeight;
-                return;
-            }
-            else if (equippedWeapon is WeaponFocusItem focusItem)
-            {
-                damage = 0;
-                bluntDamage = 0;
-                range = 15;
-                speed = (equippedWeapon as WeaponFocusItem).castingSpeed;
-                isRanged = true;
-                projectile = (equippedWeapon as WeaponFocusItem).projectilePrefab;
-                effects = (equippedWeapon as WeaponFocusItem).focusEffects;
-                enchantmentsEffects = null;
                 weaponWeight = equippedWeapon.itemWeight;
                 return;
             }
@@ -367,7 +353,6 @@ public class CharacterManager : MonoBehaviour
         speed = 0;
         isRanged = false;
         projectile = null;
-        effects = null;
         enchantmentsEffects = null;
         weaponWeight = 0;
     }
@@ -751,9 +736,8 @@ public class CharacterManager : MonoBehaviour
                         break;
                     }
 
-                    CharacterAI aiController = character.GetComponent<CharacterAI>();
-
-                    if (aiController != null)
+                    
+                    if (character.TryGetComponent<CharacterAI>(out var aiController))
                     {
                         aiController.DetectTarget(this);
                     }
@@ -810,9 +794,14 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+    public virtual void SetCanAttack(bool canAttack) { }
+
     public virtual void ResetSpellCooldown() { }
 
-    public virtual void ReduceSpellCooldown(int percentage) { }
+    public virtual void SetSpellCastingBonus(int percentage)
+    {
+        castingBonus += percentage;
+    }
 
 
     public bool CurrentInventoryCompareByID(Item compareItem)

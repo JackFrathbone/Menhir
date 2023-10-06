@@ -15,11 +15,7 @@ public class PlayerMagicDescription : MonoBehaviour
     [SerializeField] GameObject _attributeTextBoxPrefab;
 
     [Header("Action Buttons")]
-    [SerializeField] Button _buttonUse;
-    [SerializeField] Button _buttonPrepare;
-    [SerializeField] Button _buttonCancel;
-    [SerializeField] Button _buttonLearn;
-    [SerializeField] Button _buttonForget;
+    [SerializeField] Button _buttonCraft;
 
     private PlayerMagic _playerMagic;
 
@@ -30,6 +26,12 @@ public class PlayerMagicDescription : MonoBehaviour
 
     public void SetDescription(Spell spell)
     {
+        //If the spell isnt a recipe then set it as the current spell to cast
+        if (!spell.isRecipe)
+        {
+            _playerMagic.SetCurrentSpell(spell);
+        }
+
         ResetText();
 
         _descriptionParent.SetActive(true);
@@ -47,9 +49,19 @@ public class PlayerMagicDescription : MonoBehaviour
 
         string castingCost = "No costs";
 
-        if (spell.castingCostItems.Count != 0)
+        if (spell.castingCostItems.Count != 0 || spell.castingHealthCost > 0 || spell.castingStaminaCost > 0)
         {
             castingCost = "";
+
+            if (spell.castingHealthCost > 0)
+            {
+                castingCost += "Takes " + spell.castingHealthCost + " health" + "\n";
+            }
+
+            if (spell.castingStaminaCost > 0)
+            {
+                castingCost += "Takes " + spell.castingStaminaCost + " stamina" + "\n";
+            }
 
             foreach (Item castingItem in spell.castingCostItems)
             {
@@ -58,6 +70,7 @@ public class PlayerMagicDescription : MonoBehaviour
         }
         CreateDescriptionAttributeBox("Spell Type: " + spellType);
         CreateDescriptionAttributeBox("Mind Requirement: " + spell.mindRequirement.ToString());
+        CreateDescriptionAttributeBox("Casting Time: " + spell.castingTime.ToString() + " seconds");
         CreateDescriptionAttributeBox("<b>Casting Costs</b>");
         CreateDescriptionAttributeBox(castingCost);
 
@@ -67,34 +80,12 @@ public class PlayerMagicDescription : MonoBehaviour
     //Used to enable the equip or unequip buttons, and to decide what they link to
     private void SetButtonEvents(Spell spell)
     {
-
-        if (_playerMagic.CheckSpellPrepared(spell))
+        if (spell.isRecipe)
         {
-            _buttonPrepare.gameObject.SetActive(false);
-            _buttonCancel.gameObject.SetActive(true);
-            _buttonCancel.onClick.AddListener(delegate { _playerMagic.UnPrepareSpell(spell); });
-            _buttonCancel.onClick.AddListener(CloseDescription);
+            _buttonCraft.gameObject.SetActive(true);
+            _buttonCraft.onClick.AddListener(delegate { _playerMagic.CraftRecipe(spell); });
+            _buttonCraft.onClick.AddListener(CloseDescription);
         }
-        else
-        {
-            _buttonPrepare.gameObject.SetActive(true);
-            _buttonPrepare.onClick.AddListener(delegate { _playerMagic.PrepareSpell(spell); });
-            _buttonPrepare.onClick.AddListener(CloseDescription);
-        }
-
-        if (_playerMagic.CheckSpellLearned(spell) && _playerMagic.CheckWarlockSkill())
-        {
-            _buttonForget.gameObject.SetActive(true);
-            _buttonForget.onClick.AddListener(delegate { _playerMagic.UnLearnSpell(spell); });
-            _buttonForget.onClick.AddListener(CloseDescription);
-        }
-        else if (!_playerMagic.CheckSpellLearned(spell) && _playerMagic.CheckWarlockSkill())
-        {
-            _buttonLearn.gameObject.SetActive(true);
-            _buttonLearn.onClick.AddListener(delegate { _playerMagic.LearnSpell(spell); });
-            _buttonLearn.onClick.AddListener(CloseDescription);
-        }
-
     }
 
     //Hide all the gameobjects and the buttons
@@ -108,17 +99,8 @@ public class PlayerMagicDescription : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        _buttonUse.gameObject.SetActive(false);
-        _buttonPrepare.gameObject.SetActive(false);
-        _buttonCancel.gameObject.SetActive(false);
-        _buttonLearn.gameObject.SetActive(false);
-        _buttonForget.gameObject.SetActive(false);
-
-        //Remove the button evenets from the buttons
-        _buttonUse.onClick.RemoveAllListeners();
-        _buttonPrepare.onClick.RemoveAllListeners();
-        _buttonLearn.onClick.RemoveAllListeners();
-        _buttonForget.onClick.RemoveAllListeners();
+        _buttonCraft.gameObject.SetActive(false);
+        _buttonCraft.onClick.RemoveAllListeners();
     }
 
     private void CreateDescriptionAttributeBox(string text)

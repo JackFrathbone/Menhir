@@ -48,7 +48,7 @@ public class PlayerInventoryDescription : MonoBehaviour
         if (item is WeaponMeleeItem)
         {
             CreateDescriptionAttributeBox("Weapon Type: " + (item as WeaponMeleeItem).weaponMeleeType);
-            CreateDescriptionAttributeBox("Damage: " + "D" + (item as WeaponMeleeItem).weaponDamage.ToString());
+            CreateDescriptionAttributeBox("Damage: " + (item as WeaponMeleeItem).weaponDamage.ToString());
             CreateDescriptionAttributeBox("To Hit Bonus: " + (item as WeaponMeleeItem).weapontToHitBonus.ToString() + "%");
             CreateDescriptionAttributeBox("Defence: " + (item as WeaponMeleeItem).weaponDefence.ToString("+#;-#;0") + "%");
             CreateDescriptionAttributeBox("Range: " + (item as WeaponMeleeItem).weaponRange.ToString());
@@ -61,14 +61,6 @@ public class PlayerInventoryDescription : MonoBehaviour
             CreateDescriptionAttributeBox("Weapon Type: " + (item as WeaponRangedItem).weaponRangedType);
             CreateDescriptionAttributeBox("Damage: " + "D" + (item as WeaponRangedItem).weaponDamage.ToString());
             CreateDescriptionAttributeBox("Speed: " + (item as WeaponRangedItem).weaponSpeed.ToString());
-
-            SetButtonEvents("weapon", item, isSearch, itemContainer);
-        }
-        else if (item is WeaponFocusItem)
-        {
-            CreateDescriptionAttributeBox("Mind Required: " + (item as WeaponFocusItem).mindRequirement);
-            CreateDescriptionAttributeBox((item as WeaponFocusItem).GetEffectsDescription());
-            CreateDescriptionAttributeBox("Casting Speed: " + (item as WeaponFocusItem).castingSpeed.ToString());
 
             SetButtonEvents("weapon", item, isSearch, itemContainer);
         }
@@ -123,20 +115,14 @@ public class PlayerInventoryDescription : MonoBehaviour
             _buttonDrop.onClick.AddListener(CloseDescription);
         }
 
-        if (!_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem) || (item is ShieldItem)))
+        if (!_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is EquipmentItem) || (item is ShieldItem)))
         {
-            //If the item is a focus, dont display equip if your mind isnt high enough
-            if (item is WeaponFocusItem && _playerCharacterManager.abilities.mind < (item as WeaponFocusItem).mindRequirement)
-            {
-                return;
-            }
-
             _buttonEquip.gameObject.SetActive(true);
             _buttonEquip.onClick.AddListener(delegate { _playerCharacterManager.EquipItem(itemType, item); });
             _buttonEquip.onClick.AddListener(_playerInventory.RefreshEquippedItemsDisplay);
             _buttonEquip.onClick.AddListener(CloseDescription);
         }
-        else if (_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is WeaponFocusItem) || (item is EquipmentItem) || (item is ShieldItem)))
+        else if (_playerCharacterManager.CheckItemEquipStatus(item) && ((item is WeaponMeleeItem) || (item is WeaponRangedItem) || (item is EquipmentItem) || (item is ShieldItem)))
         {
             _buttonUnequip.gameObject.SetActive(true);
             _buttonUnequip.onClick.AddListener(delegate { _playerCharacterManager.UnequipItem(itemType, item); });

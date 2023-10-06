@@ -24,6 +24,5 @@ public class PlayerAnimationForwarder : MonoBehaviour
 
         _playerCombat.MeleeAttack();
         _playerCombat.RangedAttack();
-        _playerCombat.FocusCastAttack();
     }
 }

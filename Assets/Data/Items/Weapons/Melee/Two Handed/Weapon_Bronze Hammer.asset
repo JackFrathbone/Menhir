@@ -16,7 +16,7 @@ MonoBehaviour:
   itemDescription: A pole topped with a heavy bronze hammerhead.
   itemWeight: 3.5
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon_Bronze Hammer26384
+  uniqueID: Weapon_Bronze Hammer26600
   clearID: 0
   weaponMeleeType: Hammer
   twoHanded: 1
@@ -25,6 +25,7 @@ MonoBehaviour:
   weaponDefence: 0
   weaponSpeed: 1.25
   weaponRange: 2.5
+  knockback: 0
   weaponModel: {fileID: 21300000, guid: d7a27232c49de644eba5300e6840551b, type: 3}
   enchantmentSelfEffects: []
   enchantmentTargetEffects: []

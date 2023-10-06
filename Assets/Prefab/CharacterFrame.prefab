@@ -1705,6 +1705,7 @@ MonoBehaviour:
   bonusDefence: 0
   bonusDamage: 0
   effectResistChance: 0
+  castingBonus: 0
   equippedWeapon: {fileID: 0}
   equippedShield: {fileID: 0}
   equippedArmour: {fileID: 0}

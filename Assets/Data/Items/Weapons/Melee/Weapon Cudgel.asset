@@ -17,7 +17,7 @@ MonoBehaviour:
     for fighting, suprisngly deadly.
   itemWeight: 10
   itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: Weapon Cudgel26712
+  uniqueID: Weapon Cudgel26928
   clearID: 0
   weaponMeleeType: Club
   twoHanded: 0
@@ -26,6 +26,7 @@ MonoBehaviour:
   weaponDefence: 0
   weaponSpeed: 0.85
   weaponRange: 1.85
+  knockback: 0
   weaponModel: {fileID: 21300000, guid: 16d7020477e9ef54d9c4b2045bceb90d, type: 3}
   enchantmentSelfEffects: []
   enchantmentTargetEffects: []

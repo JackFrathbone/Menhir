@@ -15,7 +15,8 @@ MonoBehaviour:
   skillName: Sharpshooter
   skillDescription: Concentrate and find kinks in the toughest armour with arrows
     and stones. Get a chance to gain advantage on all ranged attacks equal to the
-    target's defence.
+    target's defence
   skillItems: []
+  skillSpells: []
   uniqueID: Skill_Sharpshooter36104
   clearID: 0

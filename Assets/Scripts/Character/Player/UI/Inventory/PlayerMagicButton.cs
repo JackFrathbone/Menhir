@@ -4,10 +4,11 @@ using UnityEngine.UI;
 
 public class PlayerMagicButton : MonoBehaviour
 {
+    [Header("References")]
     private Spell _spell;
     private TextMeshProUGUI _Label;
     private PlayerMagic _playerMagic;
-
+    [SerializeField] Image _icon;
     private Button _button;
 
     public void SetSpell(Spell spell, PlayerMagic playerMagic)
@@ -21,6 +22,8 @@ public class PlayerMagicButton : MonoBehaviour
 
         _button = GetComponent<Button>();
         _button.onClick.AddListener(delegate { StartMagicDescription(); });
+
+        _icon.sprite = _spell.spellIcon;
     }
 
     public void StartMagicDescription()

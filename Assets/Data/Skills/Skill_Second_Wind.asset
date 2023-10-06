@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Second Wind
   skillDescription: Survive the killing blow. You have a 25% chance to regain half
-    of your health back each time you are about to die.
+    of your health back each time you are about to die
   skillItems: []
+  skillSpells: []
   uniqueID: Skill_Second_Wind26256
   clearID: 0

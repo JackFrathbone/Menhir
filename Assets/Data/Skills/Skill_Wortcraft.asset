@@ -13,26 +13,9 @@ MonoBehaviour:
   m_Name: Skill_Wortcraft
   m_EditorClassIdentifier: 
   skillName: 'Wortcraft '
-  skillDescription: Turn herbs into useful potions. Grants multiple recipes which
-    create potions out of various plant materials you can find across the world.
+  skillDescription: Turn herbs into useful potions. Unlock recipes for making basic
+    potions out of herbs you find across the world
   skillItems: []
-  skillSpells:
-  - {fileID: 11400000, guid: f32fdee4da1487346a1d9b427a7189a3, type: 2}
-  - {fileID: 11400000, guid: bd1bf57eac60a4546854c16e69401314, type: 2}
-  - {fileID: 11400000, guid: c738875428a5e294993300a85014da52, type: 2}
-  - {fileID: 11400000, guid: 1eb12af173c3a1549b15d0c7d1891618, type: 2}
-  - {fileID: 11400000, guid: c1c441b6ec266004eb395f0dd2c683fa, type: 2}
-  - {fileID: 11400000, guid: 6698e92c2f56eab48a68096dbc80d600, type: 2}
-  - {fileID: 11400000, guid: 568be4e7ee7146b4fa2482906b71bca0, type: 2}
-  - {fileID: 11400000, guid: 81c6d09bc56bb054b8e4f6299beea7f1, type: 2}
-  - {fileID: 11400000, guid: 8be512f11be7e194d8280fbe6ca6faad, type: 2}
-  - {fileID: 11400000, guid: a06ce26cb3426404d9a5cf215700c74f, type: 2}
-  - {fileID: 11400000, guid: 6b92a878a0488654c88fe41d8e4225d8, type: 2}
-  - {fileID: 11400000, guid: 890f94fc12447354dbc0c3578224b697, type: 2}
-  - {fileID: 11400000, guid: 89947375ee45d384283501de9a240607, type: 2}
-  - {fileID: 11400000, guid: 1f10da1c3cc1041499e04d003039fdf1, type: 2}
-  - {fileID: 11400000, guid: 185fcf46ac2aeb346ba50b4e1ed6e6b8, type: 2}
-  - {fileID: 11400000, guid: dbc8a91c49fc7b849ac5b142a3cb7379, type: 2}
-  - {fileID: 11400000, guid: 2dfaabacecda83f46973184fc1cee006, type: 2}
+  skillSpells: []
   uniqueID: Skill_Wortcraft36110
   clearID: 0

@@ -29,7 +29,7 @@ MonoBehaviour:
   characterWoundedGreeting: Oof ouch my bones
   characterDialogueGraph: {fileID: 0}
   abilities:
-    body: 3
+    body: 5
     hands: 3
     mind: 3
     heart: 3

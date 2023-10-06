@@ -73,10 +73,10 @@ public class PlayerController : MonoBehaviour
 
     public void SlowMovement()
     {
-        if (_controllerSettings.walkingSpeed != _originalSpeed)
+        if (_controllerSettings.walkingSpeed == _originalSpeed)
         {
             cantSprint = true;
-            _controllerSettings.walkingSpeed /= 2;
+            _controllerSettings.walkingSpeed = 2f;
         }
     }
 

@@ -63,10 +63,6 @@ public class CharacterVisualUpdater : MonoBehaviour
             {
                 _weaponRenderer.sprite = (charManager.equippedWeapon as WeaponMeleeItem).weaponModel;
             }
-            else if (charManager.equippedWeapon is WeaponFocusItem)
-            {
-                _weaponRenderer.sprite = (charManager.equippedWeapon as WeaponFocusItem).focusModel;
-            }
             else if(charManager.equippedWeapon is WeaponRangedItem)
             {
                 _weaponRenderer.sprite = (charManager.equippedWeapon as WeaponRangedItem).weaponModelDrawing;
