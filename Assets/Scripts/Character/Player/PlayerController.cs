@@ -1,5 +1,6 @@
 using UnityEngine;
 using FMOD.Studio;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public bool cantSprint;
     public bool cantMove;
     public bool isCrouching;
+
+    [Header("Data")]
+    private bool _underKnockback;
 
     [Header("References")]
     [SerializeField] PlayerControllerSettings _controllerSettings;
@@ -143,9 +147,10 @@ public class PlayerController : MonoBehaviour
 
         _moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
-        if (Input.GetButton("Jump") && !cantMove && _characterController.isGrounded && !cantJump)
+        if (Input.GetButton("Jump") && !cantMove && _characterController.isGrounded && !cantJump && _playerCharacterManager.staminaCurrent >= 5f)
         {
             _moveDirection.y = _controllerSettings.jumpSpeed;
+            _playerCharacterManager.DamageStamina(5f);
         }
         else
         {
@@ -179,7 +184,20 @@ public class PlayerController : MonoBehaviour
         {
 
         }
+
+        //If player is under the effect of knockback
+        if (_underKnockback)
+        {
+            _characterController.Move((-forward * 4) * Time.deltaTime);
+        }
     }
+
+    public void StartKnockback(float amount)
+    {
+        StopCoroutine(ApplyKnockback(0f));
+        StartCoroutine(ApplyKnockback(amount));
+    }
+
 
     private bool CheckSlide()
     {
@@ -235,5 +253,12 @@ public class PlayerController : MonoBehaviour
     {
         _playerFootstep.stop(STOP_MODE.IMMEDIATE);
         _playerFootstep.release();
+    }
+
+    IEnumerator ApplyKnockback(float knockbackAmount)
+    {
+        _underKnockback = true;
+        yield return new WaitForSeconds(knockbackAmount/2);
+        _underKnockback = false;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Udar.SceneField;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCharacterManager : CharacterManager
 {
@@ -28,6 +29,10 @@ public class PlayerCharacterManager : CharacterManager
     //Update player UI
     private PlayerActiveUI _playerActiveUI;
     private PlayerCharacterStatsDisplay _PlayerCharacterStatsDisplay;
+
+    //Active Display Icon for equipped weapons
+    [SerializeField] Image _activeUIWeaponIcon;
+    [SerializeField] Sprite _activeUIEmptyIcon;
 
     //The global state checks list, used to see if quests and dialogue has occured
     [ReadOnly] public List<StateCheck> stateChecks = new();
@@ -122,6 +127,8 @@ public class PlayerCharacterManager : CharacterManager
         {
             case "weapon":
                 equippedWeapon = i;
+                //Set active UI Icon
+                _activeUIWeaponIcon.sprite = equippedWeapon.itemIcon;
 
                 //If weapon is two handed or ranged remove the shield
                 if (equippedWeapon is WeaponMeleeItem)
@@ -235,6 +242,8 @@ public class PlayerCharacterManager : CharacterManager
         switch (itemType)
         {
             case "weapon":
+                _activeUIWeaponIcon.sprite = _activeUIEmptyIcon;
+
                 if (equippedWeapon is WeaponMeleeItem)
                 {
                     //Remove enchantments

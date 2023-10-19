@@ -29,7 +29,7 @@ public class PlayerCharacterStatsDisplay : MonoBehaviour
         _playerName.text = playerCharacterManager.characterName;
 
         _playerHealth.text = "Health: " + playerCharacterManager.healthCurrent.ToString() +"/"+ playerCharacterManager.healthTotal.ToString();
-        _playerStamina.text = "Stamina: " + playerCharacterManager.staminaCurrent.ToString() + "/" + playerCharacterManager.staminaTotal.ToString();
+        _playerStamina.text = "Stamina: " + playerCharacterManager.staminaCurrent.ToString("F0") + "/" + playerCharacterManager.staminaTotal.ToString("F0");
 
         _abilityPhyisque.text = "Body " + playerCharacterManager.abilities.body;
         _abilityAgility.text = "Hands " + playerCharacterManager.abilities.hands;

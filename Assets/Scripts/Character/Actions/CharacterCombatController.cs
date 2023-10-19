@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CharacterCombatController : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class CharacterCombatController : MonoBehaviour
     private int _weaponHitBonus;
     private float _weaponRange;
     private float _weaponSpeed;
+    private float _weaponKnockback;
     private float _itemWeight;
     private bool _isRanged;
 
@@ -166,7 +168,7 @@ public class CharacterCombatController : MonoBehaviour
 
     private void SetWeaponStats()
     {
-        _characterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _isRanged, out _projectilePrefab, out _enchantmentEffects, out _itemWeight);
+        _characterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _weaponKnockback, out _isRanged, out _projectilePrefab, out _enchantmentEffects, out _itemWeight);
     }
 
     public void DecideNextAction()
@@ -366,6 +368,18 @@ public class CharacterCombatController : MonoBehaviour
 
             //Do damage to target
             targetCharacterManager.DamageHealth(StatFormulas.Damage(_weaponDamage, 0f, _characterManager.CheckSneakAttack()), _characterManager);
+
+            //Add Knockback
+            if (targetCharacterManager.TryGetComponent<CharacterMovementController>(out CharacterMovementController charController))
+            {
+                charController.AddKnockback(_weaponKnockback);
+            }
+
+            //Add Knockback
+            if (targetCharacterManager.TryGetComponent<PlayerController>(out PlayerController playerController))
+            {
+                playerController.StartKnockback(_weaponKnockback);
+            }
 
             //Juice time
             Instantiate(_bloodSplatterPrefab, targetCharacterManager.transform.position, Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f));

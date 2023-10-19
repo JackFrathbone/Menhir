@@ -34,6 +34,7 @@ public class WeatherController : MonoBehaviour
     [Header("Data")]
     [Tooltip("clear, cloudyLight, cloudy, rainLight, rainHeavy")]
     [ReadOnly] public string currentWeather = "clear";
+    private Transform _playerPos;
 
     private void Start()
     {
@@ -46,6 +47,23 @@ public class WeatherController : MonoBehaviour
         _outdoorAmbience = AudioManager.instance.CreateInstance("event:/AmbienceOutdoor");
         _outdoorAmbience.start();
         UpdateOutdoorAmbience();
+    }
+
+    private void FixedUpdate()
+    {
+        if(_playerPos == null)
+        {
+            if(GameManager.instance.playerObject != null)
+            {
+                _playerPos = GameManager.instance.playerObject.transform;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        this.transform.position = new Vector3(_playerPos.position.x, 0f, _playerPos.position.z);
     }
 
     private void OnEnable()

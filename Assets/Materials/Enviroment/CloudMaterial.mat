@@ -134,7 +134,7 @@ Material:
     - Vector2_a9e7c61f08054a8d9532876e3b7221e0: {r: 2, g: 0.5, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CloudColor: {r: 1, g: 1, b: 1, a: 1}
-    - _CloudSpeed: {r: -2, g: 0, b: 0, a: 0}
+    - _CloudSpeed: {r: 2, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

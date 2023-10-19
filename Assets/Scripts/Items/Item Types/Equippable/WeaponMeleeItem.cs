@@ -21,7 +21,7 @@ public class WeaponMeleeItem : Item
     [Tooltip("Range of the attack, in meters")]
     public float weaponRange;
     [Tooltip("The amount of physics forces applied to the target on a succesful hit")]
-    public float knockback;
+    public float weaponKnockback;
 
     [Header("Weapon Visuals")]
     [Tooltip("The model used by the player and NPC animators")]

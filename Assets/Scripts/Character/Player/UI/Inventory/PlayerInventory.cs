@@ -61,6 +61,11 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] Image _feetDisplay;
     [SerializeField] Image _helmetDisplay;
 
+    [Header("Player Weight Limits")]
+    [SerializeField] TextMeshProUGUI _weightLimitText;
+    [SerializeField] float _weightLimit;
+    private float _currentWeight;
+
     private void Start()
     {
         _playerInventoryDescription = GetComponent<PlayerInventoryDescription>();
@@ -103,9 +108,14 @@ public class PlayerInventory : MonoBehaviour
 
         _buttonsToDelete.Clear();
 
+        //Clear the current weight
+        _currentWeight = 0;
+
         List<Item> tempInventory = new(_playerCharacterManager.currentInventory);
         foreach (Item item in tempInventory)
         {
+            _currentWeight += item.itemWeight;
+
             PlayerInventoryButton button;
             if (item is WeaponMeleeItem)
             {
@@ -176,6 +186,9 @@ public class PlayerInventory : MonoBehaviour
                 _buttonsToDelete.Add(button.gameObject);
             }
         }
+
+        //Update the weight text and check if over limit
+        UpdateWeight();
     }
 
     public void OpenSearchInventory(ItemContainer itemContainer)
@@ -401,6 +414,20 @@ public class PlayerInventory : MonoBehaviour
             //Set the shirt arms
             _armDisplay.gameObject.SetActive(false);
             _armDisplay.color = Color.clear;
+        }
+    }
+
+    private void UpdateWeight()
+    {
+        _weightLimitText.text = "Weight: " + _currentWeight + "/" + _weightLimit;
+
+        if(_currentWeight >= _weightLimit)
+        {
+            _playerCharacterManager.SetSlowState(true);
+        }
+        else
+        {
+            _playerCharacterManager.SetSlowState(false);
         }
     }
 }

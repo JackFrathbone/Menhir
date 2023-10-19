@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -76,6 +77,12 @@ public class CharacterMovementController : MonoBehaviour
         _navMeshAgent.stoppingDistance = i;
     }
 
+    public void AddKnockback(float knockbackAmount)
+    {
+        StopCoroutine(ApplyKnockback(knockbackAmount));
+        StartCoroutine(ApplyKnockback(knockbackAmount));
+    }
+
     public void SlowMovement()
     {
         if (_navMeshAgent == null)
@@ -132,5 +139,13 @@ public class CharacterMovementController : MonoBehaviour
             SetTargetDistance(1f);
             _navMeshAgent.updateRotation = false;
         }
+    }
+
+    IEnumerator ApplyKnockback(float knockbackAmount)
+    {
+        StopMovement();
+        _navMeshAgent.velocity = -_navMeshAgent.transform.forward * (knockbackAmount * 6);
+        yield return new WaitForSeconds(0.5f);
+        StartMovement();
     }
 }

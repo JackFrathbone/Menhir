@@ -5264,10 +5264,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingScene:
-    _sceneOB: {fileID: 102900000, guid: 8c550f839a3eb7348a3a3a7b71f98c41, type: 3}
-    _sceneName: Arda
-    _scenePath: Assets/Scenes/Locations/Arda.unity
-    _buildIndex: 4
+    _sceneOB: {fileID: 102900000, guid: 0575ed24f47589c41a337f13b4300cbd, type: 3}
+    _sceneName: Wavewatch_Island
+    _scenePath: Assets/Scenes/Locations/Wavewatch_Island.unity
+    _buildIndex: 7
   _defaultItems: []
   _defaultShirt: {fileID: 11400000, guid: 4f683bfa6ac07e6489022b17bc752afa, type: 2}
   _defaultPants: {fileID: 11400000, guid: cb963c3130e822845902f25a57d18a6d, type: 2}

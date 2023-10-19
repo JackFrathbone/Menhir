@@ -26,7 +26,7 @@ MonoBehaviour:
   weaponDefence: -10
   weaponSpeed: 0.5
   weaponRange: 1.25
-  knockback: 0
+  weaponKnockback: 1
   weaponModel: {fileID: 21300000, guid: 986d572d23d8b4243b3d1377109c32f5, type: 3}
   enchantmentSelfEffects: []
   enchantmentTargetEffects: []

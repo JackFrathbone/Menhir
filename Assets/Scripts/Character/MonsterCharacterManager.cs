@@ -134,7 +134,7 @@ public class MonsterCharacterManager : CharacterManager
         SetCharacterState();
     }
 
-    public override void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed, out bool isRanged, out GameObject projectile, out List<Effect> enchantmentsEffects, out float weaponWeight)
+    public override void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed, out float knockback, out bool isRanged, out GameObject projectile, out List<Effect> enchantmentsEffects, out float weaponWeight)
     {
         damage = this.damage;
         bluntDamage = this.toHitBonus;
@@ -147,6 +147,7 @@ public class MonsterCharacterManager : CharacterManager
             range = this.range;
         }
         speed = this.attackSpeed;
+        knockback = 0f;
         isRanged = this.isRanged;
         projectile = this.projectilePrefab;
         enchantmentsEffects = null;
