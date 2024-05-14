@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
+  m_Name: Char_Dowermach Merkyn
+  m_EditorClassIdentifier: 
+  characterName: Dowermach Merkyn
+  characterDescription: A short woman who looks exactly how you'd imagine an aged
+    wizard to look, you can almost see her with a beard down to her knees
+  characterPronouns: 1
+  characterFaction: {fileID: 11400000, guid: 3bccb864ec301064e877ff72e4537a43, type: 2}
+  characterAggression: 1
+  characterInventory:
+  - {fileID: 11400000, guid: aa70715734ff11642abd019b7c8e6e4c, type: 2}
+  - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
+  - {fileID: 11400000, guid: a53a05eb5cee36649992c0153cc88723, type: 2}
+  randomItems: []
+  characterSpells: []
+  characterGreeting: Hail young dreamer...
+  characterWoundedGreeting: 
+  characterDialogueGraph: {fileID: 11400000, guid: f9a639dbead287b468b9d2b594e81181, type: 2}
+  abilities:
+    body: 3
+    hands: 3
+    mind: 7
+    heart: 4
+  skills: []
+  startHidden: 0
+  startState: 0
+  invulnerableMode: 1
+  woundedOnlyMode: 0
+  randomiseVisuals: 0
+  characterSkintone: {r: 0.9686275, g: 0.89019614, b: 0.8235295, a: 1}
+  characterHairColor: {r: 0.49411768, g: 0.18039216, b: 0.08627451, a: 1}
+  characterHair: {fileID: 327331573708330604, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  characterBeard: {fileID: 0}

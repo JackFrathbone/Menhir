@@ -17,6 +17,10 @@ TagManager:
   - SleepObject
   - DialogueOnlyCharacter
   - SimpleCharacter
+  - Combined Mesh
+  - Tile Mesh
+  - Rule Tile
+  - Grid
   layers:
   - Default
   - TransparentFX

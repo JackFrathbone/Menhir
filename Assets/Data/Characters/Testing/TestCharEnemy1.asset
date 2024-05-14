@@ -19,10 +19,12 @@ MonoBehaviour:
   characterAggression: 2
   characterInventory:
   - {fileID: 11400000, guid: 30550062b343ec24cb9d916e08b25964, type: 2}
-  - {fileID: 11400000, guid: 063b577814dc9f945b758717a94ca71f, type: 2}
   - {fileID: 11400000, guid: 724d030d9fde31743a295afc5fb04a3b, type: 2}
+  - {fileID: 11400000, guid: 6948c4be1887d67418fdd9b4f0573ed2, type: 2}
   - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
-  - {fileID: 11400000, guid: 167df058ba2948b4880326f8232fbff6, type: 2}
+  - {fileID: 11400000, guid: e5bdfe0c510aa964dbeeaf24799fc090, type: 2}
+  - {fileID: 11400000, guid: cebdd4082d86b1348af478f45a22415a, type: 2}
+  - {fileID: 11400000, guid: 6198ec27109ce6d46b3083142e888c7f, type: 2}
   randomItems: []
   characterSpells: []
   characterGreeting: Uwu hewwo

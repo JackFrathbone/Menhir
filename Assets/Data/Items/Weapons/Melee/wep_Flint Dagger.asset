@@ -16,8 +16,8 @@ MonoBehaviour:
   itemDescription: A dagger with a blade of sharp flint, attached to a wooden handle
     and tied with strips of leather
   itemWeight: 1.25
-  itemIcon: {fileID: 49449925377696079, guid: e8a911205a6ad6043ba4822d0d430475, type: 3}
-  uniqueID: wep_Flint Dagger11098
+  itemIcon: {fileID: 21300000, guid: e423c87ce3ed2ad498627eee905f19bf, type: 3}
+  uniqueID: wep_Flint Dagger10944
   clearID: 0
   weaponMeleeType: Dagger
   twoHanded: 0
@@ -27,6 +27,6 @@ MonoBehaviour:
   weaponSpeed: 0.5
   weaponRange: 1.25
   weaponKnockback: 1
-  weaponModel: {fileID: 21300000, guid: 986d572d23d8b4243b3d1377109c32f5, type: 3}
+  weaponModel: {fileID: 21300000, guid: 7f2403bcb19d550409f69a8a353761aa, type: 3}
   enchantmentSelfEffects: []
   enchantmentTargetEffects: []

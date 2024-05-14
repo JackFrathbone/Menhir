@@ -1,0 +1,318 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9090040670787148877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: 472}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -9090040670787148877}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 2
+        node: {fileID: 8956018669461002170}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -9090040670787148877}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - If you don't know, why would I?
+  - But there is no where to go but up and into the fort
+--- !u!114 &-7291625270643318577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: -88}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -7291625270643318577}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 0
+        node: {fileID: 8956018669461002170}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -7291625270643318577}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - Oh this is the beginning, obviously, but it is also the end of it all
+  - This small island, ocean stretching out as far as the eye can see around you,
+    that is where you are
+  - These rock walls, and the fort up the hill, those are what remind us that people
+    once lived here
+--- !u!114 &-3111162840271537792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd3dcee3b8e6da418cc2561cf97abc9, type: 3}
+  m_Name: Dialogue Sentences
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 56, y: 216}
+  ports:
+    keys:
+    - entry
+    - exit
+    values:
+    - _fieldName: entry
+      _node: {fileID: -3111162840271537792}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: topics 1
+        node: {fileID: 8956018669461002170}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exit
+      _node: {fileID: -3111162840271537792}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  entry: 0
+  exit: 0
+  sentences:
+  - Maybe someday you can tell me, i'm not so sure myself
+  - All I know is that I have been waiting here for you
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8015555d9f4bf5499b8e39521dbed6f, type: 3}
+  m_Name: Diag_Mysterious Stranger
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 6059323403136522057}
+  - {fileID: -7291625270643318577}
+  - {fileID: -3111162840271537792}
+  - {fileID: 8956018669461002170}
+  - {fileID: -9090040670787148877}
+  current: {fileID: 8956018669461002170}
+--- !u!114 &6059323403136522057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8abc1c7a480638946b9e9472f0a181da, type: 3}
+  m_Name: Dialogue Entry
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -408, y: -72}
+  ports:
+    keys:
+    - exitAlive
+    - exitWounded
+    values:
+    - _fieldName: exitAlive
+      _node: {fileID: 6059323403136522057}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: entry
+        node: {fileID: 8956018669461002170}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: exitWounded
+      _node: {fileID: 6059323403136522057}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  exitAlive: 0
+  exitWounded: 0
+--- !u!114 &8956018669461002170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e09cd4b48651945ae0ad36dbae9133, type: 3}
+  m_Name: Dialogue Topics
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -168, y: -88}
+  ports:
+    keys:
+    - entry
+    - topics
+    - topics 0
+    - topics 1
+    - topics 2
+    values:
+    - _fieldName: entry
+      _node: {fileID: 8956018669461002170}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: exitAlive
+        node: {fileID: 6059323403136522057}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics
+      _node: {fileID: 8956018669461002170}
+      _typeQualifiedName: System.Collections.Generic.List`1[[DialogueTopicsNode+Topic,
+        Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]],
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: topics 0
+      _node: {fileID: 8956018669461002170}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -7291625270643318577}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 1
+      _node: {fileID: 8956018669461002170}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -3111162840271537792}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: topics 2
+      _node: {fileID: 8956018669461002170}
+      _typeQualifiedName: DialogueTopicsNode+Topic, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: entry
+        node: {fileID: -9090040670787148877}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  entry: 0
+  topics:
+  - topicTitle: Where am I?
+    topicRunOnce: 1
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: WhereamI?8435
+  - topicTitle: Who are you?
+    topicRunOnce: 1
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: Whoareyou?4520
+  - topicTitle: Why am I here?
+    topicRunOnce: 1
+    topicStateChecks: []
+    topicStateChecksInactive: []
+    topicRequiredItems: []
+    topicAbilityChecks:
+      body: 0
+      hands: 0
+      mind: 0
+      heart: 0
+    uniqueID: WhyamIhere?8435
+  generateIDs: 0
+  clearIDs: 0

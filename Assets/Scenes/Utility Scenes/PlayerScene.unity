@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.67421335, g: 0.76815504, b: 0.83617836, a: 1}
+  m_IndirectSpecularColor: {r: 0.6742136, g: 0.7681622, b: 0.8361941, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -845,7 +845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeScale: 30
-  _currentHour: 10
+  _currentHour: 9
 --- !u!1 &123394450
 GameObject:
   m_ObjectHideFlags: 0
@@ -20536,7 +20536,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 5000
   field of view: 70.00001
   orthographic: 0
   orthographic size: 5
@@ -21721,10 +21721,9 @@ MonoBehaviour:
   equippedGreaves: {fileID: 0}
   equippedHands: {fileID: 0}
   equippedHelmet: {fileID: 0}
-  equippedPants: {fileID: 11400000, guid: 063b577814dc9f945b758717a94ca71f, type: 2}
+  equippedPants: {fileID: 0}
   equippedShirt: {fileID: 0}
   currentInventory:
-  - {fileID: 11400000, guid: 063b577814dc9f945b758717a94ca71f, type: 2}
   - {fileID: 11400000, guid: 30550062b343ec24cb9d916e08b25964, type: 2}
   currentSpells: []
   currentSkills: []

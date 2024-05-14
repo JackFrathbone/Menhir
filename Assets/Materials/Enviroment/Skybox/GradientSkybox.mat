@@ -133,8 +133,8 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SkyboxLowerColour: {r: 0.6586984, g: 0.71300566, b: 0.7556756, a: 1}
-    - _SkyboxUpperColour: {r: 0.22350074, g: 0.3948964, b: 0.58637494, a: 1}
+    - _SkyboxLowerColour: {r: 0.6586549, g: 0.7127557, b: 0.7552634, a: 1}
+    - _SkyboxUpperColour: {r: 0.22349079, g: 0.39448592, b: 0.5857289, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _SunDirection: {r: 0.5, g: 0.5, b: -0.5, a: 0}
     - _Tiling: {r: 8, g: 4, b: 0, a: 0}

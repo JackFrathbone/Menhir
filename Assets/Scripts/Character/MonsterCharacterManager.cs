@@ -52,7 +52,7 @@ public class MonsterCharacterManager : CharacterManager
 
     private void OnValidate()
     {
-        if (_baseMonsterSheet != null && name == "Empty Monster")
+        if (_baseMonsterSheet != null && !name.Contains(_baseMonsterSheet.monsterName))
         {
             name = _baseMonsterSheet.monsterName + "_" + UnityEngine.Random.Range(0, 100);
         }

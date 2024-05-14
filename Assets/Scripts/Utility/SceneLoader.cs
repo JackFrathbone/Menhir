@@ -122,7 +122,7 @@ public class SceneLoader : Singleton<SceneLoader>
     private bool CheckSceneOutdoors()
     {
         //If there is a terrain object, load in the weather scene additively
-        if (FindObjectOfType<Terrain>() != null)
+        if (GameObject.FindGameObjectWithTag("Weather") != null)
         {
             return true;
         }

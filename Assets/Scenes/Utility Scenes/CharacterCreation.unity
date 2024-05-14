@@ -5266,52 +5266,21 @@ MonoBehaviour:
   _startingScene:
     _sceneOB: {fileID: 102900000, guid: 0575ed24f47589c41a337f13b4300cbd, type: 3}
     _sceneName: Wavewatch_Island
-    _scenePath: Assets/Scenes/Locations/Wavewatch_Island.unity
+    _scenePath: Assets/Scenes/Regions/Dream/Wavewatch_Island.unity
     _buildIndex: 7
-  _defaultItems: []
-  _defaultShirt: {fileID: 11400000, guid: 4f683bfa6ac07e6489022b17bc752afa, type: 2}
-  _defaultPants: {fileID: 11400000, guid: cb963c3130e822845902f25a57d18a6d, type: 2}
-  _defaultShoes: {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
-  _backgroundListBanesman:
-  - {fileID: 11400000, guid: da258669ff074454bb3018cab302699a, type: 2}
-  - {fileID: 11400000, guid: 009b492b71df9834598a5d0a5edcd426, type: 2}
-  - {fileID: 11400000, guid: 009b492b71df9834598a5d0a5edcd426, type: 2}
-  - {fileID: 11400000, guid: 7df2e160b2e96f34fa26102aceeecbe4, type: 2}
-  - {fileID: 11400000, guid: f0e055dc548a1be4ca898ff69eeec613, type: 2}
-  _backgroundListDiplomat:
-  - {fileID: 11400000, guid: 6f6425ff5bfb6d2468125f96c5803d59, type: 2}
-  - {fileID: 11400000, guid: 1f751cad3fe3829418ff5db4fba71e62, type: 2}
-  - {fileID: 11400000, guid: 6fc26bc10eb240f45a9a1bdd77ed2478, type: 2}
-  - {fileID: 11400000, guid: 6fc26bc10eb240f45a9a1bdd77ed2478, type: 2}
-  - {fileID: 11400000, guid: 2216196b3d2268540b258360ee617cf8, type: 2}
-  _backgroundListHero:
-  - {fileID: 11400000, guid: 6c3f558bca06c7f4baf5454fcc3fa726, type: 2}
-  - {fileID: 11400000, guid: 6b3c7ff206d1a31418bd65f7a962aa84, type: 2}
-  - {fileID: 11400000, guid: 03ecbd8923e5efd48ad938f372eb82fa, type: 2}
-  _backgroundListScout:
-  - {fileID: 11400000, guid: 990758737cb1ba14aaeb8711f2cf2090, type: 2}
-  - {fileID: 11400000, guid: 048cc12a07fa87e438d03fdcd1a98111, type: 2}
-  - {fileID: 11400000, guid: ba422052d5bb1944fa614b4ce6b278da, type: 2}
-  - {fileID: 11400000, guid: dc0122f9ccd37bd47b543939cc2a2584, type: 2}
-  - {fileID: 11400000, guid: dc0122f9ccd37bd47b543939cc2a2584, type: 2}
-  _backgroundListScholar:
+  _defaultItems:
   - {fileID: 11400000, guid: 30550062b343ec24cb9d916e08b25964, type: 2}
-  - {fileID: 11400000, guid: 69d9ba3a81ba4e044bb02be78c72e2a9, type: 2}
-  - {fileID: 11400000, guid: 03ecbd8923e5efd48ad938f372eb82fa, type: 2}
-  - {fileID: 11400000, guid: 653a582e73f5bd74e996cc66fa1f2422, type: 2}
-  - {fileID: 11400000, guid: 23d403f092622b2468134fc886f3c368, type: 2}
-  - {fileID: 11400000, guid: 6d4a38c5015e5a842b147a2c27820d9c, type: 2}
-  - {fileID: 11400000, guid: ddab91bff2a5a2a4dad153f8e8d62438, type: 2}
-  _backgroundListTrader:
-  - {fileID: 11400000, guid: 6f6425ff5bfb6d2468125f96c5803d59, type: 2}
-  - {fileID: 11400000, guid: 7df2e160b2e96f34fa26102aceeecbe4, type: 2}
-  - {fileID: 11400000, guid: 7df2e160b2e96f34fa26102aceeecbe4, type: 2}
-  - {fileID: 11400000, guid: f9bcbb6e09119dc44823a147ccb3598f, type: 2}
-  _backgroundListWarrior:
-  - {fileID: 11400000, guid: 18aed67f929e4624c97357cf884334e5, type: 2}
-  - {fileID: 11400000, guid: b66f4aa74197619409e5bc985e064055, type: 2}
-  - {fileID: 11400000, guid: f7076464570a41b4580c1655e748bac6, type: 2}
-  - {fileID: 11400000, guid: dc0122f9ccd37bd47b543939cc2a2584, type: 2}
+  - {fileID: 11400000, guid: 50b62e44ef351164b8a4cb84d8a293d1, type: 2}
+  _defaultShirt: {fileID: 11400000, guid: 7db2503656568524b8e0485442477c48, type: 2}
+  _defaultPants: {fileID: 11400000, guid: e5bdfe0c510aa964dbeeaf24799fc090, type: 2}
+  _defaultShoes: {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
+  _backgroundListBanesman: []
+  _backgroundListDiplomat: []
+  _backgroundListHero: []
+  _backgroundListScout: []
+  _backgroundListScholar: []
+  _backgroundListTrader: []
+  _backgroundListWarrior: []
   _startingHour: 8
   _playerSkintone: {r: 0.7764706, g: 0.5254902, b: 0.25882354, a: 1}
   _hairOptions:
@@ -9246,11 +9215,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'In Akhetian culture names are usuall broken up into two  ''consonant,
-    vowel, consonant'' sets such as dartak, sevtet, cassan.
+  m_text: 'In Staen your name ties you to your ancestors and their place of origins
+    before the great flood. Common names come from the hill people''s like Bryk,
+    Meryn and Jago. Less common are names of lowlander origin like Alfric, Cyne and
+    Kendra.
 
-    Male names are usually
-    ended with ''io'', ''as'' or ''et'' while non-gendered names add another set'
+    There are no surnames but sometimes folk take boastful or joke titles
+    like ''the bold'' or ''the rabbit'''
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 38744b1e8b9b28d4ebb22cae1c192d86, type: 2}
   m_sharedMaterial: {fileID: -7083626755822881272, guid: 38744b1e8b9b28d4ebb22cae1c192d86, type: 2}
@@ -13978,11 +13949,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: In Akhet woman are traditionally seen as smart and organised while men
-    are strong and honorable, with woman taking most leadership roles while men are
-    expected to do hard work and keep the law. A third gender is recognised as a
-    mix of both masculine and feminine traits, which is religiously significant as
-    a gift from the gods
+  m_text: Across Staen men are expected to fight, take up a craft and maintain family
+    honour while the role of women is to lead the household, direct work and plan
+    ahead. Those of the third gender who are neither men or women are seen as blessed
+    by the gods with the ability to manage all the tasks and responsibilites of both
+    men and women
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 38744b1e8b9b28d4ebb22cae1c192d86, type: 2}
   m_sharedMaterial: {fileID: -7083626755822881272, guid: 38744b1e8b9b28d4ebb22cae1c192d86, type: 2}

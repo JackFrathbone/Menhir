@@ -65,7 +65,7 @@ public class NonPlayerCharacterManager : CharacterManager
     private void OnValidate()
     {
         //Set the name based on the character sheet
-        if (_baseCharacterSheet != null && name == "Empty Char")
+        if (_baseCharacterSheet != null && !name.Contains(_baseCharacterSheet.characterName))
         {
             name = _baseCharacterSheet.characterName + "_" + Random.Range(0,100);
         }

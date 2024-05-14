@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b21fdad12a1b040a5a3357d9c08265, type: 3}
+  m_Name: Armour_Reed Mantle
+  m_EditorClassIdentifier: 
+  itemName: Reed Mantle
+  itemDescription: A cape-like piece of makeshift armour made of reeds tied together.
+    Commonly used by bogmen hunters and bandits
+  itemWeight: 1.5
+  itemIcon: {fileID: 21300000, guid: 34f4d07f7ef9454428efe81e268db285, type: 3}
+  uniqueID: 
+  clearID: 0
+  equipmentType: 0
+  equipmentDefence: 5
+  magicResist: 0
+  equipmentModel: {fileID: 21300000, guid: 1cf0cb3ec2994a34ba892ca2bd1abcf8, type: 3}
+  equipmentColor: {r: 1, g: 1, b: 1, a: 1}
+  enchantmentEffects: []
