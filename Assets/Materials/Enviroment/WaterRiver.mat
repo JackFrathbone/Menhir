@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_cfb26bc90a8a48dcb3da1d4e5cdb3016:
-        m_Texture: {fileID: 2800000, guid: a313e6f3b74eb9a4e80027fd5e1d4974, type: 3}
+        m_Texture: {fileID: 2800000, guid: 371caf705aa7af344ab6d55ac18e545d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -86,7 +86,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_4e175652644040c98c8f2e6ebcd83967: 0.2
-    - Vector1_ae445bc0201f46458c2de72a035c2808: 10
+    - Vector1_ae445bc0201f46458c2de72a035c2808: 4
     - Vector1_f8551b7aa04540398a4143121ae8ba6b: 2
     - _AlphaClip: 0
     - _Blend: 0
@@ -116,7 +116,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_0e6ec99a3ae841d5ac354e4ea91eddd3: {r: 0.20558919, g: 0.43122497, b: 0.7924528, a: 1}
+    - Color_0e6ec99a3ae841d5ac354e4ea91eddd3: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

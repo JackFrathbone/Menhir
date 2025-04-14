@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -297,13 +296,25 @@ public class PlayerInventory : MonoBehaviour
             _capeButton.image.sprite = _playerCharacterManager.equippedCape.itemIcon;
             _capeButton.onClick.AddListener(delegate { _playerInventoryDescription.SetDescription(_playerCharacterManager.equippedCape, false, null); });
 
-            _capeDisplay.sprite = _playerCharacterManager.equippedCape.equipmentModel;
-            _capeDisplay.color = _playerCharacterManager.equippedCape.equipmentColor;
+            if (_playerCharacterManager.equippedCape.equipmentModel != null)
+            {
+                _capeDisplay.sprite = _playerCharacterManager.equippedCape.equipmentModel;
+                _capeDisplay.color = _playerCharacterManager.equippedCape.equipmentColor;
+            }
+
+            if (_playerCharacterManager.equippedCape.equipmentModelSecondary)
+            {
+                _capeFrontDisplay.sprite = _playerCharacterManager.equippedCape.equipmentModelSecondary;
+                _capeFrontDisplay.color = _playerCharacterManager.equippedCape.equipmentColor;
+            }
+
         }
         else
         {
             _capeButton.gameObject.SetActive(false);
+
             _capeDisplay.color = Color.clear;
+            _capeFrontDisplay.color = Color.clear;
         }
 
         if (_playerCharacterManager.equippedFeet != null)
@@ -421,7 +432,7 @@ public class PlayerInventory : MonoBehaviour
     {
         _weightLimitText.text = "Weight: " + _currentWeight + "/" + _weightLimit;
 
-        if(_currentWeight >= _weightLimit)
+        if (_currentWeight >= _weightLimit)
         {
             _playerCharacterManager.SetSlowState(true);
         }

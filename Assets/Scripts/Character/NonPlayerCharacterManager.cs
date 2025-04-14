@@ -170,6 +170,8 @@ public class NonPlayerCharacterManager : CharacterManager
                 UpdateDialogueComponent();
                 break;
             case CharacterState.wounded:
+                inCombat = false;
+                inCombatWith.Clear();
                 _animationController.SetState(1);
                 GetComponentInChildren<CharacterMovementController>().enabled = false;
                 GetComponentInChildren<CharacterCombatController>().enabled = false;

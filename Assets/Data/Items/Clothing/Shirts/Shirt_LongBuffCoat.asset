@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b21fdad12a1b040a5a3357d9c08265, type: 3}
+  m_Name: Shirt_LongBuffCoat
+  m_EditorClassIdentifier: 
+  itemName: Full Buffcoat
+  itemDescription: A buffcoat, this leather armour is considered vital for any soldier
+    and can resist slashing and piercing attacks to a high degree. The full sleeve
+    versions can cost more than plate armour
+  itemWeight: 1
+  itemIcon: {fileID: 21300000, guid: 4a233b4a9a97e2e47928adf3bafc30c1, type: 3}
+  uniqueID: Shirt_LongBuffCoat26612
+  clearID: 0
+  equipmentType: 7
+  equipmentDefence: 15
+  magicResist: 0
+  equipmentModel: {fileID: 21300000, guid: 33e15879a92d0664f959a66636d16114, type: 3}
+  equipmentModelSecondary: {fileID: 21300000, guid: 33e15879a92d0664f959a66636d16114, type: 3}
+  equipmentColor: {r: 0.854902, g: 0.5254902, b: 0.2392157, a: 1}
+  enchantmentEffects: []

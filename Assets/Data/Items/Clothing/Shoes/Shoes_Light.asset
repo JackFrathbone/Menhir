@@ -16,11 +16,12 @@ MonoBehaviour:
   itemDescription: A pair of leather shoes, simple and sturdy.
   itemWeight: 0.2
   itemIcon: {fileID: 21300000, guid: 68044a908d851844fb8fb6164aa9befa, type: 3}
-  uniqueID: Shoes_Light10774
+  uniqueID: Shoes_Light26980
   clearID: 0
   equipmentType: 2
   equipmentDefence: 0
   magicResist: 0
-  equipmentModel: {fileID: -1403506027362469284, guid: 09c6df8f4a1beb4409a492b448727369, type: 3}
-  equipmentColor: {r: 0.6132076, g: 0.40866733, b: 0.3268512, a: 1}
+  equipmentModel: {fileID: 21300000, guid: 572f4aafe667c324bbf4a762c4bd46d6, type: 3}
+  equipmentModelSecondary: {fileID: 0}
+  equipmentColor: {r: 0.6784314, g: 0.4666667, b: 0.34117648, a: 1}
   enchantmentEffects: []

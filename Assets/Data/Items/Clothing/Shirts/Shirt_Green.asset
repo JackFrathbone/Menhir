@@ -16,11 +16,12 @@ MonoBehaviour:
   itemDescription: 
   itemWeight: 0
   itemIcon: {fileID: 21300000, guid: 4a233b4a9a97e2e47928adf3bafc30c1, type: 3}
-  uniqueID: Shirt_Green57328
+  uniqueID: Shirt_Green26644
   clearID: 0
   equipmentType: 7
   equipmentDefence: 0
   magicResist: 0
   equipmentModel: {fileID: 21300000, guid: 4cf0305921343b545b6dad045d2bce50, type: 3}
-  equipmentColor: {r: 0.18431373, g: 0.30588236, b: 0.21960784, a: 1}
+  equipmentModelSecondary: {fileID: 0}
+  equipmentColor: {r: 0.14509805, g: 0.3372549, b: 0.18039216, a: 1}
   enchantmentEffects: []

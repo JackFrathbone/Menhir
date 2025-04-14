@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
+  m_Name: CaptainCynric
+  m_EditorClassIdentifier: 
+  characterName: Captain Cynric
+  characterDescription: A tired looking older man
+  characterPronouns: 0
+  characterFaction: {fileID: 11400000, guid: 4e83f3c707a58f440a70f7ea120d1cbe, type: 2}
+  characterAggression: 1
+  characterInventory:
+  - {fileID: 11400000, guid: f69c81ffa69c8cf4798e21acb2eca971, type: 2}
+  - {fileID: 11400000, guid: 1b7df3c7a069a59469effa07b2e0ea66, type: 2}
+  - {fileID: 11400000, guid: 6f02c37f0ac07cd4cb46bb128d3a2828, type: 2}
+  - {fileID: 11400000, guid: ae7a75b7d69f37743babf00825aca33c, type: 2}
+  - {fileID: 11400000, guid: 31d2cd86657ea29438d4f759d2783c03, type: 2}
+  - {fileID: 11400000, guid: 9e53740dd8bbf5747a5ca9cf5fcd09aa, type: 2}
+  - {fileID: 11400000, guid: 30550062b343ec24cb9d916e08b25964, type: 2}
+  - {fileID: 11400000, guid: de03429acd410cf48a67c9f0b0626544, type: 2}
+  randomItems: []
+  characterSpells: []
+  characterGreeting: 
+  characterWoundedGreeting: 
+  characterDialogueGraph: {fileID: 0}
+  abilities:
+    body: 6
+    hands: 6
+    mind: 4
+    heart: 6
+  skills: []
+  startHidden: 0
+  startState: 0
+  invulnerableMode: 0
+  woundedOnlyMode: 0
+  randomiseVisuals: 0
+  characterSkintone: {r: 0.9490197, g: 0.81568635, b: 0.72156864, a: 1}
+  characterHairColor: {r: 0.38823533, g: 0.08235294, b: 0.050980397, a: 1}
+  characterHair: {fileID: -4533249740495524082, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  characterBeard: {fileID: 8816914586026983915, guid: 8981783ff91ff874f9e78c769bc68202, type: 3}

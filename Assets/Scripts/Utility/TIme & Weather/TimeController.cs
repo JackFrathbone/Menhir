@@ -10,7 +10,8 @@ public class TimeController : MonoBehaviour
     [SerializeField, Range(0, 24)] int _currentHour;
 
     [Header("Data")]
-    private float seconds;
+    private float _seconds;
+    private float _totalSeconds;
     //The in-game tracked time
     private static TimeTracker trackedTime = new();
 
@@ -25,22 +26,29 @@ public class TimeController : MonoBehaviour
     private void Awake()
     {
         SetTrackedTime(0, _currentHour, 0);
+        SetSecondsFromHour();
     }
 
     private void Update()
     {
-        seconds += _timeScale * Time.deltaTime;
+        _seconds += _timeScale * Time.deltaTime;
+        _totalSeconds += _timeScale * Time.deltaTime;
 
-        if(seconds >= 60)
+        if (_seconds >= 60)
         {
-            seconds = 0;
+            _seconds = 0;
             trackedTime.TimeStep();
 
             //Update the lighting
-            onLightingUpdate?.Invoke((trackedTime.hours * 60 + trackedTime.minutes) / 1440f);
+            //onLightingUpdate?.Invoke((trackedTime.hours * 60 + trackedTime.minutes) / 1440f);
         }
 
-        
+        if (_totalSeconds >= 86400f)
+        {
+            _totalSeconds = 0;
+        }
+
+
         //Update the tracked hour
         if (trackedTime.hours != _currentHour)
         {
@@ -49,12 +57,19 @@ public class TimeController : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        onLightingUpdate?.Invoke(_totalSeconds / 86400f);
+    }
 
     public void AddHours(int hours)
     {
         trackedTime.hours += hours;
         trackedTime.TimeCheck();
         onWeatherUpdate?.Invoke();
+
+        _currentHour = trackedTime.hours;
+        SetSecondsFromHour();
     }
 
     public static void SetTrackedTime(int days, int hours, int minutes)
@@ -77,5 +92,10 @@ public class TimeController : MonoBehaviour
     public static int GetMinutes()
     {
         return trackedTime.minutes;
+    }
+
+    private void SetSecondsFromHour()
+    {
+        _totalSeconds = (_currentHour * 60) * 60;
     }
 }

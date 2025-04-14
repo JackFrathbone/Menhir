@@ -60,6 +60,10 @@ public class SceneLoader : Singleton<SceneLoader>
     //For loading scenes without additional additive scenes
     public void LoadMenuScene(int sceneIndex)
     {
+        //Reset mouse lock
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         SceneManager.LoadScene(sceneIndex, LoadSceneMode.Single);
     }
 
@@ -122,7 +126,7 @@ public class SceneLoader : Singleton<SceneLoader>
     private bool CheckSceneOutdoors()
     {
         //If there is a terrain object, load in the weather scene additively
-        if (GameObject.FindGameObjectWithTag("Weather") != null)
+        if (GameObject.FindObjectOfType<Terrain>() != null)
         {
             return true;
         }
@@ -153,7 +157,6 @@ public class SceneLoader : Singleton<SceneLoader>
         // Wait until the asynchronous scene fully loads
         yield return new WaitUntil(() => asyncLoad.isDone);
         }
-
 
         Scene currentScene = SceneManager.GetSceneByBuildIndex(_currentScene);
 

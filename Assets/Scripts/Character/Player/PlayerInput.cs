@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour
     private PlayerCharacterManager _playerCharacterManager;
 
     private GameObject _target;
-    private enum ActivateMode { disable, search, talk, door, item, wait, waitSleep };
+    private enum ActivateMode { disable, search, talk, door, item, wait, waitSleep, lockedDoor };
     private ActivateMode _activateMode;
 
     private void Awake()
@@ -68,7 +68,7 @@ public class PlayerInput : MonoBehaviour
                 if ((targetChar.characterState == CharacterState.alive && !Factions.FactionHostilityCheck(_playerCharacterManager.characterFaction, targetChar.characterFaction, targetChar.characterAggression)) || targetChar.characterState == CharacterState.wounded)
                 {
                     //Check here if there is dialogue
-                    _playerActiveUI.EnableCrosshairText("Talk to");
+                    _playerActiveUI.EnableCrosshairText(targetChar.characterName);
                     _activateMode = ActivateMode.talk;
                 }
                 else if (targetChar.characterState == CharacterState.dead)
@@ -94,8 +94,32 @@ public class PlayerInput : MonoBehaviour
             }
             else if (hit.collider.CompareTag("Door"))
             {
-                _playerActiveUI.EnableCrosshairText("Use Door");
-                _activateMode = ActivateMode.door;
+                if (hit.collider.TryGetComponent(out LoadingDoor targetDoor))
+                {
+                    if (!targetDoor.GetLockedStatus())
+                    {
+                        _playerActiveUI.EnableCrosshairText("Use Door");
+                        _activateMode = ActivateMode.door;
+                    }
+                    else
+                    {
+                        _playerActiveUI.EnableCrosshairText("Locked Door");
+                        _activateMode = ActivateMode.lockedDoor;
+                    }
+                }
+                else if (hit.collider.TryGetComponent(out SceneDoor targetSceneDoor))
+                {
+                    if (!targetSceneDoor.GetLockedStatus())
+                    {
+                        _playerActiveUI.EnableCrosshairText("Use Door");
+                        _activateMode = ActivateMode.door;
+                    }
+                    else
+                    {
+                        _playerActiveUI.EnableCrosshairText("Locked Door");
+                        _activateMode = ActivateMode.lockedDoor;
+                    }
+                }
             }
             else if (hit.collider.CompareTag("WaitObject"))
             {
@@ -234,8 +258,8 @@ public class PlayerInput : MonoBehaviour
                         if ((_target.CompareTag("Character") || _target.CompareTag("SimpleCharacter")) && GameManager.instance.CheckCanPause("dialogueMenu"))
                         {
                             //Check if there is a dialogue component
-                            
-                            if(_target.TryGetComponent<DialogueComponent>(out var dialogueComponent))
+
+                            if (_target.TryGetComponent<DialogueComponent>(out var dialogueComponent))
                             {
                                 GameManager.instance.PauseGame(true, "dialogueMenu");
                                 _playerDialogueController.StartDialogue(dialogueComponent);
@@ -245,8 +269,8 @@ public class PlayerInput : MonoBehaviour
                                 //Otherwise just play the appropriate greeting in a text box
                                 if (_target.CompareTag("Character"))
                                 {
-                                    
-                                    if(_target.TryGetComponent<NonPlayerCharacterManager>(out var nonPlayerCharacterManager))
+
+                                    if (_target.TryGetComponent<NonPlayerCharacterManager>(out var nonPlayerCharacterManager))
                                     {
                                         MessageBox.instance.Create(nonPlayerCharacterManager.GetGreetingByState(), true);
                                     }
@@ -265,7 +289,15 @@ public class PlayerInput : MonoBehaviour
                         }
                         break;
                     case ActivateMode.door:
-                        _target.GetComponent<LoadingDoor>().ActivateLoadingDoor();
+                        if (_target.GetComponent<LoadingDoor>() != null)
+                        {
+                            _target.GetComponent<LoadingDoor>().ActivateLoadingDoor();
+                        }
+
+                        if (_target.GetComponent<SceneDoor>() != null)
+                        {
+                            _target.GetComponent<SceneDoor>().ActivateSceneDoor(_playerCharacterManager.gameObject);
+                        }
                         break;
                     case ActivateMode.item:
                         if (_target.CompareTag("ItemSingle"))
@@ -280,6 +312,9 @@ public class PlayerInput : MonoBehaviour
                         break;
                     case ActivateMode.waitSleep:
                         _timeWaitController.OpenWaitMenu(true);
+                        break;
+                    case ActivateMode.lockedDoor:
+                        MessageBox.instance.Create("This door is locked...", true);
                         break;
                 }
             }

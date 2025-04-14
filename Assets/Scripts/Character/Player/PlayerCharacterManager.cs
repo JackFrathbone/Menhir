@@ -25,6 +25,7 @@ public class PlayerCharacterManager : CharacterManager
 
     //Player specific options
     [ReadOnly] public bool weaponOut = false;
+    [ReadOnly] public bool weaponLoaded = false;
 
     //Update player UI
     private PlayerActiveUI _playerActiveUI;
@@ -150,6 +151,7 @@ public class PlayerCharacterManager : CharacterManager
                 else if (equippedWeapon is WeaponRangedItem)
                 {
                     equippedShield = null;
+                    weaponLoaded = false;
 
                     //Add enchantments
                     foreach (Effect effect in (equippedWeapon as WeaponRangedItem).enchantmentSelfEffects)
@@ -257,6 +259,8 @@ public class PlayerCharacterManager : CharacterManager
                 }
                 else if (equippedWeapon is WeaponRangedItem)
                 {
+                    weaponLoaded = false;
+
                     //Remove enchantments
                     foreach (Effect effect in (equippedWeapon as WeaponRangedItem).enchantmentSelfEffects)
                     {

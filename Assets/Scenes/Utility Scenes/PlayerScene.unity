@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6742136, g: 0.7681622, b: 0.8361941, a: 1}
+  m_IndirectSpecularColor: {r: 0.67420816, g: 0.7680853, b: 0.8360309, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13013,13 +13013,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465559277}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 0.5000023, y: -0.25, z: 0.25}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.5000023, y: 0.25, z: 0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4317266458190735380}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1465559279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13099,7 +13099,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -21725,6 +21725,10 @@ MonoBehaviour:
   equippedShirt: {fileID: 0}
   currentInventory:
   - {fileID: 11400000, guid: 30550062b343ec24cb9d916e08b25964, type: 2}
+  - {fileID: 11400000, guid: 50b62e44ef351164b8a4cb84d8a293d1, type: 2}
+  - {fileID: 11400000, guid: 35a8b3d88015bb747a9c9745940467b2, type: 2}
+  - {fileID: 11400000, guid: 0755e132747144f46b5727c567b392da, type: 2}
+  - {fileID: 11400000, guid: de03429acd410cf48a67c9f0b0626544, type: 2}
   currentSpells: []
   currentSkills: []
   currentEffects: []
@@ -21759,6 +21763,7 @@ MonoBehaviour:
   _playerWeaponRanged: {fileID: 1465559281}
   _playerShield: {fileID: 339486358093736890}
   weaponOut: 0
+  weaponLoaded: 0
   _activeUIWeaponIcon: {fileID: 3170522944131401959}
   _activeUIEmptyIcon: {fileID: -4325431805895911581, guid: 5e9f1aadf8585f74cb1dade7b64e00af, type: 3}
   stateChecks: []
@@ -21768,7 +21773,7 @@ MonoBehaviour:
     _sceneOB: {fileID: 102900000, guid: 8d301b316cf854f4ab366fd2673055e1, type: 3}
     _sceneName: DeathScene
     _scenePath: Assets/Scenes/Utility Scenes/DeathScene.unity
-    _buildIndex: 8
+    _buildIndex: 5
   _godMode: 0
 --- !u!222 &1925738703361471567
 CanvasRenderer:
@@ -21798,16 +21803,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Talk to
+  m_text: Talk To
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 717d83b85233b794da466db4b63872d5, type: 2}
-  m_sharedMaterial: {fileID: 8639488428218644234, guid: 8899fba2bfbc8524e8bf1b5b9eaee9bb, type: 2}
+  m_sharedMaterial: {fileID: -2333500377894417122, guid: 717d83b85233b794da466db4b63872d5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -21828,7 +21833,7 @@ MonoBehaviour:
   m_fontSize: 32
   m_fontSizeBase: 32
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 16
   m_fontSizeMax: 32
   m_fontStyle: 1
@@ -21864,7 +21869,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2034838884219381952
@@ -22116,9 +22121,9 @@ SpriteRenderer:
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.796875, y: 0.53125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -22784,7 +22789,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -571}
-  m_SizeDelta: {x: 237.3401, y: 50}
+  m_SizeDelta: {x: 173.87, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2998811901558313376
 CanvasRenderer:
@@ -23348,10 +23353,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2998135548837037193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 86.935, y: -30}
+  m_SizeDelta: {x: 123.87, y: 46.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &3359818274386659423
 RectTransform:
@@ -24184,6 +24189,8 @@ GameObject:
   - component: {fileID: 2998135548837037193}
   - component: {fileID: 3923754527962375638}
   - component: {fileID: 6879091668681512556}
+  - component: {fileID: 6879091668681512558}
+  - component: {fileID: 6879091668681512557}
   m_Layer: 5
   m_Name: CrosshairTextWindow
   m_TagString: Untagged
@@ -27516,6 +27523,46 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6879091668681512557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4341930944680895424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
+--- !u!114 &6879091668681512558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4341930944680895424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 25
+    m_Right: 25
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &6915031753464501783
 GameObject:
   m_ObjectHideFlags: 0

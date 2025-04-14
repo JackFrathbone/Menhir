@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TimeTracker
 {
+    public int seconds;
     public int minutes;
     public int hours;
     public int days;

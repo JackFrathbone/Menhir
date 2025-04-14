@@ -444,7 +444,7 @@ public class DataManager : Singleton<DataManager>
     {
         if (!GameObject.FindGameObjectWithTag("Player").TryGetComponent<PlayerCharacterManager>(out var playerCharacterManager))
         {
-            Debug.Log("trying to save player data with no active player");
+            Debug.Log("trying to load player data with no active player");
             return;
         }
 

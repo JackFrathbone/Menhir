@@ -53,7 +53,7 @@ public class CharacterMovementController : MonoBehaviour
         //Set the char to face the target, for shooting projectiles and spells, moves both the transform and the projectile spawn
         Quaternion targetRotation = Quaternion.LookRotation(_target.transform.position - _projectileSpawn.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f * Time.deltaTime);
-        _projectileSpawn.rotation = Quaternion.Slerp(_projectileSpawn.rotation, targetRotation, 1f * Time.deltaTime);
+        //_projectileSpawn.rotation = Quaternion.Slerp(_projectileSpawn.rotation, targetRotation, 1f * Time.deltaTime);
     }
 
     public void SetSpeed(float newSpeed)

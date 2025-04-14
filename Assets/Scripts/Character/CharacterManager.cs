@@ -316,7 +316,7 @@ public class CharacterManager : MonoBehaviour
 
     }
 
-    public virtual void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed, out float knockback, out bool isRanged, out GameObject projectile, out List<Effect> enchantmentsEffects, out float weaponWeight)
+    public virtual void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed,  out float loadSpeed, out float knockback, out bool stabAttackOnly, out bool isRanged, out GameObject projectile, out List<Effect> enchantmentsEffects, out float weaponWeight)
     {
         if (equippedWeapon != null)
         {
@@ -327,7 +327,9 @@ public class CharacterManager : MonoBehaviour
                 bluntDamage = (equippedWeapon as WeaponMeleeItem).weapontToHitBonus;
                 range = (equippedWeapon as WeaponMeleeItem).weaponRange;
                 speed = (equippedWeapon as WeaponMeleeItem).weaponSpeed;
+                loadSpeed = 0;
                 knockback = (equippedWeapon as WeaponMeleeItem).weaponKnockback;
+                stabAttackOnly = (equippedWeapon as WeaponMeleeItem).stabAttackOnly;
                 isRanged = false;
                 projectile = null;
                 enchantmentsEffects = (equippedWeapon as WeaponMeleeItem).enchantmentTargetEffects;
@@ -340,7 +342,9 @@ public class CharacterManager : MonoBehaviour
                 bluntDamage = 0;
                 range = 15;
                 speed = (equippedWeapon as WeaponRangedItem).weaponSpeed;
+                loadSpeed = (equippedWeapon as WeaponRangedItem).weaponLoadingSpeed;
                 knockback = 0f;
+                stabAttackOnly = false;
                 isRanged = true;
                 projectile = (equippedWeapon as WeaponRangedItem).projectilePrefab;
                 enchantmentsEffects = (equippedWeapon as WeaponRangedItem).enchantmentTargetEffects;
@@ -353,7 +357,9 @@ public class CharacterManager : MonoBehaviour
         bluntDamage = 0;
         range = 0;
         speed = 0;
+        loadSpeed = 0;
         knockback = 0f;
+        stabAttackOnly = false;
         isRanged = false;
         projectile = null;
         enchantmentsEffects = null;

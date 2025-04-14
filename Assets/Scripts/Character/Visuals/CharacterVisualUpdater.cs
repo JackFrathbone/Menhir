@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterVisualUpdater : MonoBehaviour
@@ -24,6 +23,10 @@ public class CharacterVisualUpdater : MonoBehaviour
     [SerializeField] SpriteRenderer _greavesRenderer;
     [SerializeField] SpriteRenderer _helmetRenderer;
     [SerializeField] SpriteRenderer _shirtRenderer;
+
+    //These draw on top of the hands and feet and are disabled during animations
+    [SerializeField] SpriteRenderer _feetRenderOverlay;
+    [SerializeField] SpriteRenderer _HandRenderOverlay;
 
     public void SetBaseVisuals(NonPlayerCharacterManager charManager)
     {
@@ -54,7 +57,7 @@ public class CharacterVisualUpdater : MonoBehaviour
 
     }
 
-    public  void SetEquipmentVisuals(NonPlayerCharacterManager charManager)
+    public void SetEquipmentVisuals(NonPlayerCharacterManager charManager)
     {
         //Set weapon and shield sprites
         if (charManager.equippedWeapon != null)
@@ -63,7 +66,7 @@ public class CharacterVisualUpdater : MonoBehaviour
             {
                 _weaponRenderer.sprite = (charManager.equippedWeapon as WeaponMeleeItem).weaponModel;
             }
-            else if(charManager.equippedWeapon is WeaponRangedItem)
+            else if (charManager.equippedWeapon is WeaponRangedItem)
             {
                 _weaponRenderer.sprite = (charManager.equippedWeapon as WeaponRangedItem).weaponModelDrawing;
             }
@@ -97,10 +100,17 @@ public class CharacterVisualUpdater : MonoBehaviour
         //Cape has a front piece which needs to be enabled
         if (charManager.equippedCape != null)
         {
-            _capeRenderer.sprite = charManager.equippedCape.equipmentModel;
-            _capeRenderer.color = charManager.equippedCape.equipmentColor;
+            if (charManager.equippedCape.equipmentModel != null)
+            {
+                _capeRenderer.sprite = charManager.equippedCape.equipmentModel;
+                _capeRenderer.color = charManager.equippedCape.equipmentColor;
+            }
 
-            _capefrontRenderer.color = charManager.equippedCape.equipmentColor;
+            if (charManager.equippedCape.equipmentModelSecondary != null)
+            {
+                _capefrontRenderer.sprite = charManager.equippedCape.equipmentModelSecondary;
+                _capefrontRenderer.color = charManager.equippedCape.equipmentColor;
+            }
         }
         else
         {
@@ -138,7 +148,17 @@ public class CharacterVisualUpdater : MonoBehaviour
         if (charManager.equippedShirt != null)
         {
             _shirtRenderer.sprite = charManager.equippedShirt.equipmentModel;
-            _shirtRenderer.color = charManager.equippedShirt.equipmentColor;
+
+            //If the shirt has a secondary model then dont recolor the shirt, just the arms
+            if( charManager.equippedShirt.equipmentModelSecondary != null)
+            {
+                _shirtRenderer.color = Color.white;
+            }
+            else
+            {
+                _shirtRenderer.color = charManager.equippedShirt.equipmentColor;
+            }
+
 
             ///Set the arm color to match shirt
             _armRenderer.color = charManager.equippedShirt.equipmentColor;
@@ -161,6 +181,7 @@ public class CharacterVisualUpdater : MonoBehaviour
         if (charManager.equippedHands != null)
         {
             _handsRenderer.color = charManager.equippedHands.equipmentColor;
+            _HandRenderOverlay.sprite = charManager.equippedHands.equipmentModel;
         }
         else
         {
@@ -170,6 +191,7 @@ public class CharacterVisualUpdater : MonoBehaviour
         if (charManager.equippedFeet != null)
         {
             _feetRenderer.color = charManager.equippedFeet.equipmentColor;
+            _feetRenderOverlay.sprite = charManager.equippedFeet.equipmentModel;
         }
         else
         {

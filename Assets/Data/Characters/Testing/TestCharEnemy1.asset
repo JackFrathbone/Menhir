@@ -18,20 +18,20 @@ MonoBehaviour:
   characterFaction: {fileID: 11400000, guid: 4f7d5ce489bf4e440972fc5f5cfa5fb9, type: 2}
   characterAggression: 2
   characterInventory:
-  - {fileID: 11400000, guid: 30550062b343ec24cb9d916e08b25964, type: 2}
-  - {fileID: 11400000, guid: 724d030d9fde31743a295afc5fb04a3b, type: 2}
-  - {fileID: 11400000, guid: 6948c4be1887d67418fdd9b4f0573ed2, type: 2}
+  - {fileID: 11400000, guid: 35a8b3d88015bb747a9c9745940467b2, type: 2}
   - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
-  - {fileID: 11400000, guid: e5bdfe0c510aa964dbeeaf24799fc090, type: 2}
-  - {fileID: 11400000, guid: cebdd4082d86b1348af478f45a22415a, type: 2}
-  - {fileID: 11400000, guid: 6198ec27109ce6d46b3083142e888c7f, type: 2}
+  - {fileID: 11400000, guid: cb963c3130e822845902f25a57d18a6d, type: 2}
+  - {fileID: 11400000, guid: de03429acd410cf48a67c9f0b0626544, type: 2}
+  - {fileID: 11400000, guid: 75c03a0bb01469e4dbb0ab777d0d0ca0, type: 2}
+  - {fileID: 11400000, guid: 221ae8617d84cf9429e45e2858b21494, type: 2}
+  - {fileID: 11400000, guid: bd6494efe0ae342439ec01411f7fc71e, type: 2}
   randomItems: []
   characterSpells: []
   characterGreeting: Uwu hewwo
   characterWoundedGreeting: Oof ouch my bones
   characterDialogueGraph: {fileID: 0}
   abilities:
-    body: 5
+    body: 3
     hands: 3
     mind: 3
     heart: 3

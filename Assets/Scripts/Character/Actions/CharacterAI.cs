@@ -23,8 +23,6 @@ public class CharacterAI : MonoBehaviour
         _animationController = GetComponentInChildren<CharacterAnimationController>();
 
         characterCollider = GetComponent<Collider>();
-
-        InvokeRepeating(nameof(AIUpdate), 1f, 1f);
     }
 
     private void Start()
@@ -145,8 +143,15 @@ public class CharacterAI : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        InvokeRepeating(nameof(AIUpdate), 1f, 1f);
+    }
+
     private void OnDisable()
     {
+        CancelInvoke();
+
         foreach (CharacterManager character in _characterManager.inDetectionRange)
         {
             character.inDetectionRange.Remove(_characterManager);

@@ -23,6 +23,8 @@ public class EquipmentItem : Item
 
     [Header("Equipment Visuals")]
     public Sprite equipmentModel;
+    [Tooltip("Used for cape fronts and sashes")]
+    public Sprite equipmentModelSecondary;
     //Leave as white if visual already has its own set colors
     public Color equipmentColor = Color.white;
 

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e93ce0d4a689b4e89b317b6ab72aa9, type: 3}
+  m_Name: RandomItem_CivilianShoes
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: c3cd5324c33e30847976f1e2b6322893, type: 2}
+  - {fileID: 11400000, guid: fa697dccec3744d40b8aa66131fa6bf4, type: 2}
+  - {fileID: 11400000, guid: 250d4a39bc5f3e949be7a1fa677c5d93, type: 2}

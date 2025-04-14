@@ -100,9 +100,17 @@ public class CharacterAnimationController : MonoBehaviour
         _characterAnimator.SetTrigger("hurtCharacter");
     }
 
+
+    public virtual void TriggerReload()
+    {
+        _characterAnimator.SetTrigger("reloadAction");
+    }
+
+
     public virtual void TriggerAttack()
     {
         _characterAnimator.SetTrigger("attackAction");
+        _characterAnimator.SetBool("isHolding", false);
     }
 
     public virtual void TriggerBlock()

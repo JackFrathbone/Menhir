@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e93ce0d4a689b4e89b317b6ab72aa9, type: 3}
+  m_Name: RandomItem_CivlianShirts
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: 1b293ff6ce93ea64a998f746560594ee, type: 2}
+  - {fileID: 11400000, guid: 0fdeeb90156374c4394d237ec4933166, type: 2}
+  - {fileID: 11400000, guid: aa70715734ff11642abd019b7c8e6e4c, type: 2}
+  - {fileID: 11400000, guid: 679449d66a0f6b7449c27349a484c8f2, type: 2}
+  - {fileID: 11400000, guid: 33929994988c1b543aee0a5fa23b5d64, type: 2}
+  - {fileID: 11400000, guid: 7db2503656568524b8e0485442477c48, type: 2}
+  - {fileID: 11400000, guid: bd6494efe0ae342439ec01411f7fc71e, type: 2}
+  - {fileID: 11400000, guid: 6861e9e2ed6cfb44fbcb20500745f291, type: 2}
+  - {fileID: 11400000, guid: 04ef2e0372a73d14e8f5d6bd3622fc77, type: 2}
+  - {fileID: 11400000, guid: 756e0141a31c3bb4b9ccc7d3a5fc2e0a, type: 2}
+  - {fileID: 11400000, guid: 48e5c6b5c73f09a47bd651dd4402b85b, type: 2}
+  - {fileID: 11400000, guid: b5c31018d2ac56347b7d020178923f74, type: 2}
+  - {fileID: 11400000, guid: 3ea5ca82c197bde4795e6d570c79ab36, type: 2}
+  - {fileID: 11400000, guid: b1f47bd0c39cb224f8b964b9237b6e8a, type: 2}

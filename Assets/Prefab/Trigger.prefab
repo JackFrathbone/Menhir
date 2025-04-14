@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5532191546494291792}
   - component: {fileID: 5924055258616817247}
   - component: {fileID: 1608423930858905340}
-  - component: {fileID: 2924066669646857055}
+  - component: {fileID: 9188024948967236340}
   - component: {fileID: 965461033744768361}
   m_Layer: 0
   m_Name: Trigger
@@ -28,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7967376315330082520}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 160.68288, y: 2.2600002, z: 179.051}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5532191546494291792
 MeshFilter:
@@ -411,20 +411,27 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!64 &2924066669646857055
-MeshCollider:
+--- !u!65 &9188024948967236340
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7967376315330082520}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &965461033744768361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,3 +444,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77787ae972c30d64b96f44129aa2c50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _messageBoxText: 
+  _stateChecksToAdd: []
+  _journalEntryToAdd:
+    journalText: 
+    timeStamp: 0
+    isArchived: 0
+  uniqueID: 
+  triggered: 0
+  generateID: 0
+  clearID: 0

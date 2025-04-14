@@ -24,6 +24,7 @@ public class CharacterCombatController : MonoBehaviour
     private int _weaponHitBonus;
     private float _weaponRange;
     private float _weaponSpeed;
+    private float _weaponLoadSpeed;
     private float _weaponKnockback;
     private float _itemWeight;
     private bool _isRanged;
@@ -168,7 +169,7 @@ public class CharacterCombatController : MonoBehaviour
 
     private void SetWeaponStats()
     {
-        _characterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _weaponKnockback, out _isRanged, out _projectilePrefab, out _enchantmentEffects, out _itemWeight);
+        _characterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _weaponLoadSpeed, out _weaponKnockback, out _, out _isRanged, out _projectilePrefab, out _enchantmentEffects, out _itemWeight);
     }
 
     public void DecideNextAction()
@@ -201,6 +202,13 @@ public class CharacterCombatController : MonoBehaviour
 
     private IEnumerator WindupAttack()
     {
+        //If weapon is ranged and needs to be reloaded
+        if (_isRanged)
+        {
+            _animationController.TriggerReload();
+            yield return new WaitForSeconds(_weaponLoadSpeed);
+        }
+
         _animationController.StartHolding(_weaponSpeed);
 
         yield return new WaitForSeconds(_weaponSpeed);

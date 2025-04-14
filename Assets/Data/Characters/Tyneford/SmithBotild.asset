@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9973be67b8776944fbf089dd9de8d5f4, type: 3}
+  m_Name: SmithBotild
+  m_EditorClassIdentifier: 
+  characterName: Botild the Smith
+  characterDescription: 
+  characterPronouns: 1
+  characterFaction: {fileID: 11400000, guid: 4e83f3c707a58f440a70f7ea120d1cbe, type: 2}
+  characterAggression: 1
+  characterInventory:
+  - {fileID: 11400000, guid: b5c31018d2ac56347b7d020178923f74, type: 2}
+  - {fileID: 11400000, guid: e5bdfe0c510aa964dbeeaf24799fc090, type: 2}
+  - {fileID: 11400000, guid: 250d4a39bc5f3e949be7a1fa677c5d93, type: 2}
+  - {fileID: 11400000, guid: ae7a75b7d69f37743babf00825aca33c, type: 2}
+  - {fileID: 11400000, guid: 30550062b343ec24cb9d916e08b25964, type: 2}
+  randomItems: []
+  characterSpells: []
+  characterGreeting: 
+  characterWoundedGreeting: 
+  characterDialogueGraph: {fileID: 0}
+  abilities:
+    body: 3
+    hands: 3
+    mind: 3
+    heart: 3
+  skills: []
+  startHidden: 0
+  startState: 0
+  invulnerableMode: 0
+  woundedOnlyMode: 0
+  randomiseVisuals: 0
+  characterSkintone: {r: 0.9490196, g: 0.8156863, b: 0.72156864, a: 1}
+  characterHairColor: {r: 0.019607844, g: 0.015686275, b: 0.019607844, a: 1}
+  characterHair: {fileID: 327331573708330604, guid: e20916a61d6cb924384a1a2e05385023, type: 3}
+  characterBeard: {fileID: 0}

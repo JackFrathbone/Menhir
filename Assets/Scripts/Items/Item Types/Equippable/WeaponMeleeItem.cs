@@ -22,6 +22,8 @@ public class WeaponMeleeItem : Item
     public float weaponRange;
     [Tooltip("The amount of physics forces applied to the target on a succesful hit")]
     public float weaponKnockback;
+    [Tooltip("If the visual player attack should only use stab attacks")]
+    public bool stabAttackOnly;
 
     [Header("Weapon Visuals")]
     [Tooltip("The model used by the player and NPC animators")]

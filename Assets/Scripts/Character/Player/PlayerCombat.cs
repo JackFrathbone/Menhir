@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -27,7 +26,9 @@ public class PlayerCombat : MonoBehaviour
     private int _weaponHitBonus;
     private float _weaponRange;
     private float _weaponSpeed;
+    private float _weaponLoadSpeed;
     private float _weaponKnockback;
+    private bool _stabAttackOnly;
     private float _itemWeight;
     private bool _isRanged;
 
@@ -42,7 +43,7 @@ public class PlayerCombat : MonoBehaviour
     }
     private void SetWeaponStats()
     {
-        _playerCharacterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _weaponKnockback, out _isRanged, out _projectilePrefab, out _enchantmentEffects, out _itemWeight);
+        _playerCharacterManager.GetCurrentWeaponStats(out _weaponDamage, out _weaponHitBonus, out _weaponRange, out _weaponSpeed, out _weaponLoadSpeed, out _weaponKnockback, out _stabAttackOnly, out _isRanged, out _projectilePrefab, out _enchantmentEffects, out _itemWeight);
     }
 
     public void SetCanAttack(bool canAttack)
@@ -64,7 +65,15 @@ public class PlayerCombat : MonoBehaviour
         //For melee atacks
         if (_playerCharacterManager.equippedWeapon is WeaponMeleeItem)
         {
-            _weaponMeleeAnimator.SetInteger("attackRandom", Random.Range(1,3));
+            if (_stabAttackOnly)
+            {
+                _weaponMeleeAnimator.SetInteger("attackRandom", 3);
+            }
+            else
+            {
+                _weaponMeleeAnimator.SetInteger("attackRandom", Random.Range(1, 4));
+            }
+
             _weaponMeleeAnimator.SetTrigger("attackAction");
             _weaponMeleeAnimator.SetBool("isHolding", true);
 
@@ -74,15 +83,26 @@ public class PlayerCombat : MonoBehaviour
         //If its ranged
         else if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
         {
-            _playerCharacterManager.SetRangedSprite((_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponModelDrawing);
+            //If the weapon needs to be loaded and isnt loaded, trigger loading
+            if ((_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponLoads && !_playerCharacterManager.weaponLoaded)
+            {
+                SetLoadSpeed(_weaponLoadSpeed);
 
-            _weaponRangedAnimator.SetTrigger("attackAction");
-            _weaponRangedAnimator.SetBool("isHolding", true);
+                _weaponRangedAnimator.SetTrigger("loadAction");
+                _playerCharacterManager.weaponLoaded = true;
+            }
+            else
+            {
+                _playerCharacterManager.SetRangedSprite((_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponModelDrawing);
 
-            SetHoldSpeed(_weaponSpeed);
+                _weaponRangedAnimator.SetTrigger("attackAction");
+                _weaponRangedAnimator.SetBool("isHolding", true);
 
-            //Play draw audio
-            AudioManager.instance.PlayOneShot("event:/CombatDrawRanged", transform.position);
+                SetHoldSpeed(_weaponSpeed);
+
+                //Play draw audio
+                AudioManager.instance.PlayOneShot("event:/CombatDrawRanged", transform.position);
+            }
         }
     }
 
@@ -122,6 +142,11 @@ public class PlayerCombat : MonoBehaviour
         _weaponRangedAnimator.SetFloat("holdSpeed", 1 / f);
     }
 
+    private void SetLoadSpeed(float f)
+    {
+        _weaponRangedAnimator.SetFloat("loadSpeed", 1 / f);
+    }
+
     public void MeleeAttack()
     {
         TriggerHoldEnd();
@@ -150,6 +175,8 @@ public class PlayerCombat : MonoBehaviour
     {
         if (_playerCharacterManager.equippedWeapon is WeaponRangedItem)
         {
+            _playerCharacterManager.weaponLoaded = false;
+
             _playerCharacterManager.SetRangedSprite((_playerCharacterManager.equippedWeapon as WeaponRangedItem).weaponModelFired);
 
             ProjectileController projectileController = Instantiate(_projectilePrefab, _playerProjectileSpawnPoint.position, _playerProjectileSpawnPoint.rotation).GetComponent<ProjectileController>();

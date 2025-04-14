@@ -19,7 +19,7 @@ public class GameManager: Singleton<GameManager>
     {
         isPaused = true;
 
-        if(pauseOrigin == "")
+        if(pauseOrigin == "" || pauseOrigin == null)
         {
             pauseOrigin = origin;
         }

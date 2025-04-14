@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -134,7 +132,7 @@ public class MonsterCharacterManager : CharacterManager
         SetCharacterState();
     }
 
-    public override void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed, out float knockback, out bool isRanged, out GameObject projectile, out List<Effect> enchantmentsEffects, out float weaponWeight)
+    public override void GetCurrentWeaponStats(out int damage, out int bluntDamage, out float range, out float speed, out float loadSpeed, out float knockback, out bool stabAttackOnly, out bool isRanged, out GameObject projectile, out List<Effect> enchantmentsEffects, out float weaponWeight)
     {
         damage = this.damage;
         bluntDamage = this.toHitBonus;
@@ -147,7 +145,9 @@ public class MonsterCharacterManager : CharacterManager
             range = this.range;
         }
         speed = this.attackSpeed;
+        loadSpeed = 0;
         knockback = 0f;
+        stabAttackOnly = false;
         isRanged = this.isRanged;
         projectile = this.projectilePrefab;
         enchantmentsEffects = null;

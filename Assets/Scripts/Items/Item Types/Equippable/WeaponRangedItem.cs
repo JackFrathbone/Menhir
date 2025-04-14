@@ -17,6 +17,10 @@ public class WeaponRangedItem : Item
     //How long the windup to attack is, in seconds
     public float weaponSpeed;
 
+    //If the weapon requires loading to fire, and how long the loading takes
+    public bool weaponLoads;
+    public float weaponLoadingSpeed;
+
     [Header("Enchantments")]
     public List<Effect> enchantmentSelfEffects = new();
     public List<Effect> enchantmentTargetEffects = new();
