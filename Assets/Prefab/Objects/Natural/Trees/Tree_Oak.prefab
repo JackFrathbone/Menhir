@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5153095804980384426}
   - component: {fileID: 3905322427860494725}
   - component: {fileID: 3771942099572174300}
-  - component: {fileID: 4292104000400098918}
   - component: {fileID: 3200103555534490143}
   m_Layer: 0
   m_Name: Tree_Oak
@@ -85,29 +84,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613624185003511818}
   m_Mesh: {fileID: 4300000, guid: 98223a7e973d9a34abca553c775af4ad, type: 2}
---- !u!136 &4292104000400098918
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613624185003511818}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Height: 6
-  m_Direction: 1
-  m_Center: {x: 0, y: 3, z: 0}
 --- !u!205 &3200103555534490143
 LODGroup:
   m_ObjectHideFlags: 0
@@ -118,11 +94,11 @@ LODGroup:
   serializedVersion: 2
   m_LocalReferencePoint: {x: 0, y: 5.4868855, z: 0}
   m_Size: 17.217205
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
+  m_FadeMode: 1
+  m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.03091736
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3905322427860494725}
